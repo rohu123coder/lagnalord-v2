@@ -1,5 +1,5 @@
 FROM node:20-alpine
-RUN apk add --no-cache python3 make g++
+RUN apk add --no-cache python3 py3-setuptools make g++
 WORKDIR /app
 COPY package*.json ./
 COPY backend/package*.json ./backend/
