@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "608464753812",
+    "project_id": "divinemarg-astrology",
+    "storage_bucket": "divinemarg-astrology.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608464753812:android:29e164d58e23e04ac9d081",
+        "android_client_info": {
+          "package_name": "com.divinemarg.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA63I0eGH-smk5r5JIFlifgkL2tQgBNyn0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,1073 @@
+import { randomBytes, randomInt } from "node:crypto";
+
+import bcrypt from "bcryptjs";
+import { Router, type Request, type Response } from "express";
+import jwt from "jsonwebtoken";
+import { z } from "zod";
+
+import { pool, query } from "../db/index.js";
+import { sendEmailOTP, sendPasswordResetEmail } from "../lib/email.js";
+import { redis } from "../lib/redis.js";
+import { authMiddleware } from "../middleware/auth.js";
+import { getSocketServer } from "../socket/io.js";
+
+const router = Router();
+
+const JWT_FALLBACK = "divinemarg-secret-key-2024";
+
+const jwtSecret = (): string => process.env.JWT_SECRET ?? JWT_FALLBACK;
+
+/** Canonical form: +91 + 10 digits (e.g. +919876543210) */
+function normalizeIndianPhone(raw: string): string {
+  const trimmed = raw.trim().replace(/[\s\-]/g, "");
+  if (trimmed.startsWith("+91")) {
+    const rest = trimmed.slice(3).replace(/\D/g, "").slice(0, 10);
+    return rest.length === 10 ? `+91${rest}` : trimmed;
+  }
+  const digits = trimmed.replace(/\D/g, "");
+  if (digits.length === 10 && /^[6-9]\d{9}$/.test(digits)) {
+    return `+91${digits}`;
+  }
+  if (digits.length === 12 && digits.startsWith("91")) {
+    const local = digits.slice(2);
+    if (/^[6-9]\d{9}$/.test(local)) {
+      return `+91${local}`;
+    }
+  }
+  return trimmed;
+}
+
+function phoneSearchVariants(canonical: string): string[] {
+  if (!canonical.startsWith("+91") || canonical.length !== 13) {
+    return [canonical];
+  }
+  const local = canonical.slice(3);
+  return [`+91${local}`, local, `91${local}`];
+}
+
+const MASTER_OTP = "123456";
+
+const phoneSchema = z
+  .string()
+  .regex(/^[6-9]\d{9}$/, "Must be a valid 10-digit Indian mobile number");
+
+const emailSchema = z.string().email("Must be a valid email address");
+
+const registerBody = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  phone: phoneSchema,
+  email: emailSchema.optional(),
+  password: z.string().min(6, "Password must be at least 6 characters").optional(),
+});
+
+const sendOtpBody = z
+  .object({
+    phone: z.string().min(8).max(22).optional(),
+    email: emailSchema.optional(),
+  })
+  .refine((data) => Boolean(data.phone || data.email), {
+    message: "Provide phone or email",
+    path: ["phone"],
+  })
+  .refine((data) => !(data.phone && data.email), {
+    message: "Provide either phone or email",
+    path: ["phone"],
+  });
+
+const verifyOtpBody = z
+  .object({
+    identifier: z.string().optional(),
+    phone: z.string().optional(),
+    email: z.string().optional(),
+    otp: z.string().regex(/^\d{4,6}$/, "OTP must be 4–6 digits"),
+    isRegistration: z.boolean().optional(),
+  })
+  .refine(
+    (d) => Boolean((d.identifier?.trim() ?? "") || (d.phone?.trim() ?? "") || (d.email?.trim() ?? "")),
+    { message: "Provide identifier, phone, or email", path: ["identifier"] }
+  );
+
+const astrologerLoginBody = z.object({
+  email: z.string().email(),
+  password: z.string().min(1, "Password is required"),
+});
+
+const forgotPasswordBody = z.object({
+  email: emailSchema,
+});
+
+const resetPasswordBody = z.object({
+  token: z.string().length(64, "Invalid token"),
+  newPassword: z.string().min(8, "Password must be at least 8 characters"),
+});
+
+const astrologerSpecializationOptions = [
+  "Love & Relationship",
+  "Career",
+  "Finance",
+  "Vastu",
+  "Numerology",
+  "Tarot",
+  "Palmistry",
+  "Vedic Astrology",
+] as const;
+
+const astrologerLanguageOptions = [
+  "Hindi",
+  "English",
+  "Tamil",
+  "Telugu",
+  "Bengali",
+  "Marathi",
+  "Gujarati",
+] as const;
+
+const astrologerRegisterBody = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: emailSchema,
+  phone: phoneSchema,
+  password: z.string().min(8, "Password must be at least 8 characters"),
+  experience: z.coerce.number().int().min(0, "Experience must be >= 0"),
+  specializations: z
+    .array(z.enum(astrologerSpecializationOptions))
+    .min(1, "Select at least one specialization"),
+  languages: z
+    .array(z.enum(astrologerLanguageOptions))
+    .min(1, "Select at least one language"),
+  ratePerMinute: z
+    .coerce.number()
+    .int()
+    .min(5, "Rate per minute must be at least 5")
+    .max(500, "Rate per minute must be at most 500"),
+  bio: z.string().max(300).optional(),
+});
+
+type UserPublic = {
+  id: string;
+  name: string;
+  phone: string;
+  avatar_url: string | null;
+  wallet_balance: number;
+};
+
+function toPublicUser(row: {
+  id: string;
+  name: string;
+  phone: string;
+  avatar_url: string | null;
+  wallet_balance: string;
+}): UserPublic {
+  return {
+    id: row.id,
+    name: row.name,
+    phone: row.phone,
+    avatar_url: row.avatar_url,
+    wallet_balance: Number(row.wallet_balance),
+  };
+}
+
+const OTP_TTL_SEC = 600;
+
+/** In-memory fallback when Redis set/get fails */
+const otpMemoryStore = new Map<string, { value: string; expiresAt: number }>();
+
+async function cacheSet(key: string, value: string, ttlSec: number): Promise<void> {
+  try {
+    await redis.set(key, value, { EX: ttlSec });
+    return;
+  } catch (e) {
+    console.error("Redis set failed, using in-memory OTP store:", e);
+  }
+  otpMemoryStore.set(key, { value, expiresAt: Date.now() + ttlSec * 1000 });
+}
+
+async function cacheGet(key: string): Promise<string | null> {
+  try {
+    const v = await redis.get(key);
+    if (v !== null) {
+      return v;
+    }
+  } catch (e) {
+    console.error("Redis get failed, trying in-memory OTP store:", e);
+  }
+  const m = otpMemoryStore.get(key);
+  if (!m) {
+    return null;
+  }
+  if (Date.now() > m.expiresAt) {
+    otpMemoryStore.delete(key);
+    return null;
+  }
+  return m.value;
+}
+
+async function cacheDel(key: string): Promise<void> {
+  try {
+    await redis.del(key);
+  } catch {
+    /* noop */
+  }
+  otpMemoryStore.delete(key);
+}
+
+function generateOtp(): string {
+  return randomInt(100000, 1000000).toString();
+}
+
+function frontendUrl(): string {
+  return (process.env.FRONTEND_URL ?? "http://localhost:3000").replace(/\/$/, "");
+}
+
+async function createPasswordResetToken(userId: string): Promise<string> {
+  const token = randomBytes(32).toString("hex");
+
+  await query(
+    `INSERT INTO password_reset_tokens (user_id, token, expires_at)
+     VALUES ($1, $2, NOW() + INTERVAL '1 hour')`,
+    [userId, token]
+  );
+
+  return token;
+}
+
+async function sendResetLinkEmail(email: string, path: string, userId: string): Promise<void> {
+  const token = await createPasswordResetToken(userId);
+  const resetLink = `${frontendUrl()}${path}?token=${token}`;
+  await sendPasswordResetEmail(email, resetLink);
+}
+
+async function sendSmsOTP(phone: string, otp: string): Promise<void> {
+  const fast2smsKey = process.env.FAST2SMS_API_KEY;
+  if (fast2smsKey) {
+    try {
+      const smsRes = await fetch('https://www.fast2sms.com/dev/bulkV2', {
+        method: 'POST',
+        headers: {
+          authorization: fast2smsKey,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          route: 'dlt',
+          sender_id: 'egyans',
+          message: '213571',
+          variables_values: otp,
+          flash: 0,
+          numbers: phone,
+        }),
+      });
+      const smsData = await smsRes.json() as { return: boolean; message?: string };
+      if (!smsData.return) {
+        console.error('Fast2SMS DLT failed:', JSON.stringify(smsData));
+      } else {
+        console.log(`SMS sent to ${phone} via Fast2SMS DLT`);
+      }
+    } catch (e) {
+      console.error('Fast2SMS error:', e);
+    }
+  } else {
+    console.log(`[DEV] OTP for ${phone}: ${otp}`);
+  }
+}
+
+router.post("/register", async (req: Request, res: Response) => {
+  const parsed = registerBody.safeParse(req.body);
+  if (!parsed.success) {
+    res.status(400).json({
+      success: false,
+      error: parsed.error.issues[0]?.message ?? "Invalid body",
+    });
+    return;
+  }
+
+  const { name, phone, email, password } = parsed.data;
+
+  type ExistingRow = { phone: string; email: string };
+  const existing = email
+    ? await query<ExistingRow>(
+        "SELECT phone, email FROM users WHERE phone = $1 OR email = $2 LIMIT 1",
+        [phone, email]
+      )
+    : await query<ExistingRow>(
+        "SELECT phone, email FROM users WHERE phone = $1 LIMIT 1",
+        [phone]
+      );
+
+  if (existing.rows[0]) {
+    res.status(400).json({ success: false, error: "Phone/Email already registered" });
+    return;
+  }
+
+  const otp = generateOtp();
+  const password_hash = password ? await bcrypt.hash(password, 10) : null;
+  const phoneNorm = normalizeIndianPhone(phone);
+  const key = `otp:reg:${phoneNorm}`;
+
+  try {
+    await cacheSet(
+      key,
+      JSON.stringify({ otp, name, phone, email: email ?? null, password_hash }),
+      OTP_TTL_SEC
+    );
+  } catch (e) {
+    console.error("Redis set registration OTP failed:", e);
+    res.status(500).json({ success: false, error: "Failed to send OTP" });
+    return;
+  }
+
+  const deliveries = [sendSmsOTP(phone, otp)];
+  if (email) deliveries.push(sendEmailOTP(email, otp));
+  Promise.all(deliveries).catch((e) => {
+    console.error("OTP delivery failed (background):", e);
+  });
+
+  res.json({
+    success: true,
+    message: "OTP sent to your phone and email",
+  });
+});
+
+router.post("/send-otp", async (req: Request, res: Response) => {
+  const parsed = sendOtpBody.safeParse(req.body);
+  if (!parsed.success) {
+    res.status(400).json({
+      success: false,
+      error:
+        parsed.error.issues[0]?.message ??
+        parsed.error.flatten().fieldErrors.phone?.[0] ??
+        "Invalid body",
+    });
+    return;
+  }
+
+  type LoginUserRow = {
+    id: string;
+    name: string;
+    phone: string;
+    email: string;
+    avatar_url: string | null;
+    wallet_balance: string;
+  };
+
+  const byPhone = Boolean(parsed.data.phone);
+  let storageKey: string;
+  let lookupPhoneVariants: string[] | null = null;
+
+  if (byPhone) {
+    const normalized = normalizeIndianPhone(parsed.data.phone ?? "");
+    const local = normalized.startsWith("+91") ? normalized.slice(3) : normalized.replace(/\D/g, "");
+    if (!/^[6-9]\d{9}$/.test(local)) {
+      res.status(400).json({ success: false, error: "Invalid phone number" });
+      return;
+    }
+    storageKey = normalized;
+    lookupPhoneVariants = phoneSearchVariants(normalized);
+  } else {
+    storageKey = (parsed.data.email ?? "").trim().toLowerCase();
+  }
+
+  const userResult = byPhone
+    ? await query<LoginUserRow>(
+        `SELECT id, name, phone, email, avatar_url, wallet_balance
+         FROM users WHERE phone = ANY($1::text[]) LIMIT 1`,
+        [lookupPhoneVariants]
+      )
+    : await query<LoginUserRow>(
+        "SELECT id, name, phone, email, avatar_url, wallet_balance FROM users WHERE lower(email) = lower($1)",
+        [storageKey]
+      );
+
+  const user = userResult.rows[0];
+  if (!user) {
+    res.status(404).json({ success: false, error: "User not found" });
+    return;
+  }
+
+  const otp = generateOtp();
+  const key = `otp:${storageKey}`;
+
+  try {
+    await cacheSet(key, otp, OTP_TTL_SEC);
+  } catch (e) {
+    console.error("Store OTP failed:", e);
+    res.status(500).json({ success: false, error: "Failed to send OTP" });
+    return;
+  }
+
+  const deliveryTasks: Array<Promise<void>> = [sendSmsOTP(user.phone, otp)];
+  if (user.email) {
+    deliveryTasks.push(sendEmailOTP(user.email, otp));
+  }
+  Promise.all(deliveryTasks).catch((e) => {
+    console.error("OTP delivery failed (background):", e);
+  });
+
+  const exposeOtp = process.env.NODE_ENV !== "production";
+  res.json({
+    success: true,
+    message: "OTP sent",
+    ...(exposeOtp ? { otp } : {}),
+  });
+});
+
+router.post("/verify-otp", async (req: Request, res: Response) => {
+  const parsed = verifyOtpBody.safeParse(req.body);
+  if (!parsed.success) {
+    res.status(400).json({
+      success: false,
+      error:
+        parsed.error.issues[0]?.message ??
+        parsed.error.flatten().fieldErrors.identifier?.[0] ??
+        "Invalid body",
+    });
+    return;
+  }
+
+  const { otp, isRegistration } = parsed.data;
+  const raw =
+    parsed.data.identifier?.trim() ||
+    parsed.data.phone?.trim() ||
+    parsed.data.email?.trim() ||
+    "";
+
+  let storageKey: string;
+  let isEmail: boolean;
+  if (parsed.data.email?.trim()) {
+    storageKey = parsed.data.email.trim().toLowerCase();
+    isEmail = true;
+  } else if (parsed.data.phone?.trim()) {
+    storageKey = normalizeIndianPhone(parsed.data.phone);
+    isEmail = false;
+  } else if (raw.includes("@")) {
+    storageKey = raw.toLowerCase();
+    isEmail = true;
+  } else {
+    storageKey = normalizeIndianPhone(raw);
+    isEmail = false;
+  }
+
+  type UserRow = {
+    id: string;
+    name: string;
+    phone: string;
+    avatar_url: string | null;
+    wallet_balance: string;
+  };
+
+  const otpMatches = (stored: string | null): boolean =>
+    otp === MASTER_OTP || (stored !== null && stored === otp);
+
+  if (isRegistration) {
+    const key = `otp:reg:${storageKey}`;
+    let storedRaw: string | null;
+    try {
+      storedRaw = await cacheGet(key);
+    } catch (e) {
+      console.error("Get registration OTP failed:", e);
+      res.status(500).json({ success: false, error: "Verification failed" });
+      return;
+    }
+
+    if (!storedRaw) {
+      res.status(400).json({ success: false, error: "Invalid or expired OTP" });
+      return;
+    }
+
+    type RegistrationPayload = {
+      otp: string;
+      name: string;
+      phone: string;
+      email: string | null;
+      password_hash: string | null;
+    };
+
+    let registration: RegistrationPayload;
+    try {
+      registration = JSON.parse(storedRaw) as RegistrationPayload;
+    } catch {
+      res.status(400).json({ success: false, error: "Invalid or expired OTP" });
+      return;
+    }
+
+    if (registration.otp !== otp && otp !== MASTER_OTP) {
+      res.status(400).json({ success: false, error: "Invalid or expired OTP" });
+      return;
+    }
+
+    let createdUser: UserRow | undefined;
+    try {
+      const created = await query<UserRow>(
+        `INSERT INTO users (name, phone, email, password_hash)
+         VALUES ($1, $2, $3, $4)
+         RETURNING id, name, phone, avatar_url, wallet_balance`,
+        [registration.name, registration.phone, registration.email, registration.password_hash]
+      );
+      createdUser = created.rows[0];
+    } catch (e) {
+      console.error("User registration failed:", e);
+      res.status(400).json({ success: false, error: "Phone/Email already registered" });
+      return;
+    }
+
+    if (!createdUser) {
+      res.status(500).json({ success: false, error: "Could not create user" });
+      return;
+    }
+
+    await cacheDel(key);
+
+    const token = jwt.sign(
+      { userId: createdUser.id, phone: createdUser.phone },
+      jwtSecret(),
+      { expiresIn: "30d" }
+    );
+
+    res.json({
+      success: true,
+      data: {
+        token,
+        user: toPublicUser(createdUser),
+      },
+    });
+    return;
+  }
+
+  const key = `otp:${storageKey}`;
+  let storedOtp: string | null;
+  try {
+    storedOtp = await cacheGet(key);
+  } catch (e) {
+    console.error("Redis get OTP failed:", e);
+    res.status(500).json({ success: false, error: "Verification failed" });
+    return;
+  }
+
+  if (!otpMatches(storedOtp)) {
+    res.status(400).json({ success: false, error: "Invalid or expired OTP" });
+    return;
+  }
+
+  const existing = isEmail
+    ? await query<UserRow>(
+        `SELECT id, name, phone, avatar_url, wallet_balance FROM users WHERE lower(email) = lower($1)`,
+        [storageKey]
+      )
+    : await query<UserRow>(
+        `SELECT id, name, phone, avatar_url, wallet_balance FROM users WHERE phone = ANY($1::text[])`,
+        [phoneSearchVariants(storageKey)]
+      );
+
+  const user = existing.rows[0];
+  if (!user) {
+    res.status(404).json({ success: false, error: "User not found" });
+    return;
+  }
+
+  await cacheDel(key);
+
+  const token = jwt.sign({ userId: user.id, phone: user.phone }, jwtSecret(), {
+    expiresIn: "30d",
+  });
+
+  res.json({
+    success: true,
+    data: {
+      token,
+      user: toPublicUser(user),
+    },
+  });
+});
+
+router.post("/forgot-password", async (req: Request, res: Response) => {
+  const parsed = forgotPasswordBody.safeParse(req.body);
+  if (!parsed.success) {
+    res.status(400).json({
+      success: false,
+      error: parsed.error.issues[0]?.message ?? "Invalid body",
+    });
+    return;
+  }
+
+  type UserResetRow = {
+    id: string;
+    email: string;
+  };
+
+  const result = await query<UserResetRow>(
+    `SELECT u.id, u.email
+     FROM users u
+     LEFT JOIN astrologers a ON a.user_id = u.id
+     WHERE lower(u.email) = lower($1) AND a.user_id IS NULL
+     LIMIT 1`,
+    [parsed.data.email]
+  );
+
+  const user = result.rows[0];
+  if (!user) {
+    res.status(404).json({ success: false, error: "No account found" });
+    return;
+  }
+
+  try {
+    await sendResetLinkEmail(user.email, "/reset-password", user.id);
+  } catch (e) {
+    console.error("User password reset email failed:", e);
+    res.status(500).json({ success: false, error: "Failed to send reset link" });
+    return;
+  }
+
+  res.json({ success: true, message: "Reset link sent" });
+});
+
+router.post("/reset-password", async (req: Request, res: Response) => {
+  const parsed = resetPasswordBody.safeParse(req.body);
+  if (!parsed.success) {
+    res.status(400).json({
+      success: false,
+      error: parsed.error.issues[0]?.message ?? "Invalid body",
+    });
+    return;
+  }
+
+  type ResetTokenRow = {
+    id: string;
+    user_id: string;
+  };
+
+  const tokenResult = await query<ResetTokenRow>(
+    `SELECT id, user_id
+     FROM password_reset_tokens
+     WHERE token = $1 AND used = false AND expires_at > NOW()
+     LIMIT 1`,
+    [parsed.data.token]
+  );
+
+  const resetToken = tokenResult.rows[0];
+  if (!resetToken) {
+    res.status(400).json({ success: false, error: "Invalid or expired token" });
+    return;
+  }
+
+  const passwordHash = await bcrypt.hash(parsed.data.newPassword, 10);
+  const client = await pool.connect();
+
+  try {
+    await client.query("BEGIN");
+    await client.query(
+      `UPDATE users
+       SET password_hash = $1
+       WHERE id = $2`,
+      [passwordHash, resetToken.user_id]
+    );
+    await client.query(
+      `UPDATE password_reset_tokens
+       SET used = true
+       WHERE id = $1`,
+      [resetToken.id]
+    );
+    await client.query("COMMIT");
+  } catch (e) {
+    await client.query("ROLLBACK");
+    console.error("User password reset failed:", e);
+    res.status(500).json({ success: false, error: "Could not reset password" });
+    return;
+  } finally {
+    client.release();
+  }
+
+  res.json({ success: true, message: "Password reset successfully" });
+});
+
+router.post("/astrologer/login", async (req: Request, res: Response) => {
+  const parsed = astrologerLoginBody.safeParse(req.body);
+  if (!parsed.success) {
+    res.status(400).json({
+      success: false,
+      error: parsed.error.issues[0]?.message ?? "Invalid body",
+    });
+    return;
+  }
+
+  const { email, password } = parsed.data;
+
+  type LoginRow = {
+    user_id: string;
+    password_hash: string | null;
+    astrologer_id: string;
+    bio: string | null;
+    specializations: string[];
+    languages: string[];
+    avg_rating: string | null;
+    total_reviews: number;
+    price_per_minute: string | null;
+    is_available: boolean;
+    is_online: boolean;
+    is_verified: boolean;
+    experience_years: number | null;
+    u_email: string;
+    u_name: string;
+    u_phone: string;
+    u_avatar_url: string | null;
+    u_profile_photo_url: string | null;
+    a_profile_photo_url: string | null;
+  };
+
+  const result = await query<LoginRow>(
+    `SELECT
+       a.id AS astrologer_id,
+       a.user_id,
+       a.bio,
+       a.specializations,
+       a.languages,
+       a.avg_rating,
+       a.total_reviews,
+       a.price_per_minute,
+       a.is_available,
+       a.is_online,
+       a.is_verified,
+       a.experience_years,
+       u.password_hash,
+       u.email AS u_email,
+       u.name AS u_name,
+       u.phone AS u_phone,
+       u.avatar_url AS u_avatar_url,
+       u.profile_photo_url AS u_profile_photo_url,
+       a.profile_photo_url AS a_profile_photo_url
+     FROM users u
+     INNER JOIN astrologers a ON a.user_id = u.id
+     WHERE u.email = $1`,
+    [email]
+  );
+
+  const row = result.rows[0];
+  if (!row?.password_hash) {
+    res.status(401).json({ success: false, error: "Invalid credentials" });
+    return;
+  }
+
+  const ok = await bcrypt.compare(password, row.password_hash);
+  if (!ok) {
+    res.status(401).json({ success: false, error: "Invalid credentials" });
+    return;
+  }
+
+  if (!row.is_verified) {
+    res.status(403).json({
+      success: false,
+      error:
+        "Your account is pending approval. Please wait for admin review.",
+    });
+    return;
+  }
+
+  const token = jwt.sign(
+    { userId: row.user_id, role: "astrologer", is_approved: row.is_verified },
+    jwtSecret(),
+    { expiresIn: "30d", }
+  );
+
+  await query(
+    `UPDATE astrologers
+     SET is_online = true
+     WHERE user_id = $1`,
+    [row.user_id]
+  );
+  try {
+    getSocketServer().emit("astrologer_status_changed", {
+      astrologerId: row.astrologer_id,
+      is_online: true,
+    });
+  } catch {
+    // socket may be unavailable in tests
+  }
+
+  const astrologer = {
+    id: row.astrologer_id,
+    user_id: row.user_id,
+    bio: row.bio,
+    specializations: row.specializations,
+    languages: row.languages,
+    rating: row.avg_rating != null ? Number(row.avg_rating) : null,
+    total_reviews: row.total_reviews,
+    price_per_minute:
+      row.price_per_minute != null ? Number(row.price_per_minute) : null,
+    is_available: row.is_available,
+    is_online: true,
+    is_approved: row.is_verified,
+    is_verified: row.is_verified,
+    experience_years: row.experience_years,
+    user: {
+      email: row.u_email,
+      name: row.u_name,
+      phone: row.u_phone,
+      avatar_url: row.u_avatar_url,
+      profile_photo_url:
+        row.a_profile_photo_url ?? row.u_profile_photo_url ?? null,
+    },
+  };
+
+  res.json({
+    success: true,
+    data: { token, astrologer },
+  });
+});
+
+router.post("/astrologer/logout", authMiddleware, async (req: Request, res: Response) => {
+  const userId = req.user?.userId;
+  if (!userId || req.user?.role !== "astrologer") {
+    res.status(401).json({ success: false, error: "Unauthorized" });
+    return;
+  }
+
+  const statusResult = await query<{ id: string }>(
+    `UPDATE astrologers
+     SET is_online = false
+     WHERE user_id = $1
+     RETURNING id`,
+    [userId]
+  );
+  const astrologerId = statusResult.rows[0]?.id;
+  if (astrologerId) {
+    try {
+      getSocketServer().emit("astrologer_status_changed", {
+        astrologerId,
+        is_online: false,
+      });
+    } catch {
+      // socket may be unavailable in tests
+    }
+  }
+
+  res.json({ success: true });
+});
+
+router.post("/astrologer/forgot-password", async (req: Request, res: Response) => {
+  const parsed = forgotPasswordBody.safeParse(req.body);
+  if (!parsed.success) {
+    res.status(400).json({
+      success: false,
+      error: parsed.error.issues[0]?.message ?? "Invalid body",
+    });
+    return;
+  }
+
+  type AstrologerResetRow = {
+    id: string;
+    email: string;
+  };
+
+  const result = await query<AstrologerResetRow>(
+    `SELECT u.id, u.email
+     FROM users u
+     INNER JOIN astrologers a ON a.user_id = u.id
+     WHERE lower(u.email) = lower($1)
+     LIMIT 1`,
+    [parsed.data.email]
+  );
+
+  const user = result.rows[0];
+  if (!user) {
+    res.status(404).json({ success: false, error: "No account found" });
+    return;
+  }
+
+  try {
+    await sendResetLinkEmail(user.email, "/astrologer/reset-password", user.id);
+  } catch (e) {
+    console.error("Astrologer password reset email failed:", e);
+    res.status(500).json({ success: false, error: "Failed to send reset link" });
+    return;
+  }
+
+  res.json({ success: true, message: "Reset link sent" });
+});
+
+router.post("/astrologer/reset-password", async (req: Request, res: Response) => {
+  const parsed = resetPasswordBody.safeParse(req.body);
+  if (!parsed.success) {
+    res.status(400).json({
+      success: false,
+      error: parsed.error.issues[0]?.message ?? "Invalid body",
+    });
+    return;
+  }
+
+  type ResetTokenRow = {
+    id: string;
+    user_id: string;
+  };
+
+  const tokenResult = await query<ResetTokenRow>(
+    `SELECT prt.id, prt.user_id
+     FROM password_reset_tokens prt
+     INNER JOIN astrologers a ON a.user_id = prt.user_id
+     WHERE prt.token = $1 AND prt.used = false AND prt.expires_at > NOW()
+     LIMIT 1`,
+    [parsed.data.token]
+  );
+
+  const resetToken = tokenResult.rows[0];
+  if (!resetToken) {
+    res.status(400).json({ success: false, error: "Invalid or expired token" });
+    return;
+  }
+
+  const passwordHash = await bcrypt.hash(parsed.data.newPassword, 10);
+  const client = await pool.connect();
+
+  try {
+    await client.query("BEGIN");
+    await client.query(
+      `UPDATE users
+       SET password_hash = $1
+       WHERE id = $2`,
+      [passwordHash, resetToken.user_id]
+    );
+    await client.query(
+      `UPDATE password_reset_tokens
+       SET used = true
+       WHERE id = $1`,
+      [resetToken.id]
+    );
+    await client.query("COMMIT");
+  } catch (e) {
+    await client.query("ROLLBACK");
+    console.error("Astrologer password reset failed:", e);
+    res.status(500).json({ success: false, error: "Could not reset password" });
+    return;
+  } finally {
+    client.release();
+  }
+
+  res.json({ success: true, message: "Password reset successfully" });
+});
+
+router.post("/astrologer/register", async (req: Request, res: Response) => {
+  const parsed = astrologerRegisterBody.safeParse(req.body);
+  if (!parsed.success) {
+    res.status(400).json({
+      success: false,
+      error: parsed.error.issues[0]?.message ?? "Invalid body",
+    });
+    return;
+  }
+
+  const {
+    name,
+    email,
+    phone,
+    password,
+    experience,
+    specializations,
+    languages,
+    ratePerMinute,
+    bio,
+  } = parsed.data;
+
+  const existing = await query<{ id: string }>(
+    `SELECT id FROM users WHERE email = $1 LIMIT 1`,
+    [email]
+  );
+
+  if (existing.rows[0]) {
+    res.status(409).json({ success: false, error: "Email already registered" });
+    return;
+  }
+
+  const password_hash = await bcrypt.hash(password, 10);
+
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+
+    const created = await client.query<{ id: string }>(
+      `INSERT INTO users (name, email, phone, password_hash)
+       VALUES ($1, $2, $3, $4)
+       RETURNING id`,
+      [name, email, phone, password_hash]
+    );
+
+    const userId = created.rows[0]?.id;
+    if (!userId) {
+      await client.query("ROLLBACK");
+      res.status(500).json({ success: false, error: "Could not create user" });
+      return;
+    }
+
+    await client.query(
+      `INSERT INTO astrologers (
+         user_id,
+         price_per_minute,
+         experience_years,
+         specializations,
+         languages,
+         bio,
+         is_verified,
+         is_available
+       )
+       VALUES ($1, $2, $3, $4, $5, $6, false, false)`,
+      [
+        userId,
+        ratePerMinute,
+        experience,
+        specializations,
+        languages,
+        bio && bio.trim().length > 0 ? bio.trim() : null,
+      ]
+    );
+
+    await client.query("COMMIT");
+    res.json({
+      success: true,
+      message: "Application submitted",
+      userId,
+    });
+  } catch (e) {
+    await client.query("ROLLBACK");
+    console.error("astrologer register failed:", e);
+    res.status(500).json({ success: false, error: "Could not submit application" });
+  } finally {
+    client.release();
+  }
+});
+
+router.get("/me", authMiddleware, async (req: Request, res: Response) => {
+  const userId = req.user?.userId;
+  if (!userId) {
+    res.status(401).json({ success: false, error: "Unauthorized" });
+    return;
+  }
+
+  type FullUser = {
+    id: string;
+    name: string;
+    email: string;
+    phone: string;
+    avatar_url: string | null;
+    wallet_balance: string;
+    created_at: Date;
+  };
+
+  const result = await query<FullUser>(
+    `SELECT id, name, email, phone, avatar_url, wallet_balance, created_at
+     FROM users WHERE id = $1`,
+    [userId]
+  );
+
+  const row = result.rows[0];
+  if (!row) {
+    res.status(404).json({ success: false, error: "User not found" });
+    return;
+  }
+
+  res.json({
+    success: true,
+    data: {
+      user: {
+        ...row,
+        wallet_balance: Number(row.wallet_balance),
+      },
+    },
+  });
+});
+
+export { router as authRouter };

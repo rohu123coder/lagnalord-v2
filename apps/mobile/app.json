@@ -1,0 +1,105 @@
+{
+  "expo": {
+    "name": "DivineMarg",
+    "slug": "divinemarg",
+    "scheme": "divinemarg",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "notification": {
+      "icon": "./assets/notification-icon.png",
+      "color": "#FF6B35",
+      "iosDisplayInForeground": true,
+      "androidMode": "default",
+      "androidCollapsedTitle": "DivineMarg"
+    },
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FFFFFF"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.divinemarg.app",
+      "newArchEnabled": false,
+      "permissions": [
+        "NOTIFICATIONS",
+        "RECEIVE_BOOT_COMPLETED",
+        "VIBRATE",
+        "WAKE_LOCK",
+        "RECORD_AUDIO",
+        "CAMERA",
+        "READ_MEDIA_IMAGES"
+      ],
+      "googleServicesFile": "./google-services.json"
+    },
+    "ios": {
+      "bundleIdentifier": "com.divinemarg.app",
+      "supportsTablet": false,
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSMicrophoneUsageDescription": "DivineMarg needs microphone access for voice calls with astrologers.",
+        "NSCameraUsageDescription": "DivineMarg needs camera access to capture your palm or face photo for readings.",
+        "NSPhotoLibraryUsageDescription": "DivineMarg needs photo library access to select a photo for your reading.",
+        "UIBackgroundModes": [
+          "remote-notification"
+        ]
+      }
+    },
+    "plugins": [
+      "./plugins/withFixReactNative77AppGradle.js",
+      "expo-router",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#FF6B35",
+          "defaultChannel": "default",
+          "sounds": []
+        }
+      ],
+      "expo-font",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#FFFFFF",
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 200
+        }
+      ],
+      "@react-native-community/datetimepicker",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "DivineMarg needs photo library access to select a photo for your reading.",
+          "cameraPermission": "DivineMarg needs camera access to capture your palm or face photo for readings.",
+          "microphonePermission": false
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera to take reading photos."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "DivineMarg uses your location's compass sensor to detect accurate direction for Vastu photo analysis.",
+          "locationWhenInUsePermission": "DivineMarg uses your location's compass sensor to detect accurate direction for Vastu photo analysis.",
+          "isAndroidBackgroundLocationEnabled": false,
+          "isAndroidForegroundServiceEnabled": false
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "dcc29648-0c17-42a3-a0fc-ec927c23f9af"
+      }
+    },
+    "owner": "rohu2502"
+  }
+}

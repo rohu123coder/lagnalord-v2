@@ -1,0 +1,768 @@
+import multer from "multer";
+import streamifier from "streamifier";
+import { Router, type Request, type Response } from "express";
+import { z } from "zod";
+
+import { query } from "../db/index.js";
+import { cloudinary } from "../lib/cloudinary.js";
+import {
+  authMiddleware,
+  optionalAuthMiddleware,
+  requireAstrologer,
+} from "../middleware/auth.js";
+
+const router = Router();
+
+const photoUpload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 2 * 1024 * 1024 },
+  fileFilter: (_req, file, cb) => {
+    const ok = /^image\/(jpeg|png|webp)$/i.test(file.mimetype);
+    cb(null, ok);
+  },
+});
+
+function uploadToCloudinary(buffer: Buffer): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: "divinemarg/profiles", resource_type: "image" },
+      (error, result) => {
+        if (error || !result) return reject(error);
+        resolve(result.secure_url);
+      }
+    );
+    streamifier.createReadStream(buffer).pipe(stream);
+  });
+}
+
+const listQuerySchema = z.object({
+  page: z.coerce.number().int().min(1).default(1),
+  limit: z.coerce.number().int().min(1).max(50).default(20),
+  specialization: z.string().trim().min(1).optional(),
+  language: z.string().trim().min(1).optional(),
+  online: z
+    .union([z.boolean(), z.enum(["true", "false"])])
+    .optional()
+    .transform((value) => {
+      if (value === undefined) {
+        return undefined;
+      }
+      if (typeof value === "boolean") {
+        return value;
+      }
+      return value === "true";
+    }),
+  sort: z
+    .enum(["rating_desc", "rating_asc", "price_asc", "price_desc"])
+    .default("rating_desc"),
+});
+
+type AstrologerListRow = {
+  id: string;
+  bio: string | null;
+  specializations: string[];
+  languages: string[];
+  rating: string | null;
+  total_reviews: number;
+  avg_session_duration: string | null;
+  price_per_minute: string | null;
+  is_available: boolean;
+  is_online: boolean;
+  is_verified: boolean;
+  experience_years: number | null;
+  name: string;
+  avatar_url: string | null;
+  profile_photo_url: string | null;
+  chat_available: boolean;
+  voice_available: boolean;
+  video_available: boolean;
+  waiting_count: number;
+  is_busy: boolean;
+};
+
+function listOrderClause(sort: z.infer<typeof listQuerySchema>["sort"]): string {
+  switch (sort) {
+    case "rating_asc":
+      return "a.avg_rating ASC NULLS LAST, a.id";
+    case "price_asc":
+      return "a.price_per_minute ASC NULLS LAST, a.id";
+    case "price_desc":
+      return "a.price_per_minute DESC NULLS LAST, a.id";
+    case "rating_desc":
+    default:
+      return "a.avg_rating DESC NULLS LAST, a.id";
+  }
+}
+
+router.get("/", async (req: Request, res: Response) => {
+  const parsed = listQuerySchema.safeParse(req.query);
+  if (!parsed.success) {
+    res.status(400).json({
+      success: false,
+      error: parsed.error.issues[0]?.message ?? "Invalid query",
+    });
+    return;
+  }
+
+  const { page, limit, specialization, language, online, sort } = parsed.data;
+  const offset = (page - 1) * limit;
+  const orderBy = listOrderClause(sort);
+
+  const conditions: string[] = ["(a.is_verified = true OR a.is_approved = true)"];
+  const params: unknown[] = [];
+  let p = 1;
+
+  if (specialization) {
+    conditions.push(`$${p} = ANY(a.specializations)`);
+    params.push(specialization);
+    p++;
+  }
+  if (language) {
+    conditions.push(`$${p} = ANY(a.languages)`);
+    params.push(language);
+    p++;
+  }
+  if (typeof online === "boolean") {
+    conditions.push(`a.is_online = $${p}`);
+    params.push(online);
+    p++;
+  }
+
+  const whereSql = conditions.length ? `WHERE ${conditions.join(" AND ")}` : "";
+
+  const countResult = await query<{ count: string }>(
+    `SELECT COUNT(*)::text AS count
+     FROM astrologers a
+     ${whereSql}`,
+    params
+  );
+  const total = Number(countResult.rows[0]?.count ?? 0);
+
+  const limitParam = p;
+  const offsetParam = p + 1;
+  const listParams = [...params, limit, offset];
+
+  const result = await query<AstrologerListRow>(
+    `SELECT
+       a.id,
+       a.bio,
+       a.specializations,
+       a.languages,
+       COALESCE(a.avg_rating, a.rating) AS rating,
+       a.total_reviews,
+       a.avg_session_duration::text,
+       a.price_per_minute,
+       a.is_available,
+       a.is_online,
+       a.is_verified,
+       a.experience_years,
+       a.profile_photo_url,
+       a.chat_available,
+       a.voice_available,
+       a.video_available,
+       u.name,
+       u.avatar_url,
+       (
+         SELECT COUNT(*)::int
+         FROM astrologer_waitlist w
+         WHERE w.astrologer_id = a.id
+           AND w.status = 'waiting'
+       ) AS waiting_count,
+       EXISTS (
+         SELECT 1
+         FROM chat_sessions cs
+         WHERE cs.astrologer_id = a.id
+           AND cs.status = 'active'
+       ) AS is_busy
+     FROM astrologers a
+     INNER JOIN users u ON u.id = a.user_id
+     ${whereSql}
+     ORDER BY ${orderBy}
+     LIMIT $${limitParam} OFFSET $${offsetParam}`,
+    listParams
+  );
+
+  const astrologers = result.rows.map((row) => ({
+    id: row.id,
+    bio: row.bio,
+    specializations: row.specializations,
+    languages: row.languages,
+    rating: row.rating != null ? Number(row.rating) : null,
+    total_reviews: row.total_reviews,
+    avg_session_duration:
+      row.avg_session_duration != null ? Number(row.avg_session_duration) : null,
+    price_per_minute:
+      row.price_per_minute != null ? Number(row.price_per_minute) : null,
+    is_available: row.is_available,
+    is_online: row.is_online,
+    is_verified: row.is_verified,
+    experience_years: row.experience_years,
+    name: row.name,
+    avatar_url: row.avatar_url,
+    profile_photo_url: row.profile_photo_url,
+    chat_available: row.chat_available,
+    voice_available: row.voice_available,
+    video_available: row.video_available,
+    waiting_count: row.waiting_count,
+    estimated_wait: Math.round(
+      row.waiting_count *
+        (row.avg_session_duration != null ? Number(row.avg_session_duration) : 5)
+    ),
+    is_busy: row.is_busy,
+  }));
+
+  res.json({
+    success: true,
+    data: { astrologers, page, limit, total },
+  });
+});
+
+router.get(
+  "/dashboard",
+  authMiddleware,
+  requireAstrologer,
+  async (req: Request, res: Response) => {
+    const userId = req.user?.userId;
+    if (!userId) {
+      res.status(401).json({ success: false, error: "Unauthorized" });
+      return;
+    }
+
+    const aResult = await query<{
+      id: string;
+      rating: string | null;
+      total_reviews: number;
+      is_available: boolean;
+      is_online: boolean;
+      chat_available: boolean;
+      voice_available: boolean;
+      video_available: boolean;
+    }>(
+      `SELECT id, COALESCE(avg_rating, rating) AS rating, total_reviews, is_available, is_online,
+              chat_available, voice_available, video_available
+       FROM astrologers WHERE user_id = $1`,
+      [userId]
+    );
+    const astrologer = aResult.rows[0];
+    if (!astrologer) {
+      res.status(404).json({ success: false, error: "Astrologer not found" });
+      return;
+    }
+
+    const earningsResult = await query<{ sum: string | null }>(
+      `SELECT COALESCE(SUM(amount), 0)::text AS sum
+       FROM astrologer_earnings_log
+       WHERE astrologer_id = $1`,
+      [astrologer.id]
+    );
+
+    const sessionsResult = await query<{ count: string }>(
+      `SELECT COUNT(*)::text AS count
+       FROM chat_sessions
+       WHERE astrologer_id = $1 AND status = 'ended'`,
+      [astrologer.id]
+    );
+
+    const todayResult = await query<{ sum: string | null }>(
+      `SELECT COALESCE(SUM(amount), 0)::text AS sum
+       FROM astrologer_earnings_log
+       WHERE astrologer_id = $1
+         AND created_at >= date_trunc('day', CURRENT_TIMESTAMP)
+         AND created_at < date_trunc('day', CURRENT_TIMESTAMP) + interval '1 day'`,
+      [astrologer.id]
+    );
+
+    const monthResult = await query<{ sum: string | null }>(
+      `SELECT COALESCE(SUM(amount), 0)::text AS sum
+       FROM astrologer_earnings_log
+       WHERE astrologer_id = $1
+         AND created_at >= date_trunc('month', CURRENT_TIMESTAMP)
+         AND created_at < date_trunc('month', CURRENT_TIMESTAMP) + interval '1 month'`,
+      [astrologer.id]
+    );
+
+    const weekRows = await query<{ created_at: Date; amount: string }>(
+      `SELECT created_at, amount::text AS amount
+       FROM astrologer_earnings_log
+       WHERE astrologer_id = $1 AND created_at >= now() - interval '8 days'`,
+      [astrologer.id]
+    );
+
+    const byDay = new Map<string, number>();
+    for (const row of weekRows.rows) {
+      const key = new Date(row.created_at).toISOString().slice(0, 10);
+      byDay.set(key, (byDay.get(key) ?? 0) + Number(row.amount));
+    }
+    const last7: Array<{ date: string; amount: number }> = [];
+    const now = new Date();
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date(
+        Date.UTC(
+          now.getUTCFullYear(),
+          now.getUTCMonth(),
+          now.getUTCDate() - i
+        )
+      );
+      const key = d.toISOString().slice(0, 10);
+      last7.push({ date: key, amount: byDay.get(key) ?? 0 });
+    }
+
+    res.json({
+      success: true,
+      data: {
+        earnings_total: Number(earningsResult.rows[0]?.sum ?? 0),
+        earnings_today: Number(todayResult.rows[0]?.sum ?? 0),
+        earnings_this_month: Number(monthResult.rows[0]?.sum ?? 0),
+        total_sessions: Number(sessionsResult.rows[0]?.count ?? 0),
+        rating:
+          astrologer.rating != null ? Number(astrologer.rating) : null,
+        total_reviews: astrologer.total_reviews,
+        last_7_days_earnings: last7,
+        is_available: astrologer.is_available,
+        is_online: astrologer.is_online,
+        chat_available: astrologer.chat_available,
+        voice_available: astrologer.voice_available,
+        video_available: astrologer.video_available,
+      },
+    });
+  }
+);
+
+const profileUpdateBody = z.object({
+  bio: z.string().nullable().optional(),
+  specializations: z.array(z.string()).optional(),
+  languages: z.array(z.string()).optional(),
+  price_per_minute: z.number().nonnegative().optional(),
+  experience_years: z.number().int().nonnegative().nullable().optional(),
+});
+
+router.put(
+  "/profile",
+  authMiddleware,
+  requireAstrologer,
+  async (req: Request, res: Response) => {
+    const userId = req.user?.userId;
+    if (!userId) {
+      res.status(401).json({ success: false, error: "Unauthorized" });
+      return;
+    }
+
+    const parsed = profileUpdateBody.safeParse(req.body);
+    if (!parsed.success) {
+      res.status(400).json({
+        success: false,
+        error: parsed.error.issues[0]?.message ?? "Invalid body",
+      });
+      return;
+    }
+
+    const body = parsed.data;
+    const sets: string[] = [];
+    const params: unknown[] = [];
+    let i = 1;
+
+    if (body.bio !== undefined) {
+      sets.push(`bio = $${i++}`);
+      params.push(body.bio);
+    }
+    if (body.specializations !== undefined) {
+      sets.push(`specializations = $${i++}`);
+      params.push(body.specializations);
+    }
+    if (body.languages !== undefined) {
+      sets.push(`languages = $${i++}`);
+      params.push(body.languages);
+    }
+    if (body.price_per_minute !== undefined) {
+      sets.push(`price_per_minute = $${i++}`);
+      params.push(body.price_per_minute);
+    }
+    if (body.experience_years !== undefined) {
+      sets.push(`experience_years = $${i++}`);
+      params.push(body.experience_years);
+    }
+
+    if (sets.length === 0) {
+      res.status(400).json({ success: false, error: "No fields to update" });
+      return;
+    }
+
+    params.push(userId);
+    const result = await query(
+      `UPDATE astrologers SET ${sets.join(", ")} WHERE user_id = $${i}
+       RETURNING id, bio, specializations, languages, COALESCE(avg_rating, rating) AS rating, total_reviews,
+         price_per_minute, is_available, is_verified, experience_years`,
+      params
+    );
+
+    const row = result.rows[0] as {
+      id: string;
+      bio: string | null;
+      specializations: string[];
+      languages: string[];
+      rating: string | null;
+      total_reviews: number;
+      price_per_minute: string | null;
+      is_available: boolean;
+      is_verified: boolean;
+      experience_years: number | null;
+    };
+
+    if (!row) {
+      res.status(404).json({ success: false, error: "Astrologer not found" });
+      return;
+    }
+
+    res.json({
+      success: true,
+      data: {
+        astrologer: {
+          ...row,
+          rating: row.rating != null ? Number(row.rating) : null,
+          price_per_minute:
+            row.price_per_minute != null
+              ? Number(row.price_per_minute)
+              : null,
+        },
+      },
+    });
+  }
+);
+
+const availabilityUpdateBody = z.object({
+  is_online: z.boolean().optional(),
+  is_available: z.boolean().optional(),
+  chat_available: z.boolean().optional(),
+  voice_available: z.boolean().optional(),
+  video_available: z.boolean().optional(),
+});
+
+async function updateAvailability(req: Request, res: Response): Promise<void> {
+  const userId = req.user?.userId;
+  if (!userId) {
+    res.status(401).json({ success: false, error: "Unauthorized" });
+    return;
+  }
+
+  const parsed = availabilityUpdateBody.safeParse(req.body);
+  if (!parsed.success) {
+    res.status(400).json({
+      success: false,
+      error: parsed.error.issues[0]?.message ?? "Invalid body",
+    });
+    return;
+  }
+
+  const b = parsed.data;
+  const online =
+    typeof b.is_online === "boolean"
+      ? b.is_online
+      : typeof b.is_available === "boolean"
+        ? b.is_available
+        : undefined;
+
+  const sets: string[] = [];
+  const params: unknown[] = [];
+  let i = 1;
+
+  if (typeof online === "boolean") {
+    sets.push(`is_online = $${i++}`);
+    sets.push(`is_available = $${i++}`);
+    params.push(online, online);
+  }
+  if (typeof b.chat_available === "boolean") {
+    sets.push(`chat_available = $${i++}`);
+    params.push(b.chat_available);
+  }
+  if (typeof b.voice_available === "boolean") {
+    sets.push(`voice_available = $${i++}`);
+    params.push(b.voice_available);
+  }
+  if (typeof b.video_available === "boolean") {
+    sets.push(`video_available = $${i++}`);
+    params.push(b.video_available);
+  }
+
+  if (sets.length === 0) {
+    res.status(400).json({
+      success: false,
+      error: "At least one availability field is required",
+    });
+    return;
+  }
+
+  params.push(userId);
+  const result = await query<{
+    is_available: boolean;
+    is_online: boolean;
+    chat_available: boolean;
+    voice_available: boolean;
+    video_available: boolean;
+  }>(
+    `UPDATE astrologers SET ${sets.join(", ")}
+     WHERE user_id = $${i}
+     RETURNING is_available, is_online, chat_available, voice_available, video_available`,
+    params
+  );
+
+  const row = result.rows[0];
+  if (!row) {
+    res.status(404).json({ success: false, error: "Astrologer not found" });
+    return;
+  }
+
+  res.json({
+    success: true,
+    data: {
+      is_available: row.is_available,
+      is_online: row.is_online,
+      chat_available: row.chat_available,
+      voice_available: row.voice_available,
+      video_available: row.video_available,
+    },
+  });
+}
+
+router.put(
+  "/availability",
+  authMiddleware,
+  requireAstrologer,
+  updateAvailability
+);
+
+router.patch(
+  "/availability",
+  authMiddleware,
+  requireAstrologer,
+  updateAvailability
+);
+
+router.post(
+  "/photo",
+  authMiddleware,
+  requireAstrologer,
+  photoUpload.single("photo"),
+  async (req: Request, res: Response) => {
+    const userId = req.user?.userId;
+    if (!userId) {
+      res.status(401).json({ success: false, error: "Unauthorized" });
+      return;
+    }
+    if (!req.file) {
+      res.status(400).json({ success: false, error: "No file uploaded" });
+      return;
+    }
+
+    let photoUrl: string;
+    try {
+      photoUrl = await uploadToCloudinary(req.file.buffer);
+    } catch (e) {
+      console.error("Cloudinary upload failed:", e);
+      res.status(500).json({ success: false, error: "Photo upload failed" });
+      return;
+    }
+
+    const aUp = await query(
+      `UPDATE astrologers SET profile_photo_url = $1 WHERE user_id = $2`,
+      [photoUrl, userId]
+    );
+    if (aUp.rowCount === 0) {
+      res.status(404).json({ success: false, error: "Astrologer not found" });
+      return;
+    }
+
+    await query(`UPDATE users SET profile_photo_url = $1 WHERE id = $2`, [
+      photoUrl,
+      userId,
+    ]);
+
+    res.json({
+      success: true,
+      data: { photo_url: photoUrl },
+    });
+  }
+);
+
+type ReviewRow = {
+  id: string;
+  rating: number;
+  comment: string | null;
+  created_at: Date;
+  user_name: string;
+};
+
+type RatingBreakdownRow = {
+  five_star: string;
+  four_star: string;
+  three_star: string;
+  two_star: string;
+  one_star: string;
+};
+
+type DetailRow = {
+  id: string;
+  bio: string | null;
+  specializations: string[];
+  languages: string[];
+  rating: string | null;
+  total_reviews: number;
+  avg_session_duration: string | null;
+  price_per_minute: string | null;
+  is_available: boolean;
+  is_online: boolean;
+  chat_available: boolean;
+  voice_available: boolean;
+  video_available: boolean;
+  experience_years: number | null;
+  name: string;
+  email: string;
+  phone: string;
+  avatar_url: string | null;
+  profile_photo_url: string | null;
+  user_profile_photo_url: string | null;
+  waiting_count: number;
+  is_busy: boolean;
+};
+
+router.get("/:id", optionalAuthMiddleware, async (req: Request, res: Response) => {
+  const idParse = z.string().uuid().safeParse(req.params.id);
+  if (!idParse.success) {
+    res.status(400).json({ success: false, error: "Invalid astrologer id" });
+    return;
+  }
+  const id = idParse.data;
+  const viewerId = req.user?.userId ?? null;
+  const publicVisibilitySql = "(a.is_verified = true OR a.is_approved = true)";
+
+  const result = await query<DetailRow>(
+    `SELECT
+          a.id,
+          a.bio,
+          a.specializations,
+          a.languages,
+          COALESCE(a.avg_rating, a.rating) AS rating,
+          a.total_reviews,
+          a.avg_session_duration::text,
+          a.price_per_minute,
+          a.is_available,
+          a.is_online,
+          a.chat_available,
+          a.voice_available,
+          a.video_available,
+          a.experience_years,
+          a.profile_photo_url,
+          u.name,
+          u.email,
+          u.phone,
+          u.avatar_url,
+          u.profile_photo_url AS user_profile_photo_url,
+          (
+            SELECT COUNT(*)::int
+            FROM astrologer_waitlist w
+            WHERE w.astrologer_id = a.id
+              AND w.status = 'waiting'
+          ) AS waiting_count,
+          EXISTS (
+            SELECT 1
+            FROM chat_sessions cs
+            WHERE cs.astrologer_id = a.id
+              AND cs.status = 'active'
+          ) AS is_busy
+        FROM astrologers a
+        INNER JOIN users u ON u.id = a.user_id
+       WHERE a.id = $1
+         AND (
+           (${publicVisibilitySql})
+           OR ($2::uuid IS NOT NULL AND a.user_id = $2)
+         )`,
+    [id, viewerId]
+  );
+
+  const row = result.rows[0];
+  if (!row) {
+    res.status(404).json({ success: false, error: "Astrologer not found" });
+    return;
+  }
+
+  const reviewsResult = await query<ReviewRow>(
+    `SELECT
+       cs.id,
+       cs.rating,
+       cs.review_text AS comment,
+       COALESCE(cs.rated_at, cs.ended_at, cs.started_at, NOW()) AS created_at,
+       u.name AS user_name
+     FROM chat_sessions cs
+     INNER JOIN users u ON u.id = cs.user_id
+     WHERE cs.astrologer_id = $1
+       AND cs.rating IS NOT NULL
+     ORDER BY COALESCE(cs.rated_at, cs.ended_at, cs.started_at) DESC
+     LIMIT 30`,
+    [id]
+  );
+  const ratingBreakdownResult = await query<RatingBreakdownRow>(
+    `SELECT
+       COUNT(*) FILTER (WHERE cs.rating = 5)::text AS five_star,
+       COUNT(*) FILTER (WHERE cs.rating = 4)::text AS four_star,
+       COUNT(*) FILTER (WHERE cs.rating = 3)::text AS three_star,
+       COUNT(*) FILTER (WHERE cs.rating = 2)::text AS two_star,
+       COUNT(*) FILTER (WHERE cs.rating = 1)::text AS one_star
+     FROM chat_sessions cs
+     WHERE cs.astrologer_id = $1
+       AND cs.rating IS NOT NULL`,
+    [id]
+  );
+  const breakdown = ratingBreakdownResult.rows[0];
+
+  res.json({
+    success: true,
+    data: {
+      astrologer: {
+        id: row.id,
+        bio: row.bio,
+        specializations: row.specializations,
+        languages: row.languages,
+        rating: row.rating != null ? Number(row.rating) : null,
+        total_reviews: row.total_reviews,
+        avg_session_duration:
+          row.avg_session_duration != null
+            ? Number(row.avg_session_duration)
+            : null,
+        price_per_minute:
+          row.price_per_minute != null ? Number(row.price_per_minute) : null,
+        is_available: row.is_available,
+        is_online: row.is_online,
+        chat_available: row.chat_available,
+        voice_available: row.voice_available,
+        video_available: row.video_available,
+        profile_photo_url:
+          row.profile_photo_url ?? row.user_profile_photo_url ?? null,
+        waiting_count: row.waiting_count,
+        estimated_wait: Math.round(
+          row.waiting_count *
+            (row.avg_session_duration != null
+              ? Number(row.avg_session_duration)
+              : 5)
+        ),
+        is_busy: row.is_busy,
+        experience_years: row.experience_years,
+        user: {
+          name: row.name,
+          email: row.email,
+          phone: row.phone,
+          avatar_url: row.avatar_url,
+          profile_photo_url: row.user_profile_photo_url,
+        },
+      },
+      reviews: reviewsResult.rows,
+      rating_breakdown: {
+        5: Number(breakdown?.five_star ?? 0),
+        4: Number(breakdown?.four_star ?? 0),
+        3: Number(breakdown?.three_star ?? 0),
+        2: Number(breakdown?.two_star ?? 0),
+        1: Number(breakdown?.one_star ?? 0),
+      },
+    },
+  });
+});
+
+export { router as astrologersRouter };
