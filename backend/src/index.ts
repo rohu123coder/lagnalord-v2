@@ -73,8 +73,10 @@ registerSocketHandlers(io);
 
 const port = Number(process.env.PORT) || 4000;
 
-await connectRedis();
-
 httpServer.listen(port, () => {
   console.log(`API listening on http://localhost:${port}`);
+});
+
+connectRedis().catch((err) => {
+  console.error("Redis connection failed (non-fatal, server still running):", err.message);
 });
