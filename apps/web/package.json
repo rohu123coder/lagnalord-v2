@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.112.3",
     "agora-rtc-sdk-ng": "^4.24.3",
     "astronomia": "^4.2.0",
     "axios": "^1.15.0",
