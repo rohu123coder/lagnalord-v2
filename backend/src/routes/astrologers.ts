@@ -108,7 +108,7 @@ router.get("/", async (req: Request, res: Response) => {
   const offset = (page - 1) * limit;
   const orderBy = listOrderClause(sort);
 
-  const conditions: string[] = ["(a.is_verified = true OR a.is_approved = true)"];
+  const conditions: string[] = ["a.is_verified = true"];
   const params: unknown[] = [];
   let p = 1;
 
@@ -632,7 +632,7 @@ router.get("/:id", optionalAuthMiddleware, async (req: Request, res: Response) =
   }
   const id = idParse.data;
   const viewerId = req.user?.userId ?? null;
-  const publicVisibilitySql = "(a.is_verified = true OR a.is_approved = true)";
+  const publicVisibilitySql = "a.is_verified = true";
 
   const result = await query<DetailRow>(
     `SELECT
