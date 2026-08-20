@@ -236,7 +236,47 @@ async function sendResetLinkEmail(email: string, path: string, userId: string): 
   await sendPasswordResetEmail(email, resetLink);
 }
 
+async function sendWhatsAppOTP(phone: string, otp: string): Promise<boolean> {
+  const apiKey = process.env.CLICKFOX_API_KEY;
+  const templateName = process.env.CLICKFOX_WHATSAPP_TEMPLATE || 'otp_logins';
+  if (!apiKey) {
+    return false;
+  }
+  try {
+    const formattedPhone = phone.startsWith('+') ? phone : `+91${phone}`;
+    const res = await fetch('https://app.clickfox.in/api/v1/whatsapp/send-template', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        to: formattedPhone,
+        template_name: templateName,
+        language: 'en_US',
+        variables: [otp],
+      }),
+    });
+    const data = await res.json();
+    if (data.success) {
+      console.log(`WhatsApp OTP sent to ${phone}, message_id: ${data.message_id}`);
+      return true;
+    } else {
+      console.error('ClickFox WhatsApp OTP failed:', data.error);
+      return false;
+    }
+  } catch (e) {
+    console.error('ClickFox WhatsApp OTP error:', e);
+    return false;
+  }
+}
+
 async function sendSmsOTP(phone: string, otp: string): Promise<void> {
+  const whatsappSent = await sendWhatsAppOTP(phone, otp);
+  if (whatsappSent) {
+    return;
+  }
+  // Fallback to Fast2SMS (existing logic unchanged below)
   const fast2smsKey = process.env.FAST2SMS_API_KEY;
   if (fast2smsKey) {
     try {
