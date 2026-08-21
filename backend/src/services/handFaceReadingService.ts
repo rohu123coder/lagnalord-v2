@@ -1,4 +1,4 @@
-import type Anthropic from "@anthropic-ai/sdk";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 /** Matches apps/mobile/app/chat/problem-area.tsx PROBLEM_AREAS `value` fields exactly. */
 export const HAND_FACE_CATEGORIES = [
@@ -73,19 +73,25 @@ const FACE_FALLBACK: FaceObservation = {
   notable_features: "Could not analyze clearly",
 };
 
-let anthropicClient: Anthropic | null = null;
-
-async function getAnthropicClient(): Promise<Anthropic | null> {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+function getGeminiModel() {
+  const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    console.warn("[HandFaceReading] ANTHROPIC_API_KEY not set — using fallback observations");
+    console.warn("[HandFaceReading] GEMINI_API_KEY not set — using fallback observations");
     return null;
   }
-  if (!anthropicClient) {
-    const { default: AnthropicSdk } = await import("@anthropic-ai/sdk");
-    anthropicClient = new AnthropicSdk({ apiKey });
-  }
-  return anthropicClient;
+  const genAI = new GoogleGenerativeAI(apiKey);
+  return genAI.getGenerativeModel({
+    model: "gemini-2.0-flash",
+    generationConfig: { responseMimeType: "application/json" },
+  });
+}
+
+async function fetchImageAsBase64(imageUrl: string): Promise<{ mimeType: string; data: string }> {
+  const res = await fetch(imageUrl);
+  const contentType = res.headers.get("content-type") || "image/jpeg";
+  const buffer = await res.arrayBuffer();
+  const base64 = Buffer.from(buffer).toString("base64");
+  return { mimeType: contentType, data: base64 };
 }
 
 function stripJsonFences(text: string): string {
@@ -94,9 +100,9 @@ function stripJsonFences(text: string): string {
   return fenced ? fenced[1].trim() : trimmed;
 }
 
-function extractTextFromMessage(message: Anthropic.Message): string {
+function extractTextFromMessage(message: { content: Array<{ type: string; text: string }> }): string {
   return message.content
-    .filter((block): block is Anthropic.TextBlock => block.type === "text")
+    .filter((block) => block.type === "text")
     .map((block) => block.text)
     .join("\n")
     .trim();
@@ -263,35 +269,19 @@ const CATEGORY_TEMPLATES: Record<HandFaceCategory, CategoryTemplates> = {
 };
 
 async function analyzePalmImage(imageUrl: string): Promise<string> {
-  const client = await getAnthropicClient();
-  if (!client) {
+  const model = getGeminiModel();
+  if (!model) {
     return JSON.stringify(PALM_FALLBACK);
   }
-
   try {
-    const message = await client.messages.create({
-      model: VISION_MODEL,
-      max_tokens: MAX_TOKENS,
-      system:
-        "You are a neutral visual observer describing palm photographs for phrase fragments used in a reading template. You are NOT an astrologer and must NOT make predictions, fortune-telling, or medical claims. Return SHORT phrases (2-5 words each) suitable for insertion into a sentence — not full descriptive sentences. Focus on traits with traditional palmistry significance: line depth/length, mount prominence, palm shape. Ignore incidental details like jewelry, background, or skin blemishes. Respond with ONLY a valid JSON object (no markdown) with keys: lines, mounts, shape, notable_features.",
-      messages: [
-        {
-          role: "user",
-          content: [
-            {
-              type: "image",
-              source: { type: "url", url: imageUrl },
-            },
-            {
-              type: "text",
-              text: 'Return ONLY JSON with short phrase values (2-5 words each), e.g. { "lines": "deep and long", "mounts": "prominent Venus mount", "shape": "square and firm", "notable_features": "clear fate line" }',
-            },
-          ],
-        },
-      ],
-    });
-
-    const text = extractTextFromMessage(message);
+    const { mimeType, data } = await fetchImageAsBase64(imageUrl);
+    const promptText =
+      "You are a neutral visual observer describing palm photographs for phrase fragments used in a reading template. You are NOT an astrologer and must NOT make predictions, fortune-telling, or medical claims. Return SHORT phrases (2-5 words each) suitable for insertion into a sentence — not full descriptive sentences. Focus on traits with traditional palmistry significance: line depth/length, mount prominence, palm shape. Ignore incidental details like jewelry, background, or skin blemishes. Respond with ONLY a valid JSON object (no markdown) with keys: lines, mounts, shape, notable_features. Example: { \"lines\": \"deep and long\", \"mounts\": \"prominent Venus mount\", \"shape\": \"square and firm\", \"notable_features\": \"clear fate line\" }";
+    const result = await model.generateContent([
+      { text: promptText },
+      { inlineData: { mimeType, data } },
+    ]);
+    const text = result.response.text();
     const parsed = parsePalmJson(text);
     return JSON.stringify(parsed);
   } catch (e) {
@@ -301,35 +291,19 @@ async function analyzePalmImage(imageUrl: string): Promise<string> {
 }
 
 async function analyzeFaceImage(imageUrl: string): Promise<string> {
-  const client = await getAnthropicClient();
-  if (!client) {
+  const model = getGeminiModel();
+  if (!model) {
     return JSON.stringify(FACE_FALLBACK);
   }
-
   try {
-    const message = await client.messages.create({
-      model: VISION_MODEL,
-      max_tokens: MAX_TOKENS,
-      system:
-        "You are a neutral visual observer describing face photographs for phrase fragments used in a reading template. You are NOT an astrologer and must NOT make predictions, fortune-telling, or medical claims. Return SHORT phrases (2-5 words each) suitable for insertion into a sentence — not full descriptive sentences. Focus on traits with traditional physiognomy significance: forehead shape, eye quality, jawline strength. Ignore incidental details like glasses, clothing, hair styling, or background. Respond with ONLY a valid JSON object (no markdown) with keys: forehead, eyes, jawline, notable_features.",
-      messages: [
-        {
-          role: "user",
-          content: [
-            {
-              type: "image",
-              source: { type: "url", url: imageUrl },
-            },
-            {
-              type: "text",
-              text: 'Return ONLY JSON with short phrase values (2-5 words each), e.g. { "forehead": "high and broad", "eyes": "sharp and focused", "jawline": "strong and defined", "notable_features": "calm expression" }',
-            },
-          ],
-        },
-      ],
-    });
-
-    const text = extractTextFromMessage(message);
+    const { mimeType, data } = await fetchImageAsBase64(imageUrl);
+    const promptText =
+      "You are a neutral visual observer describing face photographs for phrase fragments used in a reading template. You are NOT an astrologer and must NOT make predictions, fortune-telling, or medical claims. Return SHORT phrases (2-5 words each) suitable for insertion into a sentence — not full descriptive sentences. Focus on traits with traditional physiognomy significance: forehead shape, eye quality, jawline strength. Ignore incidental details like glasses, clothing, hair styling, or background. Respond with ONLY a valid JSON object (no markdown) with keys: forehead, eyes, jawline, notable_features. Example: { \"forehead\": \"high and broad\", \"eyes\": \"sharp and focused\", \"jawline\": \"strong and defined\", \"notable_features\": \"calm expression\" }";
+    const result = await model.generateContent([
+      { text: promptText },
+      { inlineData: { mimeType, data } },
+    ]);
+    const text = result.response.text();
     const parsed = parseFaceJson(text);
     return JSON.stringify(parsed);
   } catch (e) {
