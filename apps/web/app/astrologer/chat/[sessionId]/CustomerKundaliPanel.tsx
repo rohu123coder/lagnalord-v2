@@ -80,7 +80,7 @@ export default function CustomerKundaliPanel({ sessionId, authToken, apiBase }: 
 
   if (loading) {
     return (
-      <div className="p-4 text-center text-sm text-slate-500">
+      <div className="p-4 text-center text-sm text-[#C7C2B4]">
         Loading kundali...
       </div>
     );
@@ -88,7 +88,7 @@ export default function CustomerKundaliPanel({ sessionId, authToken, apiBase }: 
 
   if (error) {
     return (
-      <div className="p-4 text-center text-sm text-red-500">
+      <div className="p-4 text-center text-sm text-red-400">
         Error: {error}
       </div>
     );
@@ -99,14 +99,14 @@ export default function CustomerKundaliPanel({ sessionId, authToken, apiBase }: 
   if (!data.hasDetails) {
     return (
       <div className="space-y-3 p-4">
-        <div className="rounded-lg border border-orange-200 bg-orange-50 p-4">
-          <h3 className="mb-2 font-semibold text-orange-900">
+        <div className="rounded-lg border border-orange-500/30 bg-orange-500/10 p-4">
+          <h3 className="mb-2 font-semibold text-orange-300">
             🎂 Birth Details Required
           </h3>
-          <p className="text-sm text-orange-800">
+          <p className="text-sm text-orange-200">
             {data.customer.name} ne abhi tak birth details share nahi ki hain.
           </p>
-          <p className="mt-2 text-xs text-orange-700">
+          <p className="mt-2 text-xs text-orange-200/70">
             Chat mein customer se DOB, time, aur place pucho.
           </p>
         </div>
@@ -119,9 +119,9 @@ export default function CustomerKundaliPanel({ sessionId, authToken, apiBase }: 
 
   return (
     <div className="space-y-3 overflow-y-auto p-4">
-      <div className="rounded-lg border border-purple-200 bg-purple-50 p-3">
-        <h3 className="font-semibold text-purple-900">{c.name}</h3>
-        <div className="mt-1 space-y-0.5 text-xs text-purple-700">
+      <div className="rounded-lg border border-[#C9A227]/30 bg-[#C9A227]/10 p-3">
+        <h3 className="font-semibold text-[#E0C158]">{c.name}</h3>
+        <div className="mt-1 space-y-0.5 text-xs text-[#C7C2B4]">
           {c.dateOfBirth && (
             <div>📅 {new Date(c.dateOfBirth).toLocaleDateString("en-IN")}</div>
           )}
@@ -130,7 +130,7 @@ export default function CustomerKundaliPanel({ sessionId, authToken, apiBase }: 
           {c.gender && <div>👤 {c.gender}</div>}
         </div>
         {k.approximate && (
-          <div className="mt-2 rounded bg-amber-50 px-2 py-1 text-xs text-amber-700">
+          <div className="mt-2 rounded bg-amber-500/10 px-2 py-1 text-xs text-amber-300">
             ⚠️ Time of birth missing — ascendant approximate
           </div>
         )}
@@ -160,26 +160,26 @@ export default function CustomerKundaliPanel({ sessionId, authToken, apiBase }: 
         />
       </div>
 
-      <div className="rounded-lg border border-indigo-200 bg-indigo-50 p-3">
-        <div className="mb-1 text-xs text-indigo-700">⭐ Nakshatra</div>
-        <div className="font-semibold text-indigo-900">{k.nakshatra.name}</div>
-        <div className="mt-1 text-xs text-indigo-700">
+      <div className="rounded-lg border border-[#2A7D7B]/30 bg-[#2A7D7B]/10 p-3">
+        <div className="mb-1 text-xs text-[#3A9D9B]">⭐ Nakshatra</div>
+        <div className="font-semibold text-[#F5F1E8]">{k.nakshatra.name}</div>
+        <div className="mt-1 text-xs text-[#3A9D9B]">
           Lord: <span className="font-medium">{k.nakshatra.lord}</span> • Pada:{" "}
           {k.nakshatra.pada}
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-gray-200 bg-white">
-        <div className="border-b bg-gray-50 px-3 py-2 text-xs font-semibold text-gray-700">
+      <div className="overflow-hidden rounded-lg border border-[#C9A227]/20 bg-[#0F2240]">
+        <div className="border-b border-[#C9A227]/20 bg-[#0A1A2F] px-3 py-2 text-xs font-semibold text-[#E0C158]">
           🪐 Planetary Positions
         </div>
         <table className="w-full text-xs">
           <tbody>
             {k.planets.map((p) => (
-              <tr key={p.name} className="border-b border-gray-100 last:border-0">
-                <td className="px-3 py-1.5 font-medium text-gray-900">{p.name}</td>
-                <td className="px-3 py-1.5 text-gray-600">{p.rashi}</td>
-                <td className="px-3 py-1.5 text-right text-gray-500">
+              <tr key={p.name} className="border-b border-[#C9A227]/10 last:border-0">
+                <td className="px-3 py-1.5 font-medium text-[#F5F1E8]">{p.name}</td>
+                <td className="px-3 py-1.5 text-[#C7C2B4]">{p.rashi}</td>
+                <td className="px-3 py-1.5 text-right text-[#C7C2B4]/70">
                   {p.longitude.toFixed(2)}°
                 </td>
               </tr>
@@ -188,7 +188,7 @@ export default function CustomerKundaliPanel({ sessionId, authToken, apiBase }: 
         </table>
       </div>
 
-      <div className="rounded-lg border border-gray-200 bg-gray-50 p-3 text-center text-xs text-gray-500">
+      <div className="rounded-lg border border-[#C9A227]/20 bg-[#0A1A2F] p-3 text-center text-xs text-[#C7C2B4]">
         🔮 Mahadasha details coming soon
       </div>
     </div>
@@ -209,9 +209,9 @@ function SignCard({
   color: "orange" | "blue" | "purple";
 }) {
   const colorClasses = {
-    orange: "bg-orange-50 border-orange-200 text-orange-900",
-    blue: "bg-blue-50 border-blue-200 text-blue-900",
-    purple: "bg-purple-50 border-purple-200 text-purple-900",
+    orange: "bg-orange-500/10 border-orange-500/30 text-orange-300",
+    blue: "bg-blue-500/10 border-blue-500/30 text-blue-300",
+    purple: "bg-[#2A7D7B]/10 border-[#2A7D7B]/30 text-[#3A9D9B]",
   };
 
   return (
