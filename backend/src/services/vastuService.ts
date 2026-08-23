@@ -1,4 +1,5 @@
 import type Anthropic from "@anthropic-ai/sdk";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export const VASTU_DIRECTIONS = ["N", "NE", "E", "SE", "S", "SW", "W", "NW", "Center"] as const;
 export const VASTU_PROPERTY_TYPES = ["residential", "apartment", "office", "shop"] as const;
@@ -1026,6 +1027,27 @@ async function getAnthropicClient(): Promise<Anthropic | null> {
   return anthropicClient;
 }
 
+function getGeminiModel() {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    console.warn("[Vastu] GEMINI_API_KEY not set — using fallback analysis");
+    return null;
+  }
+  const genAI = new GoogleGenerativeAI(apiKey);
+  return genAI.getGenerativeModel({
+    model: "gemini-2.0-flash",
+    generationConfig: { responseMimeType: "application/json" },
+  });
+}
+
+async function fetchImageAsBase64(imageUrl: string): Promise<{ mimeType: string; data: string }> {
+  const res = await fetch(imageUrl);
+  const contentType = res.headers.get("content-type") || "image/jpeg";
+  const buffer = await res.arrayBuffer();
+  const base64 = Buffer.from(buffer).toString("base64");
+  return { mimeType: contentType, data: base64 };
+}
+
 function stripJsonFences(text: string): string {
   const trimmed = text.trim();
   const fenced = trimmed.match(/^```(?:json)?\s*([\s\S]*?)\s*```$/i);
@@ -1795,7 +1817,6 @@ Return ONLY valid JSON (no markdown fences) matching this exact schema:
 const BATCH_SIZE = 3;
 
 async function analyzeVastuPhotoBatch(
-  client: Anthropic,
   batchPhotos: Array<{
     url: string;
     roomLabel: string;
@@ -1808,6 +1829,11 @@ async function analyzeVastuPhotoBatch(
   northDirection: number,
   totalPhotos: number
 ): Promise<ClaudeDetectedRoom[]> {
+  const model = getGeminiModel();
+  if (!model) {
+    return [];
+  }
+
   const photoContext = batchPhotos
     .map((p, i) =>
       JSON.stringify({
@@ -1820,29 +1846,21 @@ async function analyzeVastuPhotoBatch(
     )
     .join("\n");
 
-  const imageBlocks: Anthropic.ContentBlockParam[] = batchPhotos.flatMap((photo, i) => [
+  const imageParts = await Promise.all(
+    batchPhotos.map(async (photo) => {
+      const { mimeType, data } = await fetchImageAsBase64(photo.url);
+      return { inlineData: { mimeType, data } };
+    })
+  );
+
+  const captionedParts = batchPhotos.flatMap((photo, i) => [
     {
-      type: "text" as const,
       text: `--- Photo index ${globalOffset + i}: ${photo.roomLabel} (${photo.vastuDirection}, ${photo.compassDirection}°) — User says: "${photo.userDescription || "no description"}" ---`,
     },
-    {
-      type: "image" as const,
-      source: { type: "url" as const, url: photo.url },
-    },
+    imageParts[i],
   ]);
 
-  const message = await client.messages.create({
-    model: VISION_MODEL,
-    max_tokens: MAX_TOKENS,
-    system: VASTU_SYSTEM_PROMPT,
-    messages: [
-      {
-        role: "user",
-        content: [
-          ...imageBlocks,
-          {
-            type: "text",
-            text: `Analyze these ${batchPhotos.length} photos (part of a larger ${totalPhotos}-photo ${propertyType} property scan) for Vastu compliance.
+  const instructionText = `Analyze these ${batchPhotos.length} photos (part of a larger ${totalPhotos}-photo ${propertyType} property scan) for Vastu compliance.
 
 northDirection: ${northDirection} degrees (user calibrated this with compass)
 
@@ -1851,23 +1869,15 @@ ${photoContext}
 
 IMPORTANT: Use the exact "index" values shown above as "photoIndex" in your response for each room — do NOT renumber starting from 0.
 Use user descriptions to enhance room identification and object detection.
-Be STRICT and THOROUGH — this batch deserves your full depth of analysis since it is only ${batchPhotos.length} photo(s). Find real issues, flag unverified items, write detailed scientificReason and traditionalReason for every issue, and return comprehensive JSON only.`,
-          },
-        ],
-      },
-    ],
-  });
+Be STRICT and THOROUGH — this batch deserves your full depth of analysis since it is only ${batchPhotos.length} photo(s). Find real issues, flag unverified items, write detailed scientificReason and traditionalReason for every issue, and return comprehensive JSON only.`;
 
-  if (message.stop_reason === "max_tokens") {
-    console.error(
-      "[Vastu] Batch response truncated at max_tokens. batchSize:",
-      batchPhotos.length,
-      "globalOffset:",
-      globalOffset
-    );
-  }
+  const promptParts = [
+    { text: VASTU_SYSTEM_PROMPT + "\n\n" + instructionText },
+    ...captionedParts,
+  ];
 
-  const text = extractTextFromMessage(message);
+  const result = await model.generateContent(promptParts);
+  const text = result.response.text();
   try {
     const parsed = JSON.parse(stripJsonFences(text)) as { detectedRooms?: ClaudeDetectedRoom[] };
     if (parsed?.detectedRooms && Array.isArray(parsed.detectedRooms)) {
@@ -1896,8 +1906,7 @@ export async function analyzeVastuPhotos(
   propertyType: string,
   northDirection: number
 ): Promise<VastuAnalysis> {
-  const client = await getAnthropicClient();
-  if (!client || photos.length === 0) {
+  if (photos.length === 0) {
     return { ...FALLBACK_ANALYSIS };
   }
 
@@ -1918,7 +1927,6 @@ export async function analyzeVastuPhotos(
     const globalOffset = b * BATCH_SIZE;
     try {
       const rooms = await analyzeVastuPhotoBatch(
-        client,
         batches[b],
         globalOffset,
         propertyType,
