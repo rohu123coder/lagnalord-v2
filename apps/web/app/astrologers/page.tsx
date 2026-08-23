@@ -553,7 +553,7 @@ export default function AstrologersPage() {
               <h2 className="text-lg font-bold text-[#F5F1E8]">Filters</h2>
               <button
                 type="button"
-                className="rounded-lg p-2 text-slate-500 hover:bg-slate-100"
+                className="rounded-lg p-2 text-[#C7C2B4] hover:bg-[#0A1A2F]"
                 onClick={() => setSheetOpen(false)}
               >
                 ✕
@@ -572,7 +572,7 @@ export default function AstrologersPage() {
             />
             <button
               type="button"
-              className="mt-6 w-full rounded-xl bg-gradient-to-r from-purple-600 to-orange-500 py-3 text-sm font-semibold text-white"
+              className="mt-6 w-full rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-3 text-sm font-semibold text-white"
               onClick={() => setSheetOpen(false)}
             >
               Apply
@@ -583,23 +583,23 @@ export default function AstrologersPage() {
 
       {pendingAction ? (
         <div className="fixed inset-0 z-[80] flex items-end justify-center bg-black/40 p-4 sm:items-center">
-          <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl">
-            <h2 className="text-lg font-bold text-slate-900">Wallet balance low</h2>
-            <p className="mt-2 text-sm text-slate-600">
+          <div className="w-full max-w-md rounded-2xl bg-[#0F2240] p-6 shadow-2xl">
+            <h2 className="text-lg font-bold text-[#F5F1E8]">Wallet balance low</h2>
+            <p className="mt-2 text-sm text-[#C7C2B4]">
               Minimum ₹{pendingAction.required.toFixed(0)} required to start a{" "}
               {pendingAction.callType} call. Recharge now?
             </p>
             <div className="mt-5 flex gap-3">
               <button
                 type="button"
-                className="flex-1 rounded-xl border border-slate-200 py-2.5 text-sm font-semibold text-slate-700"
+                className="flex-1 rounded-xl border border-[#C9A227]/30 py-2.5 text-sm font-semibold text-[#C7C2B4]"
                 onClick={() => setPendingAction(null)}
               >
                 Cancel
               </button>
               <button
                 type="button"
-                className="flex-1 rounded-xl bg-gradient-to-r from-purple-600 to-orange-500 py-2.5 text-sm font-semibold text-white"
+                className="flex-1 rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-2.5 text-sm font-semibold text-white"
                 onClick={() => {
                   setPendingAction(null);
                   router.push("/dashboard");
