@@ -410,66 +410,66 @@ export default function KundliPage() {
               <button
                 type="button"
                 onClick={onShare}
-                className="rounded-lg bg-violet-700 px-4 py-2 text-sm font-medium text-white transition hover:bg-violet-800"
+                className="rounded-lg bg-[#2A7D7B] px-4 py-2 text-sm font-medium text-white transition hover:bg-[#3A9D9B]"
               >
                 Share Your Kundli
               </button>
               <button
                 type="button"
                 onClick={() => window.print()}
-                className="rounded-lg border border-violet-200 bg-white px-4 py-2 text-sm font-medium text-violet-700 transition hover:bg-violet-50"
+                className="rounded-lg border border-[#C9A227]/40 bg-[#0A1A2F] px-4 py-2 text-sm font-medium text-[#E0C158] transition hover:bg-[#C9A227]/10"
               >
                 Print / Save as PDF
               </button>
             </div>
             <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
               <KundliChart chartData={result.chartData} />
-              <div className="rounded-2xl border border-violet-100 bg-white p-6 shadow-lg shadow-violet-100/50">
-                <h3 className="text-sm font-semibold uppercase tracking-wide text-violet-600">
+              <div className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-lg shadow-black/30">
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-[#E0C158]">
                   Snapshot
                 </h3>
                 <dl className="mt-4 grid gap-3 text-sm">
-                  <div className="flex justify-between gap-4 border-b border-slate-100 pb-2">
-                    <dt className="text-slate-500">Ascendant</dt>
-                    <dd className="font-medium text-slate-900">
+                  <div className="flex justify-between gap-4 border-b border-[#C9A227]/10 pb-2">
+                    <dt className="text-[#C7C2B4]">Ascendant</dt>
+                    <dd className="font-medium text-[#F5F1E8]">
                       {result.basicInfo.ascendant.rashi}{" "}
-                      <span className="text-violet-600">
+                      <span className="text-[#E0C158]">
                         {result.basicInfo.ascendant.degree}°
                       </span>
                     </dd>
                   </div>
-                  <div className="flex justify-between gap-4 border-b border-slate-100 pb-2">
-                    <dt className="text-slate-500">Moon sign</dt>
-                    <dd className="font-medium text-slate-900">
+                  <div className="flex justify-between gap-4 border-b border-[#C9A227]/10 pb-2">
+                    <dt className="text-[#C7C2B4]">Moon sign</dt>
+                    <dd className="font-medium text-[#F5F1E8]">
                       {result.basicInfo.moonSign.rashi}{" "}
-                      <span className="text-violet-600">
+                      <span className="text-[#E0C158]">
                         {result.basicInfo.moonSign.degree}°
                       </span>
                     </dd>
                   </div>
-                  <div className="flex justify-between gap-4 border-b border-slate-100 pb-2">
-                    <dt className="text-slate-500">Sun sign</dt>
-                    <dd className="font-medium text-slate-900">
+                  <div className="flex justify-between gap-4 border-b border-[#C9A227]/10 pb-2">
+                    <dt className="text-[#C7C2B4]">Sun sign</dt>
+                    <dd className="font-medium text-[#F5F1E8]">
                       {result.basicInfo.sunSign.rashi}{" "}
-                      <span className="text-violet-600">
+                      <span className="text-[#E0C158]">
                         {result.basicInfo.sunSign.degree}°{" "}
                         {result.basicInfo.sunSign.minutes}′
                       </span>
                     </dd>
                   </div>
-                  <div className="flex justify-between gap-4 border-b border-slate-100 pb-2">
-                    <dt className="text-slate-500">Nakshatra</dt>
-                    <dd className="font-medium text-slate-900">
+                  <div className="flex justify-between gap-4 border-b border-[#C9A227]/10 pb-2">
+                    <dt className="text-[#C7C2B4]">Nakshatra</dt>
+                    <dd className="font-medium text-[#F5F1E8]">
                       {result.basicInfo.nakshatra.name}{" "}
-                      <span className="text-slate-500">
+                      <span className="text-[#C7C2B4]">
                         (Pada {result.basicInfo.nakshatra.pada}, lord{" "}
                         {result.basicInfo.nakshatra.lord})
                       </span>
                     </dd>
                   </div>
                   <div className="flex justify-between gap-4">
-                    <dt className="text-slate-500">Name number</dt>
-                    <dd className="font-medium text-violet-700">
+                    <dt className="text-[#C7C2B4]">Name number</dt>
+                    <dd className="font-medium text-[#E0C158]">
                       {result.basicInfo.numerologyNumber}
                     </dd>
                   </div>
@@ -482,12 +482,12 @@ export default function KundliPage() {
             <SectionTitle subtitle="Strength rating by house support">
               Life Area Ratings
             </SectionTitle>
-            <div className="grid gap-4 rounded-2xl border border-violet-100 bg-white p-6 shadow-md sm:grid-cols-2 lg:grid-cols-5">
+            <div className="grid gap-4 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md sm:grid-cols-2 lg:grid-cols-5">
               {ratings.map((rating) => (
-                <div key={rating.area} className="rounded-xl bg-violet-50/60 p-3 text-center">
-                  <p className="text-xs uppercase tracking-wide text-slate-500">{rating.area}</p>
+                <div key={rating.area} className="rounded-xl bg-[#0A1A2F]/60 p-3 text-center">
+                  <p className="text-xs uppercase tracking-wide text-[#C7C2B4]">{rating.area}</p>
                   <p className="mt-1 text-lg font-semibold text-amber-500">{stars(rating.value)}</p>
-                  <p className="text-xs text-slate-600">{rating.value}/5</p>
+                  <p className="text-xs text-[#C7C2B4]">{rating.value}/5</p>
                 </div>
               ))}
             </div>
@@ -497,10 +497,10 @@ export default function KundliPage() {
             <SectionTitle subtitle="Sidereal longitudes · retrograde marked">
               Planetary positions
             </SectionTitle>
-            <div className="overflow-x-auto rounded-2xl border border-violet-100 bg-white shadow-md">
+            <div className="overflow-x-auto rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] shadow-md">
               <table className="min-w-full text-left text-sm">
                 <thead>
-                  <tr className="border-b border-violet-100 bg-violet-50/80 text-violet-900">
+                  <tr className="border-b border-[#C9A227]/20 bg-[#0A1A2F] text-[#E0C158]">
                     <th className="px-4 py-3 font-semibold">Planet</th>
                     <th className="px-4 py-3 font-semibold">Sign</th>
                     <th className="px-4 py-3 font-semibold">House</th>
@@ -512,20 +512,20 @@ export default function KundliPage() {
                   {result.planets.map((p) => (
                     <tr
                       key={p.name}
-                      className="border-b border-slate-50 hover:bg-violet-50/30"
+                      className="border-b border-[#C9A227]/10 hover:bg-[#0A1A2F]/50"
                     >
-                      <td className="px-4 py-2.5 font-medium text-slate-900">
-                        <span className="mr-2 text-violet-600">{p.symbol}</span>
+                      <td className="px-4 py-2.5 font-medium text-[#F5F1E8]">
+                        <span className="mr-2 text-[#E0C158]">{p.symbol}</span>
                         {p.name}
                       </td>
-                      <td className="px-4 py-2.5 text-slate-700">{p.rashi}</td>
-                      <td className="px-4 py-2.5 text-violet-800">{p.house}</td>
-                      <td className="px-4 py-2.5 tabular-nums text-slate-600">
+                      <td className="px-4 py-2.5 text-[#C7C2B4]">{p.rashi}</td>
+                      <td className="px-4 py-2.5 text-[#E0C158]">{p.house}</td>
+                      <td className="px-4 py-2.5 tabular-nums text-[#C7C2B4]">
                         {p.degree}° {p.minutes}′
                       </td>
-                      <td className="px-4 py-2.5 text-xs text-slate-600">
+                      <td className="px-4 py-2.5 text-xs text-[#C7C2B4]">
                         {p.isRetrograde ? (
-                          <span className="rounded bg-slate-200 px-1.5 py-0.5">
+                          <span className="rounded bg-[#0F2240] px-1.5 py-0.5">
                             ℞
                           </span>
                         ) : null}{" "}
@@ -536,7 +536,7 @@ export default function KundliPage() {
                           <span className="text-rose-600">Debilitated</span>
                         ) : null}{" "}
                         {p.ownSign ? (
-                          <span className="text-violet-600">Own</span>
+                          <span className="text-[#E0C158]">Own</span>
                         ) : null}
                       </td>
                     </tr>
