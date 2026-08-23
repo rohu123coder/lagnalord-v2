@@ -54,27 +54,27 @@ export default function AboutPage() {
   const tenant = getTenant();
 
   return (
-    <div className="min-h-screen bg-white text-slate-900">
+    <div className="min-h-screen bg-[#0A1A2F] text-[#F5F1E8]">
       <Navbar />
 
       <main>
-        <section className="border-b border-slate-200 bg-gradient-to-br from-violet-100 via-violet-50 to-white">
+        <section className="border-b border-[#C9A227]/20 bg-gradient-to-br from-[#0F2240] via-[#0A1A2F] to-[#0A1A2F]">
           <div className="mx-auto max-w-[1200px] px-4 py-16 md:px-8 md:py-20">
-            <h1 className="text-3xl font-extrabold text-violet-600 md:text-5xl">About {tenant.name}</h1>
-            <p className="mt-4 max-w-2xl text-base text-slate-700 md:text-lg">
+            <h1 className="text-3xl font-extrabold text-[#E0C158] md:text-5xl">About {tenant.name}</h1>
+            <p className="mt-4 max-w-2xl text-base text-[#C7C2B4] md:text-lg">
               India&apos;s trusted platform for authentic Vedic astrology guidance
             </p>
           </div>
         </section>
 
-        <section className="border-b border-slate-200">
+        <section className="border-b border-[#C9A227]/20">
           <div className="mx-auto grid max-w-[1200px] gap-10 px-4 py-14 md:grid-cols-[320px_1fr] md:px-8 md:py-16">
             <div className="flex justify-center md:justify-start">
               <FounderPhoto src="/rohit.jpg" alt={`Rohit Jha, Founder of ${tenant.name}`} />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-violet-600 md:text-3xl">The Story Behind {tenant.name}</h2>
-              <div className="mt-5 space-y-4 leading-7 text-slate-700">
+              <h2 className="text-2xl font-bold text-[#E0C158] md:text-3xl">The Story Behind {tenant.name}</h2>
+              <div className="mt-5 space-y-4 leading-7 text-[#C7C2B4]">
                 <p>
                   Growing up in a traditional Indian family, I — Rohit Jha — always believed in
                   the power of astrology. But finding genuine, trustworthy astrologers was always
@@ -95,35 +95,35 @@ export default function AboutPage() {
                   transparent, and fairly priced. Because everyone deserves genuine divine guidance.
                 </p>
               </div>
-              <p className="mt-6 text-sm font-semibold text-[#B8960C]">
+              <p className="mt-6 text-sm font-semibold text-[#E0C158]">
                 — Rohit Jha, Founder &amp; CEO, {tenant.name}
               </p>
             </div>
           </div>
         </section>
 
-        <section className="border-b border-slate-200">
+        <section className="border-b border-[#C9A227]/20">
           <div className="mx-auto max-w-[1200px] px-4 py-14 md:px-8 md:py-16">
-            <h2 className="text-2xl font-bold text-violet-600 md:text-3xl">Mission &amp; Vision</h2>
+            <h2 className="text-2xl font-bold text-[#E0C158] md:text-3xl">Mission &amp; Vision</h2>
             <div className="mt-8 grid gap-4 md:grid-cols-3">
               {missionCards.map((card) => (
-                <article key={card.title} className="rounded-2xl border border-slate-200 bg-white p-6">
-                  <h3 className="text-lg font-bold text-violet-600">{card.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-700">{card.text}</p>
+                <article key={card.title} className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6">
+                  <h3 className="text-lg font-bold text-[#E0C158]">{card.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-[#C7C2B4]">{card.text}</p>
                 </article>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="border-b border-slate-200">
+        <section className="border-b border-[#C9A227]/20">
           <div className="mx-auto max-w-[1200px] px-4 py-14 md:px-8 md:py-16">
-            <h2 className="text-2xl font-bold text-violet-600 md:text-3xl">{tenant.name} by Numbers</h2>
+            <h2 className="text-2xl font-bold text-[#E0C158] md:text-3xl">{tenant.name} by Numbers</h2>
             <div className="mt-8 grid gap-4 sm:grid-cols-2 md:grid-cols-4">
               {stats.map(([value, label]) => (
-                <div key={label} className="rounded-2xl border border-slate-200 bg-white p-6 text-center">
-                  <p className="text-3xl font-extrabold text-[#B8960C]">{value}</p>
-                  <p className="mt-2 text-sm font-medium text-slate-700">{label}</p>
+                <div key={label} className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 text-center">
+                  <p className="text-3xl font-extrabold text-[#E0C158]">{value}</p>
+                  <p className="mt-2 text-sm font-medium text-[#C7C2B4]">{label}</p>
                 </div>
               ))}
             </div>
@@ -132,15 +132,15 @@ export default function AboutPage() {
 
         <section>
           <div className="mx-auto max-w-[1200px] px-4 py-14 md:px-8 md:py-16">
-            <h2 className="text-2xl font-bold text-violet-600 md:text-3xl">How It Works</h2>
+            <h2 className="text-2xl font-bold text-[#E0C158] md:text-3xl">How It Works</h2>
             <div className="mt-8 grid gap-4 md:grid-cols-3">
               {steps.map((step, index) => (
-                <article key={step.title} className="rounded-2xl border border-slate-200 bg-white p-6">
-                  <p className="text-xs font-bold uppercase tracking-wider text-[#B8960C]">
+                <article key={step.title} className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6">
+                  <p className="text-xs font-bold uppercase tracking-wider text-[#E0C158]">
                     Step {index + 1}
                   </p>
-                  <h3 className="mt-2 text-lg font-bold text-slate-900">{step.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-700">{step.text}</p>
+                  <h3 className="mt-2 text-lg font-bold text-[#F5F1E8]">{step.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-[#C7C2B4]">{step.text}</p>
                 </article>
               ))}
             </div>
