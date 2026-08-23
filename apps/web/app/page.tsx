@@ -53,37 +53,37 @@ const paidServices = [
     title: "Detailed Kundli Report",
     description: "Complete Janam Kundli with dosha and planetary analysis.",
     price: 199,
-    gradient: "from-violet-500 to-indigo-600",
+    gradient: "from-[#0A1A2F] via-[#2A7D7B] to-[#C9A227]",
   },
   {
     title: "Marriage Compatibility",
     description: "Guna Milan, Manglik check and practical relationship insights.",
     price: 299,
-    gradient: "from-fuchsia-500 to-violet-600",
+    gradient: "from-[#2A7D7B] via-[#0A1A2F] to-[#C9A227]",
   },
   {
     title: "Career Report",
     description: "Career timing, opportunities and profession suitability.",
     price: 249,
-    gradient: "from-indigo-500 to-violet-700",
+    gradient: "from-[#C9A227] via-[#0A1A2F] to-[#2A7D7B]",
   },
   {
     title: "Ask a Question",
     description: "Get an expert personalized answer for one important query.",
     price: 99,
-    gradient: "from-purple-500 to-fuchsia-600",
+    gradient: "from-[#0A1A2F] via-[#C9A227] to-[#2A7D7B]",
   },
   {
     title: "Finance Report",
     description: "Income, savings, investments and wealth planning guidance.",
     price: 249,
-    gradient: "from-violet-600 to-blue-600",
+    gradient: "from-[#2A7D7B] via-[#C9A227] to-[#0A1A2F]",
   },
   {
     title: "Health Report",
     description: "Planetary health tendencies and preventive remedy guidance.",
     price: 199,
-    gradient: "from-indigo-500 to-purple-600",
+    gradient: "from-[#C9A227] via-[#2A7D7B] to-[#0A1A2F]",
   },
 ];
 
@@ -816,7 +816,7 @@ export default function HomePage() {
         <div className="mt-7 text-center">
           <Link
             href="/horoscope"
-            className="inline-flex rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 px-6 py-3 text-sm font-semibold text-white transition hover:opacity-95"
+            className="inline-flex rounded-full bg-[#0A1A2F] px-6 py-3 text-sm font-semibold text-[#C9A227] transition hover:bg-[#2A7D7B]"
           >
             View All Horoscopes
           </Link>
@@ -835,7 +835,7 @@ export default function HomePage() {
                 className="rounded-2xl border border-violet-100 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
               >
                 <div
-                  className={`h-24 rounded-xl bg-gradient-to-r ${service.gradient}`}
+                  className={`h-24 rounded-xl bg-gradient-to-br ${service.gradient}`}
                   aria-hidden="true"
                 />
                 <h3 className="mt-4 text-lg font-bold text-slate-900">{service.title}</h3>
@@ -864,8 +864,10 @@ export default function HomePage() {
               className="rounded-2xl border border-violet-100 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
             >
               <div
-                className={`h-24 rounded-xl bg-gradient-to-r ${
-                  index % 2 === 0 ? "from-violet-500 to-indigo-600" : "from-indigo-500 to-violet-700"
+                className={`h-24 rounded-xl bg-gradient-to-br ${
+                  index % 2 === 0
+                    ? "from-[#0A1A2F] via-[#2A7D7B] to-[#C9A227]"
+                    : "from-[#2A7D7B] via-[#0A1A2F] to-[#C9A227]"
                 }`}
                 aria-hidden="true"
               />
