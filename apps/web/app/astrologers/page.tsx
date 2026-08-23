@@ -205,7 +205,7 @@ function SkeletonGrid() {
   return (
     <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
       {Array.from({ length: PAGE_SIZE }).map((_, i) => (
-        <div key={i} className="h-72 animate-pulse rounded-2xl bg-slate-200/80" />
+        <div key={i} className="h-72 animate-pulse rounded-2xl bg-[#0F2240]/80" />
       ))}
     </div>
   );
