@@ -883,20 +883,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-t border-violet-100 bg-violet-50/40 py-14">
+      <section className="border-t border-[#C9A227]/20 bg-[#0A1A2F] py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <h2 className="text-2xl font-bold sm:text-3xl">{tenant.name} Magazine</h2>
           <div className="mt-7 grid gap-4 md:grid-cols-3">
             {articles.map((article) => (
               <article
                 key={article.title}
-                className="rounded-2xl border border-violet-100 bg-white p-5 shadow-sm transition hover:shadow-md"
+                className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm transition hover:shadow-md"
               >
-                <p className="text-xs font-semibold uppercase tracking-wider text-violet-600">
+                <p className="text-xs font-semibold uppercase tracking-wider text-[#E0C158]">
                   {article.date}
                 </p>
-                <h3 className="mt-2 text-lg font-bold text-slate-900">{article.title}</h3>
-                <Link href={article.href} className="mt-4 inline-block text-sm font-semibold text-violet-700 hover:underline">
+                <h3 className="mt-2 text-lg font-bold text-[#F5F1E8]">{article.title}</h3>
+                <Link href={article.href} className="mt-4 inline-block text-sm font-semibold text-[#C7C2B4] hover:text-[#E0C158] hover:underline">
                   Read More
                 </Link>
               </article>
