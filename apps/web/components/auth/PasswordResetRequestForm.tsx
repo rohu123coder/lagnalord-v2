@@ -54,11 +54,11 @@ export function PasswordResetRequestForm({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-violet-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] to-[#0F2240]">
       <div className="mx-auto flex min-h-screen max-w-md items-center px-4 py-12 sm:px-6">
-        <div className="w-full rounded-2xl border border-purple-100 bg-white p-8 shadow-lg">
-          <h1 className="text-2xl font-bold text-slate-900">{heading}</h1>
-          <p className="mt-2 text-sm text-slate-500">{subtext}</p>
+        <div className="w-full rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-8 shadow-lg">
+          <h1 className="text-2xl font-bold text-[#F5F1E8]">{heading}</h1>
+          <p className="mt-2 text-sm text-[#C7C2B4]">{subtext}</p>
 
           <div className="mt-8 space-y-4">
             <input
@@ -68,7 +68,7 @@ export function PasswordResetRequestForm({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 outline-none focus:ring-2 focus:ring-violet-500"
+              className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#C9A227]"
             />
 
             {successEmail ? (
@@ -87,7 +87,7 @@ export function PasswordResetRequestForm({
               type="button"
               disabled={loading}
               onClick={() => void submit()}
-              className="w-full rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 py-3 text-sm font-semibold text-white disabled:opacity-60"
+              className="w-full rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-3 text-sm font-semibold text-white disabled:opacity-60"
             >
               {loading ? "Sending..." : "Send Reset Link"}
             </button>
@@ -95,7 +95,7 @@ export function PasswordResetRequestForm({
 
           <Link
             href={backHref}
-            className="mt-6 block text-center text-sm text-violet-600 hover:underline"
+            className="mt-6 block text-center text-sm text-[#E0C158] hover:underline"
           >
             Back to login
           </Link>
