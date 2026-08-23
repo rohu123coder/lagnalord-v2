@@ -139,9 +139,9 @@ export function KundliChart({
 
   return (
     <div
-      className={`rounded-2xl border border-violet-200/80 bg-gradient-to-br from-white to-violet-50/90 p-4 shadow-lg shadow-violet-200/40 ${className}`}
+      className={`rounded-2xl border border-[#C9A227]/20 bg-gradient-to-br from-[#0F2240] to-[#0A1A2F] p-4 shadow-lg shadow-black/40 ${className}`}
     >
-      <p className="mb-3 text-center text-xs font-medium uppercase tracking-wider text-violet-600">
+      <p className="mb-3 text-center text-xs font-medium uppercase tracking-wider text-[#E0C158]">
         North Indian (D1) · Whole sign
       </p>
       <svg
@@ -152,12 +152,12 @@ export function KundliChart({
       >
         <defs>
           <linearGradient id="houseFill" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="var(--violet-50, #faf5ff)" />
-            <stop offset="100%" stopColor="var(--violet-100, #ede9fe)" />
+            <stop offset="0%" stopColor="#13294B" />
+            <stop offset="100%" stopColor="#0F2240" />
           </linearGradient>
           <linearGradient id="edgeGlow" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="var(--violet-600, #7C3AED)" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="var(--violet-900, #4C1D95)" stopOpacity="0.5" />
+            <stop offset="0%" stopColor="#C9A227" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="#0A1A2F" stopOpacity="0.5" />
           </linearGradient>
         </defs>
 
@@ -167,7 +167,7 @@ export function KundliChart({
           width={VB.w}
           height={VB.h}
           rx="12"
-          fill="var(--violet-50, #f5f3ff)"
+          fill="#0A1A2F"
           stroke="url(#edgeGlow)"
           strokeWidth="2"
         />
@@ -177,7 +177,7 @@ export function KundliChart({
             key={i}
             d={toPath(pts)}
             fill="url(#houseFill)"
-            stroke="var(--violet-600, #7C3AED)"
+            stroke="#C9A227"
             strokeOpacity={0.45}
             strokeWidth="1.25"
           />
@@ -193,7 +193,7 @@ export function KundliChart({
                 x={cx}
                 y={sy(cy) - 14}
                 textAnchor="middle"
-                className="fill-violet-950"
+                className="fill-[#F5F1E8]"
                 style={{ fontSize: 11, fontWeight: 700 }}
               >
                 {houseNum}
@@ -202,7 +202,7 @@ export function KundliChart({
                 x={cx}
                 y={sy(cy) + 2}
                 textAnchor="middle"
-                className="fill-violet-800"
+                className="fill-[#E0C158]"
                 style={{ fontSize: 10, fontWeight: 600 }}
               >
                 {rashi.length > 8 ? `${rashi.slice(0, 7)}…` : rashi}
@@ -212,7 +212,7 @@ export function KundliChart({
                   x={cx}
                   y={sy(cy) + 18}
                   textAnchor="middle"
-                  className="fill-indigo-700"
+                  className="fill-[#2A7D7B]"
                   style={{ fontSize: 9, fontWeight: 500 }}
                 >
                   {planets}
