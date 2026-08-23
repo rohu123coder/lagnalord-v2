@@ -277,7 +277,7 @@ export default function AstrologerRegisterPage() {
                     return (
                       <label
                         key={opt}
-                        className="flex cursor-pointer items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-sm text-slate-700 hover:bg-violet-50"
+                        className="flex cursor-pointer items-center gap-2 rounded-xl border border-[#C9A227]/20 px-3 py-2 text-sm text-[#C7C2B4] hover:bg-[#C9A227]/10"
                       >
                         <input
                           type="checkbox"
@@ -296,7 +296,7 @@ export default function AstrologerRegisterPage() {
               </div>
 
               <div>
-                <p className="text-sm font-medium text-slate-700">
+                <p className="text-sm font-medium text-[#C7C2B4]">
                   Languages spoken
                 </p>
                 <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
@@ -305,7 +305,7 @@ export default function AstrologerRegisterPage() {
                     return (
                       <label
                         key={opt}
-                        className="flex cursor-pointer items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-sm text-slate-700 hover:bg-violet-50"
+                        className="flex cursor-pointer items-center gap-2 rounded-xl border border-[#C9A227]/20 px-3 py-2 text-sm text-[#C7C2B4] hover:bg-[#C9A227]/10"
                       >
                         <input
                           type="checkbox"
@@ -320,7 +320,7 @@ export default function AstrologerRegisterPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700">
+                <label className="block text-sm font-medium text-[#C7C2B4]">
                   Rate per minute in ₹
                 </label>
                 <input
@@ -329,25 +329,25 @@ export default function AstrologerRegisterPage() {
                   max={500}
                   value={ratePerMinute}
                   onChange={(e) => setRatePerMinute(e.target.value)}
-                  className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 shadow-sm outline-none ring-violet-500 focus:ring-2"
+                  className="mt-1 w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#C9A227] focus:ring-2"
                 />
-                <p className="mt-1 text-xs text-slate-500">
+                <p className="mt-1 text-xs text-[#C7C2B4]/70">
                   Between 5 and 500.
                 </p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700">
+                <label className="block text-sm font-medium text-[#C7C2B4]">
                   Short bio / about
                 </label>
                 <textarea
                   value={bio}
                   maxLength={300}
                   onChange={(e) => setBio(e.target.value)}
-                  className="mt-1 min-h-[110px] w-full resize-y rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 shadow-sm outline-none ring-violet-500 focus:ring-2"
+                  className="mt-1 min-h-[110px] w-full resize-y rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#C9A227] focus:ring-2"
                   placeholder="A short introduction (max 300 chars)"
                 />
-                <div className="mt-1 text-right text-xs text-slate-500">
+                <div className="mt-1 text-right text-xs text-[#C7C2B4]/70">
                   {bio.length}/300
                 </div>
               </div>
@@ -363,7 +363,7 @@ export default function AstrologerRegisterPage() {
                   type="button"
                   onClick={() => setStep(1)}
                   disabled={loading}
-                  className="flex-1 rounded-xl border border-slate-200 px-3 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 disabled:opacity-60"
+                  className="flex-1 rounded-xl border border-[#C9A227]/30 px-3 py-3 text-sm font-semibold text-[#C7C2B4] shadow-sm transition hover:bg-[#0A1A2F] disabled:opacity-60"
                 >
                   Back
                 </button>
@@ -371,7 +371,7 @@ export default function AstrologerRegisterPage() {
                   type="button"
                   onClick={() => void onSubmit()}
                   disabled={loading}
-                  className="flex-1 rounded-xl bg-gradient-to-r from-purple-600 to-orange-500 px-3 py-3 text-sm font-semibold text-white shadow-md transition hover:opacity-95 disabled:opacity-60"
+                  className="flex-1 rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-3 py-3 text-sm font-semibold text-white shadow-md transition hover:opacity-95 disabled:opacity-60"
                 >
                   {loading ? "Submitting…" : "Submit application"}
                 </button>
@@ -380,7 +380,7 @@ export default function AstrologerRegisterPage() {
           )}
         </div>
 
-        <p className="mt-6 text-center text-sm text-slate-500">
+        <p className="mt-6 text-center text-sm text-[#C7C2B4]/70">
           By submitting, you agree that your application will be reviewed by our admin team.
         </p>
       </div>
