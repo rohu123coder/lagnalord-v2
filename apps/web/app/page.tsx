@@ -501,8 +501,8 @@ export default function HomePage() {
       {!liveLoading && liveAstrologers.length > 0 ? (
         <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
           <div className="mb-5 flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-slate-900">Live Astrologers</h2>
-            <Link href="/astrologers" className="text-sm font-semibold text-violet-700 hover:underline">
+            <h2 className="text-2xl font-bold text-[#E0C158]">Live Astrologers</h2>
+            <Link href="/astrologers" className="text-sm font-semibold text-[#C7C2B4] hover:text-[#E0C158] hover:underline">
               View all
             </Link>
           </div>
@@ -510,7 +510,7 @@ export default function HomePage() {
             {liveAstrologers.map((astrologer) => (
               <article
                 key={`live-${astrologer.id}`}
-                className="min-w-[240px] rounded-2xl border border-violet-100 bg-white p-4 shadow-sm"
+                className="min-w-[240px] rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-4 shadow-sm"
               >
                 <div className="flex items-center gap-3">
                   <div className="relative">
@@ -522,24 +522,24 @@ export default function HomePage() {
                         className="h-12 w-12 rounded-full object-cover"
                       />
                     ) : (
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 text-sm font-bold text-white">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[#C9A227] to-[#A6745A] text-sm font-bold text-[#0A1A2F]">
                         {firstName(astrologer.name).slice(0, 1).toUpperCase()}
                       </div>
                     )}
-                    <span className="animate-online-pulse absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-white bg-emerald-500" />
+                    <span className="animate-online-pulse absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-[#0F2240] bg-emerald-500" />
                   </div>
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold text-slate-900">
+                    <p className="truncate text-sm font-semibold text-[#F5F1E8]">
                       {firstName(astrologer.name)}
                     </p>
-                    <p className="text-xs text-slate-600">
+                    <p className="text-xs text-[#C7C2B4]">
                       ₹{astrologer.price_per_minute ?? 0}/min
                     </p>
                   </div>
                 </div>
                 <Link
                   href={`/astrologers/${astrologer.id}`}
-                  className="mt-4 block rounded-xl bg-gradient-to-r from-purple-600 to-orange-500 py-2 text-center text-sm font-semibold text-white"
+                  className="mt-4 block rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-2 text-center text-sm font-semibold text-white"
                 >
                   Chat Now
                 </Link>
