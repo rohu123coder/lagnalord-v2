@@ -234,7 +234,7 @@ export function Navbar() {
               </Link>
               <Link
                 href="/login?tab=register"
-                className="rounded-full bg-violet-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-violet-700"
+                className="rounded-full bg-[#C9A227] px-4 py-2 text-sm font-semibold text-[#0A1A2F] transition hover:bg-[#B8960C]"
                 onClick={(event) => {
                   event.preventDefault();
                   router.push("/login?tab=register");
@@ -261,7 +261,7 @@ export function Navbar() {
           ) : null}
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-violet-200 text-violet-700"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[#C9A227]/40 text-[#C9A227]"
             aria-label="Open menu"
             onClick={() => setMenuOpen((o) => !o)}
           >
@@ -356,7 +356,7 @@ export function Navbar() {
                     </Link>
                     <Link
                       href="/login?tab=register"
-                      className="rounded-full bg-violet-600 px-3 py-2.5 text-center text-sm font-semibold text-white"
+                      className="rounded-full bg-[#C9A227] px-3 py-2.5 text-center text-sm font-semibold text-[#0A1A2F]"
                       onClick={(event) => {
                         event.preventDefault();
                         setMenuOpen(false);
