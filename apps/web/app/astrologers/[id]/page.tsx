@@ -457,13 +457,13 @@ export default function AstrologerProfilePage() {
 
   if (error || !data) {
     return (
-      <div className="min-h-screen bg-slate-50">
+      <div className="min-h-screen bg-[#0A1A2F]">
         <Navbar />
         <div className="mx-auto max-w-lg px-4 py-20 text-center sm:px-6">
-          <p className="text-slate-700">{error ?? "Not found"}</p>
+          <p className="text-[#C7C2B4]">{error ?? "Not found"}</p>
           <Link
             href="/astrologers"
-            className="mt-6 inline-block font-semibold text-violet-600"
+            className="mt-6 inline-block font-semibold text-[#E0C158]"
           >
             ← Back to astrologers
           </Link>
