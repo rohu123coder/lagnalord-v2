@@ -16,7 +16,7 @@ function SectionTitle({
 }) {
   return (
     <div className="mb-4">
-      <h2 className="text-xl font-semibold tracking-tight text-violet-950 sm:text-2xl">
+      <h2 className="text-xl font-semibold tracking-tight text-[#F5F1E8] sm:text-2xl">
         {children}
       </h2>
       {subtitle ? (
@@ -376,16 +376,16 @@ export default function KundliPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-violet-100 via-white to-violet-50/40">
-      <header className="border-b border-violet-100/80 bg-white/70 backdrop-blur-md">
+    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] via-[#0F2240] to-[#0A1A2F]">
+      <header className="border-b border-[#C9A227]/20 bg-[#0A1A2F]/70 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
           <Link
             href="/"
-            className="text-lg font-semibold text-violet-900 transition hover:text-violet-700"
+            className="text-lg font-semibold text-[#E0C158] transition hover:text-[#C9A227]"
           >
             {tenant.logo.text}
           </Link>
-          <span className="rounded-full bg-violet-100 px-3 py-1 text-xs font-medium text-violet-800">
+          <span className="rounded-full bg-[#0F2240] px-3 py-1 text-xs font-medium text-[#E0C158]">
             Vedic · Sidereal · Lahiri
           </span>
         </div>
