@@ -199,14 +199,14 @@ export default function AstrologerProfilePage() {
 
   if (!mounted || !isLoggedIn || user?.role !== "astrologer") {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50">
-        <div className="h-10 w-10 animate-spin rounded-full border-2 border-violet-500 border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-[#0A1A2F]">
+        <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#C9A227] border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-100">
+    <div className="min-h-screen bg-[#0A1A2F]">
       <AstrologerNavbar />
 
       {toast ? (
@@ -216,22 +216,22 @@ export default function AstrologerProfilePage() {
       ) : null}
 
       <main className="mx-auto max-w-2xl px-4 py-8 sm:px-6">
-        <h1 className="text-2xl font-bold text-slate-900">Your profile</h1>
-        <p className="mt-1 text-sm text-slate-600">
+        <h1 className="text-2xl font-bold text-[#F5F1E8]">Your profile</h1>
+        <p className="mt-1 text-sm text-[#C7C2B4]">
           This information is shown to users browsing astrologers.
         </p>
 
         {loading ? (
           <div className="mt-12 flex justify-center">
-            <div className="h-10 w-10 animate-spin rounded-full border-2 border-violet-500 border-t-transparent" />
+            <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#C9A227] border-t-transparent" />
           </div>
         ) : (
           <>
-            <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <h2 className="text-lg font-semibold text-slate-900">
+            <section className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+              <h2 className="text-lg font-semibold text-[#F5F1E8]">
                 Profile photo
               </h2>
-              <p className="mt-1 text-sm text-slate-600">
+              <p className="mt-1 text-sm text-[#C7C2B4]">
                 JPG, PNG, or WebP. Maximum size 2MB.
               </p>
               <div className="mt-4 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
@@ -240,10 +240,10 @@ export default function AstrologerProfilePage() {
                   <img
                     src={previewUrl ?? profilePhotoUrl ?? ""}
                     alt=""
-                    className="h-24 w-24 rounded-full object-cover ring-2 ring-violet-100"
+                    className="h-24 w-24 rounded-full object-cover ring-2 ring-[#C9A227]/30"
                   />
                 ) : (
-                  <div className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-orange-400 text-2xl font-bold text-white ring-2 ring-violet-100">
+                  <div className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-[#C9A227] to-[#A6745A] text-2xl font-bold text-[#0A1A2F] ring-2 ring-[#C9A227]/30">
                     {photoInitials}
                   </div>
                 )}
@@ -258,7 +258,7 @@ export default function AstrologerProfilePage() {
                   <button
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
-                    className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
+                    className="rounded-xl border border-[#C9A227]/30 px-4 py-2 text-sm font-semibold text-[#C7C2B4] hover:bg-[#0A1A2F]"
                   >
                     Change Photo
                   </button>
@@ -267,34 +267,34 @@ export default function AstrologerProfilePage() {
                       type="button"
                       disabled={photoUploading}
                       onClick={() => void savePhoto()}
-                      className="rounded-xl bg-gradient-to-r from-purple-600 to-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-md disabled:opacity-60"
+                      className="rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-4 py-2 text-sm font-semibold text-white shadow-md disabled:opacity-60"
                     >
                       {photoUploading ? "Uploading…" : "Save Photo"}
                     </button>
                   ) : null}
                   {photoMessage ? (
-                    <p className="text-sm text-slate-600">{photoMessage}</p>
+                    <p className="text-sm text-[#C7C2B4]">{photoMessage}</p>
                   ) : null}
                 </div>
               </div>
             </section>
 
             <form
-            className="mt-8 space-y-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+            className="mt-8 space-y-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm"
             onSubmit={(e) => {
               e.preventDefault();
               void save();
             }}
           >
             <div>
-              <label className="block text-sm font-medium text-slate-700">
+              <label className="block text-sm font-medium text-[#C7C2B4]">
                 Bio
               </label>
               <textarea
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
                 rows={5}
-                className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none ring-violet-500 focus:ring-2"
+                className="mt-2 w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-sm text-[#F5F1E8] outline-none ring-[#C9A227] focus:ring-2"
                 placeholder="Tell clients about your approach…"
               />
             </div>
