@@ -650,7 +650,7 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
                   <p className="whitespace-pre-wrap">{m.content}</p>
                   <p
                     className={`mt-1 text-[10px] ${
-                      mine ? "text-white/70" : "text-slate-400"
+                      mine ? "text-white/70" : "text-[#C7C2B4]/60"
                     }`}
                   >
                     {new Date(m.createdAt).toLocaleTimeString("en-IN", {
@@ -663,13 +663,13 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
             );
           })}
           {typing ? (
-            <p className="text-xs italic text-slate-500">
+            <p className="text-xs italic text-[#C7C2B4]">
               Astrologer is typing…
             </p>
           ) : null}
         </div>
 
-        <div className="fixed bottom-0 left-0 right-0 border-t border-slate-200 bg-white/95 p-3 backdrop-blur sm:static sm:mt-4 sm:border-0 sm:bg-transparent sm:p-0">
+        <div className="fixed bottom-0 left-0 right-0 border-t border-[#C9A227]/20 bg-[#0F2240]/95 p-3 backdrop-blur sm:static sm:mt-4 sm:border-0 sm:bg-transparent sm:p-0">
           <div className="mx-auto flex max-w-3xl gap-2">
             <input
               type="text"
@@ -690,13 +690,13 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
                   ? "Type a message…"
                   : "Chat not active yet"
               }
-              className="flex-1 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none ring-violet-500 focus:ring-2 disabled:bg-slate-50"
+              className="flex-1 rounded-2xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-sm text-[#F5F1E8] outline-none ring-[#C9A227] focus:ring-2 disabled:bg-[#0F2240]/50"
             />
             <button
               type="button"
               disabled={status !== "active" || !input.trim()}
               onClick={sendMessage}
-              className="rounded-2xl bg-gradient-to-r from-purple-600 to-orange-500 px-5 py-3 text-sm font-semibold text-white shadow-md transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-2xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-5 py-3 text-sm font-semibold text-white shadow-md transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-50"
             >
               Send
             </button>
@@ -706,20 +706,20 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
 
       {summary ? (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl">
-            <h2 className="text-lg font-bold text-slate-900">Session ended</h2>
-            <p className="mt-3 text-sm text-slate-600">
+          <div className="w-full max-w-sm rounded-2xl bg-[#0F2240] p-6 shadow-2xl">
+            <h2 className="text-lg font-bold text-[#F5F1E8]">Session ended</h2>
+            <p className="mt-3 text-sm text-[#C7C2B4]">
               Thank you for chatting with {astrologerName}.
             </p>
-            <ul className="mt-4 space-y-2 text-sm text-slate-800">
+            <ul className="mt-4 space-y-2 text-sm text-[#C7C2B4]">
               <li className="flex justify-between">
-                <span className="text-slate-500">Total time</span>
+                <span className="text-[#C7C2B4]/70">Total time</span>
                 <span className="font-semibold">
                   {summary.totalMinutes} min
                 </span>
               </li>
               <li className="flex justify-between">
-                <span className="text-slate-500">Amount charged</span>
+                <span className="text-[#C7C2B4]/70">Amount charged</span>
                 <span className="font-semibold">
                   ₹{Number(summary.totalCharged).toFixed(0)}
                 </span>
@@ -727,7 +727,7 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
             </ul>
             <button
               type="button"
-              className="mt-6 w-full rounded-xl bg-gradient-to-r from-purple-600 to-orange-500 py-3 text-sm font-semibold text-white"
+              className="mt-6 w-full rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-3 text-sm font-semibold text-white"
               onClick={() => router.replace("/dashboard")}
             >
               Back to dashboard
