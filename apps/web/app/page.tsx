@@ -551,20 +551,20 @@ export default function HomePage() {
 
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
         <div className="grid gap-6 lg:grid-cols-3">
-          <div className="rounded-2xl border border-violet-200 bg-white p-5 shadow-sm transition hover:shadow-md">
-            <h3 className="text-lg font-bold text-violet-900">Kundli / Birth Chart</h3>
+          <div className="rounded-2xl border border-[#C9A227]/25 bg-[#0F2240] p-5 shadow-sm transition hover:shadow-md">
+            <h3 className="text-lg font-bold text-[#E0C158]">Kundli / Birth Chart</h3>
             <form className="mt-4 space-y-3" onSubmit={handleKundliSubmit}>
               <input
                 type="text"
                 placeholder="Name"
                 value={kundliForm.name}
                 onChange={(e) => setKundliForm((prev) => ({ ...prev, name: e.target.value }))}
-                className="w-full rounded-lg border border-violet-100 px-3 py-2 text-sm outline-none focus:border-violet-400"
+                className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
               />
               <select
                 value={kundliForm.gender}
                 onChange={(e) => setKundliForm((prev) => ({ ...prev, gender: e.target.value }))}
-                className="w-full rounded-lg border border-violet-100 px-3 py-2 text-sm outline-none focus:border-violet-400"
+                className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
               >
                 <option value="male">Male</option>
                 <option value="female">Female</option>
@@ -575,104 +575,104 @@ export default function HomePage() {
                 placeholder="Date (DD/MM/YYYY)"
                 value={kundliForm.date}
                 onChange={(e) => setKundliForm((prev) => ({ ...prev, date: e.target.value }))}
-                className="w-full rounded-lg border border-violet-100 px-3 py-2 text-sm outline-none focus:border-violet-400"
+                className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
               />
               <input
                 type="text"
                 placeholder="Time (HH:MM)"
                 value={kundliForm.time}
                 onChange={(e) => setKundliForm((prev) => ({ ...prev, time: e.target.value }))}
-                className="w-full rounded-lg border border-violet-100 px-3 py-2 text-sm outline-none focus:border-violet-400"
+                className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
               />
               <input
                 type="text"
                 placeholder="Place"
                 value={kundliForm.place}
                 onChange={(e) => setKundliForm((prev) => ({ ...prev, place: e.target.value }))}
-                className="w-full rounded-lg border border-violet-100 px-3 py-2 text-sm outline-none focus:border-violet-400"
+                className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
               />
               <button
                 type="submit"
-                className="w-full rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-95"
+                className="w-full rounded-lg bg-gradient-to-r from-[#C9A227] to-[#E0C158] px-4 py-2.5 text-sm font-semibold text-[#0A1A2F] transition hover:opacity-95"
               >
                 Get Kundli
               </button>
             </form>
           </div>
 
-          <div className="rounded-2xl border border-violet-200 bg-white p-5 shadow-sm transition hover:shadow-md">
-            <h3 className="text-lg font-bold text-violet-900">Kundli Matching</h3>
+          <div className="rounded-2xl border border-[#C9A227]/25 bg-[#0F2240] p-5 shadow-sm transition hover:shadow-md">
+            <h3 className="text-lg font-bold text-[#E0C158]">Kundli Matching</h3>
             <form className="mt-4 space-y-3" onSubmit={handleMatchSubmit}>
               <input
                 type="text"
                 placeholder="Boy's Name"
                 value={matchForm.name}
                 onChange={(e) => setMatchForm((prev) => ({ ...prev, name: e.target.value }))}
-                className="w-full rounded-lg border border-violet-100 px-3 py-2 text-sm outline-none focus:border-violet-400"
+                className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
               />
               <input
                 type="text"
                 placeholder="Date (DD/MM/YYYY)"
                 value={matchForm.date}
                 onChange={(e) => setMatchForm((prev) => ({ ...prev, date: e.target.value }))}
-                className="w-full rounded-lg border border-violet-100 px-3 py-2 text-sm outline-none focus:border-violet-400"
+                className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
               />
               <input
                 type="text"
                 placeholder="Time (HH:MM)"
                 value={matchForm.time}
                 onChange={(e) => setMatchForm((prev) => ({ ...prev, time: e.target.value }))}
-                className="w-full rounded-lg border border-violet-100 px-3 py-2 text-sm outline-none focus:border-violet-400"
+                className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
               />
               <input
                 type="text"
                 placeholder="Place"
                 value={matchForm.place}
                 onChange={(e) => setMatchForm((prev) => ({ ...prev, place: e.target.value }))}
-                className="w-full rounded-lg border border-violet-100 px-3 py-2 text-sm outline-none focus:border-violet-400"
+                className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
               />
               <button
                 type="submit"
-                className="w-full rounded-lg border border-violet-200 px-4 py-2.5 text-sm font-semibold text-violet-700 transition hover:bg-violet-50"
+                className="w-full rounded-lg border border-[#C9A227]/25 px-4 py-2.5 text-sm font-semibold text-[#E0C158] transition hover:bg-[#13294B]"
               >
                 Continue
               </button>
               <Link
                 href="/kundli/match"
-                className="block text-center text-sm font-medium text-violet-600 hover:underline"
+                className="block text-center text-sm font-medium text-[#E0C158] hover:underline"
               >
                 Open full matching report
               </Link>
             </form>
           </div>
 
-          <div className="rounded-2xl border border-violet-200 bg-white p-5 shadow-sm transition hover:shadow-md">
-            <h3 className="text-lg font-bold text-violet-900">Today&apos;s Panchang</h3>
-            <p className="mt-1 text-sm text-slate-600">{todayLong}</p>
+          <div className="rounded-2xl border border-[#C9A227]/25 bg-[#0F2240] p-5 shadow-sm transition hover:shadow-md">
+            <h3 className="text-lg font-bold text-[#E0C158]">Today&apos;s Panchang</h3>
+            <p className="mt-1 text-sm text-[#C7C2B4]">{todayLong}</p>
             <div className="mt-4 space-y-2 text-sm">
-              <p className="flex items-center justify-between rounded-lg bg-violet-50 px-3 py-2">
-                <span className="font-medium text-slate-700">Tithi</span>
-                <span className="font-semibold text-violet-700">{panchang.tithi}</span>
+              <p className="flex items-center justify-between rounded-lg bg-[#13294B] px-3 py-2">
+                <span className="font-medium text-[#C7C2B4]">Tithi</span>
+                <span className="font-semibold text-[#E0C158]">{panchang.tithi}</span>
               </p>
-              <p className="flex items-center justify-between rounded-lg bg-violet-50 px-3 py-2">
-                <span className="font-medium text-slate-700">Nakshatra</span>
-                <span className="font-semibold text-violet-700">{panchang.nakshatra}</span>
+              <p className="flex items-center justify-between rounded-lg bg-[#13294B] px-3 py-2">
+                <span className="font-medium text-[#C7C2B4]">Nakshatra</span>
+                <span className="font-semibold text-[#E0C158]">{panchang.nakshatra}</span>
               </p>
-              <p className="flex items-center justify-between rounded-lg bg-violet-50 px-3 py-2">
-                <span className="font-medium text-slate-700">Yoga</span>
-                <span className="font-semibold text-violet-700">{panchang.yoga}</span>
+              <p className="flex items-center justify-between rounded-lg bg-[#13294B] px-3 py-2">
+                <span className="font-medium text-[#C7C2B4]">Yoga</span>
+                <span className="font-semibold text-[#E0C158]">{panchang.yoga}</span>
               </p>
-              <p className="flex items-center justify-between rounded-lg bg-violet-50 px-3 py-2">
-                <span className="font-medium text-slate-700">Karan</span>
-                <span className="font-semibold text-violet-700">{panchang.karan}</span>
+              <p className="flex items-center justify-between rounded-lg bg-[#13294B] px-3 py-2">
+                <span className="font-medium text-[#C7C2B4]">Karan</span>
+                <span className="font-semibold text-[#E0C158]">{panchang.karan}</span>
               </p>
-              <p className="rounded-lg border border-violet-100 bg-violet-50 px-3 py-2 text-xs text-violet-700">
+              <p className="rounded-lg border border-[#1B3A63] bg-[#13294B] px-3 py-2 text-xs text-[#E0C158]">
                 Rahukaal (Delhi): <span className="font-semibold">{panchang.rahukaal}</span>
               </p>
             </div>
             <Link
               href="/panchang"
-              className="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-95"
+              className="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-[#C9A227] to-[#E0C158] px-4 py-2.5 text-sm font-semibold text-[#0A1A2F] transition hover:opacity-95"
             >
               Today Panchang
             </Link>
