@@ -362,35 +362,35 @@ export default function AstrologerDashboardPage() {
     user?.isApproved === false
   ) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50">
-        <div className="h-10 w-10 animate-spin rounded-full border-2 border-violet-500 border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-[#0A1A2F]">
+        <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#C9A227] border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-100">
+    <div className="min-h-screen bg-[#0A1A2F]">
       <AstrologerNavbar />
 
       <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
-        <h1 className="text-2xl font-bold text-slate-900">Dashboard</h1>
-        <p className="mt-1 text-sm text-slate-600">
+        <h1 className="text-2xl font-bold text-[#F5F1E8]">Dashboard</h1>
+        <p className="mt-1 text-sm text-[#C7C2B4]">
           Welcome back{user?.name ? `, ${user.name}` : ""}.
         </p>
 
-        <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-slate-900">
+        <section className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+          <h2 className="text-lg font-semibold text-[#F5F1E8]">
             Availability Settings
           </h2>
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm text-[#C7C2B4]">
             Control whether you appear online and which services you accept.
           </p>
 
           <div className="mt-6 space-y-6">
-            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-6">
+            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#C9A227]/10 pb-6">
               <div className="min-w-0">
-                <h3 className="font-semibold text-slate-900">Online</h3>
-                <p className="text-sm text-slate-600">
+                <h3 className="font-semibold text-[#F5F1E8]">Online</h3>
+                <p className="text-sm text-[#C7C2B4]">
                   {dash?.is_online
                     ? "You are online — users can see you when services are enabled."
                     : "You are offline — all services are hidden from users."}
@@ -408,7 +408,7 @@ export default function AstrologerDashboardPage() {
                   }
                 }}
                 className={`relative h-14 w-28 shrink-0 rounded-full transition ${
-                  dash?.is_online ? "bg-emerald-500 shadow-inner" : "bg-slate-300"
+                  dash?.is_online ? "bg-emerald-500 shadow-inner" : "bg-[#13294B]"
                 } disabled:opacity-50`}
                 aria-pressed={dash?.is_online ?? false}
               >
@@ -422,10 +422,10 @@ export default function AstrologerDashboardPage() {
               </button>
             </div>
 
-            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-6">
+            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#C9A227]/10 pb-6">
               <div className="min-w-0">
-                <h3 className="font-semibold text-slate-900">Chat</h3>
-                <p className="text-sm text-slate-600">Accept chat requests</p>
+                <h3 className="font-semibold text-[#F5F1E8]">Chat</h3>
+                <p className="text-sm text-[#C7C2B4]">Accept chat requests</p>
               </div>
               <button
                 type="button"
@@ -441,7 +441,7 @@ export default function AstrologerDashboardPage() {
                 className={`relative h-14 w-28 shrink-0 rounded-full transition ${
                   dash?.chat_available
                     ? "bg-emerald-500 shadow-inner"
-                    : "bg-slate-300"
+                    : "bg-[#13294B]"
                 } disabled:opacity-50`}
                 aria-pressed={dash?.chat_available ?? false}
               >
