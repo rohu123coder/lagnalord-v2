@@ -445,11 +445,11 @@ export default function AstrologerProfilePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50">
+      <div className="min-h-screen bg-[#0A1A2F]">
         <Navbar />
         <div className="mx-auto max-w-4xl animate-pulse px-4 py-10 sm:px-6">
-          <div className="h-40 rounded-2xl bg-slate-200" />
-          <div className="mt-8 h-64 rounded-2xl bg-slate-200" />
+          <div className="h-40 rounded-2xl bg-[#0F2240]" />
+          <div className="mt-8 h-64 rounded-2xl bg-[#0F2240]" />
         </div>
       </div>
     );
