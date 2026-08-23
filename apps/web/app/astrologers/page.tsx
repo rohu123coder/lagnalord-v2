@@ -413,7 +413,7 @@ export default function AstrologersPage() {
   );
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-[#0A1A2F]">
       <Navbar />
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:flex lg:gap-8 lg:py-10">
         <FilterSidebar
@@ -433,13 +433,13 @@ export default function AstrologersPage() {
           <div className="flex items-center justify-end gap-4">
             <button
               type="button"
-              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-800 shadow-sm lg:hidden"
+              className="inline-flex items-center gap-2 rounded-xl border border-[#C9A227]/30 bg-[#0F2240] px-3 py-2 text-sm font-semibold text-[#C7C2B4] shadow-sm lg:hidden"
               onClick={() => setSheetOpen(true)}
             >
               Filters
             </button>
           </div>
-          <h1 className="text-center text-3xl font-bold text-slate-900 sm:text-4xl">
+          <h1 className="text-center text-3xl font-bold text-[#F5F1E8] sm:text-4xl">
             Chat with Astrologer
           </h1>
           <div className="mt-4 overflow-x-auto pb-1">
@@ -450,8 +450,8 @@ export default function AstrologersPage() {
                   type="button"
                   className={`rounded-full border px-4 py-1.5 text-sm font-medium transition ${
                     activeCategory === category
-                      ? "border-[#B8960C] bg-[#B8960C] text-white"
-                      : "border-slate-300 bg-white text-slate-700 hover:border-[#B8960C] hover:text-[#B8960C]"
+                      ? "border-[#C9A227] bg-[#C9A227] text-[#0A1A2F]"
+                      : "border-[#C9A227]/20 bg-[#0F2240] text-[#C7C2B4] hover:border-[#C9A227] hover:text-[#E0C158]"
                   }`}
                   onClick={() => {
                     setActiveCategory(category);
@@ -472,10 +472,10 @@ export default function AstrologersPage() {
                 setPage(1);
               }}
               placeholder="Search name..."
-              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 outline-none ring-[#B8960C] focus:ring-2"
+              className="w-full rounded-xl border border-[#C9A227]/30 bg-[#0F2240] px-4 py-2.5 text-sm text-[#F5F1E8] outline-none ring-[#C9A227] focus:ring-2"
             />
           </div>
-          <p className="mt-3 text-sm text-slate-600">
+          <p className="mt-3 text-sm text-[#C7C2B4]">
             {loading
               ? "Loading…"
               : `${totalFiltered} astrologer${totalFiltered === 1 ? "" : "s"} found`}
@@ -509,7 +509,7 @@ export default function AstrologersPage() {
           </div>
 
           {!loading && totalFiltered === 0 ? (
-            <p className="mt-10 text-center text-slate-600">
+            <p className="mt-10 text-center text-[#C7C2B4]">
               No astrologers match these filters. Try adjusting your selection.
             </p>
           ) : null}
@@ -520,18 +520,18 @@ export default function AstrologersPage() {
                 type="button"
                 disabled={page <= 1}
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
-                className="rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-800 disabled:opacity-40"
+                className="rounded-lg border border-[#C9A227]/30 bg-[#0F2240] px-4 py-2 text-sm font-medium text-[#C7C2B4] disabled:opacity-40"
               >
                 Previous
               </button>
-              <span className="text-sm text-slate-600">
+              <span className="text-sm text-[#C7C2B4]">
                 Page {page} of {totalPages}
               </span>
               <button
                 type="button"
                 disabled={page >= totalPages}
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                className="rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-800 disabled:opacity-40"
+                className="rounded-lg border border-[#C9A227]/30 bg-[#0F2240] px-4 py-2 text-sm font-medium text-[#C7C2B4] disabled:opacity-40"
               >
                 Next
               </button>
@@ -548,9 +548,9 @@ export default function AstrologersPage() {
             aria-label="Close filters"
             onClick={() => setSheetOpen(false)}
           />
-          <div className="absolute bottom-0 left-0 right-0 max-h-[85vh] overflow-y-auto rounded-t-2xl bg-white p-4 shadow-2xl">
+          <div className="absolute bottom-0 left-0 right-0 max-h-[85vh] overflow-y-auto rounded-t-2xl bg-[#0F2240] p-4 shadow-2xl">
             <div className="mb-3 flex items-center justify-between">
-              <h2 className="text-lg font-bold text-slate-900">Filters</h2>
+              <h2 className="text-lg font-bold text-[#F5F1E8]">Filters</h2>
               <button
                 type="button"
                 className="rounded-lg p-2 text-slate-500 hover:bg-slate-100"
