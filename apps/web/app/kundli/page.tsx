@@ -547,41 +547,41 @@ export default function KundliPage() {
           </section>
 
           <section className="grid gap-6 lg:grid-cols-2">
-            <div className="rounded-2xl border border-violet-100 bg-white p-6 shadow-md">
+            <div className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md">
               <SectionTitle>Vimshottari Dasha</SectionTitle>
               <ul className="space-y-3 text-sm">
                 <li className="flex justify-between">
-                  <span className="text-slate-500">Mahadasha</span>
-                  <span className="font-semibold text-violet-900">
+                  <span className="text-[#C7C2B4]">Mahadasha</span>
+                  <span className="font-semibold text-[#E0C158]">
                     {result.dasha.mahadasha.planet}
                   </span>
                 </li>
-                <li className="flex justify-between text-xs text-slate-500">
+                <li className="flex justify-between text-xs text-[#C7C2B4]">
                   <span>
                     {result.dasha.mahadasha.startDate} →{" "}
                     {result.dasha.mahadasha.endDate}
                   </span>
                 </li>
-                <li className="flex justify-between border-t border-slate-100 pt-2">
-                  <span className="text-slate-500">Antardasha</span>
-                  <span className="font-medium text-slate-900">
+                <li className="flex justify-between border-t border-[#C9A227]/10 pt-2">
+                  <span className="text-[#C7C2B4]">Antardasha</span>
+                  <span className="font-medium text-[#F5F1E8]">
                     {result.dasha.antardasha.planet}
                   </span>
                 </li>
                 <li className="flex justify-between">
-                  <span className="text-slate-500">Pratyantar</span>
-                  <span className="font-medium text-slate-900">
+                  <span className="text-[#C7C2B4]">Pratyantar</span>
+                  <span className="font-medium text-[#F5F1E8]">
                     {result.dasha.pratyantar.planet}
                   </span>
                 </li>
               </ul>
             </div>
 
-            <div className="rounded-2xl border border-violet-100 bg-white p-6 shadow-md">
+            <div className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md">
               <SectionTitle>Doshas</SectionTitle>
               <ul className="space-y-2 text-sm">
                 <li className="flex flex-wrap items-center gap-2">
-                  <span className="text-slate-600">Mangal Dosha</span>
+                  <span className="text-[#C7C2B4]">Mangal Dosha</span>
                   <span
                     className={
                       result.doshas.mangalDosha.present
@@ -591,12 +591,12 @@ export default function KundliPage() {
                   >
                     {result.doshas.mangalDosha.present ? "Present" : "None"}
                   </span>
-                  <span className="text-xs text-slate-500">
+                  <span className="text-xs text-[#C7C2B4]">
                     {result.doshas.mangalDosha.type} ·{" "}
                     {result.doshas.mangalDosha.severity}
                   </span>
                 </li>
-                <li className="text-xs text-slate-600">
+                <li className="text-xs text-[#C7C2B4]">
                   Sade Sati:{" "}
                   {result.doshas.sadeSati.present ? (
                     <>
@@ -608,7 +608,7 @@ export default function KundliPage() {
                     "not indicated at current transit"
                   )}
                 </li>
-                <li className="text-xs text-slate-600">
+                <li className="text-xs text-[#C7C2B4]">
                   Kaal Sarp:{" "}
                   {result.doshas.kaalsarpDosha.present
                     ? "flagged — consult full chart"
@@ -628,24 +628,24 @@ export default function KundliPage() {
                   key={y.name}
                   className={`rounded-xl border p-4 ${
                     y.present
-                      ? "border-violet-300 bg-violet-50/80"
-                      : "border-slate-100 bg-slate-50/50"
+                      ? "border-[#C9A227]/40 bg-[#C9A227]/10"
+                      : "border-[#C9A227]/10 bg-[#0A1A2F]/40"
                   }`}
                 >
                   <div className="flex items-start justify-between gap-2">
-                    <h3 className="font-semibold text-slate-900">{y.name}</h3>
+                    <h3 className="font-semibold text-[#F5F1E8]">{y.name}</h3>
                     <span
                       className={
                         y.present
-                          ? "text-xs font-medium text-violet-700"
-                          : "text-xs text-slate-400"
+                          ? "text-xs font-medium text-[#E0C158]"
+                          : "text-xs text-[#C7C2B4]/50"
                       }
                     >
                       {y.present ? "Present" : "—"}
                     </span>
                   </div>
-                  <p className="mt-1 text-xs text-slate-600">{y.description}</p>
-                  <p className="mt-2 text-xs text-slate-500">{y.effect}</p>
+                  <p className="mt-1 text-xs text-[#C7C2B4]">{y.description}</p>
+                  <p className="mt-2 text-xs text-[#C7C2B4]/70">{y.effect}</p>
                 </div>
               ))}
             </div>
@@ -657,12 +657,12 @@ export default function KundliPage() {
               {Object.entries(result.predictions).map(([k, v]) => (
                 <div
                   key={k}
-                  className="rounded-xl border border-violet-100 bg-white p-5 shadow-sm"
+                  className="rounded-xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm"
                 >
-                  <h3 className="capitalize text-sm font-semibold text-violet-800">
+                  <h3 className="capitalize text-sm font-semibold text-[#E0C158]">
                     {k.replace(/([A-Z])/g, " $1").trim()}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                  <p className="mt-2 text-sm leading-relaxed text-[#C7C2B4]">
                     {v}
                   </p>
                 </div>
