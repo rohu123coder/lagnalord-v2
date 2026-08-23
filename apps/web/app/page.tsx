@@ -823,7 +823,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-y border-violet-100 bg-violet-50/40 py-14">
+      <section className="border-y border-[#C9A227]/20 bg-[#0A1A2F] py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <h2 className="text-2xl font-bold sm:text-3xl">
             Astrological services for accurate answers
@@ -832,19 +832,19 @@ export default function HomePage() {
             {paidServices.map((service) => (
               <article
                 key={service.title}
-                className="rounded-2xl border border-violet-100 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+                className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
               >
                 <div
                   className={`h-24 rounded-xl bg-gradient-to-br ${service.gradient}`}
                   aria-hidden="true"
                 />
-                <h3 className="mt-4 text-lg font-bold text-slate-900">{service.title}</h3>
-                <p className="mt-1 text-sm text-slate-600">{service.description}</p>
+                <h3 className="mt-4 text-lg font-bold text-[#F5F1E8]">{service.title}</h3>
+                <p className="mt-1 text-sm text-[#C7C2B4]">{service.description}</p>
                 <div className="mt-4 flex items-center justify-between">
-                  <p className="text-lg font-bold text-violet-700">₹{service.price}</p>
+                  <p className="text-lg font-bold text-[#E0C158]">₹{service.price}</p>
                   <Link
                     href="/reports"
-                    className="rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 px-4 py-2 text-sm font-semibold text-white transition hover:opacity-95"
+                    className="rounded-lg bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-4 py-2 text-sm font-semibold text-white transition hover:opacity-95"
                   >
                     Buy Now
                   </Link>
