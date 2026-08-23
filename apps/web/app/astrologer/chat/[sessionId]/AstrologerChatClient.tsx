@@ -630,10 +630,10 @@ export function AstrologerChatClient({ sessionId }: Props) {
             onClick={() => setWaitlistCollapsed((prev) => !prev)}
             className="flex w-full items-center justify-between text-left"
           >
-            <h2 className="text-sm font-semibold text-slate-900">
+            <h2 className="text-sm font-semibold text-[#F5F1E8]">
               Waiting Queue ({waitlistQueue.length})
             </h2>
-            <span className="text-xs text-slate-500">
+            <span className="text-xs text-[#C7C2B4]">
               {waitlistCollapsed ? "Show" : "Hide"}
             </span>
           </button>
@@ -643,16 +643,16 @@ export function AstrologerChatClient({ sessionId }: Props) {
                 {waitlistQueue.map((entry) => (
                   <li
                     key={entry.waitlistId}
-                    className="flex items-center justify-between rounded-xl border border-slate-200 px-3 py-2"
+                    className="flex items-center justify-between rounded-xl border border-[#C9A227]/20 px-3 py-2"
                   >
-                    <p className="text-xs font-semibold text-slate-900">
+                    <p className="text-xs font-semibold text-[#F5F1E8]">
                       #{entry.position} {entry.userName}
                     </p>
                     <button
                       type="button"
                       onClick={() => acceptFromQueue(entry)}
                       disabled={status === "active"}
-                      className="rounded-lg bg-gradient-to-r from-purple-600 to-orange-500 px-3 py-1 text-xs font-semibold text-white disabled:opacity-50"
+                      className="rounded-lg bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-3 py-1 text-xs font-semibold text-white disabled:opacity-50"
                     >
                       Accept
                     </button>
@@ -660,24 +660,24 @@ export function AstrologerChatClient({ sessionId }: Props) {
                 ))}
               </ul>
             ) : (
-              <p className="mt-2 text-xs text-slate-600">No users in queue.</p>
+              <p className="mt-2 text-xs text-[#C7C2B4]">No users in queue.</p>
             )
           ) : null}
         </section>
 
         {status === "waiting" ? (
-          <p className="mb-3 text-center text-sm text-slate-600">
+          <p className="mb-3 text-center text-sm text-[#C7C2B4]">
             Waiting for the user to connect…
           </p>
         ) : null}
 
         <div
           ref={listRef}
-          className="flex-1 space-y-3 overflow-y-auto rounded-2xl border border-slate-100 bg-white/80 p-4 shadow-inner"
+          className="flex-1 space-y-3 overflow-y-auto rounded-2xl border border-[#C9A227]/20 bg-[#0F2240]/80 p-4 shadow-inner"
           style={{ maxHeight: "calc(100vh - 14rem)" }}
         >
           {messages.length === 0 ? (
-            <p className="py-8 text-center text-sm text-slate-500">
+            <p className="py-8 text-center text-sm text-[#C7C2B4]">
               No messages yet. Say hello!
             </p>
           ) : null}
@@ -691,14 +691,14 @@ export function AstrologerChatClient({ sessionId }: Props) {
                 <div
                   className={`max-w-[85%] rounded-2xl px-4 py-2 text-sm shadow-sm ${
                     mine
-                      ? "rounded-br-md bg-gradient-to-br from-purple-600 to-violet-600 text-white"
-                      : "rounded-bl-md bg-slate-100 text-slate-900"
+                      ? "rounded-br-md bg-gradient-to-br from-[#2A7D7B] to-[#3A9D9B] text-white"
+                      : "rounded-bl-md bg-[#0A1A2F] text-[#F5F1E8]"
                   }`}
                 >
                   <p className="whitespace-pre-wrap">{m.content}</p>
                   <p
                     className={`mt-1 text-[10px] ${
-                      mine ? "text-white/70" : "text-slate-400"
+                      mine ? "text-white/70" : "text-[#C7C2B4]/60"
                     }`}
                   >
                     {new Date(m.createdAt).toLocaleTimeString("en-IN", {
@@ -711,11 +711,11 @@ export function AstrologerChatClient({ sessionId }: Props) {
             );
           })}
           {typing ? (
-            <p className="text-xs italic text-slate-500">User is typing…</p>
+            <p className="text-xs italic text-[#C7C2B4]">User is typing…</p>
           ) : null}
         </div>
 
-        <div className="fixed bottom-0 left-0 right-0 border-t border-slate-200 bg-white/95 p-3 backdrop-blur sm:static sm:mt-4 sm:border-0 sm:bg-transparent sm:p-0">
+        <div className="fixed bottom-0 left-0 right-0 border-t border-[#C9A227]/20 bg-[#0F2240]/95 p-3 backdrop-blur sm:static sm:mt-4 sm:border-0 sm:bg-transparent sm:p-0">
           <div className="mx-auto flex max-w-3xl gap-2">
             <input
               type="text"
@@ -734,13 +734,13 @@ export function AstrologerChatClient({ sessionId }: Props) {
               placeholder={
                 status === "active" ? "Type a message…" : "Chat not active yet"
               }
-              className="flex-1 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none ring-violet-500 focus:ring-2 disabled:bg-slate-50"
+              className="flex-1 rounded-2xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-sm text-[#F5F1E8] outline-none ring-[#C9A227] focus:ring-2 disabled:bg-[#0F2240]/50"
             />
             <button
               type="button"
               disabled={status !== "active" || !input.trim()}
               onClick={sendMessage}
-              className="rounded-2xl bg-gradient-to-r from-purple-600 to-orange-500 px-5 py-3 text-sm font-semibold text-white shadow-md transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-2xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-5 py-3 text-sm font-semibold text-white shadow-md transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-50"
             >
               Send
             </button>
@@ -749,8 +749,8 @@ export function AstrologerChatClient({ sessionId }: Props) {
       </main>
 
         <aside className="hidden w-80 flex-shrink-0 lg:block xl:w-96">
-          <div className="sticky top-24 flex max-h-[calc(100vh-7rem)] flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
-            <div className="bg-gradient-to-r from-purple-600 to-violet-600 px-4 py-3 font-semibold text-white">
+          <div className="sticky top-24 flex max-h-[calc(100vh-7rem)] flex-col overflow-hidden rounded-lg border border-[#C9A227]/20 bg-[#0F2240] shadow-sm">
+            <div className="bg-gradient-to-r from-[#0A1A2F] to-[#2A7D7B] px-4 py-3 font-semibold text-white">
               🔮 Customer Kundali
             </div>
             <div className="flex-1 overflow-y-auto">
@@ -768,8 +768,8 @@ export function AstrologerChatClient({ sessionId }: Props) {
 
       {summary ? (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl">
-            <h2 className="text-lg font-bold text-slate-900">Session ended</h2>
+          <div className="w-full max-w-sm rounded-2xl bg-[#0F2240] p-6 shadow-2xl">
+            <h2 className="text-lg font-bold text-[#F5F1E8]">Session ended</h2>
             <p className="mt-3 text-sm text-slate-600">
               Your chat with {peerName} has ended.
             </p>
