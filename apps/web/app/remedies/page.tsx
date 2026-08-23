@@ -67,13 +67,13 @@ const gemstones = [
 
 export default function RemediesPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-violet-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] via-[#0F2240] to-[#0A1A2F]">
       <Navbar />
       <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-        <h1 className="text-3xl font-extrabold text-slate-900 sm:text-4xl">
+        <h1 className="text-3xl font-extrabold text-[#F5F1E8] sm:text-4xl">
           Planetary Remedies
         </h1>
-        <p className="mt-2 max-w-2xl text-sm text-slate-600 sm:text-base">
+        <p className="mt-2 max-w-2xl text-sm text-[#C7C2B4] sm:text-base">
           Traditional remedies for balancing planetary influences through mantra,
           daan, and yantra practices.
         </p>
@@ -82,29 +82,29 @@ export default function RemediesPage() {
           {remedies.map((item) => (
             <article
               key={item.planet}
-              className="rounded-2xl border border-violet-100 bg-white p-5 shadow-sm"
+              className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm"
             >
-              <h2 className="text-xl font-bold text-violet-700">{item.planet}</h2>
-              <p className="mt-2 text-sm text-slate-700">
+              <h2 className="text-xl font-bold text-[#E0C158]">{item.planet}</h2>
+              <p className="mt-2 text-sm text-[#C7C2B4]">
                 <span className="font-semibold">Mantra:</span> {item.mantra}
               </p>
-              <p className="mt-1 text-sm text-slate-700">
+              <p className="mt-1 text-sm text-[#C7C2B4]">
                 <span className="font-semibold">Daan:</span> {item.daan}
               </p>
-              <p className="mt-1 text-sm text-slate-700">
+              <p className="mt-1 text-sm text-[#C7C2B4]">
                 <span className="font-semibold">Yantra:</span> {item.yantra}
               </p>
             </article>
           ))}
         </section>
 
-        <section className="mt-8 rounded-2xl border border-violet-100 bg-white p-6 shadow-sm">
-          <h2 className="text-xl font-bold text-slate-900">
+        <section className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+          <h2 className="text-xl font-bold text-[#F5F1E8]">
             Gemstone Recommendations
           </h2>
           <div className="mt-4 overflow-x-auto">
             <table className="min-w-full text-left text-sm">
-              <thead className="bg-violet-100 text-violet-800">
+              <thead className="bg-[#0A1A2F] text-[#E0C158]">
                 <tr>
                   <th className="px-3 py-2">Planet</th>
                   <th className="px-3 py-2">Gemstone</th>
@@ -113,10 +113,10 @@ export default function RemediesPage() {
               </thead>
               <tbody>
                 {gemstones.map((row) => (
-                  <tr key={row[0]} className="border-b border-violet-50">
+                  <tr key={row[0]} className="border-b border-[#C9A227]/10">
                     <td className="px-3 py-2">{row[0]}</td>
-                    <td className="px-3 py-2 font-semibold text-slate-900">{row[1]}</td>
-                    <td className="px-3 py-2 text-slate-700">{row[2]}</td>
+                    <td className="px-3 py-2 font-semibold text-[#F5F1E8]">{row[1]}</td>
+                    <td className="px-3 py-2 text-[#C7C2B4]">{row[2]}</td>
                   </tr>
                 ))}
               </tbody>
