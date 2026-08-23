@@ -704,18 +704,18 @@ export default function HomePage() {
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
             <h2 className="text-2xl font-bold sm:text-3xl">Consult Astrologer on Call &amp; Chat</h2>
-            <p className="mt-1 text-sm text-slate-600">
+            <p className="mt-1 text-sm text-[#C7C2B4]">
               Verified experts available now for instant call and chat sessions.
             </p>
           </div>
-          <Link href="/astrologers" className="text-sm font-semibold text-violet-700 hover:underline">
+          <Link href="/astrologers" className="text-sm font-semibold text-[#C7C2B4] hover:text-[#E0C158] hover:underline">
             View all astrologers
           </Link>
         </div>
         {loading ? (
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             {[1, 2, 3].map((item) => (
-              <div key={item} className="h-52 animate-pulse rounded-2xl bg-violet-100" />
+              <div key={item} className="h-52 animate-pulse rounded-2xl bg-[#0F2240]/60" />
             ))}
           </div>
         ) : (
@@ -723,7 +723,7 @@ export default function HomePage() {
             {featured.map((astrologer) => (
               <article
                 key={astrologer.id}
-                className="min-w-[270px] snap-start rounded-2xl border border-violet-100 bg-white p-4 shadow-sm transition hover:shadow-md md:min-w-[320px]"
+                className="min-w-[270px] snap-start rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-4 shadow-sm transition hover:shadow-md md:min-w-[320px]"
               >
                 <div className="flex items-start gap-3">
                   <div className="relative">
@@ -735,20 +735,20 @@ export default function HomePage() {
                         className="h-14 w-14 rounded-full object-cover"
                       />
                     ) : (
-                      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-violet-600 to-indigo-600 text-lg font-bold text-white">
+                      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#C9A227] to-[#A6745A] text-lg font-bold text-[#0A1A2F]">
                         {firstName(astrologer.name).slice(0, 1).toUpperCase()}
                       </div>
                     )}
-                    <span className="absolute bottom-1 right-0 h-3.5 w-3.5 rounded-full border-2 border-white bg-emerald-500" />
+                    <span className="absolute bottom-1 right-0 h-3.5 w-3.5 rounded-full border-2 border-[#0F2240] bg-emerald-500" />
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">
-                      <h3 className="truncate text-base font-bold text-slate-900">{firstName(astrologer.name)}</h3>
+                      <h3 className="truncate text-base font-bold text-[#F5F1E8]">{firstName(astrologer.name)}</h3>
                       <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-700">
                         Verified
                       </span>
                     </div>
-                    <p className="mt-1 text-xs text-slate-500">
+                    <p className="mt-1 text-xs text-[#C7C2B4]">
                       {astrologer.experience_years ?? 0}+ years experience
                     </p>
                   </div>
@@ -757,19 +757,19 @@ export default function HomePage() {
                   {(astrologer.specializations ?? []).slice(0, 3).map((specialization) => (
                     <span
                       key={`${astrologer.id}-${specialization}`}
-                      className="rounded-full bg-violet-50 px-2 py-1 text-xs font-medium text-violet-700"
+                      className="rounded-full bg-[#0F2240]/40 px-2 py-1 text-xs font-medium text-[#E0C158]"
                     >
                       {specialization}
                     </span>
                   ))}
                 </div>
                 <div className="mt-4 flex items-center justify-between text-sm">
-                  <p className="font-semibold text-violet-700">
+                  <p className="font-semibold text-[#E0C158]">
                     ₹{astrologer.price_per_minute ?? 0}/min
                   </p>
                   <p className="text-amber-500">
                     {"★".repeat(Math.max(1, Math.round(astrologer.rating ?? 4)))}
-                    <span className="text-slate-300">
+                    <span className="text-[#C7C2B4]/30">
                       {"★".repeat(5 - Math.max(1, Math.round(astrologer.rating ?? 4)))}
                     </span>
                   </p>
@@ -783,7 +783,7 @@ export default function HomePage() {
                   </Link>
                   <Link
                     href={`/astrologers/${astrologer.id}`}
-                    className="rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white transition hover:opacity-95"
+                    className="rounded-lg bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-3 py-2 text-center text-sm font-semibold text-white transition hover:opacity-95"
                   >
                     Chat
                   </Link>
