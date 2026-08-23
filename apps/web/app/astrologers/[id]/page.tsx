@@ -495,11 +495,11 @@ export default function AstrologerProfilePage() {
   const headerRating = astrologer.rating ?? 0;
 
   return (
-    <div className="min-h-screen bg-slate-50 pb-28 lg:pb-10">
+    <div className="min-h-screen bg-[#0A1A2F] pb-28 lg:pb-10">
       <Navbar />
 
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
-        <div className="mb-4 text-sm text-slate-500">
+        <div className="mb-4 text-sm text-[#C7C2B4]">
           <Link href="/" className="hover:text-[#B8960C]">
             Home
           </Link>{" "}
@@ -511,27 +511,27 @@ export default function AstrologerProfilePage() {
         </div>
 
         {waitlistState ? (
-          <section className="mb-6 rounded-2xl border border-violet-200 bg-violet-50 p-5 shadow-sm">
-            <h2 className="text-lg font-bold text-violet-900">You are in queue</h2>
-            <p className="mt-2 text-sm text-violet-800">
+          <section className="mb-6 rounded-2xl border border-[#C9A227]/30 bg-[#C9A227]/10 p-5 shadow-sm">
+            <h2 className="text-lg font-bold text-[#E0C158]">You are in queue</h2>
+            <p className="mt-2 text-sm text-[#C7C2B4]">
               You are #{waitlistState.position} in queue for{" "}
               {astrologer.user.name}. Estimated wait: ~
               {Math.max(1, waitlistState.position * 5)} min.
             </p>
-            <p className="mt-1 text-xs text-violet-700">
+            <p className="mt-1 text-xs text-[#C7C2B4]/70">
               Queue length: {waitlistState.queueLength}
             </p>
             <button
               type="button"
               onClick={cancelWaitlist}
-              className="mt-4 rounded-xl border border-violet-300 bg-white px-4 py-2 text-sm font-semibold text-violet-800 hover:bg-violet-100"
+              className="mt-4 rounded-xl border border-[#C9A227]/40 bg-[#0A1A2F] px-4 py-2 text-sm font-semibold text-[#E0C158] hover:bg-[#C9A227]/10"
             >
               Cancel Request
             </button>
           </section>
         ) : null}
 
-        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
           <div className="flex flex-col gap-6 lg:flex-row">
             <div className="shrink-0">
               {displayPhoto ? (
@@ -542,7 +542,7 @@ export default function AstrologerProfilePage() {
                   className="h-[200px] w-[200px] rounded-2xl object-cover"
                 />
               ) : (
-                <div className="flex h-[200px] w-[200px] items-center justify-center rounded-2xl bg-slate-100 text-4xl font-bold text-slate-700">
+                <div className="flex h-[200px] w-[200px] items-center justify-center rounded-2xl bg-[#0A1A2F] text-4xl font-bold text-[#E0C158]">
                   {astrologer.user.name.slice(0, 1).toUpperCase()}
                 </div>
               )}
@@ -550,23 +550,23 @@ export default function AstrologerProfilePage() {
 
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2">
-                <h1 className="text-3xl font-bold text-slate-900">{astrologer.user.name}</h1>
+                <h1 className="text-3xl font-bold text-[#F5F1E8]">{astrologer.user.name}</h1>
                 <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500 text-xs font-bold text-white">
                   ✓
                 </span>
               </div>
-              <p className="mt-2 text-sm text-slate-600">{specializationText || "Astrologer"}</p>
-              <p className="mt-1 text-sm text-slate-600">{languagesText}</p>
-              <p className="mt-1 text-sm text-slate-600">
+              <p className="mt-2 text-sm text-[#C7C2B4]">{specializationText || "Astrologer"}</p>
+              <p className="mt-1 text-sm text-[#C7C2B4]">{languagesText}</p>
+              <p className="mt-1 text-sm text-[#C7C2B4]">
                 Exp: {astrologer.experience_years ?? 0} Years
               </p>
-              <p className="mt-2 text-lg font-bold text-slate-900">₹{price.toFixed(0)}/min</p>
-              <div className="mt-2 flex items-center gap-3 text-sm text-slate-600">
+              <p className="mt-2 text-lg font-bold text-[#F5F1E8]">₹{price.toFixed(0)}/min</p>
+              <div className="mt-2 flex items-center gap-3 text-sm text-[#C7C2B4]">
                 <StarRow value={headerRating} />
                 <span>{headerRating.toFixed(2)}</span>
               </div>
 
-              <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-slate-700">
+              <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-[#C7C2B4]">
                 <span>💬 {chatMinutes} mins</span>
                 <span>📞 {callMinutes} mins</span>
                 {astrologer.is_busy ? (
@@ -601,7 +601,7 @@ export default function AstrologerProfilePage() {
                     }
                     void startChat("voice");
                   }}
-                  className="rounded-full border border-slate-300 bg-white px-6 py-2.5 text-sm font-semibold text-slate-700 disabled:opacity-60"
+                  className="rounded-full border border-[#C9A227]/40 bg-[#0A1A2F] px-6 py-2.5 text-sm font-semibold text-[#E0C158] disabled:opacity-60"
                 >
                   Start Call
                 </button>
@@ -615,7 +615,7 @@ export default function AstrologerProfilePage() {
                     }
                     void startChat("video");
                   }}
-                  className="rounded-full border border-slate-300 bg-white px-6 py-2.5 text-sm font-semibold text-slate-700 disabled:opacity-60"
+                  className="rounded-full border border-[#C9A227]/40 bg-[#0A1A2F] px-6 py-2.5 text-sm font-semibold text-[#E0C158] disabled:opacity-60"
                 >
                   Start Video
                 </button>
