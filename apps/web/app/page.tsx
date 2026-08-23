@@ -280,6 +280,7 @@ export default function HomePage() {
     place: "",
   });
   const [activePeriod, setActivePeriod] = useState("Daily");
+  const [expertiseMode, setExpertiseMode] = useState<"astro" | "vastu">("astro");
 
   useEffect(() => {
     let cancelled = false;
@@ -395,27 +396,71 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-violet-50 via-white to-white text-slate-900">
+    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] via-[#13294B] to-[#0A1A2F] text-[#F5F1E8]">
       <Navbar />
-
-      <section className="relative overflow-hidden border-b border-violet-100 bg-gradient-to-br from-violet-100/70 via-indigo-50 to-white">
-        <div className="pointer-events-none absolute -top-16 right-0 h-72 w-72 rounded-full bg-violet-300/30 blur-3xl" />
-        <div className="pointer-events-none absolute bottom-0 left-0 h-64 w-64 rounded-full bg-indigo-300/25 blur-3xl" />
+      <section className="relative overflow-hidden border-b border-[#C9A227]/20 bg-gradient-to-br from-[#13294B] via-[#0A1A2F] to-[#0A1A2F]">
+        <div className="pointer-events-none absolute -top-16 right-0 h-72 w-72 rounded-full bg-[#C9A227]/15 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-0 left-0 h-64 w-64 rounded-full bg-[#2A7D7B]/15 blur-3xl" />
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16">
-          <p className="text-center text-sm font-semibold uppercase tracking-[0.2em] text-violet-700">
-            Premium Astrology Platform
-          </p>
-          <h1 className="mt-3 text-center text-3xl font-extrabold sm:text-5xl">
-            Divine guidance for every day, every decision
-          </h1>
-          <p className="mx-auto mt-3 max-w-3xl text-center text-slate-600">
-            Explore horoscope, get your free Kundli, match compatibility, and
-            consult verified astrologers with modern tools in one place.
-          </p>
-          <div className="mt-8 rounded-3xl border border-violet-200 bg-white/90 p-5 shadow-sm sm:p-8">
-            <div className="flex flex-col items-start justify-between gap-3 border-b border-violet-100 pb-4 sm:flex-row sm:items-center">
-              <h2 className="text-xl font-bold text-violet-900">Select Your Rashi</h2>
-              <p className="rounded-full bg-violet-100 px-4 py-1.5 text-sm font-semibold text-violet-700">
+          <div className="mx-auto mb-8 flex w-fit gap-1 rounded-full border border-[#C9A227]/30 bg-[#0F2240] p-1">
+            <button
+              type="button"
+              onClick={() => setExpertiseMode("astro")}
+              className={`rounded-full px-5 py-2 text-sm font-semibold transition ${
+                expertiseMode === "astro"
+                  ? "bg-gradient-to-r from-[#C9A227] to-[#E0C158] text-[#0A1A2F]"
+                  : "text-[#C7C2B4]"
+              }`}
+            >
+              Astrology
+            </button>
+            <button
+              type="button"
+              onClick={() => setExpertiseMode("vastu")}
+              className={`rounded-full px-5 py-2 text-sm font-semibold transition ${
+                expertiseMode === "vastu"
+                  ? "bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] text-white"
+                  : "text-[#C7C2B4]"
+              }`}
+            >
+              Vastu Shastra
+            </button>
+          </div>
+
+          <div className="grid items-center gap-10 lg:grid-cols-[1fr_0.9fr]">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#E0C158]">
+                Premium Astrology &amp; Vastu Platform
+              </p>
+              <h1 className="mt-3 text-3xl font-extrabold sm:text-5xl">
+                {expertiseMode === "astro" ? (
+                  <>Decode your destiny.<br /><span className="bg-gradient-to-r from-[#C9A227] to-[#E0C158] bg-clip-text text-transparent">Master your space.</span></>
+                ) : (
+                  <>Master your space.<br /><span className="bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] bg-clip-text text-transparent">Decode your destiny.</span></>
+                )}
+              </h1>
+              <p className="mt-3 max-w-xl text-[#C7C2B4]">
+                Explore horoscope, get your free Kundli, match compatibility, and consult verified astrologers with modern tools in one place.
+              </p>
+            </div>
+
+            <div className="relative mx-auto flex h-64 w-64 items-center justify-center sm:h-80 sm:w-80">
+              <div className="absolute h-56 w-56 rounded-full bg-[#C9A227]/20 blur-2xl sm:h-72 sm:w-72" />
+              <svg className="relative z-10" width="280" height="280" viewBox="0 0 280 280">
+                <path d="M15 15 H265 V265 H15 Z" stroke="#C9A227" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
+                <path d="M15 15 L140 140 L265 15" stroke="#C9A227" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
+                <path d="M15 265 L140 140 L265 265" stroke="#C9A227" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
+                <path d="M15 15 L140 140 L15 265" stroke="#C9A227" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
+                <path d="M265 15 L140 140 L265 265" stroke="#C9A227" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
+                <circle cx="140" cy="65" r="4" fill="#E0C158" />
+              </svg>
+            </div>
+          </div>
+
+          <div className="mt-10 rounded-3xl border border-[#C9A227]/25 bg-[#0F2240]/90 p-5 shadow-sm sm:p-8">
+            <div className="flex flex-col items-start justify-between gap-3 border-b border-[#C9A227]/15 pb-4 sm:flex-row sm:items-center">
+              <h2 className="text-xl font-bold text-[#E0C158]">Select Your Rashi</h2>
+              <p className="rounded-full bg-[#C9A227]/15 px-4 py-1.5 text-sm font-semibold text-[#E0C158]">
                 {todayLong}
               </p>
             </div>
@@ -424,10 +469,10 @@ export default function HomePage() {
                 <Link
                   key={rashi.id}
                   href={`/horoscope/${rashi.id}`}
-                  className="rounded-xl border border-violet-100 bg-white p-3 text-center transition duration-200 hover:-translate-y-0.5 hover:border-violet-300 hover:shadow-md"
+                  className="rounded-xl border border-[#C9A227]/20 bg-[#13294B] p-3 text-center transition duration-200 hover:-translate-y-0.5 hover:border-[#C9A227]/50 hover:shadow-md"
                 >
                   <p className="text-2xl">{rashi.symbol}</p>
-                  <p className="mt-1 text-xs font-semibold text-slate-700 sm:text-sm">
+                  <p className="mt-1 text-xs font-semibold text-[#F5F1E8] sm:text-sm">
                     {rashi.english}
                   </p>
                 </Link>
@@ -440,8 +485,8 @@ export default function HomePage() {
                   type="button"
                   className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
                     activePeriod === period
-                      ? "bg-gradient-to-r from-violet-600 to-indigo-600 text-white"
-                      : "border border-violet-200 bg-white text-violet-700 hover:bg-violet-50"
+                      ? "bg-gradient-to-r from-[#C9A227] to-[#E0C158] text-[#0A1A2F]"
+                      : "border border-[#C9A227]/25 bg-[#0F2240] text-[#E0C158] hover:bg-[#13294B]"
                   }`}
                   onClick={() => setActivePeriod(period)}
                 >
