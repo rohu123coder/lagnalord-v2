@@ -65,14 +65,14 @@ export default function HoroscopePage() {
   }, [selectedRashi, period]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-violet-50 via-white to-fuchsia-50">
+    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] via-[#0F2240] to-[#0A1A2F]">
       <Navbar />
       <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <header className="text-center">
-          <h1 className="text-3xl font-extrabold text-slate-900 sm:text-4xl">
+          <h1 className="text-3xl font-extrabold text-[#F5F1E8] sm:text-4xl">
             Aaj Ka Rashifal | Daily Horoscope 2026
           </h1>
-          <p className="mx-auto mt-3 max-w-2xl text-sm text-slate-600 sm:text-base">
+          <p className="mx-auto mt-3 max-w-2xl text-sm text-[#C7C2B4] sm:text-base">
             Choose your rashi and get personalized guidance for love, career,
             health, finance, family, and travel.
           </p>
@@ -86,8 +86,8 @@ export default function HoroscopePage() {
               onClick={() => setPeriod(item.id)}
               className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
                 period === item.id
-                  ? "bg-violet-600 text-white shadow-md"
-                  : "bg-white text-violet-700 ring-1 ring-violet-200 hover:bg-violet-50"
+                  ? "bg-[#C9A227] text-[#0A1A2F] shadow-md"
+                  : "bg-[#0F2240] text-[#C7C2B4] ring-1 ring-[#C9A227]/20 hover:bg-[#0A1A2F]"
               }`}
             >
               {item.label}
@@ -99,24 +99,24 @@ export default function HoroscopePage() {
           {rashis.map((rashi) => (
             <article
               key={rashi.id}
-              className={`rounded-2xl border bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg ${
+              className={`rounded-2xl border bg-[#0F2240] p-5 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg ${
                 selectedRashi === rashi.id
-                  ? "border-violet-400 ring-2 ring-violet-200"
-                  : "border-violet-100"
+                  ? "border-[#C9A227] ring-2 ring-[#C9A227]/30"
+                  : "border-[#C9A227]/20"
               }`}
               style={{
-                background: `linear-gradient(135deg, ${rashi.color}22 0%, #ffffff 55%)`,
+                background: `linear-gradient(135deg, ${rashi.color}22 0%, #0F2240 55%)`,
               }}
             >
               <p className="text-4xl">{rashi.symbol}</p>
-              <h2 className="mt-3 text-xl font-bold text-slate-900">
+              <h2 className="mt-3 text-xl font-bold text-[#F5F1E8]">
                 {rashi.hindi} ({rashi.english})
               </h2>
-              <p className="mt-1 text-sm text-slate-600">{rashi.dateRange}</p>
+              <p className="mt-1 text-sm text-[#C7C2B4]">{rashi.dateRange}</p>
               <button
                 type="button"
                 onClick={() => setSelectedRashi(rashi.id)}
-                className="mt-4 inline-flex rounded-full bg-gradient-to-r from-violet-600 to-fuchsia-500 px-4 py-2 text-sm font-semibold text-white transition hover:opacity-95"
+                className="mt-4 inline-flex rounded-full bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-4 py-2 text-sm font-semibold text-white transition hover:opacity-95"
               >
                 Read Horoscope
               </button>
@@ -124,49 +124,49 @@ export default function HoroscopePage() {
           ))}
         </section>
 
-        <section className="mt-10 rounded-2xl border border-violet-100 bg-white p-6 shadow-sm">
+        <section className="mt-10 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
-              <p className="text-sm font-semibold text-violet-700">
+              <p className="text-sm font-semibold text-[#E0C158]">
                 Selected Rashi
               </p>
-              <h3 className="mt-1 text-2xl font-bold text-slate-900">
+              <h3 className="mt-1 text-2xl font-bold text-[#F5F1E8]">
                 {selectedMeta.symbol} {selectedMeta.hindi} ({selectedMeta.english})
               </h3>
             </div>
             <Link
               href={`/horoscope/${selectedMeta.id}?period=${period}`}
-              className="rounded-full bg-violet-100 px-4 py-2 text-sm font-semibold text-violet-700 transition hover:bg-violet-200"
+              className="rounded-full bg-[#0A1A2F] px-4 py-2 text-sm font-semibold text-[#E0C158] transition hover:bg-[#0A1A2F]/70"
             >
               Open full page
             </Link>
           </div>
 
           {loading ? (
-            <div className="mt-6 h-44 animate-pulse rounded-xl bg-violet-100/60" />
+            <div className="mt-6 h-44 animate-pulse rounded-xl bg-[#0A1A2F]/60" />
           ) : data ? (
             <div className="mt-6 space-y-5">
               <div>
-                <h4 className="font-bold text-slate-900">Today&apos;s Overview</h4>
-                <p className="mt-2 text-sm leading-7 text-slate-700">
+                <h4 className="font-bold text-[#F5F1E8]">Today&apos;s Overview</h4>
+                <p className="mt-2 text-sm leading-7 text-[#C7C2B4]">
                   {data.todayOverview}
                 </p>
               </div>
-              <div className="grid gap-3 rounded-xl bg-violet-50 p-4 text-sm sm:grid-cols-3">
+              <div className="grid gap-3 rounded-xl bg-[#0A1A2F] p-4 text-sm sm:grid-cols-3">
                 <p>
-                  <span className="font-semibold text-slate-900">
+                  <span className="font-semibold text-[#F5F1E8]">
                     Lucky Number:
                   </span>{" "}
                   {data.lucky.number}
                 </p>
                 <p>
-                  <span className="font-semibold text-slate-900">
+                  <span className="font-semibold text-[#F5F1E8]">
                     Lucky Color:
                   </span>{" "}
                   {data.lucky.color}
                 </p>
                 <p>
-                  <span className="font-semibold text-slate-900">
+                  <span className="font-semibold text-[#F5F1E8]">
                     Lucky Time:
                   </span>{" "}
                   {data.lucky.time}
