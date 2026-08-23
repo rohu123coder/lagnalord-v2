@@ -536,12 +536,12 @@ export function AstrologerChatClient({ sessionId }: Props) {
       return `${base} bg-amber-50 text-amber-800 ring-1 ring-amber-100`;
     }
     if (status === "ended") {
-      return `${base} bg-slate-100 text-slate-600 ring-1 ring-slate-200`;
+      return `${base} bg-[#0F2240] text-[#C7C2B4] ring-1 ring-[#C9A227]/20`;
     }
     if (status === "cancelled") {
       return `${base} bg-rose-50 text-rose-700 ring-1 ring-rose-100`;
     }
-    return `${base} bg-violet-50 text-violet-800 ring-1 ring-violet-100`;
+    return `${base} bg-[#C9A227]/10 text-[#E0C158] ring-1 ring-[#C9A227]/30`;
   }, [status]);
 
   if (!mounted || !isLoggedIn || user?.role !== "astrologer") {
