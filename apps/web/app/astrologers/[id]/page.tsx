@@ -624,26 +624,26 @@ export default function AstrologerProfilePage() {
           </div>
         </section>
 
-        <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="text-xl font-bold text-slate-900">About me</h2>
-          <p className="mt-3 whitespace-pre-wrap text-slate-600">
+        <section className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+          <h2 className="text-xl font-bold text-[#F5F1E8]">About me</h2>
+          <p className="mt-3 whitespace-pre-wrap text-[#C7C2B4]">
             {astrologer.bio?.trim()
               ? astrologer.bio
               : "This astrologer hasn’t added a bio yet."}
           </p>
         </section>
 
-        <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="text-xl font-bold text-slate-900">Rating & Reviews</h2>
+        <section className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+          <h2 className="text-xl font-bold text-[#F5F1E8]">Rating & Reviews</h2>
           <div className="mt-5 grid gap-6 lg:grid-cols-[340px,1fr]">
-            <div className="rounded-xl border border-slate-200 p-4">
-              <p className="text-4xl font-bold text-slate-900">
+            <div className="rounded-xl border border-[#C9A227]/20 p-4">
+              <p className="text-4xl font-bold text-[#F5F1E8]">
                 {(astrologer.rating ?? 0).toFixed(2)}
               </p>
               <p className="mt-2">
                 <StarRow value={astrologer.rating} />
               </p>
-              <p className="mt-1 text-sm text-slate-500">
+              <p className="mt-1 text-sm text-[#C7C2B4]">
                 {astrologer.total_reviews} total reviews
               </p>
 
@@ -652,9 +652,9 @@ export default function AstrologerProfilePage() {
                   const count = ratingBreakdown[star as 5 | 4 | 3 | 2 | 1] ?? 0;
                   const width = (count / ratingTotal) * 100;
                   return (
-                    <div key={star} className="flex items-center gap-2 text-xs text-slate-600">
+                    <div key={star} className="flex items-center gap-2 text-xs text-[#C7C2B4]">
                       <span className="w-4">{star}★</span>
-                      <div className="h-2.5 flex-1 rounded-full bg-slate-100">
+                      <div className="h-2.5 flex-1 rounded-full bg-[#0A1A2F]">
                         <div
                           className="h-2.5 rounded-full bg-amber-400"
                           style={{ width: `${Math.max(3, width)}%` }}
@@ -669,17 +669,17 @@ export default function AstrologerProfilePage() {
 
             <div>
               {reviews.length === 0 ? (
-                <p className="text-sm text-slate-600">No reviews yet.</p>
+                <p className="text-sm text-[#C7C2B4]">No reviews yet.</p>
               ) : (
                 <ul className="space-y-4">
                   {reviews.slice(0, 8).map((r) => (
-                    <li key={r.id} className="rounded-xl border border-slate-200 p-4">
+                    <li key={r.id} className="rounded-xl border border-[#C9A227]/20 p-4">
                       <div className="flex flex-wrap items-center gap-2">
-                        <span className="text-sm font-semibold text-slate-900">
+                        <span className="text-sm font-semibold text-[#F5F1E8]">
                           {r.user_name}
                         </span>
                         <StarRow value={r.rating} />
-                        <span className="text-xs text-slate-500">
+                        <span className="text-xs text-[#C7C2B4]/70">
                           {new Date(r.created_at).toLocaleDateString("en-IN", {
                             day: "numeric",
                             month: "short",
@@ -687,7 +687,7 @@ export default function AstrologerProfilePage() {
                           })}
                         </span>
                       </div>
-                      <p className="mt-2 text-sm text-slate-600">
+                      <p className="mt-2 text-sm text-[#C7C2B4]">
                         {r.comment || "Great consultation and accurate guidance."}
                       </p>
                     </li>
@@ -698,15 +698,15 @@ export default function AstrologerProfilePage() {
           </div>
         </section>
 
-        <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="text-xl font-bold text-slate-900">Similar Astrologers</h2>
+        <section className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+          <h2 className="text-xl font-bold text-[#F5F1E8]">Similar Astrologers</h2>
           <div className="mt-4 flex gap-4 overflow-x-auto pb-2">
             {similarAstrologers.map((a) => (
               <button
                 key={a.id}
                 type="button"
                 onClick={() => router.push(`/astrologers/${a.id}`)}
-                className="min-w-[220px] rounded-xl border border-slate-200 bg-white p-4 text-left transition hover:shadow-sm"
+                className="min-w-[220px] rounded-xl border border-[#C9A227]/20 bg-[#0F2240] p-4 text-left transition hover:shadow-sm"
               >
                 <div className="flex items-center gap-3">
                   {a.profile_photo_url || a.avatar_url ? (
@@ -717,13 +717,13 @@ export default function AstrologerProfilePage() {
                       className="h-12 w-12 rounded-full object-cover"
                     />
                   ) : (
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 font-bold text-slate-700">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0A1A2F] font-bold text-[#E0C158]">
                       {a.name.slice(0, 1).toUpperCase()}
                     </div>
                   )}
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold text-slate-900">{a.name}</p>
-                    <p className="truncate text-xs text-slate-600">
+                    <p className="truncate text-sm font-semibold text-[#F5F1E8]">{a.name}</p>
+                    <p className="truncate text-xs text-[#C7C2B4]">
                       {a.specializations.join(", ")}
                     </p>
                   </div>
@@ -731,7 +731,7 @@ export default function AstrologerProfilePage() {
                 <p className="mt-3 text-xs text-amber-500">
                   {"★".repeat(Math.max(1, Math.round(a.rating ?? 4)))}
                 </p>
-                <p className="mt-1 text-sm font-semibold text-slate-900">
+                <p className="mt-1 text-sm font-semibold text-[#F5F1E8]">
                   ₹{(a.price_per_minute ?? 0).toFixed(0)}/min
                 </p>
               </button>
@@ -740,7 +740,7 @@ export default function AstrologerProfilePage() {
         </section>
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 border-t border-slate-200 bg-white/95 p-4 backdrop-blur lg:hidden">
+      <div className="fixed bottom-0 left-0 right-0 border-t border-[#C9A227]/20 bg-[#0F2240]/95 p-4 backdrop-blur lg:hidden">
         <div className="grid grid-cols-3 gap-2">
           <button
             type="button"
