@@ -149,7 +149,7 @@ function FilterSidebar(props: {
   return (
     <aside className={`space-y-6 ${className}`}>
       <div>
-        <h3 className="text-sm font-bold text-slate-900">Specialization</h3>
+        <h3 className="text-sm font-bold text-[#F5F1E8]">Specialization</h3>
         <div className="mt-3 space-y-2">
           {SPEC_OPTIONS.map((s) => (
             <label key={s} className="flex cursor-pointer items-center gap-2">
@@ -157,15 +157,15 @@ function FilterSidebar(props: {
                 type="checkbox"
                 checked={specs.has(s)}
                 onChange={() => toggleSpec(s)}
-                className="rounded border-slate-300 text-violet-600 focus:ring-violet-500"
+                className="rounded border-[#C9A227]/40 text-[#C9A227] focus:ring-[#C9A227]"
               />
-              <span className="text-sm text-slate-700">{s}</span>
+              <span className="text-sm text-[#C7C2B4]">{s}</span>
             </label>
           ))}
         </div>
       </div>
       <div>
-        <h3 className="text-sm font-bold text-slate-900">Language</h3>
+        <h3 className="text-sm font-bold text-[#F5F1E8]">Language</h3>
         <div className="mt-3 space-y-2">
           {LANG_OPTIONS.map((s) => (
             <label key={s} className="flex cursor-pointer items-center gap-2">
@@ -173,22 +173,22 @@ function FilterSidebar(props: {
                 type="checkbox"
                 checked={langs.has(s)}
                 onChange={() => toggleLang(s)}
-                className="rounded border-slate-300 text-violet-600 focus:ring-violet-500"
+                className="rounded border-[#C9A227]/40 text-[#C9A227] focus:ring-[#C9A227]"
               />
-              <span className="text-sm text-slate-700">{s}</span>
+              <span className="text-sm text-[#C7C2B4]">{s}</span>
             </label>
           ))}
         </div>
       </div>
       <div>
-        <label className="text-sm font-bold text-slate-900" htmlFor="sort">
+        <label className="text-sm font-bold text-[#F5F1E8]" htmlFor="sort">
           Sort
         </label>
         <select
           id="sort"
           value={sort}
           onChange={(e) => setSort(e.target.value as ApiSort)}
-          className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none ring-violet-500 focus:ring-2"
+          className="mt-2 w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none ring-[#C9A227] focus:ring-2"
         >
           {SORT_OPTIONS.map((o) => (
             <option key={o.value} value={o.value}>
