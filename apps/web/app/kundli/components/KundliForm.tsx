@@ -198,15 +198,15 @@ export function KundliForm({
   return (
     <div className="w-full px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto w-full max-w-2xl">
-        <div className="overflow-hidden rounded-2xl border border-violet-200/60 bg-white shadow-xl shadow-violet-200/30">
-          <div className="bg-gradient-to-r from-violet-900 via-violet-700 to-violet-600 px-6 py-8 text-center">
+        <div className="overflow-hidden rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] shadow-xl shadow-black/30">
+          <div className="bg-gradient-to-r from-[#0A1A2F] via-[#13294B] to-[#2A7D7B] px-6 py-8 text-center">
             <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
               🔮 Free Kundli Generator
             </h1>
-            <p className="mt-2 text-sm text-violet-100 sm:text-base">
+            <p className="mt-2 text-sm text-[#F5F1E8] sm:text-base">
               निःशुल्क कुंडली — Swiss Ephemeris accuracy · Lahiri Ayanamsa
             </p>
-            <p className="mt-1 text-xs text-violet-200/90">
+            <p className="mt-1 text-xs text-[#C7C2B4]">
               Birth details → instant planets, houses, Dasha &amp; Yogas
             </p>
           </div>
@@ -215,7 +215,7 @@ export function KundliForm({
             <div>
               <label
                 htmlFor="km-name"
-                className="mb-1.5 block text-sm font-medium text-slate-700"
+                className="mb-1.5 block text-sm font-medium text-[#C7C2B4]"
               >
                 Full name
               </label>
@@ -228,14 +228,14 @@ export function KundliForm({
                 onChange={(e) =>
                   setForm((f) => ({ ...f, name: e.target.value }))
                 }
-                className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 shadow-sm outline-none ring-violet-400/30 transition focus:border-violet-400 focus:ring-2"
+                className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#C9A227]/30 transition focus:border-[#C9A227] focus:ring-2"
               />
             </div>
 
             <div>
               <label
                 htmlFor="km-dob"
-                className="mb-1.5 block text-sm font-medium text-slate-700"
+                className="mb-1.5 block text-sm font-medium text-[#C7C2B4]"
               >
                 Date of birth <span className="text-red-500">*</span>
               </label>
@@ -248,12 +248,12 @@ export function KundliForm({
                 onChange={(e) =>
                   setForm((f) => ({ ...f, dob: e.target.value }))
                 }
-                className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 shadow-sm outline-none ring-violet-400/30 transition focus:border-violet-400 focus:ring-2"
+                className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#C9A227]/30 transition focus:border-[#C9A227] focus:ring-2"
               />
             </div>
 
             <div>
-              <span className="mb-1.5 block text-sm font-medium text-slate-700">
+              <span className="mb-1.5 block text-sm font-medium text-[#C7C2B4]">
                 Time of birth
               </span>
               <input
@@ -264,7 +264,7 @@ export function KundliForm({
                 onChange={(e) =>
                   setForm((f) => ({ ...f, tob: e.target.value || null }))
                 }
-                className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 shadow-sm outline-none ring-violet-400/30 transition focus:border-violet-400 focus:ring-2 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#C9A227]/30 transition focus:border-[#C9A227] focus:ring-2 disabled:cursor-not-allowed disabled:bg-[#0F2240] disabled:text-[#C7C2B4]/50"
               />
               <label className="mt-3 flex cursor-pointer items-start gap-3">
                 <input
@@ -278,13 +278,13 @@ export function KundliForm({
                       tob: c ? null : "12:00",
                     }));
                   }}
-                  className="mt-1 h-4 w-4 rounded border-violet-300 text-violet-600 focus:ring-violet-500"
+                  className="mt-1 h-4 w-4 rounded border-[#C9A227]/40 text-[#C9A227] focus:ring-[#C9A227]"
                 />
-                <span className="text-sm text-slate-600">
+                <span className="text-sm text-[#C7C2B4]">
                   I don&apos;t know my exact birth time (will use 12:00 noon)
                 </span>
               </label>
-              <p className="mt-2 text-xs text-slate-500">
+              <p className="mt-2 text-xs text-[#C7C2B4]/70">
                 Accurate time gives precise Ascendant &amp; house positions
               </p>
             </div>
@@ -292,12 +292,12 @@ export function KundliForm({
             <div ref={pobRef} className="relative">
               <label
                 htmlFor="km-pob"
-                className="mb-1.5 block text-sm font-medium text-slate-700"
+                className="mb-1.5 block text-sm font-medium text-[#C7C2B4]"
               >
                 Place of birth <span className="text-red-500">*</span>
               </label>
               <div className="relative">
-                <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-violet-400">
+                <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#C9A227]/60">
                   <svg
                     className="h-5 w-5"
                     fill="none"
@@ -320,23 +320,23 @@ export function KundliForm({
                   value={form.pob}
                   onChange={(e) => onPobChange(e.target.value)}
                   onFocus={() => suggestions.length > 0 && setShowSuggest(true)}
-                  className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-slate-900 shadow-sm outline-none ring-violet-400/30 transition focus:border-violet-400 focus:ring-2"
+                  className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] py-3 pl-11 pr-4 text-[#F5F1E8] shadow-sm outline-none ring-[#C9A227]/30 transition focus:border-[#C9A227] focus:ring-2"
                 />
                 {geoLoading ? (
-                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-violet-500">
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[#C9A227]">
                     <Spinner className="h-5 w-5" />
                   </div>
                 ) : null}
               </div>
               {showSuggest && suggestions.length > 0 ? (
-                <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-violet-100 bg-white py-1 shadow-lg">
+                <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#C9A227]/20 bg-[#0F2240] py-1 shadow-lg">
                   {suggestions.map((s, i) => {
                     const line = [s.city, s.country].filter(Boolean).join(", ");
                     return (
                       <li key={`${s.formattedAddress}-${i}`}>
                         <button
                           type="button"
-                          className="w-full px-4 py-2.5 text-left text-sm text-slate-800 hover:bg-violet-50"
+                          className="w-full px-4 py-2.5 text-left text-sm text-[#F5F1E8] hover:bg-[#0A1A2F]"
                           onClick={() => {
                             setForm((f) => ({
                               ...f,
@@ -358,7 +358,7 @@ export function KundliForm({
             </div>
 
             <div>
-              <span className="mb-2 block text-sm font-medium text-slate-700">
+              <span className="mb-2 block text-sm font-medium text-[#C7C2B4]">
                 Gender
               </span>
               <div className="flex flex-wrap gap-3">
@@ -372,8 +372,8 @@ export function KundliForm({
                     key={v}
                     className={`flex cursor-pointer items-center gap-2 rounded-xl border-2 px-4 py-2.5 text-sm font-medium transition ${
                       form.gender === v
-                        ? "border-violet-600 bg-violet-50 text-violet-900"
-                        : "border-slate-200 bg-white text-slate-600 hover:border-violet-200"
+                        ? "border-[#C9A227] bg-[#C9A227]/10 text-[#E0C158]"
+                        : "border-[#C9A227]/20 bg-[#0A1A2F] text-[#C7C2B4] hover:border-[#C9A227]/40"
                     }`}
                   >
                     <input
@@ -393,7 +393,7 @@ export function KundliForm({
             <button
               type="submit"
               disabled={!canSubmit || loading}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-4 text-base font-semibold text-white shadow-md shadow-violet-400/25 transition hover:from-purple-500 hover:to-indigo-500 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-4 py-4 text-base font-semibold text-white shadow-md shadow-black/25 transition hover:from-[#3A9D9B] hover:to-[#2A7D7B] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading ? (
                 <>
