@@ -770,16 +770,16 @@ export function AstrologerChatClient({ sessionId }: Props) {
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4">
           <div className="w-full max-w-sm rounded-2xl bg-[#0F2240] p-6 shadow-2xl">
             <h2 className="text-lg font-bold text-[#F5F1E8]">Session ended</h2>
-            <p className="mt-3 text-sm text-slate-600">
+            <p className="mt-3 text-sm text-[#C7C2B4]">
               Your chat with {peerName} has ended.
             </p>
-            <ul className="mt-4 space-y-2 text-sm text-slate-800">
+            <ul className="mt-4 space-y-2 text-sm text-[#C7C2B4]">
               <li className="flex justify-between">
-                <span className="text-slate-500">Total time</span>
+                <span className="text-[#C7C2B4]/70">Total time</span>
                 <span className="font-semibold">{summary.totalMinutes} min</span>
               </li>
               <li className="flex justify-between">
-                <span className="text-slate-500">User charged</span>
+                <span className="text-[#C7C2B4]/70">User charged</span>
                 <span className="font-semibold">
                   ₹{Number(summary.totalCharged).toFixed(0)}
                 </span>
@@ -787,7 +787,7 @@ export function AstrologerChatClient({ sessionId }: Props) {
             </ul>
             <button
               type="button"
-              className="mt-6 w-full rounded-xl bg-gradient-to-r from-purple-600 to-orange-500 py-3 text-sm font-semibold text-white"
+              className="mt-6 w-full rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-3 text-sm font-semibold text-white"
               onClick={() => router.replace("/astrologer/dashboard")}
             >
               Back to dashboard
@@ -818,18 +818,18 @@ export function AstrologerChatClient({ sessionId }: Props) {
       ) : null}
 
       {waitlistNotice ? (
-        <div className="fixed left-1/2 top-24 z-[95] w-[min(92vw,40rem)] -translate-x-1/2 rounded-2xl border border-violet-200 bg-white p-4 shadow-xl">
-          <p className="text-sm font-semibold text-slate-900">
+        <div className="fixed left-1/2 top-24 z-[95] w-[min(92vw,40rem)] -translate-x-1/2 rounded-2xl border border-[#C9A227]/30 bg-[#0F2240] p-4 shadow-xl">
+          <p className="text-sm font-semibold text-[#F5F1E8]">
             {waitlistNotice.userName} wants to chat
           </p>
-          <p className="mt-1 text-xs text-slate-600">
+          <p className="mt-1 text-xs text-[#C7C2B4]">
             Queue position #{waitlistNotice.position}
           </p>
           <div className="mt-3 flex flex-wrap gap-2">
             <button
               type="button"
               onClick={() => sendWaitlistAction(waitlistNotice.waitlistId, "accept")}
-              className="rounded-lg bg-gradient-to-r from-purple-600 to-orange-500 px-3 py-1.5 text-xs font-semibold text-white"
+              className="rounded-lg bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-3 py-1.5 text-xs font-semibold text-white"
             >
               Accept
             </button>
@@ -838,7 +838,7 @@ export function AstrologerChatClient({ sessionId }: Props) {
               onClick={() =>
                 sendWaitlistAction(waitlistNotice.waitlistId, "already_added")
               }
-              className="rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-semibold text-slate-800"
+              className="rounded-lg border border-[#C9A227]/40 px-3 py-1.5 text-xs font-semibold text-[#E0C158]"
             >
               Add to Waitlist
             </button>
