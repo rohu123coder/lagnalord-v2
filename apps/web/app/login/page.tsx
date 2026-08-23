@@ -102,22 +102,22 @@ function LoginContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-violet-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] to-[#0F2240]">
       <Navbar />
       <div className="flex items-center justify-center px-4 py-16">
-        <div className="w-full max-w-md bg-white rounded-2xl shadow-lg border border-purple-100 p-8">
+        <div className="w-full max-w-md bg-[#0F2240] rounded-2xl shadow-lg border border-[#C9A227]/20 p-8">
           
           {mode === "login" && (
             <>
-              <h1 className="text-2xl font-bold text-slate-900 text-center">Welcome to {tenant.name} ✨</h1>
-              <p className="text-sm text-slate-500 text-center mt-2 mb-8">Login with your phone number or email</p>
+              <h1 className="text-2xl font-bold text-[#F5F1E8] text-center">Welcome to {tenant.name} ✨</h1>
+              <p className="text-sm text-[#C7C2B4] text-center mt-2 mb-8">Login with your phone number or email</p>
               <div className="space-y-4">
                 <input
                   type="text"
                   value={identifier}
                   onChange={e => setIdentifier(e.target.value)}
                   placeholder="Phone number or Email"
-                  className="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-900 outline-none focus:ring-2 focus:ring-violet-500"
+                  className="w-full border border-[#C9A227]/20 bg-[#0A1A2F] rounded-xl px-4 py-3 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#C9A227]"
                 />
                 <div className="text-right">
                   <Link
@@ -129,44 +129,44 @@ function LoginContent() {
                 </div>
                 {error && <p className="text-red-600 text-sm">{error}</p>}
                 <button onClick={sendOtp} disabled={loading || !identifier}
-                  className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold disabled:opacity-60">
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] text-white font-semibold disabled:opacity-60">
                   {loading ? "Sending..." : "Send OTP"}
                 </button>
                 <div className="flex items-center gap-3 my-2">
-                  <div className="flex-1 h-px bg-slate-200"/>
-                  <span className="text-slate-400 text-sm">OR</span>
-                  <div className="flex-1 h-px bg-slate-200"/>
+                  <div className="flex-1 h-px bg-[#C9A227]/20"/>
+                  <span className="text-[#C7C2B4]/70 text-sm">OR</span>
+                  <div className="flex-1 h-px bg-[#C9A227]/20"/>
                 </div>
                 <button onClick={() => { setMode("register"); setError(null); }}
-                  className="w-full py-3 rounded-xl border-2 border-purple-600 text-purple-600 font-semibold hover:bg-purple-50">
+                  className="w-full py-3 rounded-xl border-2 border-[#C9A227] text-[#E0C158] font-semibold hover:bg-[#C9A227]/10">
                   Create Account
                 </button>
               </div>
-              <Link href="/" className="block text-center text-sm text-violet-600 hover:underline mt-6">← Back to home</Link>
+              <Link href="/" className="block text-center text-sm text-[#E0C158] hover:underline mt-6">← Back to home</Link>
             </>
           )}
 
           {mode === "register" && (
             <>
-              <h1 className="text-2xl font-bold text-slate-900 text-center">Create Account</h1>
-              <p className="text-sm text-slate-500 text-center mt-2 mb-8">Join {tenant.name} today</p>
+              <h1 className="text-2xl font-bold text-[#F5F1E8] text-center">Create Account</h1>
+              <p className="text-sm text-[#C7C2B4] text-center mt-2 mb-8">Join {tenant.name} today</p>
               <div className="space-y-4">
                 <input type="text" value={name} onChange={e => setName(e.target.value)}
-                  placeholder="Full Name" className="w-full border border-slate-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-violet-500"/>
-                <div className="flex rounded-xl border border-slate-200 focus-within:ring-2 focus-within:ring-violet-500">
-                  <span className="flex items-center px-3 border-r border-slate-200">🇮🇳 +91</span>
+                  placeholder="Full Name" className="w-full border border-[#C9A227]/20 bg-[#0A1A2F] rounded-xl px-4 py-3 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#C9A227]"/>
+                <div className="flex rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] focus-within:ring-2 focus-within:ring-[#C9A227]">
+                  <span className="flex items-center px-3 border-r border-[#C9A227]/20 text-[#C7C2B4]">🇮🇳 +91</span>
                   <input type="tel" value={phone} onChange={e => setPhone(e.target.value.replace(/\D/g,"").slice(0,10))}
-                    placeholder="Phone number" className="w-full px-3 py-3 outline-none rounded-r-xl"/>
+                    placeholder="Phone number" className="w-full px-3 py-3 outline-none rounded-r-xl bg-transparent text-[#F5F1E8]"/>
                 </div>
                 <input type="email" value={email} onChange={e => setEmail(e.target.value)}
-                  placeholder="Email address" className="w-full border border-slate-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-violet-500"/>
+                  placeholder="Email address" className="w-full border border-[#C9A227]/20 bg-[#0A1A2F] rounded-xl px-4 py-3 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#C9A227]"/>
                 {error && <p className="text-red-600 text-sm">{error}</p>}
                 <button onClick={sendRegisterOtp} disabled={loading}
-                  className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold disabled:opacity-60">
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] text-white font-semibold disabled:opacity-60">
                   {loading ? "Sending..." : "Send OTP & Register"}
                 </button>
                 <button onClick={() => { setMode("login"); setError(null); }}
-                  className="w-full text-center text-sm text-violet-600 hover:underline">
+                  className="w-full text-center text-sm text-[#E0C158] hover:underline">
                   Already have account? Sign In
                 </button>
               </div>
@@ -175,29 +175,29 @@ function LoginContent() {
 
           {mode === "verify" && (
             <>
-              <h1 className="text-2xl font-bold text-slate-900 text-center">Enter OTP</h1>
-              <p className="text-sm text-slate-500 text-center mt-2 mb-8">OTP sent to: <span className="font-semibold text-slate-700">{sentTo}</span></p>
+              <h1 className="text-2xl font-bold text-[#F5F1E8] text-center">Enter OTP</h1>
+              <p className="text-sm text-[#C7C2B4] text-center mt-2 mb-8">OTP sent to: <span className="font-semibold text-[#F5F1E8]">{sentTo}</span></p>
               <div className="space-y-4">
                 <div className="flex justify-between gap-2">
                   {otp.map((d,i) => (
                     <input key={i} ref={el => { inputsRef.current[i]=el; }} inputMode="numeric" maxLength={1} value={d}
                       onChange={e => setDigit(i, e.target.value)}
                       onKeyDown={e => { if(e.key==="Backspace" && !otp[i] && i>0) inputsRef.current[i-1]?.focus(); }}
-                      className="h-12 w-full rounded-lg border border-slate-200 text-center text-lg font-bold outline-none focus:ring-2 focus:ring-violet-500"/>
+                      className="h-12 w-full rounded-lg border border-[#C9A227]/20 bg-[#0A1A2F] text-center text-lg font-bold text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#C9A227]"/>
                   ))}
                 </div>
                 {error && <p className="text-red-600 text-sm">{error}</p>}
                 <button onClick={verifyOtp} disabled={loading || otp.join("").length !== 6}
-                  className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold disabled:opacity-60">
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] text-white font-semibold disabled:opacity-60">
                   {loading ? "Verifying..." : "Verify & Continue"}
                 </button>
                 <div className="flex justify-between text-sm">
                   <button onClick={() => { setMode(isReg ? "register" : "login"); setError(null); }}
-                    className="text-violet-600 hover:underline">← Change {isReg ? "details" : "phone/email"}</button>
+                    className="text-[#E0C158] hover:underline">← Change {isReg ? "details" : "phone/email"}</button>
                   {countdown > 0 ? (
-                    <span className="text-slate-400">Resend in {countdown}s</span>
+                    <span className="text-[#C7C2B4]/70">Resend in {countdown}s</span>
                   ) : (
-                    <button onClick={isReg ? sendRegisterOtp : sendOtp} className="text-violet-600 hover:underline">Resend OTP</button>
+                    <button onClick={isReg ? sendRegisterOtp : sendOtp} className="text-[#E0C158] hover:underline">Resend OTP</button>
                   )}
                 </div>
               </div>
@@ -211,7 +211,7 @@ function LoginContent() {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div></div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-[#0A1A2F]"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#C9A227]"></div></div>}>
       <LoginContent />
     </Suspense>
   );
