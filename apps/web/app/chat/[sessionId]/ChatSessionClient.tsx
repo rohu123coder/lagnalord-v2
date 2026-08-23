@@ -524,14 +524,14 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
 
   if (!mounted || !isLoggedIn) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50">
-        <div className="h-10 w-10 animate-spin rounded-full border-2 border-violet-500 border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-[#0A1A2F]">
+        <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#C9A227] border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-100">
+    <div className="flex min-h-screen flex-col bg-[#0A1A2F]">
       <Navbar />
 
       {toast ? (
@@ -540,7 +540,7 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
         </div>
       ) : null}
 
-      <header className="sticky top-16 z-10 border-b border-slate-200 bg-white px-4 py-3 shadow-sm sm:px-6">
+      <header className="sticky top-16 z-10 border-b border-[#C9A227]/20 bg-[#0F2240] px-4 py-3 shadow-sm sm:px-6">
         <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-3">
           <div className="flex min-w-0 items-center gap-3">
             {headerPhoto ? (
@@ -548,22 +548,22 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
               <img
                 src={headerPhoto}
                 alt=""
-                className="h-11 w-11 shrink-0 rounded-full object-cover ring-2 ring-violet-100"
+                className="h-11 w-11 shrink-0 rounded-full object-cover ring-2 ring-[#C9A227]/30"
               />
             ) : (
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-orange-400 text-sm font-bold text-white ring-2 ring-violet-100">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#C9A227] to-[#A6745A] text-sm font-bold text-[#0A1A2F] ring-2 ring-[#C9A227]/30">
                 {headerInitials}
               </div>
             )}
             <div className="min-w-0">
-              <h1 className="truncate text-lg font-bold text-slate-900">
+              <h1 className="truncate text-lg font-bold text-[#F5F1E8]">
                 {astrologerName}
               </h1>
-              <div className="mt-1 flex flex-wrap items-center gap-2 text-sm text-slate-600">
+              <div className="mt-1 flex flex-wrap items-center gap-2 text-sm text-[#C7C2B4]">
                 <span className={statusBadge}>{status}</span>
                 <span>
                   Timer:{" "}
-                  <span className="font-semibold text-slate-900">
+                  <span className="font-semibold text-[#F5F1E8]">
                     {status === "active" ? formatTimer(elapsedSec) : "—"}
                   </span>
                 </span>
@@ -577,7 +577,7 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
                   type="button"
                   onClick={() => initiateCall("voice")}
                   disabled={!!callUi || callInitiated}
-                  className="rounded-xl border border-slate-200 bg-white/70 px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-50"
+                  className="rounded-xl border border-[#C9A227]/30 bg-[#0A1A2F]/70 px-3 py-2 text-sm font-semibold text-[#E0C158] transition hover:bg-[#0A1A2F] disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <span className="mr-2" aria-hidden>
                     📞
@@ -588,7 +588,7 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
                   type="button"
                   onClick={() => initiateCall("video")}
                   disabled={!!callUi || callInitiated}
-                  className="rounded-xl border border-slate-200 bg-white/70 px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-50"
+                  className="rounded-xl border border-[#C9A227]/30 bg-[#0A1A2F]/70 px-3 py-2 text-sm font-semibold text-[#E0C158] transition hover:bg-[#0A1A2F] disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <span className="mr-2" aria-hidden>
                     📹
@@ -598,7 +598,7 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
               </>
             ) : null}
             {callInitiated ? (
-              <span className="text-xs font-semibold text-violet-700">Calling...</span>
+              <span className="text-xs font-semibold text-[#E0C158]">Calling...</span>
             ) : null}
             <button
               type="button"
@@ -618,18 +618,18 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
 
       <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-2 pb-28 pt-4 sm:px-4">
         {status === "waiting" ? (
-          <p className="mb-3 text-center text-sm text-slate-600">
+          <p className="mb-3 text-center text-sm text-[#C7C2B4]">
             Waiting for the astrologer to join…
           </p>
         ) : null}
 
         <div
           ref={listRef}
-          className="flex-1 space-y-3 overflow-y-auto rounded-2xl border border-slate-100 bg-white/80 p-4 shadow-inner"
+          className="flex-1 space-y-3 overflow-y-auto rounded-2xl border border-[#C9A227]/20 bg-[#0F2240]/80 p-4 shadow-inner"
           style={{ maxHeight: "calc(100vh - 14rem)" }}
         >
           {messages.length === 0 ? (
-            <p className="py-8 text-center text-sm text-slate-500">
+            <p className="py-8 text-center text-sm text-[#C7C2B4]">
               No messages yet. Say hello!
             </p>
           ) : null}
@@ -643,8 +643,8 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
                 <div
                   className={`max-w-[85%] rounded-2xl px-4 py-2 text-sm shadow-sm ${
                     mine
-                      ? "rounded-br-md bg-gradient-to-br from-purple-600 to-violet-600 text-white"
-                      : "rounded-bl-md bg-slate-100 text-slate-900"
+                      ? "rounded-br-md bg-gradient-to-br from-[#2A7D7B] to-[#3A9D9B] text-white"
+                      : "rounded-bl-md bg-[#0A1A2F] text-[#F5F1E8]"
                   }`}
                 >
                   <p className="whitespace-pre-wrap">{m.content}</p>
