@@ -680,9 +680,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-y border-violet-100 bg-violet-50/40 py-14">
+      <section className="border-y border-[#C9A227]/15 bg-[#0F2240]/40 py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <h2 className="text-center text-2xl font-bold sm:text-3xl">
+          <h2 className="text-center text-2xl font-bold text-[#F5F1E8] sm:text-3xl">
             Free Horoscope and Astrology Services
           </h2>
           <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
@@ -690,10 +690,10 @@ export default function HomePage() {
               <Link
                 key={service.name}
                 href={service.href}
-                className="rounded-2xl border border-violet-100 bg-white p-4 text-center transition duration-200 hover:-translate-y-1 hover:border-violet-300 hover:shadow-md"
+                className="rounded-2xl border border-[#C9A227]/20 bg-[#13294B] p-4 text-center transition duration-200 hover:-translate-y-1 hover:border-[#C9A227]/50 hover:shadow-md"
               >
                 <p className="text-3xl">{service.icon}</p>
-                <p className="mt-2 text-sm font-semibold text-slate-800">{service.name}</p>
+                <p className="mt-2 text-sm font-semibold text-[#F5F1E8]">{service.name}</p>
               </Link>
             ))}
           </div>
