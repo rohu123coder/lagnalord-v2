@@ -30,14 +30,14 @@ export default function PanchangPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-violet-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] via-[#0F2240] to-[#0A1A2F]">
       <Navbar />
       <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <header>
-          <h1 className="text-3xl font-extrabold text-slate-900 sm:text-4xl">
+          <h1 className="text-3xl font-extrabold text-[#F5F1E8] sm:text-4xl">
             Today&apos;s Panchang
           </h1>
-          <p className="mt-2 text-sm text-slate-600">{today} | Delhi, India</p>
+          <p className="mt-2 text-sm text-[#C7C2B4]">{today} | Delhi, India</p>
         </header>
 
         <section className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -51,70 +51,70 @@ export default function PanchangPage() {
           ].map(([label, value]) => (
             <article
               key={label}
-              className="rounded-2xl border border-violet-100 bg-white p-5 shadow-sm"
+              className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm"
             >
-              <p className="text-sm font-semibold text-violet-700">{label}</p>
-              <p className="mt-2 text-lg font-bold text-slate-900">{value}</p>
+              <p className="text-sm font-semibold text-[#E0C158]">{label}</p>
+              <p className="mt-2 text-lg font-bold text-[#F5F1E8]">{value}</p>
             </article>
           ))}
         </section>
 
         <section className="mt-8 grid gap-4 lg:grid-cols-2">
-          <div className="rounded-2xl border border-violet-100 bg-white p-5 shadow-sm">
-            <h2 className="text-lg font-bold text-slate-900">Inauspicious Timings</h2>
-            <ul className="mt-3 space-y-2 text-sm text-slate-700">
+          <div className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm">
+            <h2 className="text-lg font-bold text-[#F5F1E8]">Inauspicious Timings</h2>
+            <ul className="mt-3 space-y-2 text-sm text-[#C7C2B4]">
               <li>
-                <span className="font-semibold text-violet-700">Rahukaal:</span> 10:30
+                <span className="font-semibold text-[#E0C158]">Rahukaal:</span> 10:30
                 AM - 12:00 PM
               </li>
               <li>
-                <span className="font-semibold text-violet-700">Gulikaal:</span> 07:30
+                <span className="font-semibold text-[#E0C158]">Gulikaal:</span> 07:30
                 AM - 09:00 AM
               </li>
               <li>
-                <span className="font-semibold text-violet-700">Yamghant:</span> 03:00
+                <span className="font-semibold text-[#E0C158]">Yamghant:</span> 03:00
                 PM - 04:30 PM
               </li>
             </ul>
           </div>
 
-          <div className="rounded-2xl border border-violet-100 bg-white p-5 shadow-sm">
-            <h2 className="text-lg font-bold text-slate-900">Sun Timings (Delhi)</h2>
-            <ul className="mt-3 space-y-2 text-sm text-slate-700">
+          <div className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm">
+            <h2 className="text-lg font-bold text-[#F5F1E8]">Sun Timings (Delhi)</h2>
+            <ul className="mt-3 space-y-2 text-sm text-[#C7C2B4]">
               <li>
-                <span className="font-semibold text-violet-700">Sunrise:</span> 06:08
+                <span className="font-semibold text-[#E0C158]">Sunrise:</span> 06:08
                 AM
               </li>
               <li>
-                <span className="font-semibold text-violet-700">Sunset:</span> 06:09 PM
+                <span className="font-semibold text-[#E0C158]">Sunset:</span> 06:09 PM
               </li>
             </ul>
           </div>
         </section>
 
-        <section className="mt-8 rounded-2xl border border-violet-100 bg-white p-5 shadow-sm">
-          <h2 className="text-lg font-bold text-slate-900">Shubh Muhurat</h2>
-          <div className="mt-3 grid gap-2 text-sm text-slate-700 sm:grid-cols-2">
-            <p className="rounded-lg bg-violet-50 px-3 py-2">
+        <section className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm">
+          <h2 className="text-lg font-bold text-[#F5F1E8]">Shubh Muhurat</h2>
+          <div className="mt-3 grid gap-2 text-sm text-[#C7C2B4] sm:grid-cols-2">
+            <p className="rounded-lg bg-[#0A1A2F] px-3 py-2">
               Abhijit Muhurat: 11:56 AM - 12:44 PM
             </p>
-            <p className="rounded-lg bg-violet-50 px-3 py-2">
+            <p className="rounded-lg bg-[#0A1A2F] px-3 py-2">
               Labh Choghadiya: 03:08 PM - 04:38 PM
             </p>
-            <p className="rounded-lg bg-violet-50 px-3 py-2">
+            <p className="rounded-lg bg-[#0A1A2F] px-3 py-2">
               Amrit Choghadiya: 06:08 AM - 07:38 AM
             </p>
-            <p className="rounded-lg bg-violet-50 px-3 py-2">
+            <p className="rounded-lg bg-[#0A1A2F] px-3 py-2">
               Evening Amrit: 04:38 PM - 06:09 PM
             </p>
           </div>
         </section>
 
-        <section className="mt-8 rounded-2xl border border-violet-100 bg-white p-5 shadow-sm">
-          <h2 className="text-lg font-bold text-slate-900">Day Choghadiya</h2>
+        <section className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm">
+          <h2 className="text-lg font-bold text-[#F5F1E8]">Day Choghadiya</h2>
           <div className="mt-3 overflow-x-auto">
             <table className="min-w-full text-left text-sm">
-              <thead className="bg-violet-100 text-violet-800">
+              <thead className="bg-[#0A1A2F] text-[#E0C158]">
                 <tr>
                   <th className="px-3 py-2">Time</th>
                   <th className="px-3 py-2">Type</th>
@@ -123,10 +123,10 @@ export default function PanchangPage() {
               </thead>
               <tbody>
                 {choghadiya.map((row) => (
-                  <tr key={row.period} className="border-b border-violet-50">
+                  <tr key={row.period} className="border-b border-[#C9A227]/10">
                     <td className="px-3 py-2">{row.period}</td>
-                    <td className="px-3 py-2 font-semibold text-slate-900">{row.type}</td>
-                    <td className="px-3 py-2 text-slate-600">{row.note}</td>
+                    <td className="px-3 py-2 font-semibold text-[#F5F1E8]">{row.type}</td>
+                    <td className="px-3 py-2 text-[#C7C2B4]">{row.note}</td>
                   </tr>
                 ))}
               </tbody>
