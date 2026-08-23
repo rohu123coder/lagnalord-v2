@@ -861,7 +861,7 @@ export default function HomePage() {
           {remedies.map((item, index) => (
             <article
               key={item}
-              className="rounded-2xl border border-violet-100 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+              className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
             >
               <div
                 className={`h-24 rounded-xl bg-gradient-to-br ${
@@ -871,10 +871,10 @@ export default function HomePage() {
                 }`}
                 aria-hidden="true"
               />
-              <h3 className="mt-4 text-lg font-bold text-slate-900">{item}</h3>
+              <h3 className="mt-4 text-lg font-bold text-[#F5F1E8]">{item}</h3>
               <Link
                 href="/shop"
-                className="mt-3 inline-flex rounded-lg border border-violet-200 px-4 py-2 text-sm font-semibold text-violet-700 transition hover:bg-violet-50"
+                className="mt-3 inline-flex rounded-lg border border-[#C9A227]/40 px-4 py-2 text-sm font-semibold text-[#E0C158] transition hover:bg-[#C9A227]/10"
               >
                 Check Now
               </Link>
