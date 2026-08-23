@@ -670,9 +670,9 @@ export default function KundliPage() {
             </div>
           </section>
 
-          <section className="rounded-2xl border border-violet-100 bg-white p-6 shadow-md">
+          <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md">
             <SectionTitle>Detailed Personality Analysis</SectionTitle>
-            <div className="space-y-3 text-sm leading-relaxed text-slate-700">
+            <div className="space-y-3 text-sm leading-relaxed text-[#C7C2B4]">
               <p>
                 Your Lagna in <span className="font-semibold">{result.basicInfo.ascendant.rashi}</span> defines
                 how you project yourself to the world. This gives your natural approach to decisions, confidence,
@@ -693,9 +693,9 @@ export default function KundliPage() {
             </div>
           </section>
 
-          <section className="rounded-2xl border border-violet-100 bg-white p-6 shadow-md">
+          <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md">
             <SectionTitle>Career &amp; Finance Deep Dive</SectionTitle>
-            <p className="text-sm leading-relaxed text-slate-700">
+            <p className="text-sm leading-relaxed text-[#C7C2B4]">
               Your 10th house in <span className="font-semibold">{result.houses[9].rashi}</span> and wealth axis
               (2nd/11th houses) indicate a path of sustained growth through skill-building and strategic timing.
               Career opportunities increase notably during supportive dasha phases, while finances improve through
@@ -705,7 +705,7 @@ export default function KundliPage() {
               {recommendedProfessions.map((profession) => (
                 <span
                   key={profession}
-                  className="rounded-full bg-gradient-to-r from-violet-100 to-fuchsia-100 px-3 py-1 text-xs font-medium text-violet-800"
+                  className="rounded-full bg-gradient-to-r from-[#C9A227]/20 to-[#2A7D7B]/20 px-3 py-1 text-xs font-medium text-[#E0C158]"
                 >
                   {profession}
                 </span>
@@ -713,9 +713,9 @@ export default function KundliPage() {
             </div>
           </section>
 
-          <section className="rounded-2xl border border-violet-100 bg-white p-6 shadow-md">
+          <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md">
             <SectionTitle>Love &amp; Marriage Analysis</SectionTitle>
-            <p className="text-sm leading-relaxed text-slate-700">
+            <p className="text-sm leading-relaxed text-[#C7C2B4]">
               Your 7th house in <span className="font-semibold">{result.houses[6].rashi}</span> suggests a
               relationship pattern that matures with emotional clarity and commitment readiness. Marriage timing
               is generally stronger during benefic dasha-antardasha windows and when Venus/Jupiter transits support
@@ -724,67 +724,67 @@ export default function KundliPage() {
             </p>
           </section>
 
-          <section className="rounded-2xl border border-violet-100 bg-white p-6 shadow-md">
+          <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md">
             <SectionTitle>Health &amp; Wellness Guide</SectionTitle>
-            <p className="text-sm leading-relaxed text-slate-700">
+            <p className="text-sm leading-relaxed text-[#C7C2B4]">
               Focus on body zones indicated by your Lagna and 6th house for preventive wellness. Prioritize routine
               sleep, hydration, gut care, and stress regulation through yoga, pranayama, and weekly detox habits.
               Regular checkups around vulnerable areas reduce long-term risk and keep vitality high.
             </p>
-            <p className="mt-2 text-sm text-slate-600">
+            <p className="mt-2 text-sm text-[#C7C2B4]">
               Key watch areas: {result.predictions.health}
             </p>
           </section>
 
-          <section className="rounded-2xl border border-violet-100 bg-white p-6 shadow-md">
+          <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md">
             <SectionTitle>Lucky Numbers, Colors &amp; Gems</SectionTitle>
-            <ul className="space-y-2 text-sm text-slate-700">
+            <ul className="space-y-2 text-sm text-[#C7C2B4]">
               <li>
-                <span className="font-semibold text-violet-800">Lucky Number:</span>{" "}
+                <span className="font-semibold text-[#E0C158]">Lucky Number:</span>{" "}
                 {result.basicInfo.numerologyNumber}
               </li>
               <li>
-                <span className="font-semibold text-violet-800">Lucky Colors:</span>{" "}
+                <span className="font-semibold text-[#E0C158]">Lucky Colors:</span>{" "}
                 {luckyProfile.colors.join(", ")}
               </li>
               <li>
-                <span className="font-semibold text-violet-800">Lucky Days:</span> {luckyProfile.days.join(", ")}
+                <span className="font-semibold text-[#E0C158]">Lucky Days:</span> {luckyProfile.days.join(", ")}
               </li>
               <li>
-                <span className="font-semibold text-violet-800">Gemstone:</span> {luckyProfile.gemstone}
+                <span className="font-semibold text-[#E0C158]">Gemstone:</span> {luckyProfile.gemstone}
               </li>
               <li>
-                <span className="font-semibold text-violet-800">Wearing Instruction:</span>{" "}
+                <span className="font-semibold text-[#E0C158]">Wearing Instruction:</span>{" "}
                 {luckyProfile.instruction}
               </li>
               <li>
-                <span className="font-semibold text-violet-800">Rudraksha:</span> {luckyProfile.rudraksha}
+                <span className="font-semibold text-[#E0C158]">Rudraksha:</span> {luckyProfile.rudraksha}
               </li>
             </ul>
           </section>
 
-          <section className="rounded-2xl border border-violet-100 bg-white p-6 shadow-md">
+          <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md">
             <SectionTitle>Remedies &amp; Upay</SectionTitle>
             <div className="space-y-4">
               {remedyPlanets.map((planet) => {
                 const remedy = PLANET_REMEDIES[planet.name];
                 if (!remedy) return null;
                 return (
-                  <div key={planet.name} className="rounded-xl border border-violet-100 bg-violet-50/40 p-4">
-                    <p className="text-sm font-semibold text-violet-900">{planet.name} Remedies</p>
-                    <p className="mt-1 text-sm text-slate-700">
+                  <div key={planet.name} className="rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F]/40 p-4">
+                    <p className="text-sm font-semibold text-[#E0C158]">{planet.name} Remedies</p>
+                    <p className="mt-1 text-sm text-[#C7C2B4]">
                       <span className="font-medium">Mantra:</span> {remedy.mantra}
                     </p>
-                    <p className="text-sm text-slate-700">
+                    <p className="text-sm text-[#C7C2B4]">
                       <span className="font-medium">Daan:</span> {remedy.donation}
                     </p>
-                    <p className="text-sm text-slate-700">
+                    <p className="text-sm text-[#C7C2B4]">
                       <span className="font-medium">Fasting:</span> {remedy.fasting}
                     </p>
-                    <p className="text-sm text-slate-700">
+                    <p className="text-sm text-[#C7C2B4]">
                       <span className="font-medium">Temple Visit:</span> {remedy.temple}
                     </p>
-                    <p className="text-sm text-slate-700">
+                    <p className="text-sm text-[#C7C2B4]">
                       <span className="font-medium">Wear/Avoid Colors:</span> {remedy.colors}
                     </p>
                   </div>
@@ -793,26 +793,26 @@ export default function KundliPage() {
             </div>
           </section>
 
-          <section className="rounded-2xl border border-violet-100 bg-gradient-to-r from-violet-100/70 to-fuchsia-100/70 p-6 shadow-sm">
+          <section className="rounded-2xl border border-[#C9A227]/20 bg-gradient-to-r from-[#0F2240] to-[#13294B] p-6 shadow-sm">
             <SectionTitle>Compatibility</SectionTitle>
-            <p className="text-sm text-slate-700">
+            <p className="text-sm text-[#C7C2B4]">
               Match your Kundli with your partner to check guna milan, dosha compatibility, and marriage timing.
             </p>
             <Link
               href="/kundli/match"
-              className="mt-4 inline-flex rounded-lg bg-violet-700 px-4 py-2 text-sm font-medium text-white transition hover:bg-violet-800"
+              className="mt-4 inline-flex rounded-lg bg-[#2A7D7B] px-4 py-2 text-sm font-medium text-white transition hover:bg-[#3A9D9B]"
             >
               Match your Kundli with your partner
             </Link>
           </section>
 
-          <section className="rounded-2xl border border-violet-200 bg-violet-50/70 p-6 text-center shadow-sm">
-            <p className="text-sm text-slate-700">
+          <section className="rounded-2xl border border-[#C9A227]/30 bg-[#C9A227]/10 p-6 text-center shadow-sm">
+            <p className="text-sm text-[#C7C2B4]">
               Need deeper personalized guidance beyond algorithmic predictions?
             </p>
             <Link
               href="/astrologers"
-              className="mt-3 inline-flex rounded-lg bg-fuchsia-700 px-5 py-2 text-sm font-semibold text-white transition hover:bg-fuchsia-800"
+              className="mt-3 inline-flex rounded-lg bg-gradient-to-r from-[#C9A227] to-[#E0C158] px-5 py-2 text-sm font-semibold text-[#0A1A2F] transition hover:opacity-90"
             >
               Consult an Astrologer
             </Link>
@@ -820,7 +820,7 @@ export default function KundliPage() {
         </div>
       ) : null}
 
-      <footer className="border-t border-violet-100 bg-violet-950/5 py-8 text-center text-xs text-slate-500">
+      <footer className="border-t border-[#C9A227]/20 bg-[#0A1A2F] py-8 text-center text-xs text-[#C7C2B4]/70">
         {tenant.name} — Vedic astrology for clarity &amp; confidence. Results are
         algorithmic; consult a qualified astrologer for life decisions.
       </footer>
