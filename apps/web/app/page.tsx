@@ -798,7 +798,7 @@ export default function HomePage() {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <h2 className="text-2xl font-bold sm:text-3xl">Aaj Ka Rashifal</h2>
-            <p className="mt-1 text-sm text-slate-600">{todayLong}</p>
+            <p className="mt-1 text-sm text-[#C7C2B4]">{todayLong}</p>
           </div>
         </div>
         <div className="mt-6 grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6">
@@ -806,7 +806,7 @@ export default function HomePage() {
             <Link
               key={`today-${rashi.id}`}
               href={`/horoscope/${rashi.id}`}
-              className="rounded-xl border border-violet-100 bg-white p-3 text-center transition duration-200 hover:-translate-y-0.5 hover:border-violet-300 hover:shadow-md"
+              className="rounded-xl border border-[#C9A227]/20 bg-[#0F2240] p-3 text-center transition duration-200 hover:-translate-y-0.5 hover:border-[#E0C158] hover:shadow-md"
             >
               <p className="text-3xl">{rashi.symbol}</p>
               <p className="mt-1 text-sm font-semibold">{rashi.english}</p>
