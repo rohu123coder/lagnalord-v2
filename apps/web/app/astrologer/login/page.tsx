@@ -110,24 +110,24 @@ export default function AstrologerLoginPage() {
 
   if (!mounted) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50">
-        <div className="h-10 w-10 animate-spin rounded-full border-2 border-violet-500 border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-[#0A1A2F]">
+        <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#C9A227] border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-violet-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] to-[#0F2240]">
       <div className="mx-auto flex max-w-md flex-col px-4 py-12 sm:px-6">
-        <h1 className="text-2xl font-bold text-slate-900">
+        <h1 className="text-2xl font-bold text-[#F5F1E8]">
           Astrologer sign in
         </h1>
-        <p className="mt-2 text-sm text-slate-600">
+        <p className="mt-2 text-sm text-[#C7C2B4]">
           Use your registered email and password.
         </p>
 
         <div className="mt-8 space-y-4">
-          <label className="block text-sm font-medium text-slate-700">
+          <label className="block text-sm font-medium text-[#C7C2B4]">
             Email
           </label>
           <input
@@ -135,10 +135,10 @@ export default function AstrologerLoginPage() {
             autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 shadow-sm outline-none ring-violet-500 focus:ring-2"
+            className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#C9A227] focus:ring-2"
             placeholder="you@example.com"
           />
-          <label className="block text-sm font-medium text-slate-700">
+          <label className="block text-sm font-medium text-[#C7C2B4]">
             Password
           </label>
           <input
@@ -146,7 +146,7 @@ export default function AstrologerLoginPage() {
             autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 shadow-sm outline-none ring-violet-500 focus:ring-2"
+            className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#C9A227] focus:ring-2"
           />
           <div className="text-right">
             <Link
@@ -165,24 +165,24 @@ export default function AstrologerLoginPage() {
             type="button"
             disabled={loading}
             onClick={() => void submit()}
-            className="w-full rounded-xl bg-gradient-to-r from-purple-600 to-orange-500 py-3 text-sm font-semibold text-white shadow-md transition hover:opacity-95 disabled:opacity-60"
+            className="w-full rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-3 text-sm font-semibold text-white shadow-md transition hover:opacity-95 disabled:opacity-60"
           >
             {loading ? "Signing in…" : "Sign in"}
           </button>
           <Link
             href="/astrologer/register"
-            className="block pt-2 text-center text-sm font-semibold text-slate-600 hover:text-violet-700"
+            className="block pt-2 text-center text-sm font-semibold text-[#C7C2B4] hover:text-[#E0C158]"
           >
             New astrologer? Register here →
           </Link>
         </div>
 
-        <p className="mt-10 text-center text-sm text-slate-500">
-          <Link href="/login" className="text-violet-600 hover:underline">
+        <p className="mt-10 text-center text-sm text-[#C7C2B4]/70">
+          <Link href="/login" className="text-[#E0C158] hover:underline">
             User login
           </Link>
           {" · "}
-          <Link href="/" className="text-violet-600 hover:underline">
+          <Link href="/" className="text-[#E0C158] hover:underline">
             Home
           </Link>
         </p>
