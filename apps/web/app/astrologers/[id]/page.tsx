@@ -752,7 +752,7 @@ export default function AstrologerProfilePage() {
               }
               void startChat();
             }}
-            className="rounded-xl bg-gradient-to-r from-purple-600 to-orange-500 py-3.5 text-sm font-bold text-white shadow-lg transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-3.5 text-sm font-bold text-white shadow-lg transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {chatLoading ? "…" : "Chat"}
           </button>
@@ -766,7 +766,7 @@ export default function AstrologerProfilePage() {
               }
               void startChat("voice");
             }}
-            className="rounded-xl border border-purple-200 bg-white/70 py-3.5 text-sm font-bold text-violet-700 shadow-sm transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-xl border border-[#C9A227]/30 bg-[#0A1A2F]/70 py-3.5 text-sm font-bold text-[#E0C158] shadow-sm transition hover:bg-[#0A1A2F] disabled:cursor-not-allowed disabled:opacity-50"
           >
             {chatLoading ? "…" : "Voice"}
           </button>
@@ -780,7 +780,7 @@ export default function AstrologerProfilePage() {
               }
               void startChat("video");
             }}
-            className="rounded-xl border border-purple-200 bg-white/70 py-3.5 text-sm font-bold text-violet-700 shadow-sm transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-xl border border-[#C9A227]/30 bg-[#0A1A2F]/70 py-3.5 text-sm font-bold text-[#E0C158] shadow-sm transition hover:bg-[#0A1A2F] disabled:cursor-not-allowed disabled:opacity-50"
           >
             {chatLoading ? "…" : "Video"}
           </button>
@@ -789,9 +789,9 @@ export default function AstrologerProfilePage() {
 
       {busyPromptOpen ? (
         <div className="fixed inset-0 z-[85] flex items-end justify-center bg-black/40 p-4 sm:items-center">
-          <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl">
-            <h2 className="text-lg font-bold text-slate-900">Astrologer is busy</h2>
-            <p className="mt-2 text-sm text-slate-700">
+          <div className="w-full max-w-md rounded-2xl bg-[#0F2240] p-6 shadow-2xl">
+            <h2 className="text-lg font-bold text-[#F5F1E8]">Astrologer is busy</h2>
+            <p className="mt-2 text-sm text-[#C7C2B4]">
               This astrologer is in another active session.
               <span className="font-semibold">
                 {" "}
@@ -801,14 +801,14 @@ export default function AstrologerProfilePage() {
             <div className="mt-5 flex gap-3">
               <button
                 type="button"
-                className="flex-1 rounded-xl border border-slate-200 py-2.5 text-sm font-semibold text-slate-700"
+                className="flex-1 rounded-xl border border-[#C9A227]/30 py-2.5 text-sm font-semibold text-[#C7C2B4]"
                 onClick={() => setBusyPromptOpen(false)}
               >
                 Not now
               </button>
               <button
                 type="button"
-                className="flex-1 rounded-xl bg-gradient-to-r from-purple-600 to-orange-500 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+                className="flex-1 rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-2.5 text-sm font-semibold text-white disabled:opacity-60"
                 onClick={joinWaitlist}
                 disabled={joinWaitlistLoading}
               >
@@ -821,21 +821,21 @@ export default function AstrologerProfilePage() {
 
       {rechargeOpen ? (
         <div className="fixed inset-0 z-[80] flex items-end justify-center bg-black/40 p-4 sm:items-center">
-          <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl">
+          <div className="w-full max-w-md rounded-2xl bg-[#0F2240] p-6 shadow-2xl">
             <div className="flex items-start justify-between gap-4">
-              <h2 className="text-lg font-bold text-slate-900">
+              <h2 className="text-lg font-bold text-[#F5F1E8]">
                 Wallet balance low
               </h2>
               <button
                 type="button"
-                className="text-slate-500 hover:text-slate-800"
+                className="text-[#C7C2B4] hover:text-[#E0C158]"
                 onClick={() => setRechargeOpen(false)}
                 aria-label="Close"
               >
                 ✕
               </button>
             </div>
-            <p className="mt-2 text-sm text-slate-600">
+            <p className="mt-2 text-sm text-[#C7C2B4]">
               You need at least{" "}
               <span className="font-semibold">
                 ₹{(price * 5).toFixed(0)}
@@ -848,7 +848,7 @@ export default function AstrologerProfilePage() {
             </div>
             <button
               type="button"
-              className="mt-4 w-full rounded-xl border border-slate-200 py-2 text-sm font-semibold text-slate-700"
+              className="mt-4 w-full rounded-xl border border-[#C9A227]/30 py-2 text-sm font-semibold text-[#C7C2B4]"
               onClick={() => setRechargeOpen(false)}
             >
               Close
@@ -859,17 +859,17 @@ export default function AstrologerProfilePage() {
 
       {queueTurn ? (
         <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl">
-            <h2 className="text-lg font-bold text-slate-900">Your turn!</h2>
-            <p className="mt-2 text-sm text-slate-700">
+          <div className="w-full max-w-md rounded-2xl bg-[#0F2240] p-6 shadow-2xl">
+            <h2 className="text-lg font-bold text-[#F5F1E8]">Your turn!</h2>
+            <p className="mt-2 text-sm text-[#C7C2B4]">
               Connecting to {queueTurn.astrologerName}...
             </p>
-            <p className="mt-4 text-center text-3xl font-bold text-violet-700">
+            <p className="mt-4 text-center text-3xl font-bold text-[#E0C158]">
               {queueTurn.countdown}
             </p>
             <button
               type="button"
-              className="mt-5 w-full rounded-xl bg-gradient-to-r from-purple-600 to-orange-500 py-2.5 text-sm font-semibold text-white"
+              className="mt-5 w-full rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-2.5 text-sm font-semibold text-white"
               onClick={() => {
                 const astrologerName = encodeURIComponent(queueTurn.astrologerName);
                 router.push(`/chat/${queueTurn.sessionId}?name=${astrologerName}`);
