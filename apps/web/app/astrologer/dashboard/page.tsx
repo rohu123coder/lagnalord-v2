@@ -579,10 +579,10 @@ export default function AstrologerDashboardPage() {
             onClick={() => setWaitlistCollapsed((prev) => !prev)}
             className="flex w-full items-center justify-between text-left"
           >
-            <h2 className="text-base font-semibold text-slate-900">
+            <h2 className="text-base font-semibold text-[#F5F1E8]">
               Waiting Queue ({waitlistQueue.length})
             </h2>
-            <span className="text-sm text-slate-500">
+            <span className="text-sm text-[#C7C2B4]">
               {waitlistCollapsed ? "Show" : "Hide"}
             </span>
           </button>
@@ -592,10 +592,10 @@ export default function AstrologerDashboardPage() {
                 {waitlistQueue.map((entry) => (
                   <li
                     key={entry.waitlistId}
-                    className="flex items-center justify-between rounded-xl border border-slate-200 px-3 py-2"
+                    className="flex items-center justify-between rounded-xl border border-[#C9A227]/20 px-3 py-2"
                   >
                     <div>
-                      <p className="text-sm font-semibold text-slate-900">
+                      <p className="text-sm font-semibold text-[#F5F1E8]">
                         #{entry.position} {entry.userName}
                       </p>
                     </div>
@@ -603,7 +603,7 @@ export default function AstrologerDashboardPage() {
                       type="button"
                       onClick={() => acceptFromQueue(entry)}
                       disabled={Boolean(incoming)}
-                      className="rounded-lg bg-gradient-to-r from-purple-600 to-orange-500 px-3 py-1.5 text-xs font-semibold text-white disabled:opacity-50"
+                      className="rounded-lg bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-3 py-1.5 text-xs font-semibold text-white disabled:opacity-50"
                     >
                       Accept
                     </button>
@@ -611,7 +611,7 @@ export default function AstrologerDashboardPage() {
                 ))}
               </ul>
             ) : (
-              <p className="mt-3 text-sm text-slate-600">No users in waitlist.</p>
+              <p className="mt-3 text-sm text-[#C7C2B4]">No users in waitlist.</p>
             )
           ) : null}
         </section>
@@ -619,33 +619,33 @@ export default function AstrologerDashboardPage() {
 
       {incoming ? (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl">
-            <h2 className="text-lg font-bold text-slate-900">
+          <div className="w-full max-w-md rounded-2xl bg-[#0F2240] p-6 shadow-2xl">
+            <h2 className="text-lg font-bold text-[#F5F1E8]">
               {incoming.type === "voice"
                 ? "Incoming voice call request"
                 : incoming.type === "video"
                   ? "Incoming video call request"
                   : "New chat request"}
             </h2>
-            <p className="mt-3 text-sm text-slate-700">
+            <p className="mt-3 text-sm text-[#C7C2B4]">
               New Chat Request from{" "}
               <span className="font-semibold">{incoming.userName}</span>
             </p>
-            <p className="mt-4 text-center text-3xl font-mono font-bold text-violet-700">
+            <p className="mt-4 text-center text-3xl font-mono font-bold text-[#E0C158]">
               {countdown}s
             </p>
             <div className="mt-6 flex gap-3">
               <button
                 type="button"
                 onClick={onDecline}
-                className="flex-1 rounded-xl border border-slate-300 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50"
+                className="flex-1 rounded-xl border border-[#C9A227]/30 py-3 text-sm font-semibold text-[#C7C2B4] hover:bg-[#0A1A2F]"
               >
                 Decline
               </button>
               <button
                 type="button"
                 onClick={onAccept}
-                className="flex-1 rounded-xl bg-gradient-to-r from-purple-600 to-orange-500 py-3 text-sm font-semibold text-white"
+                className="flex-1 rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-3 text-sm font-semibold text-white"
               >
                 Accept
               </button>
@@ -655,18 +655,18 @@ export default function AstrologerDashboardPage() {
       ) : null}
 
       {waitlistNotice ? (
-        <div className="fixed left-1/2 top-24 z-[95] w-[min(92vw,42rem)] -translate-x-1/2 rounded-2xl border border-violet-200 bg-white p-4 shadow-xl">
-          <p className="text-sm font-semibold text-slate-900">
+        <div className="fixed left-1/2 top-24 z-[95] w-[min(92vw,42rem)] -translate-x-1/2 rounded-2xl border border-[#C9A227]/30 bg-[#0F2240] p-4 shadow-xl">
+          <p className="text-sm font-semibold text-[#F5F1E8]">
             New request from {waitlistNotice.userName}
           </p>
-          <p className="mt-1 text-xs text-slate-600">
+          <p className="mt-1 text-xs text-[#C7C2B4]">
             Queue position #{waitlistNotice.position}
           </p>
           <div className="mt-3 flex flex-wrap gap-2">
             <button
               type="button"
               onClick={() => sendWaitlistAction(waitlistNotice.waitlistId, "accept")}
-              className="rounded-lg bg-gradient-to-r from-purple-600 to-orange-500 px-3 py-1.5 text-xs font-semibold text-white"
+              className="rounded-lg bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-3 py-1.5 text-xs font-semibold text-white"
             >
               Accept
             </button>
@@ -675,7 +675,7 @@ export default function AstrologerDashboardPage() {
               onClick={() =>
                 sendWaitlistAction(waitlistNotice.waitlistId, "already_added")
               }
-              className="rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-semibold text-slate-800"
+              className="rounded-lg border border-[#C9A227]/40 px-3 py-1.5 text-xs font-semibold text-[#E0C158]"
             >
               Add to Waitlist
             </button>
