@@ -457,10 +457,10 @@ export default function AstrologerDashboardPage() {
               </button>
             </div>
 
-            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-6">
+            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#C9A227]/10 pb-6">
               <div className="min-w-0">
-                <h3 className="font-semibold text-slate-900">Voice Call</h3>
-                <p className="text-sm text-slate-600">Accept voice calls</p>
+                <h3 className="font-semibold text-[#F5F1E8]">Voice Call</h3>
+                <p className="text-sm text-[#C7C2B4]">Accept voice calls</p>
               </div>
               <button
                 type="button"
@@ -476,7 +476,7 @@ export default function AstrologerDashboardPage() {
                 className={`relative h-14 w-28 shrink-0 rounded-full transition ${
                   dash?.voice_available
                     ? "bg-emerald-500 shadow-inner"
-                    : "bg-slate-300"
+                    : "bg-[#13294B]"
                 } disabled:opacity-50`}
                 aria-pressed={dash?.voice_available ?? false}
               >
@@ -494,8 +494,8 @@ export default function AstrologerDashboardPage() {
 
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="min-w-0">
-                <h3 className="font-semibold text-slate-900">Video Call</h3>
-                <p className="text-sm text-slate-600">Accept video calls</p>
+                <h3 className="font-semibold text-[#F5F1E8]">Video Call</h3>
+                <p className="text-sm text-[#C7C2B4]">Accept video calls</p>
               </div>
               <button
                 type="button"
@@ -511,7 +511,7 @@ export default function AstrologerDashboardPage() {
                 className={`relative h-14 w-28 shrink-0 rounded-full transition ${
                   dash?.video_available
                     ? "bg-emerald-500 shadow-inner"
-                    : "bg-slate-300"
+                    : "bg-[#13294B]"
                 } disabled:opacity-50`}
                 aria-pressed={dash?.video_available ?? false}
               >
@@ -531,49 +531,49 @@ export default function AstrologerDashboardPage() {
 
         {dashLoading ? (
           <div className="mt-8 flex justify-center py-12">
-            <div className="h-10 w-10 animate-spin rounded-full border-2 border-violet-500 border-t-transparent" />
+            <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#C9A227] border-t-transparent" />
           </div>
         ) : dashError ? (
           <p className="mt-8 text-center text-sm text-red-600">{dashError}</p>
         ) : dash ? (
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-              <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+            <div className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm">
+              <p className="text-xs font-medium uppercase tracking-wide text-[#C7C2B4]">
                 Today&apos;s earnings
               </p>
-              <p className="mt-2 text-2xl font-bold text-slate-900">
+              <p className="mt-2 text-2xl font-bold text-[#F5F1E8]">
                 ₹{dash.earnings_today.toFixed(0)}
               </p>
             </div>
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-              <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+            <div className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm">
+              <p className="text-xs font-medium uppercase tracking-wide text-[#C7C2B4]">
                 Total sessions
               </p>
-              <p className="mt-2 text-2xl font-bold text-slate-900">
+              <p className="mt-2 text-2xl font-bold text-[#F5F1E8]">
                 {dash.total_sessions}
               </p>
             </div>
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-              <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+            <div className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm">
+              <p className="text-xs font-medium uppercase tracking-wide text-[#C7C2B4]">
                 Average rating
               </p>
-              <p className="mt-2 text-2xl font-bold text-slate-900">{stars}</p>
-              <p className="text-xs text-slate-500">
+              <p className="mt-2 text-2xl font-bold text-[#F5F1E8]">{stars}</p>
+              <p className="text-xs text-[#C7C2B4]">
                 {dash.total_reviews} reviews
               </p>
             </div>
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-              <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+            <div className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm">
+              <p className="text-xs font-medium uppercase tracking-wide text-[#C7C2B4]">
                 This month
               </p>
-              <p className="mt-2 text-2xl font-bold text-slate-900">
+              <p className="mt-2 text-2xl font-bold text-[#F5F1E8]">
                 ₹{dash.earnings_this_month.toFixed(0)}
               </p>
             </div>
           </div>
         ) : null}
 
-        <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+        <section className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-4 shadow-sm">
           <button
             type="button"
             onClick={() => setWaitlistCollapsed((prev) => !prev)}
