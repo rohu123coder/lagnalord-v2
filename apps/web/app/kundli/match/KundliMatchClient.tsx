@@ -103,13 +103,13 @@ export default function KundliMatchClient() {
   }, [submitted, boy.dob, girl.dob]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-violet-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] via-[#0F2240] to-[#0A1A2F]">
       <Navbar />
       <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-        <h1 className="text-3xl font-extrabold text-slate-900 sm:text-4xl">
+        <h1 className="text-3xl font-extrabold text-[#F5F1E8] sm:text-4xl">
           Kundli Matching
         </h1>
-        <p className="mt-2 max-w-2xl text-sm text-slate-600 sm:text-base">
+        <p className="mt-2 max-w-2xl text-sm text-[#C7C2B4] sm:text-base">
           Fill both birth details to get an Ashtakoot score, koot-wise analysis,
           and a quick marriage recommendation.
         </p>
@@ -119,9 +119,9 @@ export default function KundliMatchClient() {
             (section) => (
               <section
                 key={section.label}
-                className="rounded-2xl border border-violet-100 bg-white p-5 shadow-sm"
+                className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm"
               >
-                <h2 className="text-lg font-bold text-violet-700">{section.label}</h2>
+                <h2 className="text-lg font-bold text-[#E0C158]">{section.label}</h2>
                 <div className="mt-4 space-y-3">
                   <input
                     value={section.state.name}
@@ -129,7 +129,7 @@ export default function KundliMatchClient() {
                       section.setState((prev) => ({ ...prev, name: e.target.value }))
                     }
                     placeholder="Name"
-                    className="w-full rounded-xl border border-violet-200 px-3 py-2.5 outline-none focus:ring-2 focus:ring-violet-400"
+                    className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#C9A227]"
                   />
                   <input
                     type="date"
@@ -137,7 +137,7 @@ export default function KundliMatchClient() {
                     onChange={(e) =>
                       section.setState((prev) => ({ ...prev, dob: e.target.value }))
                     }
-                    className="w-full rounded-xl border border-violet-200 px-3 py-2.5 outline-none focus:ring-2 focus:ring-violet-400"
+                    className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#C9A227]"
                   />
                   <input
                     type="time"
@@ -145,7 +145,7 @@ export default function KundliMatchClient() {
                     onChange={(e) =>
                       section.setState((prev) => ({ ...prev, tob: e.target.value }))
                     }
-                    className="w-full rounded-xl border border-violet-200 px-3 py-2.5 outline-none focus:ring-2 focus:ring-violet-400"
+                    className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#C9A227]"
                   />
                   <input
                     value={section.state.place}
@@ -153,7 +153,7 @@ export default function KundliMatchClient() {
                       section.setState((prev) => ({ ...prev, place: e.target.value }))
                     }
                     placeholder="Place of Birth"
-                    className="w-full rounded-xl border border-violet-200 px-3 py-2.5 outline-none focus:ring-2 focus:ring-violet-400"
+                    className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#C9A227]"
                   />
                 </div>
               </section>
@@ -165,40 +165,40 @@ export default function KundliMatchClient() {
           type="button"
           disabled={!canSubmit}
           onClick={() => setSubmitted(true)}
-          className="mt-6 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-md disabled:cursor-not-allowed disabled:opacity-60"
+          className="mt-6 rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-6 py-3 text-sm font-semibold text-white shadow-md disabled:cursor-not-allowed disabled:opacity-60"
         >
           Match Kundli
         </button>
 
         {result ? (
-          <section className="mt-8 rounded-2xl border border-violet-200 bg-white p-6 shadow-sm">
+          <section className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
             <div className="grid gap-4 sm:grid-cols-3">
-              <div className="rounded-xl bg-violet-50 p-4">
-                <p className="text-sm text-violet-700">Overall score</p>
-                <p className="mt-1 text-2xl font-bold text-slate-900">
+              <div className="rounded-xl bg-[#0A1A2F] p-4">
+                <p className="text-sm text-[#E0C158]">Overall score</p>
+                <p className="mt-1 text-2xl font-bold text-[#F5F1E8]">
                   {result.total} / 36
                 </p>
               </div>
-              <div className="rounded-xl bg-violet-50 p-4">
-                <p className="text-sm text-violet-700">Compatibility</p>
-                <p className="mt-1 text-2xl font-bold text-slate-900">
+              <div className="rounded-xl bg-[#0A1A2F] p-4">
+                <p className="text-sm text-[#E0C158]">Compatibility</p>
+                <p className="mt-1 text-2xl font-bold text-[#F5F1E8]">
                   {result.compatibility}%
                 </p>
               </div>
-              <div className="rounded-xl bg-violet-50 p-4">
-                <p className="text-sm text-violet-700">Recommendation</p>
-                <p className="mt-1 text-sm font-semibold text-slate-900">
+              <div className="rounded-xl bg-[#0A1A2F] p-4">
+                <p className="text-sm text-[#E0C158]">Recommendation</p>
+                <p className="mt-1 text-sm font-semibold text-[#F5F1E8]">
                   {result.recommendation}
                 </p>
               </div>
             </div>
 
-            <h3 className="mt-6 text-lg font-bold text-slate-900">
+            <h3 className="mt-6 text-lg font-bold text-[#F5F1E8]">
               Ashtakoot Matching Table
             </h3>
             <div className="mt-3 overflow-x-auto">
               <table className="min-w-full text-left text-sm">
-                <thead className="bg-violet-100 text-violet-800">
+                <thead className="bg-[#0A1A2F] text-[#E0C158]">
                   <tr>
                     <th className="px-3 py-2">Koot</th>
                     <th className="px-3 py-2">Max</th>
@@ -208,7 +208,7 @@ export default function KundliMatchClient() {
                 </thead>
                 <tbody>
                   {result.koots.map((koot) => (
-                    <tr key={koot.name} className="border-b border-violet-50">
+                    <tr key={koot.name} className="border-b border-[#C9A227]/10">
                       <td className="px-3 py-2">{koot.name}</td>
                       <td className="px-3 py-2">{koot.max}</td>
                       <td className="px-3 py-2">{koot.score}</td>
@@ -226,19 +226,19 @@ export default function KundliMatchClient() {
             </div>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-xl border border-violet-100 bg-violet-50 p-4">
-                <h4 className="font-semibold text-slate-900">
+              <div className="rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] p-4">
+                <h4 className="font-semibold text-[#F5F1E8]">
                   Boy&apos;s Mangal Dosha
                 </h4>
-                <p className="mt-1 text-sm text-slate-700">
+                <p className="mt-1 text-sm text-[#C7C2B4]">
                   {result.mangalBoy ? "Present" : "Not Present"}
                 </p>
               </div>
-              <div className="rounded-xl border border-violet-100 bg-violet-50 p-4">
-                <h4 className="font-semibold text-slate-900">
+              <div className="rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] p-4">
+                <h4 className="font-semibold text-[#F5F1E8]">
                   Girl&apos;s Mangal Dosha
                 </h4>
-                <p className="mt-1 text-sm text-slate-700">
+                <p className="mt-1 text-sm text-[#C7C2B4]">
                   {result.mangalGirl ? "Present" : "Not Present"}
                 </p>
               </div>
