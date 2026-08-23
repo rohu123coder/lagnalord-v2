@@ -83,11 +83,11 @@ export function RashiHoroscopeContent() {
   }, [rashiParam, period]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-violet-50 via-white to-fuchsia-50 pb-12">
+    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] via-[#0F2240] to-[#0A1A2F] pb-12">
       <Navbar />
       <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
         <div className="mb-6">
-          <Link href="/horoscope" className="text-sm font-semibold text-violet-700">
+          <Link href="/horoscope" className="text-sm font-semibold text-[#E0C158]">
             ← Back to all rashis
           </Link>
         </div>
@@ -100,8 +100,8 @@ export function RashiHoroscopeContent() {
               onClick={() => updatePeriod(item.id)}
               className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
                 item.id === period
-                  ? "bg-violet-600 text-white shadow-md"
-                  : "bg-white text-violet-700 ring-1 ring-violet-200 hover:bg-violet-50"
+                  ? "bg-[#C9A227] text-[#0A1A2F] shadow-md"
+                  : "bg-[#0F2240] text-[#C7C2B4] ring-1 ring-[#C9A227]/20 hover:bg-[#0A1A2F]"
               }`}
             >
               {item.label}
@@ -110,48 +110,48 @@ export function RashiHoroscopeContent() {
         </div>
 
         {loading ? (
-          <div className="mt-8 h-72 animate-pulse rounded-2xl bg-violet-100/70" />
+          <div className="mt-8 h-72 animate-pulse rounded-2xl bg-[#0F2240]/70" />
         ) : error || !data ? (
           <div className="mt-8 rounded-2xl border border-red-100 bg-red-50 p-6 text-red-700">
             {error ?? "Horoscope not available."}
           </div>
         ) : (
           <div className="mt-8 space-y-6">
-            <section className="rounded-2xl border border-violet-100 bg-white p-6 shadow-sm">
-              <p className="text-sm font-semibold text-violet-700">{periodLabel}</p>
-              <h1 className="mt-2 text-3xl font-extrabold text-slate-900">
+            <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+              <p className="text-sm font-semibold text-[#E0C158]">{periodLabel}</p>
+              <h1 className="mt-2 text-3xl font-extrabold text-[#F5F1E8]">
                 {data.rashi.symbol} {data.rashi.hindi} ({data.rashi.english}) Rashifal
               </h1>
-              <p className="mt-2 text-sm text-slate-600">{data.rashi.dateRange}</p>
-              <p className="mt-1 text-sm text-slate-600">
+              <p className="mt-2 text-sm text-[#C7C2B4]">{data.rashi.dateRange}</p>
+              <p className="mt-1 text-sm text-[#C7C2B4]">
                 Lord: <span className="font-semibold">{data.rashi.lord}</span>
               </p>
             </section>
 
-            <section className="rounded-2xl border border-violet-100 bg-white p-6 shadow-sm">
-              <h2 className="text-xl font-bold text-slate-900">A) Today&apos;s Overview</h2>
-              <p className="mt-3 text-sm leading-7 text-slate-700">
+            <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+              <h2 className="text-xl font-bold text-[#F5F1E8]">A) Today&apos;s Overview</h2>
+              <p className="mt-3 text-sm leading-7 text-[#C7C2B4]">
                 {data.todayOverview}
               </p>
             </section>
 
-            <section className="grid gap-4 rounded-2xl border border-violet-100 bg-white p-6 text-sm shadow-sm sm:grid-cols-3">
+            <section className="grid gap-4 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 text-sm shadow-sm sm:grid-cols-3">
               <p>
-                <span className="font-semibold text-slate-900">B) Lucky Number:</span>{" "}
+                <span className="font-semibold text-[#F5F1E8]">B) Lucky Number:</span>{" "}
                 {data.lucky.number}
               </p>
               <p>
-                <span className="font-semibold text-slate-900">Lucky Color:</span>{" "}
+                <span className="font-semibold text-[#F5F1E8]">Lucky Color:</span>{" "}
                 {data.lucky.color}
               </p>
               <p>
-                <span className="font-semibold text-slate-900">Lucky Time:</span>{" "}
+                <span className="font-semibold text-[#F5F1E8]">Lucky Time:</span>{" "}
                 {data.lucky.time}
               </p>
             </section>
 
-            <section className="rounded-2xl border border-violet-100 bg-white p-6 shadow-sm">
-              <h2 className="text-xl font-bold text-slate-900">
+            <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+              <h2 className="text-xl font-bold text-[#F5F1E8]">
                 C) Life Areas Rating
               </h2>
               <div className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
@@ -162,54 +162,54 @@ export function RashiHoroscopeContent() {
               </div>
             </section>
 
-            <section className="rounded-2xl border border-violet-100 bg-white p-6 shadow-sm">
-              <h2 className="text-xl font-bold text-slate-900">
+            <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+              <h2 className="text-xl font-bold text-[#F5F1E8]">
                 D) Detailed Predictions
               </h2>
-              <div className="mt-4 grid gap-4 text-sm leading-7 text-slate-700 sm:grid-cols-2">
+              <div className="mt-4 grid gap-4 text-sm leading-7 text-[#C7C2B4] sm:grid-cols-2">
                 <p>
-                  <span className="font-semibold text-slate-900">Love:</span>{" "}
+                  <span className="font-semibold text-[#F5F1E8]">Love:</span>{" "}
                   {data.predictions.love}
                 </p>
                 <p>
-                  <span className="font-semibold text-slate-900">Career:</span>{" "}
+                  <span className="font-semibold text-[#F5F1E8]">Career:</span>{" "}
                   {data.predictions.career}
                 </p>
                 <p>
-                  <span className="font-semibold text-slate-900">Health:</span>{" "}
+                  <span className="font-semibold text-[#F5F1E8]">Health:</span>{" "}
                   {data.predictions.health}
                 </p>
                 <p>
-                  <span className="font-semibold text-slate-900">Finance:</span>{" "}
+                  <span className="font-semibold text-[#F5F1E8]">Finance:</span>{" "}
                   {data.predictions.finance}
                 </p>
                 <p>
-                  <span className="font-semibold text-slate-900">Family:</span>{" "}
+                  <span className="font-semibold text-[#F5F1E8]">Family:</span>{" "}
                   {data.predictions.family}
                 </p>
                 <p>
-                  <span className="font-semibold text-slate-900">Travel:</span>{" "}
+                  <span className="font-semibold text-[#F5F1E8]">Travel:</span>{" "}
                   {data.predictions.travel}
                 </p>
               </div>
             </section>
 
-            <section className="rounded-2xl border border-violet-100 bg-white p-6 shadow-sm">
-              <h2 className="text-xl font-bold text-slate-900">
+            <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+              <h2 className="text-xl font-bold text-[#F5F1E8]">
                 E) Today&apos;s Remedy
               </h2>
-              <p className="mt-3 text-sm text-slate-700">
-                <span className="font-semibold text-slate-900">Mantra:</span>{" "}
+              <p className="mt-3 text-sm text-[#C7C2B4]">
+                <span className="font-semibold text-[#F5F1E8]">Mantra:</span>{" "}
                 {data.remedy.mantra}
               </p>
-              <p className="mt-2 text-sm text-slate-700">
-                <span className="font-semibold text-slate-900">Daan:</span>{" "}
+              <p className="mt-2 text-sm text-[#C7C2B4]">
+                <span className="font-semibold text-[#F5F1E8]">Daan:</span>{" "}
                 {data.remedy.daan}
               </p>
             </section>
 
-            <section className="rounded-2xl border border-violet-100 bg-white p-6 shadow-sm">
-              <h2 className="text-xl font-bold text-slate-900">
+            <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+              <h2 className="text-xl font-bold text-[#F5F1E8]">
                 F) Compatible Rashis Today
               </h2>
               <div className="mt-4 flex flex-wrap gap-3">
@@ -217,7 +217,7 @@ export function RashiHoroscopeContent() {
                   <Link
                     key={item.id}
                     href={`/horoscope/${item.id}?period=${period}`}
-                    className="rounded-full bg-violet-100 px-4 py-2 text-sm font-semibold text-violet-700 transition hover:bg-violet-200"
+                    className="rounded-full bg-[#0F2240] px-4 py-2 text-sm font-semibold text-[#E0C158] transition hover:bg-[#0A1A2F]"
                   >
                     {item.symbol} {item.hindi} ({item.english})
                   </Link>
@@ -225,15 +225,15 @@ export function RashiHoroscopeContent() {
               </div>
             </section>
 
-            <section className="rounded-2xl border border-violet-200 bg-gradient-to-r from-violet-600 to-fuchsia-500 p-6 text-white shadow-md">
+            <section className="rounded-2xl border border-[#C9A227]/30 bg-gradient-to-r from-[#C9A227] to-[#E0C158] p-6 text-[#0A1A2F] shadow-md">
               <h2 className="text-xl font-bold">G) Consult Astrologer</h2>
-              <p className="mt-2 text-sm text-violet-50">
+              <p className="mt-2 text-sm text-[#0A1A2F]/80">
                 Need deeper guidance for relationships, career, or life
                 decisions? Connect instantly with verified astrologers.
               </p>
               <Link
                 href="/astrologers"
-                className="mt-4 inline-flex rounded-full bg-white px-5 py-2.5 text-sm font-bold text-violet-700 transition hover:opacity-95"
+                className="mt-4 inline-flex rounded-full bg-[#0A1A2F] px-5 py-2.5 text-sm font-bold text-[#E0C158] transition hover:opacity-95"
               >
                 Consult Astrologer
               </Link>
