@@ -300,14 +300,14 @@ export default function AstrologerProfilePage() {
             </div>
 
             <div>
-              <p className="text-sm font-medium text-slate-700">
+              <p className="text-sm font-medium text-[#C7C2B4]">
                 Specializations
               </p>
               <div className="mt-3 grid gap-2 sm:grid-cols-2">
                 {SPEC_OPTIONS.map((s) => (
                   <label
                     key={s}
-                    className="flex cursor-pointer items-center gap-2 rounded-lg border border-slate-100 px-3 py-2 hover:bg-slate-50"
+                    className="flex cursor-pointer items-center gap-2 rounded-lg border border-[#C9A227]/20 px-3 py-2 hover:bg-[#0A1A2F]"
                   >
                     <input
                       type="checkbox"
@@ -315,21 +315,21 @@ export default function AstrologerProfilePage() {
                       onChange={(e) =>
                         setSpecs(toggle(specs, s, e.target.checked))
                       }
-                      className="rounded border-slate-300 text-violet-600 focus:ring-violet-500"
+                      className="rounded border-[#C9A227]/40 text-[#C9A227] focus:ring-[#C9A227]"
                     />
-                    <span className="text-sm text-slate-800">{s}</span>
+                    <span className="text-sm text-[#C7C2B4]">{s}</span>
                   </label>
                 ))}
               </div>
             </div>
 
             <div>
-              <p className="text-sm font-medium text-slate-700">Languages</p>
+              <p className="text-sm font-medium text-[#C7C2B4]">Languages</p>
               <div className="mt-3 flex flex-wrap gap-3">
                 {LANG_OPTIONS.map((s) => (
                   <label
                     key={s}
-                    className="flex cursor-pointer items-center gap-2 rounded-lg border border-slate-100 px-3 py-2 hover:bg-slate-50"
+                    className="flex cursor-pointer items-center gap-2 rounded-lg border border-[#C9A227]/20 px-3 py-2 hover:bg-[#0A1A2F]"
                   >
                     <input
                       type="checkbox"
@@ -337,9 +337,9 @@ export default function AstrologerProfilePage() {
                       onChange={(e) =>
                         setLangs(toggle(langs, s, e.target.checked))
                       }
-                      className="rounded border-slate-300 text-violet-600 focus:ring-violet-500"
+                      className="rounded border-[#C9A227]/40 text-[#C9A227] focus:ring-[#C9A227]"
                     />
-                    <span className="text-sm text-slate-800">{s}</span>
+                    <span className="text-sm text-[#C7C2B4]">{s}</span>
                   </label>
                 ))}
               </div>
@@ -347,7 +347,7 @@ export default function AstrologerProfilePage() {
 
             <div className="grid gap-6 sm:grid-cols-2">
               <div>
-                <label className="block text-sm font-medium text-slate-700">
+                <label className="block text-sm font-medium text-[#C7C2B4]">
                   Price per minute (₹)
                 </label>
                 <input
@@ -358,12 +358,12 @@ export default function AstrologerProfilePage() {
                   onChange={(e) =>
                     setPrice(Number(e.target.value) || 0)
                   }
-                  className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none ring-violet-500 focus:ring-2"
+                  className="mt-2 w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-sm text-[#F5F1E8] outline-none ring-[#C9A227] focus:ring-2"
                 />
-                <p className="mt-1 text-xs text-slate-500">Minimum ₹5</p>
+                <p className="mt-1 text-xs text-[#C7C2B4]/70">Minimum ₹5</p>
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700">
+                <label className="block text-sm font-medium text-[#C7C2B4]">
                   Experience (years)
                 </label>
                 <input
@@ -376,7 +376,7 @@ export default function AstrologerProfilePage() {
                       Math.max(0, parseInt(e.target.value, 10) || 0)
                     )
                   }
-                  className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none ring-violet-500 focus:ring-2"
+                  className="mt-2 w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-sm text-[#F5F1E8] outline-none ring-[#C9A227] focus:ring-2"
                 />
               </div>
             </div>
@@ -384,7 +384,7 @@ export default function AstrologerProfilePage() {
             <button
               type="submit"
               disabled={saving}
-              className="w-full rounded-xl bg-gradient-to-r from-purple-600 to-orange-500 py-3 text-sm font-semibold text-white shadow-md disabled:opacity-60"
+              className="w-full rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-3 text-sm font-semibold text-white shadow-md disabled:opacity-60"
             >
               {saving ? "Saving…" : "Save profile"}
             </button>
