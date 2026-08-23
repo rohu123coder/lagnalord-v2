@@ -53,7 +53,7 @@ export default function RootLayout({
   return (
     <html lang="en" style={tenantThemeStyle}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased text-slate-900`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased text-[#F5F1E8] bg-[#0A1A2F]`}
       >
         {children}
       </body>
