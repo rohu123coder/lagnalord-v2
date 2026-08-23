@@ -168,8 +168,8 @@ export function WalletWidget({ className = "" }: WalletWidgetProps) {
   return (
     <div className={className}>
       <div className="flex flex-wrap items-center gap-3">
-        <div className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-slate-800">
-          <WalletIcon className="h-5 w-5 text-violet-600" />
+        <div className="inline-flex items-center gap-2 rounded-xl border border-[#C9A227]/20 bg-[#0F2240] px-3 py-2 text-[#F5F1E8]">
+          <WalletIcon className="h-5 w-5 text-[#E0C158]" />
           <span className="text-sm font-semibold">
             {isWalletRefreshing ? "Updating..." : formatMoney(balance)}
           </span>
@@ -182,7 +182,7 @@ export function WalletWidget({ className = "" }: WalletWidgetProps) {
             setSelected(null);
             setCustom("");
           }}
-          className="rounded-full bg-gradient-to-r from-purple-600 to-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:opacity-95"
+          className="rounded-full bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:opacity-95"
         >
           Recharge
         </button>
@@ -193,21 +193,21 @@ export function WalletWidget({ className = "" }: WalletWidgetProps) {
           <div
             role="dialog"
             aria-modal="true"
-            className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl"
+            className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-2xl bg-[#0F2240] p-6 shadow-2xl"
           >
             <div className="flex items-start justify-between gap-4">
               <div>
-                <h2 className="text-lg font-bold text-slate-900">
+                <h2 className="text-lg font-bold text-[#F5F1E8]">
                   Recharge wallet
                 </h2>
-                <p className="text-sm text-slate-600">
+                <p className="text-sm text-[#C7C2B4]">
                   Choose an amount to add to your balance
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="rounded-lg p-1 text-slate-500 hover:bg-slate-100"
+                className="rounded-lg p-1 text-[#C7C2B4] hover:bg-[#0A1A2F]"
                 aria-label="Close"
               >
                 ✕
@@ -226,8 +226,8 @@ export function WalletWidget({ className = "" }: WalletWidgetProps) {
                   }}
                   className={`rounded-xl border-2 py-3 text-center text-sm font-semibold transition ${
                     selected === amt
-                      ? "border-violet-500 bg-violet-50 text-violet-900"
-                      : "border-slate-100 bg-slate-50 text-slate-800 hover:border-violet-200"
+                      ? "border-[#C9A227] bg-[#C9A227]/10 text-[#E0C158]"
+                      : "border-[#C9A227]/10 bg-[#0A1A2F] text-[#C7C2B4] hover:border-[#C9A227]/40"
                   }`}
                 >
                   ₹{amt}
@@ -236,7 +236,7 @@ export function WalletWidget({ className = "" }: WalletWidgetProps) {
             </div>
 
             <div className="mt-4">
-              <label className="text-xs font-medium text-slate-600">
+              <label className="text-xs font-medium text-[#C7C2B4]">
                 Custom amount (₹)
               </label>
               <input
@@ -250,7 +250,7 @@ export function WalletWidget({ className = "" }: WalletWidgetProps) {
                   setError(null);
                 }}
                 placeholder="e.g. 250"
-                className="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2 text-slate-900 outline-none ring-violet-500 focus:ring-2"
+                className="mt-1 w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-3 py-2 text-[#F5F1E8] outline-none ring-[#C9A227] focus:ring-2"
               />
             </div>
 
@@ -262,7 +262,7 @@ export function WalletWidget({ className = "" }: WalletWidgetProps) {
               type="button"
               disabled={loading}
               onClick={() => void startCheckout()}
-              className="mt-5 w-full rounded-xl bg-gradient-to-r from-purple-600 to-orange-500 py-3 text-sm font-semibold text-white shadow-md transition hover:opacity-95 disabled:opacity-60"
+              className="mt-5 w-full rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-3 text-sm font-semibold text-white shadow-md transition hover:opacity-95 disabled:opacity-60"
             >
               {loading ? "Please wait…" : "Pay with Razorpay"}
             </button>
