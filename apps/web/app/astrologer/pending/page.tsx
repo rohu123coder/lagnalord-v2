@@ -44,8 +44,8 @@ export default function AstrologerPendingPage() {
 
   if (!mounted) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50">
-        <div className="h-10 w-10 animate-spin rounded-full border-2 border-violet-500 border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-[#0A1A2F]">
+        <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#C9A227] border-t-transparent" />
       </div>
     );
   }
@@ -54,37 +54,37 @@ export default function AstrologerPendingPage() {
   const email = details?.email ?? "your email";
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-violet-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] to-[#0F2240]">
       <div className="mx-auto flex max-w-xl flex-col px-4 py-12 sm:px-6">
-        <h1 className="text-2xl font-bold text-slate-900">
+        <h1 className="text-2xl font-bold text-[#F5F1E8]">
           Application Submitted
         </h1>
 
-        <p className="mt-3 text-sm text-slate-700">
+        <p className="mt-3 text-sm text-[#C7C2B4]">
           Your application is under review. We&apos;ll notify you at{" "}
-          <span className="font-semibold text-slate-900">{email}</span> once approved.
+          <span className="font-semibold text-[#F5F1E8]">{email}</span> once approved.
           This usually takes 24-48 hours.
         </p>
 
-        <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="text-sm font-semibold text-slate-900">
+        <div className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+          <h2 className="text-sm font-semibold text-[#F5F1E8]">
             Submitted details
           </h2>
 
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
-              <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+            <div className="rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3">
+              <p className="text-xs font-medium uppercase tracking-wide text-[#C7C2B4]">
                 Name
               </p>
-              <p className="mt-1 text-sm font-semibold text-slate-900">
+              <p className="mt-1 text-sm font-semibold text-[#F5F1E8]">
                 {name}
               </p>
             </div>
-            <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
-              <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+            <div className="rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3">
+              <p className="text-xs font-medium uppercase tracking-wide text-[#C7C2B4]">
                 Email
               </p>
-              <p className="mt-1 text-sm font-semibold text-slate-900">
+              <p className="mt-1 text-sm font-semibold text-[#F5F1E8]">
                 {email}
               </p>
             </div>
@@ -94,7 +94,7 @@ export default function AstrologerPendingPage() {
         <div className="mt-8 flex items-center justify-center">
           <Link
             href="/"
-            className="rounded-xl bg-gradient-to-r from-purple-600 to-orange-500 px-6 py-3 text-sm font-semibold text-white shadow-md transition hover:opacity-95"
+            className="rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-6 py-3 text-sm font-semibold text-white shadow-md transition hover:opacity-95"
           >
             Go to Home
           </Link>
