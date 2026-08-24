@@ -75,7 +75,7 @@ export default function RefundPolicyPage() {
       <main className="border-b border-[#C9A227]/20">
         <div className="mx-auto max-w-[1200px] px-4 py-12 md:px-8 md:py-16">
           <h1 className="text-3xl font-extrabold text-[#E0C158] md:text-4xl">Refund Policy</h1>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-700">
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-[#C7C2B4]">
             Our refund process is designed to be fair and transparent for wallet recharges and
             technical service issues.
           </p>

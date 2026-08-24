@@ -66,7 +66,7 @@ export default function DisclaimerPage() {
       <main className="border-b border-[#C9A227]/20">
         <div className="mx-auto max-w-[1200px] px-4 py-12 md:px-8 md:py-16">
           <h1 className="text-3xl font-extrabold text-[#E0C158] md:text-4xl">Disclaimer</h1>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-700">
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-[#C7C2B4]">
             Please read this disclaimer carefully before using {tenant.name} services.
           </p>
 
