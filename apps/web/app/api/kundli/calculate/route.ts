@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { find as findTimeZone } from "geo-tz";
+import { DateTime } from "luxon";
 import {
   computeKundli,
   type SwissEphemerisData,
@@ -11,6 +13,39 @@ const BACKEND_URL =
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
+
+/**
+ * Resolves the real UTC offset (in hours) for a birth using lat/lng + date,
+ * correctly accounting for DST. Falls back to 5.5 (IST) only if timezone
+ * lookup fails for any reason (should be extremely rare).
+ */
+function resolveUtcOffsetFromCoords(
+  lat: number,
+  lng: number,
+  dob: string,
+  tob: string | null
+): number {
+  try {
+    const zones = findTimeZone(lat, lng);
+    const zone = zones[0];
+    if (!zone) return 5.5;
+
+    const [y, mo, d] = dob.split("-").map((x) => parseInt(x, 10));
+    const [hh, mm] = tob ? tob.split(":").map((x) => parseInt(x, 10)) : [12, 0];
+
+    const dt = DateTime.fromObject(
+      { year: y, month: mo, day: d, hour: hh, minute: mm ?? 0 },
+      { zone }
+    );
+
+    if (!dt.isValid) return 5.5;
+
+    return dt.offset / 60;
+  } catch (e) {
+    console.error("Timezone resolution failed, defaulting to IST:", e);
+    return 5.5;
+  }
+}
 
 const bodySchema = z.object({
   name: z.string().min(1, "name is required"),
@@ -31,7 +66,7 @@ const bodySchema = z.object({
     .gte(-180, "lng must be >= -180")
     .lte(180, "lng must be <= 180"),
   gender: z.enum(["male", "female"]),
-  utcOffset: z.number().finite().optional().default(5.5),
+  utcOffset: z.number().finite().optional(),
 });
 
 export async function POST(req: Request) {
@@ -53,6 +88,11 @@ export async function POST(req: Request) {
 
   const body = parsed.data;
 
+  const resolvedUtcOffset =
+    typeof body.utcOffset === "number"
+      ? body.utcOffset
+      : resolveUtcOffsetFromCoords(body.lat, body.lng, body.dob, body.tob ?? null);
+
   try {
     const backendRes = await fetch(`${BACKEND_URL}/api/kundali/calculate`, {
       method: "POST",
@@ -62,7 +102,7 @@ export async function POST(req: Request) {
         tob: body.tob ?? null,
         lat: body.lat,
         lng: body.lng,
-        utcOffset: body.utcOffset ?? 5.5,
+        utcOffset: resolvedUtcOffset,
       }),
     });
 
@@ -105,7 +145,7 @@ export async function POST(req: Request) {
         lat: body.lat,
         lng: body.lng,
         gender: body.gender,
-        utcOffset: body.utcOffset ?? 5.5,
+        utcOffset: resolvedUtcOffset,
       },
       backendJson.data
     );
