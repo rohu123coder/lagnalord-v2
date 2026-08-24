@@ -116,10 +116,10 @@ export default function DashboardPage() {
 
   if (!mounted) {
     return (
-      <div className="min-h-screen bg-slate-50">
+      <div className="min-h-screen bg-[#0A1A2F]">
         <Navbar />
         <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
-          <div className="h-40 animate-pulse rounded-2xl bg-slate-200" />
+          <div className="h-40 animate-pulse rounded-2xl bg-[#0F2240]" />
         </div>
       </div>
     );
@@ -144,19 +144,19 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-[#0A1A2F]">
       <Navbar />
       <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
-        <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl">
+        <h1 className="text-2xl font-bold text-[#F5F1E8] sm:text-3xl">
           Welcome back{user?.name ? `, ${user.name}` : ""}
         </h1>
-        <p className="mt-2 text-slate-600">
+        <p className="mt-2 text-[#C7C2B4]">
           Manage your wallet and continue conversations with astrologers.
         </p>
 
-        <div className="mt-8 rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-bold text-slate-900">Wallet</h2>
-          <p className="mt-1 text-sm text-slate-600">
+        <div className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+          <h2 className="text-lg font-bold text-[#F5F1E8]">Wallet</h2>
+          <p className="mt-1 text-sm text-[#C7C2B4]">
             Recharge securely to start new chat sessions.
           </p>
           <div className="mt-4">
@@ -167,15 +167,15 @@ export default function DashboardPage() {
         <div className="mt-6 flex flex-wrap gap-3">
           <Link
             href="/astrologers"
-            className="inline-flex rounded-xl bg-gradient-to-r from-purple-600 to-orange-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:opacity-95"
+            className="inline-flex rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:opacity-95"
           >
             Browse Astrologers
           </Link>
         </div>
 
-        <div className="mt-10 rounded-2xl border border-slate-100 bg-white shadow-sm">
-          <div className="border-b border-slate-100 px-6 py-4">
-            <h2 className="text-lg font-bold text-slate-900">Recent chats</h2>
+        <div className="mt-10 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] shadow-sm">
+          <div className="border-b border-[#C9A227]/10 px-6 py-4">
+            <h2 className="text-lg font-bold text-[#F5F1E8]">Recent chats</h2>
           </div>
           <div className="overflow-x-auto">
             {loading ? (
@@ -183,18 +183,18 @@ export default function DashboardPage() {
                 {[1, 2, 3].map((i) => (
                   <div
                     key={i}
-                    className="h-10 animate-pulse rounded bg-slate-100"
+                    className="h-10 animate-pulse rounded bg-[#0A1A2F]"
                   />
                 ))}
               </div>
             ) : sessions.length === 0 ? (
-              <p className="p-6 text-sm text-slate-600">
+              <p className="p-6 text-sm text-[#C7C2B4]">
                 No chats yet. Browse an astrologer to get started.
               </p>
             ) : (
               <table className="min-w-full text-left text-sm">
                 <thead>
-                  <tr className="border-b border-slate-100 bg-slate-50/80 text-xs uppercase tracking-wide text-slate-500">
+                  <tr className="border-b border-[#C9A227]/10 bg-[#0A1A2F] text-xs uppercase tracking-wide text-[#C7C2B4]">
                     <th className="px-4 py-3 font-medium">Astrologer</th>
                     <th className="px-4 py-3 font-medium">Type</th>
                     <th className="px-4 py-3 font-medium">Date</th>
@@ -204,13 +204,13 @@ export default function DashboardPage() {
                     <th className="px-4 py-3 font-medium">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-[#C9A227]/10">
                   {sessions.map((s) => {
                     const dateSrc = s.ended_at ?? s.started_at;
                     return (
                       <tr
                         key={s.id}
-                        className="cursor-pointer text-slate-800 hover:bg-violet-50/40"
+                        className="cursor-pointer text-[#F5F1E8] hover:bg-[#0A1A2F]/50"
                         onClick={() => {
                           void openHistory(s);
                         }}
@@ -225,7 +225,7 @@ export default function DashboardPage() {
                                 className="h-8 w-8 rounded-full object-cover"
                               />
                             ) : (
-                              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-violet-100 text-xs font-bold text-violet-700">
+                              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#C9A227]/20 text-xs font-bold text-[#E0C158]">
                                 {firstName(s.astrologer_name).slice(0, 1).toUpperCase()}
                               </div>
                             )}
