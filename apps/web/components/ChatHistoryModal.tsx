@@ -35,17 +35,17 @@ export function ChatHistoryModal({
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 p-4">
-      <div className="flex h-[min(86vh,760px)] w-full max-w-3xl flex-col rounded-2xl bg-white shadow-2xl">
-        <div className="flex items-center justify-between border-b border-slate-100 px-5 py-4">
+      <div className="flex h-[min(86vh,760px)] w-full max-w-3xl flex-col rounded-2xl bg-[#0F2240] shadow-2xl">
+        <div className="flex items-center justify-between border-b border-[#C9A227]/10 px-5 py-4">
           <div>
-            <h2 className="text-lg font-bold text-slate-900">Chat History</h2>
-            <p className="text-sm text-slate-600">
+            <h2 className="text-lg font-bold text-[#F5F1E8]">Chat History</h2>
+            <p className="text-sm text-[#C7C2B4]">
               {astrologerName} · Session {sessionId.slice(0, 8)}
             </p>
           </div>
           <button
             type="button"
-            className="rounded-lg p-2 text-slate-500 hover:bg-slate-100"
+            className="rounded-lg p-2 text-[#C7C2B4] hover:bg-[#0A1A2F]"
             onClick={onClose}
             aria-label="Close"
           >
@@ -53,15 +53,15 @@ export function ChatHistoryModal({
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto bg-slate-50 px-4 py-4">
+        <div className="flex-1 overflow-y-auto bg-[#0A1A2F] px-4 py-4">
           {loading ? (
             <div className="space-y-2">
               {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="h-10 animate-pulse rounded bg-slate-200" />
+                <div key={i} className="h-10 animate-pulse rounded bg-[#0F2240]" />
               ))}
             </div>
           ) : messages.length === 0 ? (
-            <p className="py-10 text-center text-sm text-slate-500">
+            <p className="py-10 text-center text-sm text-[#C7C2B4]">
               No archived messages found.
             </p>
           ) : (
@@ -76,14 +76,14 @@ export function ChatHistoryModal({
                     <div
                       className={`max-w-[82%] rounded-2xl px-4 py-2 text-sm ${
                         mine
-                          ? "rounded-br-md bg-gradient-to-br from-purple-600 to-violet-600 text-white"
-                          : "rounded-bl-md bg-slate-200 text-slate-900"
+                          ? "rounded-br-md bg-gradient-to-br from-[#2A7D7B] to-[#3A9D9B] text-white"
+                          : "rounded-bl-md bg-[#0F2240] text-[#F5F1E8]"
                       }`}
                     >
                       <p className="whitespace-pre-wrap">{m.content}</p>
                       <p
                         className={`mt-1 text-[10px] ${
-                          mine ? "text-white/70" : "text-slate-500"
+                          mine ? "text-white/70" : "text-[#C7C2B4]/60"
                         }`}
                       >
                         {new Date(m.created_at).toLocaleString("en-IN", {
@@ -99,10 +99,10 @@ export function ChatHistoryModal({
           )}
         </div>
 
-        <div className="flex flex-wrap gap-2 border-t border-slate-100 px-5 py-4">
+        <div className="flex flex-wrap gap-2 border-t border-[#C9A227]/10 px-5 py-4">
           <button
             type="button"
-            className="rounded-xl bg-gradient-to-r from-purple-600 to-orange-500 px-4 py-2.5 text-sm font-semibold text-white"
+            className="rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-4 py-2.5 text-sm font-semibold text-white"
             onClick={onChatAgain}
           >
             Chat Again
@@ -110,7 +110,7 @@ export function ChatHistoryModal({
           {!rated ? (
             <button
               type="button"
-              className="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-700"
+              className="rounded-xl border border-[#C9A227]/30 px-4 py-2.5 text-sm font-semibold text-[#C7C2B4]"
               onClick={onRateSession}
             >
               Rate Session
