@@ -237,7 +237,7 @@ export default function DashboardPage() {
                             {renderSessionTypeIcon(s.session_type)}
                           </span>
                         </td>
-                        <td className="px-4 py-3 text-slate-600">
+                        <td className="px-4 py-3 text-[#C7C2B4]">
                           {dateSrc
                             ? new Date(dateSrc).toLocaleString("en-IN", {
                                 dateStyle: "medium",
@@ -262,7 +262,7 @@ export default function DashboardPage() {
                           <span
                             className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold ${
                               s.status === "ended"
-                                ? "bg-slate-100 text-slate-700"
+                                ? "bg-[#0F2240] text-[#C7C2B4]"
                                 : s.status === "active"
                                   ? "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-100"
                                   : "bg-amber-50 text-amber-800 ring-1 ring-amber-100"
