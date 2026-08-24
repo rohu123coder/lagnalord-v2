@@ -79,7 +79,7 @@ export default function AstrologerEarningsPage() {
   if (!mounted || !isLoggedIn || user?.role !== "astrologer") {
     return (
       <div className="flex min-h-screen items-center justify-center bg-slate-50">
-        <div className="h-10 w-10 animate-spin rounded-full border-2 border-violet-500 border-t-transparent" />
+        <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#C9A227] border-t-transparent" />
       </div>
     );
   }
@@ -98,7 +98,7 @@ export default function AstrologerEarningsPage() {
 
         {loading || !dash ? (
           <div className="mt-12 flex justify-center">
-            <div className="h-10 w-10 animate-spin rounded-full border-2 border-violet-500 border-t-transparent" />
+            <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#C9A227] border-t-transparent" />
           </div>
         ) : (
           <>
