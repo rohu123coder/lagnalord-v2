@@ -99,13 +99,13 @@ const yearlyPredictions = [
 
 export default function Horoscope2026Page() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-violet-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] via-[#0F2240] to-[#0A1A2F]">
       <Navbar />
       <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-        <h1 className="text-3xl font-extrabold text-slate-900 sm:text-4xl">
+        <h1 className="text-3xl font-extrabold text-[#F5F1E8] sm:text-4xl">
           Horoscope 2026
         </h1>
-        <p className="mt-2 max-w-2xl text-sm text-slate-600 sm:text-base">
+        <p className="mt-2 max-w-2xl text-sm text-[#C7C2B4] sm:text-base">
           Yearly predictions for all 12 rashis across career, love, health, and
           finance.
         </p>
@@ -114,24 +114,24 @@ export default function Horoscope2026Page() {
           {yearlyPredictions.map((item) => (
             <article
               key={item.rashi}
-              className="rounded-2xl border border-violet-100 bg-white p-5 shadow-sm"
+              className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm"
             >
-              <h2 className="text-xl font-bold text-violet-700">{item.rashi}</h2>
-              <ul className="mt-3 space-y-2 text-sm text-slate-700">
+              <h2 className="text-xl font-bold text-[#E0C158]">{item.rashi}</h2>
+              <ul className="mt-3 space-y-2 text-sm text-[#C7C2B4]">
                 <li>
-                  <span className="font-semibold text-slate-900">Career:</span>{" "}
+                  <span className="font-semibold text-[#F5F1E8]">Career:</span>{" "}
                   {item.career}
                 </li>
                 <li>
-                  <span className="font-semibold text-slate-900">Love:</span>{" "}
+                  <span className="font-semibold text-[#F5F1E8]">Love:</span>{" "}
                   {item.love}
                 </li>
                 <li>
-                  <span className="font-semibold text-slate-900">Health:</span>{" "}
+                  <span className="font-semibold text-[#F5F1E8]">Health:</span>{" "}
                   {item.health}
                 </li>
                 <li>
-                  <span className="font-semibold text-slate-900">Finance:</span>{" "}
+                  <span className="font-semibold text-[#F5F1E8]">Finance:</span>{" "}
                   {item.finance}
                 </li>
               </ul>
