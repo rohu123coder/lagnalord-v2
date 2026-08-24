@@ -45,16 +45,16 @@ export function RatingModal({
 
   return (
     <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/50 p-4">
-      <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl">
+      <div className="w-full max-w-md rounded-2xl bg-[#0F2240] p-6 shadow-2xl">
         {submitted ? (
           <>
-            <h2 className="text-lg font-bold text-slate-900">Thank you!</h2>
-            <p className="mt-2 text-sm text-slate-600">
+            <h2 className="text-lg font-bold text-[#F5F1E8]">Thank you!</h2>
+            <p className="mt-2 text-sm text-[#C7C2B4]">
               Your review helps us improve future sessions.
             </p>
             <button
               type="button"
-              className="mt-6 w-full rounded-xl bg-gradient-to-r from-purple-600 to-orange-500 py-3 text-sm font-semibold text-white"
+              className="mt-6 w-full rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-3 text-sm font-semibold text-white"
               onClick={onClose}
             >
               Done
@@ -62,7 +62,7 @@ export function RatingModal({
           </>
         ) : (
           <>
-            <h2 className="text-lg font-bold text-slate-900">{title}</h2>
+            <h2 className="text-lg font-bold text-[#F5F1E8]">{title}</h2>
             <div
               className="mt-4 flex items-center gap-1"
               onMouseLeave={() => setHovered(0)}
@@ -78,7 +78,7 @@ export function RatingModal({
                     onMouseEnter={() => setHovered(value)}
                     onClick={() => setRating(value)}
                     className={`text-3xl leading-none transition ${
-                      active ? "text-amber-400" : "text-slate-300"
+                      active ? "text-amber-400" : "text-[#C7C2B4]/30"
                     }`}
                   >
                     ★
@@ -90,12 +90,12 @@ export function RatingModal({
               value={reviewText}
               onChange={(e) => setReviewText(e.target.value)}
               placeholder="Share your experience..."
-              className="mt-4 min-h-28 w-full rounded-xl border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none ring-violet-500 focus:ring-2"
+              className="mt-4 min-h-28 w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none ring-[#C9A227] focus:ring-2"
             />
             <button
               type="button"
               disabled={submitting || rating < 1}
-              className="mt-4 w-full rounded-xl bg-gradient-to-r from-purple-600 to-orange-500 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
+              className="mt-4 w-full rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
               onClick={async () => {
                 if (rating < 1) {
                   return;
@@ -114,7 +114,7 @@ export function RatingModal({
             {onSkip ? (
               <button
                 type="button"
-                className="mt-3 w-full text-sm font-semibold text-slate-500 hover:text-slate-700"
+                className="mt-3 w-full text-sm font-semibold text-[#C7C2B4] hover:text-[#E0C158]"
                 onClick={onSkip}
               >
                 Skip
