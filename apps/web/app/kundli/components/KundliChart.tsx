@@ -205,7 +205,7 @@ export function KundliChart({
                 className="fill-[#E0C158]"
                 style={{ fontSize: 10, fontWeight: 600 }}
               >
-                {rashi.length > 8 ? `${rashi.slice(0, 7)}…` : rashi}
+                {rashi.split(" (")[0]}
               </text>
               {planets ? (
                 <text
