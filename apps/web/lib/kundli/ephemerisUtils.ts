@@ -280,8 +280,10 @@ export const ownSigns: Record<PlanetKey, number[]> = {
 };
 
 export function houseFromDeg(planetDeg: number, ascDeg: number): number {
-  const relativeDeg = (planetDeg - ascDeg + 360) % 360;
-  return Math.floor(relativeDeg / 30) + 1;
+  const planetSignIndex = Math.floor(((planetDeg % 360) + 360) % 360 / 30);
+  const ascSignIndex = Math.floor(((ascDeg % 360) + 360) % 360 / 30);
+  const diff = (planetSignIndex - ascSignIndex + 12) % 12;
+  return diff + 1;
 }
 
 export function chaldeanNumerology(fullName: string): number {
