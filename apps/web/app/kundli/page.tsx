@@ -20,7 +20,7 @@ function SectionTitle({
         {children}
       </h2>
       {subtitle ? (
-        <p className="mt-1 text-sm text-slate-600">{subtitle}</p>
+        <p className="mt-1 text-sm text-[#C7C2B4]">{subtitle}</p>
       ) : null}
     </div>
   );
