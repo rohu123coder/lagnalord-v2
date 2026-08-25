@@ -351,6 +351,11 @@ export function KundliForm({
                   </div>
                 ) : null}
               </div>
+              {form.pob && form.lat == null && form.lng == null && !showSuggest ? (
+                <p className="mt-2 text-xs font-medium text-amber-400">
+                  ⚠️ Please select your city from the search suggestions above to confirm the exact location.
+                </p>
+              ) : null}
               {showSuggest && suggestions.length > 0 ? (
                 <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#C9A227]/20 bg-[#0F2240] py-1 shadow-lg">
                   {suggestions.map((s, i) => {
