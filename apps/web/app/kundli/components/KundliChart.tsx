@@ -203,36 +203,51 @@ export function KundliChart({
 
         {HOUSE_CENTERS.map(([cx, cy], i) => {
           const houseNum = i + 1;
+          const rashi = chartData.houseRashis[i] ?? "";
+          const rashiShort = rashi.split(" (")[0];
+          const planetsInHouse = byHouse[houseNum] ?? [];
+          const useGrid = planetsInHouse.length >= 3;
           return (
             <g key={houseNum}>
               <text
                 x={cx}
                 y={sy(cy) - 8}
                 textAnchor="middle"
-                className="fill-[#C7C2B4]"
                 style={{ fontSize: 10, fontWeight: 400 }}
               >
-                {houseNum}
-              </text>
-              {(byHouse[houseNum] ?? []).map((item, idx) => (
-                <text
-                  key={`${houseNum}-${idx}`}
-                  x={cx}
-                  y={sy(cy) + 6 + idx * 16}
-                  textAnchor="middle"
-                  style={{ fontSize: 15, fontWeight: 700, fill: item.color }}
-                >
-                  {item.short}
-                  <tspan style={{ fontSize: 9, fontWeight: 600 }} dy="-5">
-                    {item.degree}
+                <tspan className="fill-[#C7C2B4]">{houseNum}</tspan>
+                {rashiShort ? (
+                  <tspan className="fill-[#8A93A6]" style={{ fontSize: 8 }}>
+                    {" "}
+                    {rashiShort}
                   </tspan>
-                  {item.retro ? (
-                    <tspan style={{ fontSize: 9, fontWeight: 600, fill: "#C9A227" }} dy="0">
-                      {" "}℞
+                ) : null}
+              </text>
+              {planetsInHouse.map((item, idx) => {
+                const row = useGrid ? Math.floor(idx / 2) : idx;
+                const col = useGrid ? idx % 2 : 0;
+                const xOffset = useGrid ? (col === 0 ? -15 : 15) : 0;
+                const yPos = sy(cy) + 8 + row * 17;
+                return (
+                  <text
+                    key={`${houseNum}-${idx}`}
+                    x={cx + xOffset}
+                    y={yPos}
+                    textAnchor="middle"
+                    style={{ fontSize: 14, fontWeight: 700, fill: item.color }}
+                  >
+                    {item.short}
+                    <tspan style={{ fontSize: 8, fontWeight: 600 }} dy="-5">
+                      {item.degree}
                     </tspan>
-                  ) : null}
-                </text>
-              ))}
+                    {item.retro ? (
+                      <tspan style={{ fontSize: 8, fontWeight: 600, fill: "#C9A227" }} dy="0">
+                        {" "}℞
+                      </tspan>
+                    ) : null}
+                  </text>
+                );
+              })}
             </g>
           );
         })}
