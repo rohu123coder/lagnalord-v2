@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Suspense, useState } from "react";
 import { getTenant } from "@/lib/tenants";
+import { AIAstrologerChat } from "./components/AIAstrologerChat";
 import { KundliChart } from "./components/KundliChart";
 import { KundliForm } from "./components/KundliForm";
 import type { KundliCalculateResponse } from "./types";
@@ -796,6 +797,8 @@ export default function KundliPage() {
               })}
             </div>
           </section>
+
+          <AIAstrologerChat kundliData={result} />
 
           <section className="rounded-2xl border border-[#C9A227]/20 bg-gradient-to-r from-[#0F2240] to-[#13294B] p-6 shadow-sm print:break-inside-avoid print:mb-6 print:hidden">
             <SectionTitle>Compatibility</SectionTitle>
