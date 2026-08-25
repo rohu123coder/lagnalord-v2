@@ -206,7 +206,8 @@ export function KundliChart({
           const rashi = chartData.houseRashis[i] ?? "";
           const rashiShort = rashi.split(" (")[0];
           const planetsInHouse = byHouse[houseNum] ?? [];
-          const useGrid = planetsInHouse.length >= 3;
+          const KENDRA_HOUSES = new Set([1, 4, 7, 10]);
+          const useGrid = planetsInHouse.length >= 3 && KENDRA_HOUSES.has(houseNum);
           return (
             <g key={houseNum}>
               <text
