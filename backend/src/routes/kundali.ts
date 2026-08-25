@@ -39,6 +39,9 @@ const SE_MARS = 4;
 const SE_JUPITER = 5;
 const SE_SATURN = 6;
 const SE_MEAN_NODE = 10;
+const SE_URANUS = 7;
+const SE_NEPTUNE = 8;
+const SE_PLUTO = 9;
 const SE_SIDM_LAHIRI = 1;
 const SEFLG_SIDEREAL = 64;
 const SEFLG_SPEED = 256;
@@ -165,6 +168,9 @@ export function calculateKundaliFromInput(input: KundaliCalculateInput) {
   const satLon = getPlanetLon(jd, SE_SATURN);
   const rahuLon = getPlanetLon(jd, SE_MEAN_NODE);
   const ketuLon = ((rahuLon + 180) % 360 + 360) % 360;
+  const uranusLon = getPlanetLon(jd, SE_URANUS);
+  const neptuneLon = getPlanetLon(jd, SE_NEPTUNE);
+  const plutoLon = getPlanetLon(jd, SE_PLUTO);
 
   const ascLon = approximate ? sunLon : getAscendant(jd, lat, lng);
 
@@ -180,6 +186,9 @@ export function calculateKundaliFromInput(input: KundaliCalculateInput) {
     { name: "Saturn", longitude: satLon, rashi: RASHI_NAMES[rashiFromLon(satLon)], rashiIndex: rashiFromLon(satLon) },
     { name: "Rahu", longitude: rahuLon, rashi: RASHI_NAMES[rashiFromLon(rahuLon)], rashiIndex: rashiFromLon(rahuLon) },
     { name: "Ketu", longitude: ketuLon, rashi: RASHI_NAMES[rashiFromLon(ketuLon)], rashiIndex: rashiFromLon(ketuLon) },
+    { name: "Uranus", longitude: uranusLon, rashi: RASHI_NAMES[rashiFromLon(uranusLon)], rashiIndex: rashiFromLon(uranusLon) },
+    { name: "Neptune", longitude: neptuneLon, rashi: RASHI_NAMES[rashiFromLon(neptuneLon)], rashiIndex: rashiFromLon(neptuneLon) },
+    { name: "Pluto", longitude: plutoLon, rashi: RASHI_NAMES[rashiFromLon(plutoLon)], rashiIndex: rashiFromLon(plutoLon) },
   ];
 
   return {
