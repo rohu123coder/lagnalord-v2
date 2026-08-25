@@ -157,16 +157,16 @@ export function KundliChart({
 
   return (
     <div
-      className={`rounded-2xl border border-[#C9A227]/20 bg-gradient-to-br from-[#0F2240] to-[#0A1A2F] p-4 shadow-lg shadow-black/40 ${className}`}
+      className={`rounded-2xl border border-[#C9A227]/20 bg-gradient-to-br from-[#0F2240] to-[#0A1A2F] p-2 shadow-lg shadow-black/40 ${className}`}
     >
       <p className="mb-3 text-center text-xs font-medium uppercase tracking-wider text-[#E0C158]">
-        North Indian (D1) · Whole sign
+        Lagna Chart (D1)
       </p>
       <svg
         viewBox={`0 0 ${VB.w} ${VB.h}`}
-        className="mx-auto h-auto w-full max-w-[400px]"
+        className="mx-auto h-auto w-full max-w-[460px]"
         role="img"
-        aria-label="North Indian style Vedic birth chart"
+        aria-label="Lagna Chart (D1) — North Indian style Vedic birth chart"
       >
         <defs>
           <linearGradient id="houseFill" x1="0%" y1="0%" x2="100%" y2="100%">
