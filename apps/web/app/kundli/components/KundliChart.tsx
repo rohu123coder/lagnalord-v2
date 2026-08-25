@@ -103,6 +103,32 @@ const HOUSE_CENTERS: [number, number][] = [
   [290, 30],
 ];
 
+/** Finds the top-left-most vertex of a house polygon, then nudges it
+ * toward the house center so the label sits inside the shape near its
+ * corner instead of exactly on the boundary line. */
+function cornerLabelPos(
+  pts: [number, number][],
+  center: [number, number]
+): [number, number] {
+  let best = pts[0];
+  let bestScore = pts[0][0] + pts[0][1];
+  for (const p of pts) {
+    const score = p[0] + p[1];
+    if (score < bestScore) {
+      bestScore = score;
+      best = p;
+    }
+  }
+  const dx = center[0] - best[0];
+  const dy = center[1] - best[1];
+  const t = 0.22;
+  return [best[0] + dx * t, best[1] + dy * t];
+}
+
+const HOUSE_LABEL_POS: [number, number][] = HOUSE_POLYGONS.map((pts, i) =>
+  cornerLabelPos(pts, HOUSE_CENTERS[i])
+);
+
 const PLANET_SHORT: Record<string, string> = {
   Sun: "Su",
   Moon: "Mo",
@@ -210,10 +236,10 @@ export function KundliChart({
           return (
             <g key={houseNum}>
               <text
-                x={cx}
-                y={sy(cy) - 8}
+                x={HOUSE_LABEL_POS[i][0]}
+                y={sy(HOUSE_LABEL_POS[i][1])}
                 textAnchor="middle"
-                style={{ fontSize: 10, fontWeight: 400 }}
+                style={{ fontSize: 9, fontWeight: 400 }}
               >
                 <tspan className="fill-[#C7C2B4]">{houseNum}</tspan>
                 {rashiShort ? (
