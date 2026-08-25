@@ -115,6 +115,12 @@ const PLANET_SHORT: Record<string, string> = {
   Ketu: "Ke",
 };
 
+const OUTER_PLANET_COLORS: Record<string, string> = {
+  Uranus: "#38bdf8",
+  Neptune: "#818cf8",
+  Pluto: "#a3a3a3",
+};
+
 function toPath(points: [number, number][]): string {
   return points
     .map(([x, y], i) => `${i === 0 ? "M" : "L"} ${x} ${sy(y)}`)
@@ -137,9 +143,13 @@ export function KundliChart({
       const short = PLANET_SHORT[p.name] ?? p.name.slice(0, 2);
       if (!map[p.house]) map[p.house] = [];
       let color = "#2A7D7B";
-      try {
-        color = planetInfo(p.name as Parameters<typeof planetInfo>[0]).color;
-      } catch {}
+      if (OUTER_PLANET_COLORS[p.name]) {
+        color = OUTER_PLANET_COLORS[p.name];
+      } else {
+        try {
+          color = planetInfo(p.name as Parameters<typeof planetInfo>[0]).color;
+        } catch {}
+      }
       map[p.house].push({ short, degree: p.degree, retro: p.isRetrograde, color });
     }
     return map;
