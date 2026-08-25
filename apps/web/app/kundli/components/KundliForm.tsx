@@ -7,6 +7,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { useSearchParams } from "next/navigation";
 import type { KundliCalculateResponse } from "../types";
 
 /** Form shape (checkbox controls birth time; field name per product spec) */
@@ -36,6 +37,15 @@ function todayISO(): string {
   const m = String(d.getMonth() + 1).padStart(2, "0");
   const day = String(d.getDate()).padStart(2, "0");
   return `${y}-${m}-${day}`;
+}
+
+/** Converts "DD/MM/YYYY" (from the homepage quick-form) to "YYYY-MM-DD" (HTML date input format). */
+function ddmmyyyyToIso(value: string): string {
+  const parts = value.split("/");
+  if (parts.length !== 3) return "";
+  const [dd, mm, yyyy] = parts;
+  if (!dd || !mm || !yyyy) return "";
+  return `${yyyy}-${mm.padStart(2, "0")}-${dd.padStart(2, "0")}`;
 }
 
 function Spinner({ className = "h-5 w-5" }: { className?: string }) {
@@ -69,15 +79,24 @@ export function KundliForm({
 }: {
   onSuccess: (data: KundliCalculateResponse) => void;
 }) {
-  const [form, setForm] = useState<KundliFormFields>({
-    name: "",
-    dob: "",
-    tob: "12:00",
-    dobUnknown: false,
-    pob: "",
-    lat: null,
-    lng: null,
-    gender: "male",
+  const searchParams = useSearchParams();
+  const [form, setForm] = useState<KundliFormFields>(() => {
+    const qpName = searchParams.get("name") ?? "";
+    const qpGender = searchParams.get("gender");
+    const qpDate = searchParams.get("date") ?? "";
+    const qpTime = searchParams.get("time") ?? "";
+    const qpPlace = searchParams.get("place") ?? "";
+    const isoDob = qpDate ? ddmmyyyyToIso(qpDate) : "";
+    return {
+      name: qpName,
+      dob: isoDob,
+      tob: qpTime || "12:00",
+      dobUnknown: false,
+      pob: qpPlace,
+      lat: null,
+      lng: null,
+      gender: qpGender === "female" ? "female" : "male",
+    };
   });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
