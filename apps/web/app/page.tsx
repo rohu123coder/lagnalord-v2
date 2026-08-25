@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { type FormEvent, useEffect, useState } from "react";
+import { type FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { io, type Socket } from "socket.io-client";
 
 import { Footer } from "@/components/Footer";
@@ -14,28 +14,6 @@ import { firstName } from "@/lib/utils";
 import { rashis } from "@/lib/horoscope";
 import { getSocketApiBase } from "@/lib/socketBase";
 import { useAuthStore } from "@/lib/store";
-
-/** Formats raw digit input into "DD/MM/YYYY" as the user types. */
-function formatDateInput(raw: string): string {
-  const digits = raw.replace(/\D/g, "").slice(0, 8);
-  if (digits.length <= 2) return digits;
-  if (digits.length <= 4) return `${digits.slice(0, 2)}/${digits.slice(2)}`;
-  return `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4)}`;
-}
-
-/** Formats raw digit input into 24-hour "HH:MM" as the user types, clamping to valid ranges. */
-function formatTimeInput(raw: string): string {
-  const digits = raw.replace(/\D/g, "").slice(0, 4);
-  if (digits.length <= 2) {
-    const hh = digits.length === 2 && parseInt(digits, 10) > 23 ? "23" : digits;
-    return hh;
-  }
-  let hh = digits.slice(0, 2);
-  let mm = digits.slice(2);
-  if (parseInt(hh, 10) > 23) hh = "23";
-  if (mm.length === 2 && parseInt(mm, 10) > 59) mm = "59";
-  return `${hh}:${mm}`;
-}
 
 type Astro = {
   id: string;
@@ -49,6 +27,14 @@ type Astro = {
   is_available: boolean;
   is_online?: boolean;
   experience_years: number | null;
+};
+
+type GeocodeHit = {
+  city: string;
+  country: string;
+  lat?: number;
+  lng?: number;
+  formattedAddress: string;
 };
 
 const topServices = [
@@ -294,13 +280,102 @@ export default function HomePage() {
     date: "",
     time: "",
     place: "",
+    lat: null as number | null,
+    lng: null as number | null,
   });
   const [matchForm, setMatchForm] = useState({
     name: "",
     date: "",
     time: "",
     place: "",
+    lat: null as number | null,
+    lng: null as number | null,
   });
+  const [kundliSuggestions, setKundliSuggestions] = useState<GeocodeHit[]>([]);
+  const [kundliShowSuggest, setKundliShowSuggest] = useState(false);
+  const [kundliGeoLoading, setKundliGeoLoading] = useState(false);
+  const kundliDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const kundliPobRef = useRef<HTMLDivElement>(null);
+
+  const [matchSuggestions, setMatchSuggestions] = useState<GeocodeHit[]>([]);
+  const [matchShowSuggest, setMatchShowSuggest] = useState(false);
+  const [matchGeoLoading, setMatchGeoLoading] = useState(false);
+  const matchDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const matchPobRef = useRef<HTMLDivElement>(null);
+
+  const onKundliPlaceChange = useCallback((value: string) => {
+    setKundliForm((f) => ({ ...f, place: value, lat: null, lng: null }));
+    if (kundliDebounceRef.current) clearTimeout(kundliDebounceRef.current);
+    if (value.trim().length < 2) {
+      setKundliSuggestions([]);
+      setKundliShowSuggest(false);
+      return;
+    }
+    kundliDebounceRef.current = setTimeout(async () => {
+      setKundliGeoLoading(true);
+      try {
+        const res = await fetch(`/api/kundli/geocode?q=${encodeURIComponent(value.trim())}`);
+        const json = (await res.json()) as { results?: GeocodeHit[]; error?: string };
+        if (!res.ok) {
+          setKundliSuggestions([]);
+          return;
+        }
+        const list = (json.results ?? [])
+          .filter((r) => typeof r.lat === "number" && typeof r.lng === "number" && !Number.isNaN(r.lat) && !Number.isNaN(r.lng))
+          .slice(0, 5);
+        setKundliSuggestions(list);
+        setKundliShowSuggest(list.length > 0);
+      } catch {
+        setKundliSuggestions([]);
+      } finally {
+        setKundliGeoLoading(false);
+      }
+    }, 400);
+  }, []);
+
+  const onMatchPlaceChange = useCallback((value: string) => {
+    setMatchForm((f) => ({ ...f, place: value, lat: null, lng: null }));
+    if (matchDebounceRef.current) clearTimeout(matchDebounceRef.current);
+    if (value.trim().length < 2) {
+      setMatchSuggestions([]);
+      setMatchShowSuggest(false);
+      return;
+    }
+    matchDebounceRef.current = setTimeout(async () => {
+      setMatchGeoLoading(true);
+      try {
+        const res = await fetch(`/api/kundli/geocode?q=${encodeURIComponent(value.trim())}`);
+        const json = (await res.json()) as { results?: GeocodeHit[]; error?: string };
+        if (!res.ok) {
+          setMatchSuggestions([]);
+          return;
+        }
+        const list = (json.results ?? [])
+          .filter((r) => typeof r.lat === "number" && typeof r.lng === "number" && !Number.isNaN(r.lat) && !Number.isNaN(r.lng))
+          .slice(0, 5);
+        setMatchSuggestions(list);
+        setMatchShowSuggest(list.length > 0);
+      } catch {
+        setMatchSuggestions([]);
+      } finally {
+        setMatchGeoLoading(false);
+      }
+    }, 400);
+  }, []);
+
+  useEffect(() => {
+    const close = (e: MouseEvent) => {
+      if (kundliPobRef.current && !kundliPobRef.current.contains(e.target as Node)) {
+        setKundliShowSuggest(false);
+      }
+      if (matchPobRef.current && !matchPobRef.current.contains(e.target as Node)) {
+        setMatchShowSuggest(false);
+      }
+    };
+    document.addEventListener("click", close);
+    return () => document.removeEventListener("click", close);
+  }, []);
+
   const [activePeriod, setActivePeriod] = useState("Daily");
   const [expertiseMode, setExpertiseMode] = useState<"astro" | "vastu">("astro");
 
@@ -402,6 +477,8 @@ export default function HomePage() {
       date: kundliForm.date,
       time: kundliForm.time,
       place: kundliForm.place,
+      ...(kundliForm.lat != null ? { lat: String(kundliForm.lat) } : {}),
+      ...(kundliForm.lng != null ? { lng: String(kundliForm.lng) } : {}),
     });
     router.push(`/kundli?${params.toString()}`);
   };
@@ -413,6 +490,8 @@ export default function HomePage() {
       date: matchForm.date,
       time: matchForm.time,
       place: matchForm.place,
+      ...(matchForm.lat != null ? { lat: String(matchForm.lat) } : {}),
+      ...(matchForm.lng != null ? { lng: String(matchForm.lng) } : {}),
     });
     router.push(`/kundli/match?${params.toString()}`);
   };
@@ -593,28 +672,55 @@ export default function HomePage() {
                 <option value="other">Other</option>
               </select>
               <input
-                type="text"
-                placeholder="Date (DD/MM/YYYY)"
+                type="date"
                 value={kundliForm.date}
-                maxLength={10}
-                onChange={(e) => setKundliForm((prev) => ({ ...prev, date: formatDateInput(e.target.value) }))}
+                onChange={(e) => setKundliForm((prev) => ({ ...prev, date: e.target.value }))}
                 className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
               />
               <input
-                type="text"
-                placeholder="Time (HH:MM)"
+                type="time"
                 value={kundliForm.time}
-                maxLength={5}
-                onChange={(e) => setKundliForm((prev) => ({ ...prev, time: formatTimeInput(e.target.value) }))}
+                onChange={(e) => setKundliForm((prev) => ({ ...prev, time: e.target.value }))}
                 className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
               />
-              <input
-                type="text"
-                placeholder="Place"
-                value={kundliForm.place}
-                onChange={(e) => setKundliForm((prev) => ({ ...prev, place: e.target.value }))}
-                className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
-              />
+              <div ref={kundliPobRef} className="relative">
+                <input
+                  type="text"
+                  placeholder="Place"
+                  autoComplete="off"
+                  value={kundliForm.place}
+                  onChange={(e) => onKundliPlaceChange(e.target.value)}
+                  onFocus={() => kundliSuggestions.length > 0 && setKundliShowSuggest(true)}
+                  className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
+                />
+                {kundliGeoLoading ? (
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[#C9A227]">
+                    <span className="text-xs">...</span>
+                  </div>
+                ) : null}
+                {kundliShowSuggest && kundliSuggestions.length > 0 ? (
+                  <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#C9A227]/20 bg-[#0F2240] py-1 shadow-lg">
+                    {kundliSuggestions.map((s, i) => {
+                      const line = [s.city, s.country].filter(Boolean).join(", ");
+                      return (
+                        <li key={`${s.formattedAddress}-${i}`}>
+                          <button
+                            type="button"
+                            className="w-full px-4 py-2.5 text-left text-sm text-[#F5F1E8] hover:bg-[#0A1A2F]"
+                            onClick={() => {
+                              setKundliForm((f) => ({ ...f, place: s.formattedAddress || line, lat: s.lat!, lng: s.lng! }));
+                              setKundliShowSuggest(false);
+                              setKundliSuggestions([]);
+                            }}
+                          >
+                            {line || s.formattedAddress}
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                ) : null}
+              </div>
               <button
                 type="submit"
                 className="w-full rounded-lg bg-gradient-to-r from-[#C9A227] to-[#E0C158] px-4 py-2.5 text-sm font-semibold text-[#0A1A2F] transition hover:opacity-95"
@@ -635,28 +741,55 @@ export default function HomePage() {
                 className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
               />
               <input
-                type="text"
-                placeholder="Date (DD/MM/YYYY)"
+                type="date"
                 value={matchForm.date}
-                maxLength={10}
-                onChange={(e) => setMatchForm((prev) => ({ ...prev, date: formatDateInput(e.target.value) }))}
+                onChange={(e) => setMatchForm((prev) => ({ ...prev, date: e.target.value }))}
                 className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
               />
               <input
-                type="text"
-                placeholder="Time (HH:MM)"
+                type="time"
                 value={matchForm.time}
-                maxLength={5}
-                onChange={(e) => setMatchForm((prev) => ({ ...prev, time: formatTimeInput(e.target.value) }))}
+                onChange={(e) => setMatchForm((prev) => ({ ...prev, time: e.target.value }))}
                 className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
               />
-              <input
-                type="text"
-                placeholder="Place"
-                value={matchForm.place}
-                onChange={(e) => setMatchForm((prev) => ({ ...prev, place: e.target.value }))}
-                className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
-              />
+              <div ref={matchPobRef} className="relative">
+                <input
+                  type="text"
+                  placeholder="Place"
+                  autoComplete="off"
+                  value={matchForm.place}
+                  onChange={(e) => onMatchPlaceChange(e.target.value)}
+                  onFocus={() => matchSuggestions.length > 0 && setMatchShowSuggest(true)}
+                  className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
+                />
+                {matchGeoLoading ? (
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[#C9A227]">
+                    <span className="text-xs">...</span>
+                  </div>
+                ) : null}
+                {matchShowSuggest && matchSuggestions.length > 0 ? (
+                  <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#C9A227]/20 bg-[#0F2240] py-1 shadow-lg">
+                    {matchSuggestions.map((s, i) => {
+                      const line = [s.city, s.country].filter(Boolean).join(", ");
+                      return (
+                        <li key={`${s.formattedAddress}-${i}`}>
+                          <button
+                            type="button"
+                            className="w-full px-4 py-2.5 text-left text-sm text-[#F5F1E8] hover:bg-[#0A1A2F]"
+                            onClick={() => {
+                              setMatchForm((f) => ({ ...f, place: s.formattedAddress || line, lat: s.lat!, lng: s.lng! }));
+                              setMatchShowSuggest(false);
+                              setMatchSuggestions([]);
+                            }}
+                          >
+                            {line || s.formattedAddress}
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                ) : null}
+              </div>
               <button
                 type="submit"
                 className="w-full rounded-lg border border-[#C9A227]/25 px-4 py-2.5 text-sm font-semibold text-[#E0C158] transition hover:bg-[#13294B]"
