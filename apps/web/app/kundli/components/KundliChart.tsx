@@ -215,12 +215,8 @@ export function KundliChart({
                 textAnchor="middle"
                 style={{ fontSize: 10, fontWeight: 400 }}
               >
-                <tspan className="fill-[#C7C2B4]">{houseNum}</tspan>
                 {rashiShort ? (
-                  <tspan className="fill-[#8A93A6]" style={{ fontSize: 8 }}>
-                    {" "}
-                    {rashiShort}
-                  </tspan>
+                  <tspan className="fill-[#C7C2B4]">{rashiShort}</tspan>
                 ) : null}
               </text>
               {planetsInHouse.map((item, idx) => {
