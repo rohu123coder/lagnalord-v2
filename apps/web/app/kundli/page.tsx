@@ -377,7 +377,7 @@ export default function KundliPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] via-[#0F2240] to-[#0A1A2F]">
-      <header className="border-b border-[#C9A227]/20 bg-[#0A1A2F]/70 backdrop-blur-md">
+      <header className="border-b border-[#C9A227]/20 bg-[#0A1A2F]/70 backdrop-blur-md print:hidden">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
           <Link
             href="/"
@@ -391,7 +391,9 @@ export default function KundliPage() {
         </div>
       </header>
 
-      <KundliForm onSuccess={setResult} />
+      <div className="print:hidden">
+        <KundliForm onSuccess={setResult} />
+      </div>
 
       {result ? (
         <div className="mx-auto max-w-6xl space-y-12 px-4 pb-20 sm:px-6">
@@ -402,11 +404,11 @@ export default function KundliPage() {
             </p>
           ) : null}
 
-          <section>
+          <section className="print:break-inside-avoid print:mb-6">
             <SectionTitle subtitle="Lagna chart with signs & planets by house">
               Your birth chart
             </SectionTitle>
-            <div className="mb-4 flex flex-wrap gap-2">
+            <div className="mb-4 flex flex-wrap gap-2 print:hidden">
               <button
                 type="button"
                 onClick={onShare}
@@ -478,13 +480,13 @@ export default function KundliPage() {
             </div>
           </section>
 
-          <section>
+          <section className="print:break-inside-avoid print:mb-6">
             <SectionTitle subtitle="Strength rating by house support">
               Life Area Ratings
             </SectionTitle>
             <div className="grid gap-4 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md sm:grid-cols-2 lg:grid-cols-5">
               {ratings.map((rating) => (
-                <div key={rating.area} className="rounded-xl bg-[#0A1A2F]/60 p-3 text-center">
+                <div key={rating.area} className="rounded-xl bg-[#0A1A2F]/60 p-3 text-center print:break-inside-avoid">
                   <p className="text-xs uppercase tracking-wide text-[#C7C2B4]">{rating.area}</p>
                   <p className="mt-1 text-lg font-semibold text-amber-500">{stars(rating.value)}</p>
                   <p className="text-xs text-[#C7C2B4]">{rating.value}/5</p>
@@ -493,7 +495,7 @@ export default function KundliPage() {
             </div>
           </section>
 
-          <section>
+          <section className="print:break-inside-avoid print:mb-6">
             <SectionTitle subtitle="Sidereal longitudes · retrograde marked">
               Planetary positions
             </SectionTitle>
@@ -546,7 +548,7 @@ export default function KundliPage() {
             </div>
           </section>
 
-          <section className="grid gap-6 lg:grid-cols-2">
+          <section className="grid gap-6 lg:grid-cols-2 print:break-inside-avoid print:mb-6">
             <div className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md">
               <SectionTitle>Vimshottari Dasha</SectionTitle>
               <ul className="space-y-3 text-sm">
@@ -618,7 +620,7 @@ export default function KundliPage() {
             </div>
           </section>
 
-          <section>
+          <section className="print:break-inside-avoid print:mb-6">
             <SectionTitle subtitle="Classical combinations detected in your chart">
               Yogas
             </SectionTitle>
@@ -626,7 +628,7 @@ export default function KundliPage() {
               {result.yogas.map((y) => (
                 <div
                   key={y.name}
-                  className={`rounded-xl border p-4 ${
+                  className={`rounded-xl border p-4 print:break-inside-avoid ${
                     y.present
                       ? "border-[#C9A227]/40 bg-[#C9A227]/10"
                       : "border-[#C9A227]/10 bg-[#0A1A2F]/40"
@@ -651,13 +653,13 @@ export default function KundliPage() {
             </div>
           </section>
 
-          <section>
+          <section className="print:break-inside-avoid print:mb-6">
             <SectionTitle>Interpretations</SectionTitle>
             <div className="grid gap-4 md:grid-cols-2">
               {Object.entries(result.predictions).map(([k, v]) => (
                 <div
                   key={k}
-                  className="rounded-xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm"
+                  className="rounded-xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm print:break-inside-avoid"
                 >
                   <h3 className="capitalize text-sm font-semibold text-[#E0C158]">
                     {k.replace(/([A-Z])/g, " $1").trim()}
@@ -670,7 +672,7 @@ export default function KundliPage() {
             </div>
           </section>
 
-          <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md">
+          <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md print:break-inside-avoid print:mb-6">
             <SectionTitle>Detailed Personality Analysis</SectionTitle>
             <div className="space-y-3 text-sm leading-relaxed text-[#C7C2B4]">
               <p>
@@ -693,7 +695,7 @@ export default function KundliPage() {
             </div>
           </section>
 
-          <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md">
+          <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md print:break-inside-avoid print:mb-6">
             <SectionTitle>Career &amp; Finance Deep Dive</SectionTitle>
             <p className="text-sm leading-relaxed text-[#C7C2B4]">
               Your 10th house in <span className="font-semibold">{result.houses[9].rashi}</span> and wealth axis
@@ -713,7 +715,7 @@ export default function KundliPage() {
             </div>
           </section>
 
-          <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md">
+          <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md print:break-inside-avoid print:mb-6">
             <SectionTitle>Love &amp; Marriage Analysis</SectionTitle>
             <p className="text-sm leading-relaxed text-[#C7C2B4]">
               Your 7th house in <span className="font-semibold">{result.houses[6].rashi}</span> suggests a
@@ -724,7 +726,7 @@ export default function KundliPage() {
             </p>
           </section>
 
-          <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md">
+          <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md print:break-inside-avoid print:mb-6">
             <SectionTitle>Health &amp; Wellness Guide</SectionTitle>
             <p className="text-sm leading-relaxed text-[#C7C2B4]">
               Focus on body zones indicated by your Lagna and 6th house for preventive wellness. Prioritize routine
@@ -736,7 +738,7 @@ export default function KundliPage() {
             </p>
           </section>
 
-          <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md">
+          <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md print:break-inside-avoid print:mb-6">
             <SectionTitle>Lucky Numbers, Colors &amp; Gems</SectionTitle>
             <ul className="space-y-2 text-sm text-[#C7C2B4]">
               <li>
@@ -763,14 +765,14 @@ export default function KundliPage() {
             </ul>
           </section>
 
-          <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md">
+          <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md print:break-inside-avoid print:mb-6">
             <SectionTitle>Remedies &amp; Upay</SectionTitle>
             <div className="space-y-4">
               {remedyPlanets.map((planet) => {
                 const remedy = PLANET_REMEDIES[planet.name];
                 if (!remedy) return null;
                 return (
-                  <div key={planet.name} className="rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F]/40 p-4">
+                  <div key={planet.name} className="rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F]/40 p-4 print:break-inside-avoid">
                     <p className="text-sm font-semibold text-[#E0C158]">{planet.name} Remedies</p>
                     <p className="mt-1 text-sm text-[#C7C2B4]">
                       <span className="font-medium">Mantra:</span> {remedy.mantra}
@@ -793,7 +795,7 @@ export default function KundliPage() {
             </div>
           </section>
 
-          <section className="rounded-2xl border border-[#C9A227]/20 bg-gradient-to-r from-[#0F2240] to-[#13294B] p-6 shadow-sm">
+          <section className="rounded-2xl border border-[#C9A227]/20 bg-gradient-to-r from-[#0F2240] to-[#13294B] p-6 shadow-sm print:break-inside-avoid print:mb-6">
             <SectionTitle>Compatibility</SectionTitle>
             <p className="text-sm text-[#C7C2B4]">
               Match your Kundli with your partner to check guna milan, dosha compatibility, and marriage timing.
@@ -806,7 +808,7 @@ export default function KundliPage() {
             </Link>
           </section>
 
-          <section className="rounded-2xl border border-[#C9A227]/30 bg-[#C9A227]/10 p-6 text-center shadow-sm">
+          <section className="rounded-2xl border border-[#C9A227]/30 bg-[#C9A227]/10 p-6 text-center shadow-sm print:break-inside-avoid print:mb-6">
             <p className="text-sm text-[#C7C2B4]">
               Need deeper personalized guidance beyond algorithmic predictions?
             </p>
