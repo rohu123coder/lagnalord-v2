@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 import { Navbar } from "@/components/Navbar";
 
@@ -67,12 +68,28 @@ function calculateMatch(boyDob: string, girlDob: string): {
   return { total, koots, compatibility, recommendation, mangalBoy, mangalGirl };
 }
 
+/** Converts "DD/MM/YYYY" (from the homepage quick-form) to "YYYY-MM-DD" (HTML date input format). */
+function ddmmyyyyToIso(value: string): string {
+  const parts = value.split("/");
+  if (parts.length !== 3) return "";
+  const [dd, mm, yyyy] = parts;
+  if (!dd || !mm || !yyyy) return "";
+  return `${yyyy}-${mm.padStart(2, "0")}-${dd.padStart(2, "0")}`;
+}
+
 export default function KundliMatchClient() {
-  const [boy, setBoy] = useState<PersonDetails>({
-    name: "",
-    dob: "",
-    tob: "",
-    place: "",
+  const searchParams = useSearchParams();
+  const [boy, setBoy] = useState<PersonDetails>(() => {
+    const qpName = searchParams.get("boyName") ?? "";
+    const qpDate = searchParams.get("date") ?? "";
+    const qpTime = searchParams.get("time") ?? "";
+    const qpPlace = searchParams.get("place") ?? "";
+    return {
+      name: qpName,
+      dob: qpDate ? ddmmyyyyToIso(qpDate) : "",
+      tob: qpTime,
+      place: qpPlace,
+    };
   });
   const [girl, setGirl] = useState<PersonDetails>({
     name: "",
