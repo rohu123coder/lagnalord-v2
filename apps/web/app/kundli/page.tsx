@@ -795,7 +795,7 @@ export default function KundliPage() {
             </div>
           </section>
 
-          <section className="rounded-2xl border border-[#C9A227]/20 bg-gradient-to-r from-[#0F2240] to-[#13294B] p-6 shadow-sm print:break-inside-avoid print:mb-6">
+          <section className="rounded-2xl border border-[#C9A227]/20 bg-gradient-to-r from-[#0F2240] to-[#13294B] p-6 shadow-sm print:break-inside-avoid print:mb-6 print:hidden">
             <SectionTitle>Compatibility</SectionTitle>
             <p className="text-sm text-[#C7C2B4]">
               Match your Kundli with your partner to check guna milan, dosha compatibility, and marriage timing.
@@ -808,7 +808,7 @@ export default function KundliPage() {
             </Link>
           </section>
 
-          <section className="rounded-2xl border border-[#C9A227]/30 bg-[#C9A227]/10 p-6 text-center shadow-sm print:break-inside-avoid print:mb-6">
+          <section className="rounded-2xl border border-[#C9A227]/30 bg-[#C9A227]/10 p-6 text-center shadow-sm print:break-inside-avoid print:mb-6 print:hidden">
             <p className="text-sm text-[#C7C2B4]">
               Need deeper personalized guidance beyond algorithmic predictions?
             </p>
