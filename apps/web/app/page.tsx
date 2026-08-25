@@ -15,6 +15,28 @@ import { rashis } from "@/lib/horoscope";
 import { getSocketApiBase } from "@/lib/socketBase";
 import { useAuthStore } from "@/lib/store";
 
+/** Formats raw digit input into "DD/MM/YYYY" as the user types. */
+function formatDateInput(raw: string): string {
+  const digits = raw.replace(/\D/g, "").slice(0, 8);
+  if (digits.length <= 2) return digits;
+  if (digits.length <= 4) return `${digits.slice(0, 2)}/${digits.slice(2)}`;
+  return `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4)}`;
+}
+
+/** Formats raw digit input into 24-hour "HH:MM" as the user types, clamping to valid ranges. */
+function formatTimeInput(raw: string): string {
+  const digits = raw.replace(/\D/g, "").slice(0, 4);
+  if (digits.length <= 2) {
+    const hh = digits.length === 2 && parseInt(digits, 10) > 23 ? "23" : digits;
+    return hh;
+  }
+  let hh = digits.slice(0, 2);
+  let mm = digits.slice(2);
+  if (parseInt(hh, 10) > 23) hh = "23";
+  if (mm.length === 2 && parseInt(mm, 10) > 59) mm = "59";
+  return `${hh}:${mm}`;
+}
+
 type Astro = {
   id: string;
   name: string;
@@ -574,14 +596,16 @@ export default function HomePage() {
                 type="text"
                 placeholder="Date (DD/MM/YYYY)"
                 value={kundliForm.date}
-                onChange={(e) => setKundliForm((prev) => ({ ...prev, date: e.target.value }))}
+                maxLength={10}
+                onChange={(e) => setKundliForm((prev) => ({ ...prev, date: formatDateInput(e.target.value) }))}
                 className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
               />
               <input
                 type="text"
                 placeholder="Time (HH:MM)"
                 value={kundliForm.time}
-                onChange={(e) => setKundliForm((prev) => ({ ...prev, time: e.target.value }))}
+                maxLength={5}
+                onChange={(e) => setKundliForm((prev) => ({ ...prev, time: formatTimeInput(e.target.value) }))}
                 className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
               />
               <input
@@ -614,14 +638,16 @@ export default function HomePage() {
                 type="text"
                 placeholder="Date (DD/MM/YYYY)"
                 value={matchForm.date}
-                onChange={(e) => setMatchForm((prev) => ({ ...prev, date: e.target.value }))}
+                maxLength={10}
+                onChange={(e) => setMatchForm((prev) => ({ ...prev, date: formatDateInput(e.target.value) }))}
                 className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
               />
               <input
                 type="text"
                 placeholder="Time (HH:MM)"
                 value={matchForm.time}
-                onChange={(e) => setMatchForm((prev) => ({ ...prev, time: e.target.value }))}
+                maxLength={5}
+                onChange={(e) => setMatchForm((prev) => ({ ...prev, time: formatTimeInput(e.target.value) }))}
                 className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
               />
               <input
