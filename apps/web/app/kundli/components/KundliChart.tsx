@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import { planetInfo } from "@/lib/kundli/ephemerisUtils";
 import type { KundliCalculateResponse, KundliChartPayload } from "../types";
 
 const VB = { w: 400, h: 400 };
@@ -130,12 +131,16 @@ export function KundliChart({
   className?: string;
 }) {
   const byHouse = useMemo(() => {
-    const map: Record<number, { label: string; retro: boolean }[]> = {};
+    const map: Record<number, { short: string; degree: number; retro: boolean; color: string }[]> = {};
     for (let h = 1; h <= 12; h++) map[h] = [];
     for (const p of planets) {
       const short = PLANET_SHORT[p.name] ?? p.name.slice(0, 2);
       if (!map[p.house]) map[p.house] = [];
-      map[p.house].push({ label: `${short}${p.degree}`, retro: p.isRetrograde });
+      let color = "#2A7D7B";
+      try {
+        color = planetInfo(p.name as Parameters<typeof planetInfo>[0]).color;
+      } catch {}
+      map[p.house].push({ short, degree: p.degree, retro: p.isRetrograde, color });
     }
     return map;
   }, [planets]);
@@ -188,39 +193,31 @@ export function KundliChart({
 
         {HOUSE_CENTERS.map(([cx, cy], i) => {
           const houseNum = i + 1;
-          const rashi = chartData.houseRashis[i] ?? "—";
           return (
             <g key={houseNum}>
               <text
                 x={cx}
-                y={sy(cy) - 14}
+                y={sy(cy) - 8}
                 textAnchor="middle"
-                className="fill-[#F5F1E8]"
-                style={{ fontSize: 11, fontWeight: 700 }}
+                className="fill-[#C7C2B4]"
+                style={{ fontSize: 10, fontWeight: 400 }}
               >
                 {houseNum}
-              </text>
-              <text
-                x={cx}
-                y={sy(cy) + 2}
-                textAnchor="middle"
-                className="fill-[#E0C158]"
-                style={{ fontSize: 10, fontWeight: 600 }}
-              >
-                {rashi.split(" (")[0]}
               </text>
               {(byHouse[houseNum] ?? []).map((item, idx) => (
                 <text
                   key={`${houseNum}-${idx}`}
                   x={cx}
-                  y={sy(cy) + 18 + idx * 11}
+                  y={sy(cy) + 6 + idx * 16}
                   textAnchor="middle"
-                  className="fill-[#2A7D7B]"
-                  style={{ fontSize: 9, fontWeight: 500 }}
+                  style={{ fontSize: 15, fontWeight: 700, fill: item.color }}
                 >
-                  {item.label}
+                  {item.short}
+                  <tspan style={{ fontSize: 9, fontWeight: 600 }} dy="-5">
+                    {item.degree}
+                  </tspan>
                   {item.retro ? (
-                    <tspan className="fill-[#C9A227]" style={{ fontSize: 7 }}>
+                    <tspan style={{ fontSize: 9, fontWeight: 600, fill: "#C9A227" }} dy="0">
                       {" "}℞
                     </tspan>
                   ) : null}
