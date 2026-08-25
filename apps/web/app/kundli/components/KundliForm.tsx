@@ -86,7 +86,11 @@ export function KundliForm({
     const qpDate = searchParams.get("date") ?? "";
     const qpTime = searchParams.get("time") ?? "";
     const qpPlace = searchParams.get("place") ?? "";
-    const isoDob = qpDate ? ddmmyyyyToIso(qpDate) : "";
+    const isoDob = qpDate
+      ? /^\d{4}-\d{2}-\d{2}$/.test(qpDate)
+        ? qpDate
+        : ddmmyyyyToIso(qpDate)
+      : "";
     return {
       name: qpName,
       dob: isoDob,
