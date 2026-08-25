@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
 import { tenantPageTitle } from "@/lib/tenantBranding";
 
@@ -11,5 +12,9 @@ export const metadata: Metadata = {
 };
 
 export default function KundliMatchPage() {
-  return <KundliMatchClient />;
+  return (
+    <Suspense fallback={<div className="mx-auto max-w-2xl px-4 py-12 text-center text-sm text-[#C7C2B4]">Loading form...</div>}>
+      <KundliMatchClient />
+    </Suspense>
+  );
 }

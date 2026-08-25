@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { getTenant } from "@/lib/tenants";
 import { KundliChart } from "./components/KundliChart";
 import { KundliForm } from "./components/KundliForm";
@@ -392,7 +392,9 @@ export default function KundliPage() {
       </header>
 
       <div className="print:hidden">
-        <KundliForm onSuccess={setResult} />
+        <Suspense fallback={<div className="mx-auto max-w-2xl px-4 py-12 text-center text-sm text-[#C7C2B4]">Loading form...</div>}>
+          <KundliForm onSuccess={setResult} />
+        </Suspense>
       </div>
 
       {result ? (
