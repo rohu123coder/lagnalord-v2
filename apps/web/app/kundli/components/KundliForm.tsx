@@ -91,14 +91,18 @@ export function KundliForm({
         ? qpDate
         : ddmmyyyyToIso(qpDate)
       : "";
+    const qpLat = searchParams.get("lat");
+    const qpLng = searchParams.get("lng");
+    const parsedLat = qpLat !== null ? Number(qpLat) : null;
+    const parsedLng = qpLng !== null ? Number(qpLng) : null;
     return {
       name: qpName,
       dob: isoDob,
       tob: qpTime || "12:00",
       dobUnknown: false,
       pob: qpPlace,
-      lat: null,
-      lng: null,
+      lat: parsedLat !== null && Number.isFinite(parsedLat) ? parsedLat : null,
+      lng: parsedLng !== null && Number.isFinite(parsedLng) ? parsedLng : null,
       gender: qpGender === "female" ? "female" : "male",
     };
   });
