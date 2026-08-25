@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import type { KundliChartPayload } from "../types";
+import type { KundliCalculateResponse, KundliChartPayload } from "../types";
 
 const VB = { w: 400, h: 400 };
 /** Scale gist coords (y in 0–300) to 400×400 viewBox */
@@ -122,20 +122,23 @@ function toPath(points: [number, number][]): string {
 
 export function KundliChart({
   chartData,
+  planets,
   className = "",
 }: {
   chartData: KundliChartPayload;
+  planets: KundliCalculateResponse["planets"];
   className?: string;
 }) {
   const byHouse = useMemo(() => {
-    const map: Record<number, string[]> = {};
+    const map: Record<number, { label: string; retro: boolean }[]> = {};
     for (let h = 1; h <= 12; h++) map[h] = [];
-    for (const [planet, house] of Object.entries(chartData.planetHouseMap)) {
-      if (!map[house]) map[house] = [];
-      map[house].push(PLANET_SHORT[planet] ?? planet.slice(0, 2));
+    for (const p of planets) {
+      const short = PLANET_SHORT[p.name] ?? p.name.slice(0, 2);
+      if (!map[p.house]) map[p.house] = [];
+      map[p.house].push({ label: `${short}${p.degree}`, retro: p.isRetrograde });
     }
     return map;
-  }, [chartData.planetHouseMap]);
+  }, [planets]);
 
   return (
     <div
@@ -186,7 +189,6 @@ export function KundliChart({
         {HOUSE_CENTERS.map(([cx, cy], i) => {
           const houseNum = i + 1;
           const rashi = chartData.houseRashis[i] ?? "—";
-          const planets = byHouse[houseNum]?.join(" ") ?? "";
           return (
             <g key={houseNum}>
               <text
@@ -207,17 +209,23 @@ export function KundliChart({
               >
                 {rashi.split(" (")[0]}
               </text>
-              {planets ? (
+              {(byHouse[houseNum] ?? []).map((item, idx) => (
                 <text
+                  key={`${houseNum}-${idx}`}
                   x={cx}
-                  y={sy(cy) + 18}
+                  y={sy(cy) + 18 + idx * 11}
                   textAnchor="middle"
                   className="fill-[#2A7D7B]"
                   style={{ fontSize: 9, fontWeight: 500 }}
                 >
-                  {planets}
+                  {item.label}
+                  {item.retro ? (
+                    <tspan className="fill-[#C9A227]" style={{ fontSize: 7 }}>
+                      {" "}℞
+                    </tspan>
+                  ) : null}
                 </text>
-              ) : null}
+              ))}
             </g>
           );
         })}

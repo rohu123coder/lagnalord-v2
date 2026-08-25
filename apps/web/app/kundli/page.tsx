@@ -423,7 +423,7 @@ export default function KundliPage() {
               </button>
             </div>
             <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
-              <KundliChart chartData={result.chartData} />
+              <KundliChart chartData={result.chartData} planets={result.planets} />
               <div className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-lg shadow-black/30">
                 <h3 className="text-sm font-semibold uppercase tracking-wide text-[#E0C158]">
                   Snapshot
