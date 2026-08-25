@@ -49,6 +49,12 @@ const SIGN_SHORT_NAMES = [
   "Meen",
 ] as const;
 
+const OUTER_PLANET_DISPLAY: Record<string, { symbol: string; sanskrit: string; color: string }> = {
+  Uranus: { symbol: "⛢", sanskrit: "Uranus", color: "#38bdf8" },
+  Neptune: { symbol: "♆", sanskrit: "Neptune", color: "#818cf8" },
+  Pluto: { symbol: "♇", sanskrit: "Pluto", color: "#a3a3a3" },
+};
+
 const PERSONALITY_PREDICTIONS: Record<number, string> = {
   0: "Mesh Lagna makes you bold, energetic, and naturally ready to lead from the front. You move fast, trust your instincts, and can sometimes act before fully thinking things through. Your willpower is strong, and competition often brings out your best performance. Physically, you may carry an athletic or active aura with noticeable dynamism. Mars rulership gives courage, directness, and passionate drive in every major life area.",
   1: "Vrishabh Lagna gives patience, reliability, and a strong appreciation for comfort and quality. You are steady in decisions, though once committed you can become quite stubborn. Your taste in art, food, and music is usually refined and naturally attractive to others. Venus rulership brings romance, sensuality, and a desire for emotional as well as material harmony. Financial security and long-term stability become key priorities throughout life.",
@@ -772,6 +778,31 @@ export function computeKundli(
       isDebilitated: debilitationSign[key] === rIx,
       ownSign: ownSigns[key]?.includes(rIx) ?? false,
     });
+  }
+
+  if (swissEphemeris) {
+    for (const outerName of ["Uranus", "Neptune", "Pluto"] as const) {
+      const p = swissEphemeris.planets.find((pp) => pp.name === outerName);
+      if (!p) continue;
+      const rIx = rashiFromDegree(p.longitude);
+      const within = normalizeLon(p.longitude) % 30;
+      const dm = degreesToDMS(within);
+      const disp = OUTER_PLANET_DISPLAY[outerName];
+      planetRows.push({
+        name: outerName,
+        sanskrit: disp.sanskrit,
+        symbol: disp.symbol,
+        longitude: normalizeLon(p.longitude),
+        rashi: RASHI_NAMES[rIx] ?? "",
+        house: houseOf(p.longitude),
+        degree: dm.degrees,
+        minutes: dm.minutes,
+        isRetrograde: false,
+        isExalted: false,
+        isDebilitated: false,
+        ownSign: false,
+      });
+    }
   }
 
   const planetHouseMap: Record<string, number> = {};
