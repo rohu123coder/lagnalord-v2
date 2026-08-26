@@ -9,7 +9,9 @@ export const runtime = "nodejs";
 
 export async function GET() {
   try {
-    const backendRes = await fetch(`${BACKEND_URL}/api/ai-astrologer/personas`);
+    const backendRes = await fetch(`${BACKEND_URL}/api/ai-astrologer/personas`, {
+      cache: "no-store",
+    });
     if (!backendRes.ok) {
       return NextResponse.json(
         { error: "Failed to load astrologer personas" },
