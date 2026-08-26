@@ -1,12 +1,37 @@
 import bcrypt from "bcryptjs";
 import { Router, type Request, type Response } from "express";
 import jwt from "jsonwebtoken";
+import multer from "multer";
+import streamifier from "streamifier";
 import { z } from "zod";
 
 import { pool, query } from "../db/index.js";
+import { cloudinary } from "../lib/cloudinary.js";
 import { authMiddleware, requireAdmin } from "../middleware/auth.js";
 
 const router = Router();
+
+const photoUpload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 2 * 1024 * 1024 },
+  fileFilter: (_req, file, cb) => {
+    const ok = /^image\/(jpeg|png|webp)$/i.test(file.mimetype);
+    cb(null, ok);
+  },
+});
+
+function uploadToCloudinary(buffer: Buffer): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: "divinemarg/ai-astrologers", resource_type: "image" },
+      (error, result) => {
+        if (error || !result) return reject(error);
+        resolve(result.secure_url);
+      }
+    );
+    streamifier.createReadStream(buffer).pipe(stream);
+  });
+}
 
 const jwtSecret = (): string => {
   const s = process.env.JWT_SECRET;
@@ -487,6 +512,24 @@ router.delete("/ai-astrologers/:id", async (req: Request, res: Response) => {
 
   res.json({ success: true, data: { id } });
 });
+
+router.post(
+  "/ai-astrologers/upload-photo",
+  photoUpload.single("photo"),
+  async (req: Request, res: Response) => {
+    if (!req.file) {
+      res.status(400).json({ success: false, error: "No file uploaded" });
+      return;
+    }
+    try {
+      const url = await uploadToCloudinary(req.file.buffer);
+      res.json({ success: true, data: { url } });
+    } catch (e) {
+      console.error("[AdminAiAstrologers] Cloudinary upload failed:", e);
+      res.status(500).json({ success: false, error: "Photo upload failed" });
+    }
+  }
+);
 
 const usersQuery = paginationQuery.extend({
   search: z.string().optional(),
