@@ -13,7 +13,7 @@ const router = Router();
 
 const photoUpload = multer({
   storage: multer.memoryStorage(),
-  limits: { fileSize: 2 * 1024 * 1024 },
+  limits: { fileSize: 5 * 1024 * 1024 },
   fileFilter: (_req, file, cb) => {
     const ok = /^image\/(jpeg|png|webp)$/i.test(file.mimetype);
     cb(null, ok);
@@ -515,7 +515,25 @@ router.delete("/ai-astrologers/:id", async (req: Request, res: Response) => {
 
 router.post(
   "/ai-astrologers/upload-photo",
-  photoUpload.single("photo"),
+  (req: Request, res: Response, next) => {
+    photoUpload.single("photo")(req, res, (err: unknown) => {
+      if (err) {
+        const isMulterSizeError =
+          typeof err === "object" &&
+          err !== null &&
+          "code" in err &&
+          (err as { code?: string }).code === "LIMIT_FILE_SIZE";
+        res.status(400).json({
+          success: false,
+          error: isMulterSizeError
+            ? "Image is too large. Please upload a photo under 5MB."
+            : "Invalid image file. Please use JPEG, PNG, or WebP.",
+        });
+        return;
+      }
+      next();
+    });
+  },
   async (req: Request, res: Response) => {
     if (!req.file) {
       res.status(400).json({ success: false, error: "No file uploaded" });
