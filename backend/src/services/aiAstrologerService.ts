@@ -1,4 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { query } from "../db/index.js";
 
 export type AstrologerPersona = {
   id: string;
@@ -8,43 +9,50 @@ export type AstrologerPersona = {
   styleInstructions: string;
 };
 
-export const AI_ASTROLOGER_PERSONAS: AstrologerPersona[] = [
-  {
-    id: "acharya-vedant",
-    name: "Acharya Vedant",
-    emoji: "🕉️",
-    tagline: "Classical Shastra-based guidance",
-    styleInstructions:
-      "You are Acharya Vedant, a traditional Vedic astrologer speaking with the gravity and precision of classical shastra. Use a formal, respectful tone, occasionally referencing classical concepts (grahas, bhavas, dashas, yogas) by their Sanskrit names alongside plain explanations. Speak primarily in Hindi-English mix (Hinglish) suitable for an Indian audience. Be warm but dignified — like a wise elder, not overly casual.",
-  },
-  {
-    id: "priya",
-    name: "Priya",
-    emoji: "✨",
-    tagline: "Friendly, modern & easy to talk to",
-    styleInstructions:
-      "You are Priya, a warm, friendly, modern astrologer who talks like a knowledgeable friend. Use casual Hinglish, keep sentences short and relatable, use light emojis occasionally. Make the user feel comfortable sharing personal questions. Avoid heavy Sanskrit jargon — explain things simply.",
-  },
-  {
-    id: "pandit-rajesh",
-    name: "Pandit Rajesh",
-    emoji: "💼",
-    tagline: "Career & finance specialist",
-    styleInstructions:
-      "You are Pandit Rajesh, an astrologer who specializes in career, business, and financial guidance. Be practical and direct, focus your framing around career timing, financial planets (2nd/11th house, Jupiter, Mercury), and actionable next steps. Speak in confident, business-appropriate Hinglish.",
-  },
-  {
-    id: "dr-ananya",
-    name: "Dr. Ananya",
-    emoji: "💞",
-    tagline: "Relationships & marriage guidance",
-    styleInstructions:
-      "You are Dr. Ananya, an empathetic astrologer who specializes in relationships, love, and marriage guidance. Be gentle, emotionally attuned, and encouraging. Frame answers around the 7th house, Venus, and relevant dashas. Speak in warm, caring Hinglish, like a trusted counselor.",
-  },
-];
+export async function getPersonaById(id: string): Promise<AstrologerPersona | undefined> {
+  const result = await query<{
+    id: string;
+    name: string;
+    emoji: string;
+    tagline: string;
+    personality_prompt: string;
+  }>(
+    `SELECT id, name, emoji, tagline, personality_prompt
+     FROM ai_astrologers
+     WHERE id = $1 AND is_active = true`,
+    [id]
+  );
+  const row = result.rows[0];
+  if (!row) return undefined;
+  return {
+    id: row.id,
+    name: row.name,
+    emoji: row.emoji,
+    tagline: row.tagline,
+    styleInstructions: row.personality_prompt,
+  };
+}
 
-export function getPersonaById(id: string): AstrologerPersona | undefined {
-  return AI_ASTROLOGER_PERSONAS.find((p) => p.id === id);
+export async function getAllActivePersonas(): Promise<AstrologerPersona[]> {
+  const result = await query<{
+    id: string;
+    name: string;
+    emoji: string;
+    tagline: string;
+    personality_prompt: string;
+  }>(
+    `SELECT id, name, emoji, tagline, personality_prompt
+     FROM ai_astrologers
+     WHERE is_active = true
+     ORDER BY sort_order ASC, created_at ASC`
+  );
+  return result.rows.map((row) => ({
+    id: row.id,
+    name: row.name,
+    emoji: row.emoji,
+    tagline: row.tagline,
+    styleInstructions: row.personality_prompt,
+  }));
 }
 
 const BASE_ACCURACY_RULES = `You are an AI Vedic astrologer chatbot embedded in an astrology app. You will be given the user's exact, precomputed birth chart data as JSON below. This data is authoritative and already calculated by a Swiss Ephemeris backend — treat it as ground truth.
@@ -92,7 +100,10 @@ export async function getAstrologerReply(
   history: ChatTurn[],
   message: string
 ): Promise<string> {
-  const persona = getPersonaById(personaId) ?? AI_ASTROLOGER_PERSONAS[0];
+  const persona = await getPersonaById(personaId);
+  if (!persona) {
+    return "Yeh astrologer ab available nahi hai. Kripya doosra astrologer select karein.";
+  }
   const systemPrompt = buildSystemPrompt(persona, kundliData);
   const model = getGeminiModel(systemPrompt);
 
