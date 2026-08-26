@@ -48,6 +48,7 @@ function AiAstrologersPageContent() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState<FormState>(emptyForm);
   const [saving, setSaving] = useState(false);
+  const [uploadingPhoto, setUploadingPhoto] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -120,6 +121,30 @@ function AiAstrologersPageContent() {
       setErr("Could not save AI astrologer");
     } finally {
       setSaving(false);
+    }
+  }
+
+  async function handlePhotoUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingPhoto(true);
+    setErr(null);
+    try {
+      const fd = new FormData();
+      fd.append("photo", file);
+      const res = await api.post<{ success: boolean; data: { url: string } }>(
+        "/api/admin/ai-astrologers/upload-photo",
+        fd,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
+      if (res.data.success) {
+        setForm((f) => ({ ...f, photo_url: res.data.data.url }));
+      }
+    } catch {
+      setErr("Photo upload failed. Please try a different image.");
+    } finally {
+      setUploadingPhoto(false);
+      e.target.value = "";
     }
   }
 
@@ -200,13 +225,36 @@ function AiAstrologersPageContent() {
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium text-slate-700">
-                Photo URL (optional)
+                Photo
               </label>
-              <input
-                value={form.photo_url}
-                onChange={(e) => setForm((f) => ({ ...f, photo_url: e.target.value }))}
-                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none ring-indigo-500 focus:ring-2"
-              />
+              <div className="flex items-center gap-3">
+                {form.photo_url ? (
+                  <img
+                    src={form.photo_url}
+                    alt="Preview"
+                    className="h-12 w-12 rounded-full object-cover"
+                  />
+                ) : null}
+                <label className="cursor-pointer rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">
+                  {uploadingPhoto ? "Uploading…" : form.photo_url ? "Change photo" : "Upload photo"}
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    onChange={handlePhotoUpload}
+                    disabled={uploadingPhoto}
+                    className="hidden"
+                  />
+                </label>
+                {form.photo_url ? (
+                  <button
+                    type="button"
+                    onClick={() => setForm((f) => ({ ...f, photo_url: "" }))}
+                    className="text-xs font-medium text-red-600 hover:underline"
+                  >
+                    Remove
+                  </button>
+                ) : null}
+              </div>
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium text-slate-700">
