@@ -1,4 +1,6 @@
 import { Router } from "express";
+import { authMiddleware } from "../middleware/auth.js";
+import { query } from "../db/index.js";
 import {
   getAllActivePersonas,
   getAstrologerReply,
@@ -23,7 +25,7 @@ router.get("/personas", async (_req, res) => {
   }
 });
 
-router.post("/chat", async (req, res) => {
+router.post("/chat", authMiddleware, async (req, res) => {
   try {
     const { personaId, kundliData, history, message } = req.body as {
       personaId?: string;
@@ -44,6 +46,40 @@ router.post("/chat", async (req, res) => {
     if (message.length > 2000) {
       return res.status(400).json({ error: "message too long (max 2000 characters)" });
     }
+
+    const userId = req.user?.userId;
+    if (!userId) {
+      return res.status(401).json({ error: "Please log in to chat with an AI Astrologer" });
+    }
+
+    const rateResult = await query<{ rate_per_min: string }>(
+      `SELECT rate_per_min FROM ai_astrologers WHERE id = $1 AND is_active = true`,
+      [personaId]
+    );
+    const rateRow = rateResult.rows[0];
+    if (!rateRow) {
+      return res.status(404).json({ error: "This astrologer is no longer available" });
+    }
+    const charge = Number(rateRow.rate_per_min);
+
+    const deduct = await query<{ wallet_balance: string }>(
+      `UPDATE users
+       SET wallet_balance = wallet_balance - $1::numeric
+       WHERE id = $2 AND wallet_balance >= $1::numeric
+       RETURNING wallet_balance`,
+      [charge, userId]
+    );
+    if (deduct.rows.length === 0) {
+      return res.status(400).json({
+        error: "Insufficient wallet balance. Please recharge to continue chatting.",
+        data: { required: charge },
+      });
+    }
+    await query(
+      `INSERT INTO transactions (user_id, type, amount, status)
+       VALUES ($1, 'deduction', $2, 'success')`,
+      [userId, charge]
+    );
 
     const safeHistory: ChatTurn[] = Array.isArray(history)
       ? history
