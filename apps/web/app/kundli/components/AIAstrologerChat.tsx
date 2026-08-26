@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useAuthStore } from "@/lib/store";
 import type { KundliCalculateResponse } from "../types";
 
 type Persona = {
@@ -28,6 +29,7 @@ export function AIAstrologerChat({
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { user, token } = useAuthStore();
 
   useEffect(() => {
     let cancelled = false;
@@ -75,7 +77,10 @@ export function AIAstrologerChat({
     try {
       const res = await fetch("/api/ai-astrologer/chat", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
         body: JSON.stringify({
           personaId: activePersona.id,
           kundliData,
@@ -85,7 +90,15 @@ export function AIAstrologerChat({
       });
       const json = await res.json();
       if (!res.ok) {
-        setError(json?.error ?? "Kuch dikkat aa gayi. Dobara try karein.");
+        if (res.status === 400 && json?.data?.required != null) {
+          setError(
+            `Insufficient wallet balance. ₹${json.data.required} required. Please recharge your wallet.`
+          );
+        } else if (res.status === 401) {
+          setError("Please log in to continue chatting.");
+        } else {
+          setError(json?.error ?? "Kuch dikkat aa gayi. Dobara try karein.");
+        }
         return;
       }
       setMessages((prev) => [...prev, { role: "model", text: json.reply }]);
@@ -105,7 +118,19 @@ export function AIAstrologerChat({
         </p>
       </div>
 
-      {!activePersona ? (
+      {!user ? (
+        <div className="rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] p-6 text-center">
+          <p className="text-sm text-[#C7C2B4]">
+            AI Astrologer se baat karne ke liye login karna zaroori hai.
+          </p>
+          <a
+            href="/login"
+            className="mt-3 inline-block rounded-lg bg-gradient-to-r from-[#C9A227] to-[#E0C158] px-5 py-2.5 text-sm font-semibold text-[#0A1A2F] transition hover:opacity-95"
+          >
+            Login karein
+          </a>
+        </div>
+      ) : !activePersona ? (
         personasLoading ? (
           <div className="grid gap-3 sm:grid-cols-2">
             {[1, 2, 3, 4].map((i) => (
