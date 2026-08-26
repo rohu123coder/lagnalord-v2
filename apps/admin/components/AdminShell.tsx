@@ -6,6 +6,7 @@ import { useAdminStore } from "@/lib/store";
 const nav = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/astrologers", label: "Astrologers" },
+  { href: "/ai-astrologers", label: "AI Astrologers" },
   { href: "/users", label: "Users" },
   { href: "/transactions", label: "Transactions" },
   { href: "/settings", label: "Settings" },
