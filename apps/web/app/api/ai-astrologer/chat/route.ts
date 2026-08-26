@@ -16,17 +16,25 @@ export async function POST(req: Request) {
   }
 
   try {
+    const authHeader = req.headers.get("authorization");
     const backendRes = await fetch(`${BACKEND_URL}/api/ai-astrologer/chat`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        ...(authHeader ? { Authorization: authHeader } : {}),
+      },
       body: JSON.stringify(json),
+      cache: "no-store",
     });
 
     const backendJson = await backendRes.json().catch(() => ({}));
 
     if (!backendRes.ok) {
       return NextResponse.json(
-        { error: backendJson?.error ?? "Astrologer chat failed" },
+        {
+          error: backendJson?.error ?? "Astrologer chat failed",
+          data: backendJson?.data,
+        },
         { status: backendRes.status }
       );
     }
