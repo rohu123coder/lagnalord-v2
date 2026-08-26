@@ -1,20 +1,26 @@
 import { Router } from "express";
 import {
-  AI_ASTROLOGER_PERSONAS,
+  getAllActivePersonas,
   getAstrologerReply,
   type ChatTurn,
 } from "../services/aiAstrologerService.js";
 
 const router = Router();
 
-router.get("/personas", (_req, res) => {
-  const publicPersonas = AI_ASTROLOGER_PERSONAS.map((p) => ({
-    id: p.id,
-    name: p.name,
-    emoji: p.emoji,
-    tagline: p.tagline,
-  }));
-  return res.json({ success: true, personas: publicPersonas });
+router.get("/personas", async (_req, res) => {
+  try {
+    const personas = await getAllActivePersonas();
+    const publicPersonas = personas.map((p) => ({
+      id: p.id,
+      name: p.name,
+      emoji: p.emoji,
+      tagline: p.tagline,
+    }));
+    return res.json({ success: true, personas: publicPersonas });
+  } catch (e) {
+    console.error("[AIAstrologer] /personas route error:", e);
+    return res.status(500).json({ error: "Failed to load personas" });
+  }
 });
 
 router.post("/chat", async (req, res) => {
