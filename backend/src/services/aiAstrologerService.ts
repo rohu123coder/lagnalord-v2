@@ -101,8 +101,12 @@ export async function getAstrologerReply(
   }
 
   try {
+    let sanitizedHistory = history;
+    const firstUserIdx = sanitizedHistory.findIndex((t) => t.role === "user");
+    sanitizedHistory = firstUserIdx === -1 ? [] : sanitizedHistory.slice(firstUserIdx);
+
     const chat = model.startChat({
-      history: history.map((turn) => ({
+      history: sanitizedHistory.map((turn) => ({
         role: turn.role,
         parts: [{ text: turn.text }],
       })),
