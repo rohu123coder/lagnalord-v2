@@ -30,6 +30,7 @@ export function AIAstrologerChat({
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [sessionId, setSessionId] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const { user, token } = useAuthStore();
 
@@ -73,6 +74,7 @@ export function AIAstrologerChat({
 
   const selectPersona = (p: Persona) => {
     setActivePersona(p);
+    setSessionId(null);
     setMessages([
       {
         role: "model",
@@ -102,6 +104,7 @@ export function AIAstrologerChat({
           kundliData,
           history: messages,
           message: trimmed,
+          sessionId,
         }),
       });
       const json = await res.json();
@@ -118,6 +121,9 @@ export function AIAstrologerChat({
         return;
       }
       setMessages((prev) => [...prev, { role: "model", text: json.reply }]);
+      if (json.sessionId && !sessionId) {
+        setSessionId(json.sessionId);
+      }
     } catch {
       setError("Network error. Kripya dobara try karein.");
     } finally {
