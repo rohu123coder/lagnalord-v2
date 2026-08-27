@@ -42,6 +42,7 @@ type AiChatSession = {
   messageCount: number;
   startedAt: string;
   lastMessageAt: string;
+  rating: number | null;
 };
 type AiChatMessage = {
   role: "user" | "model";
@@ -85,6 +86,9 @@ export default function DashboardPage() {
     messages: AiChatMessage[];
   } | null>(null);
   const [aiSessionLoading, setAiSessionLoading] = useState(false);
+  const [ratingValue, setRatingValue] = useState(0);
+  const [ratingSaving, setRatingSaving] = useState(false);
+  const [ratingSaved, setRatingSaved] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -192,6 +196,8 @@ export default function DashboardPage() {
 
   async function openAiSessionHistory(session: AiChatSession) {
     setAiSessionLoading(true);
+    setRatingValue(session.rating ?? 0);
+    setRatingSaved(false);
     try {
       const res = await fetch(`/api/ai-astrologer/sessions/${session.id}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -204,6 +210,37 @@ export default function DashboardPage() {
       // silently ignore — user can retry
     } finally {
       setAiSessionLoading(false);
+    }
+  }
+
+  async function submitRating(value: number) {
+    if (!openAiSession || !token) return;
+    setRatingValue(value);
+    setRatingSaving(true);
+    try {
+      const res = await fetch(
+        `/api/ai-astrologer/sessions/${openAiSession.session.id}/rate`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ rating: value }),
+        }
+      );
+      if (res.ok) {
+        setRatingSaved(true);
+        setAiSessions((prev) =>
+          prev.map((s) =>
+            s.id === openAiSession.session.id ? { ...s, rating: value } : s
+          )
+        );
+      }
+    } catch {
+      // ignore — user can retry by clicking a star again
+    } finally {
+      setRatingSaving(false);
     }
   }
 
@@ -432,6 +469,36 @@ export default function DashboardPage() {
                     </div>
                   </div>
                 ))}
+              </div>
+              <div className="mt-5 flex flex-col gap-3 border-t border-[#C9A227]/10 pt-4">
+                <Link
+                  href={`/ai-astrologers/${openAiSession.session.astrologerId}`}
+                  onClick={() => setOpenAiSession(null)}
+                  className="w-full rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-2.5 text-center text-sm font-semibold text-white transition hover:opacity-95"
+                >
+                  Chat Again
+                </Link>
+                <div className="text-center">
+                  <p className="mb-2 text-xs font-medium text-[#C7C2B4]">
+                    {ratingSaved ? "Thanks for rating!" : "Rate this session"}
+                  </p>
+                  <div className="flex justify-center gap-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        type="button"
+                        disabled={ratingSaving}
+                        onClick={() => void submitRating(star)}
+                        className="text-2xl transition disabled:opacity-50"
+                        aria-label={`Rate ${star} stars`}
+                      >
+                        <span className={star <= ratingValue ? "text-amber-400" : "text-[#3a3f52]"}>
+                          ★
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
