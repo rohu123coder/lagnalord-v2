@@ -33,3 +33,41 @@ export async function GET(req: Request) {
     );
   }
 }
+
+export async function PATCH(req: Request) {
+  try {
+    const authHeader = req.headers.get("authorization");
+    if (!authHeader) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    let body: unknown;
+    try {
+      body = await req.json();
+    } catch {
+      return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+    }
+    const backendRes = await fetch(`${BACKEND_URL}/api/users/birth-details`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: authHeader,
+      },
+      body: JSON.stringify(body),
+      cache: "no-store",
+    });
+    const backendJson = await backendRes.json().catch(() => ({}));
+    if (!backendRes.ok) {
+      return NextResponse.json(
+        { error: backendJson?.error ?? "Failed to save birth details" },
+        { status: backendRes.status }
+      );
+    }
+    return NextResponse.json(backendJson);
+  } catch (e) {
+    console.error("Birth details PATCH route error:", e);
+    return NextResponse.json(
+      { error: "Failed to save birth details" },
+      { status: 500 }
+    );
+  }
+}
