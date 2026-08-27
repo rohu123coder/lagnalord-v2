@@ -7,6 +7,8 @@ export type AstrologerPersona = {
   emoji: string;
   tagline: string;
   styleInstructions: string;
+  photoUrl: string | null;
+  ratePerMin: number;
 };
 
 export async function getPersonaById(id: string): Promise<AstrologerPersona | undefined> {
@@ -16,8 +18,10 @@ export async function getPersonaById(id: string): Promise<AstrologerPersona | un
     emoji: string;
     tagline: string;
     personality_prompt: string;
+    photo_url: string | null;
+    rate_per_min: string;
   }>(
-    `SELECT id, name, emoji, tagline, personality_prompt
+    `SELECT id, name, emoji, tagline, personality_prompt, photo_url, rate_per_min::text
      FROM ai_astrologers
      WHERE id = $1 AND is_active = true`,
     [id]
@@ -30,6 +34,8 @@ export async function getPersonaById(id: string): Promise<AstrologerPersona | un
     emoji: row.emoji,
     tagline: row.tagline,
     styleInstructions: row.personality_prompt,
+    photoUrl: row.photo_url,
+    ratePerMin: Number(row.rate_per_min),
   };
 }
 
@@ -40,8 +46,10 @@ export async function getAllActivePersonas(): Promise<AstrologerPersona[]> {
     emoji: string;
     tagline: string;
     personality_prompt: string;
+    photo_url: string | null;
+    rate_per_min: string;
   }>(
-    `SELECT id, name, emoji, tagline, personality_prompt
+    `SELECT id, name, emoji, tagline, personality_prompt, photo_url, rate_per_min::text
      FROM ai_astrologers
      WHERE is_active = true
      ORDER BY sort_order ASC, created_at ASC`
@@ -52,6 +60,8 @@ export async function getAllActivePersonas(): Promise<AstrologerPersona[]> {
     emoji: row.emoji,
     tagline: row.tagline,
     styleInstructions: row.personality_prompt,
+    photoUrl: row.photo_url,
+    ratePerMin: Number(row.rate_per_min),
   }));
 }
 
