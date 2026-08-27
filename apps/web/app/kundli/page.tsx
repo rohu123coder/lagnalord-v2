@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { getTenant } from "@/lib/tenants";
 import { AIAstrologerChat } from "./components/AIAstrologerChat";
 import { KundliChart } from "./components/KundliChart";
@@ -24,6 +25,21 @@ function SectionTitle({
         <p className="mt-1 text-sm text-[#C7C2B4]">{subtitle}</p>
       ) : null}
     </div>
+  );
+}
+
+function AIAstrologerChatFromQuery({
+  kundliData,
+}: {
+  kundliData: KundliCalculateResponse;
+}) {
+  const searchParams = useSearchParams();
+  const preselectedAstrologerId = searchParams.get("aiAstrologer");
+  return (
+    <AIAstrologerChat
+      kundliData={kundliData}
+      preselectedPersonaId={preselectedAstrologerId}
+    />
   );
 }
 
@@ -798,7 +814,9 @@ export default function KundliPage() {
             </div>
           </section>
 
-          <AIAstrologerChat kundliData={result} />
+          <Suspense fallback={null}>
+            <AIAstrologerChatFromQuery kundliData={result} />
+          </Suspense>
 
           <section className="rounded-2xl border border-[#C9A227]/20 bg-gradient-to-r from-[#0F2240] to-[#13294B] p-6 shadow-sm print:break-inside-avoid print:mb-6 print:hidden">
             <SectionTitle>Compatibility</SectionTitle>

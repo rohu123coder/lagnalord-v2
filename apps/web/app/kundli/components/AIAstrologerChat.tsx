@@ -18,8 +18,10 @@ type ChatMessage = {
 
 export function AIAstrologerChat({
   kundliData,
+  preselectedPersonaId,
 }: {
   kundliData: KundliCalculateResponse;
+  preselectedPersonaId?: string | null;
 }) {
   const [personas, setPersonas] = useState<Persona[]>([]);
   const [personasLoading, setPersonasLoading] = useState(true);
@@ -54,6 +56,20 @@ export function AIAstrologerChat({
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, sending]);
+
+  useEffect(() => {
+    if (!preselectedPersonaId || activePersona || personas.length === 0) return;
+    const match = personas.find((p) => p.id === preselectedPersonaId);
+    if (!match) return;
+    setActivePersona(match);
+    setMessages([
+      {
+        role: "model",
+        text: `${match.emoji} Namaste! Main ${match.name} hoon. Aapki kundli mere saamne hai — poochiye jo bhi jaanna chahte hain aapke career, love, health, ya kisi bhi cheez ke baare mein.`,
+      },
+    ]);
+    setError(null);
+  }, [preselectedPersonaId, personas, activePersona]);
 
   const selectPersona = (p: Persona) => {
     setActivePersona(p);
