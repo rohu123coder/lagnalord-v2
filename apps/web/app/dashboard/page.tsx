@@ -32,6 +32,23 @@ type ArchivedMessage = {
   created_at: string;
 };
 
+type AiChatSession = {
+  id: string;
+  astrologerId: string;
+  astrologerName: string;
+  astrologerEmoji: string;
+  astrologerPhotoUrl: string | null;
+  totalCharged: number;
+  messageCount: number;
+  startedAt: string;
+  lastMessageAt: string;
+};
+type AiChatMessage = {
+  role: "user" | "model";
+  text: string;
+  createdAt: string;
+};
+
 function renderSessionTypeIcon(type: SessionRow["session_type"]): string {
   if (type === "voice") {
     return "📞";
@@ -61,6 +78,13 @@ export default function DashboardPage() {
   const [messages, setMessages] = useState<ArchivedMessage[]>([]);
   const [messagesLoading, setMessagesLoading] = useState(false);
   const [rateTarget, setRateTarget] = useState<SessionRow | null>(null);
+  const [aiSessions, setAiSessions] = useState<AiChatSession[]>([]);
+  const [aiSessionsLoading, setAiSessionsLoading] = useState(true);
+  const [openAiSession, setOpenAiSession] = useState<{
+    session: AiChatSession;
+    messages: AiChatMessage[];
+  } | null>(null);
+  const [aiSessionLoading, setAiSessionLoading] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -114,6 +138,29 @@ export default function DashboardPage() {
     }
   }, [mounted, isLoggedIn, token, pathname, refreshWalletBalance]);
 
+  useEffect(() => {
+    if (!token) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch("/api/ai-astrologer/sessions", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const json = await res.json();
+        if (!cancelled && json?.sessions) {
+          setAiSessions(json.sessions);
+        }
+      } catch {
+        if (!cancelled) setAiSessions([]);
+      } finally {
+        if (!cancelled) setAiSessionsLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [token]);
+
   if (!mounted) {
     return (
       <div className="min-h-screen bg-[#0A1A2F]">
@@ -142,6 +189,23 @@ export default function DashboardPage() {
       setMessagesLoading(false);
     }
   };
+
+  async function openAiSessionHistory(session: AiChatSession) {
+    setAiSessionLoading(true);
+    try {
+      const res = await fetch(`/api/ai-astrologer/sessions/${session.id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const json = await res.json();
+      if (json?.messages) {
+        setOpenAiSession({ session, messages: json.messages });
+      }
+    } catch {
+      // silently ignore — user can retry
+    } finally {
+      setAiSessionLoading(false);
+    }
+  }
 
   return (
     <div className="min-h-screen bg-[#0A1A2F]">
@@ -285,6 +349,93 @@ export default function DashboardPage() {
             )}
           </div>
         </div>
+
+        {aiSessions.length > 0 ? (
+          <div className="mt-10 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] shadow-sm">
+            <div className="border-b border-[#C9A227]/10 px-6 py-4">
+              <h2 className="text-lg font-bold text-[#F5F1E8]">🔮 Recent AI Chats</h2>
+            </div>
+            <div className="divide-y divide-[#C9A227]/10">
+              {aiSessions.map((s) => (
+                <button
+                  key={s.id}
+                  type="button"
+                  onClick={() => void openAiSessionHistory(s)}
+                  className="flex w-full items-center gap-4 px-6 py-4 text-left transition hover:bg-[#0A1A2F]/50"
+                >
+                  {s.astrologerPhotoUrl ? (
+                    <img
+                      src={s.astrologerPhotoUrl}
+                      alt={s.astrologerName}
+                      className="h-10 w-10 rounded-full object-cover"
+                    />
+                  ) : (
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0A1A2F] text-xl">
+                      {s.astrologerEmoji}
+                    </span>
+                  )}
+                  <div className="min-w-0 flex-1">
+                    <p className="font-semibold text-[#F5F1E8]">{s.astrologerName}</p>
+                    <p className="text-xs text-[#C7C2B4]">
+                      {new Date(s.lastMessageAt).toLocaleString("en-IN", {
+                        day: "numeric",
+                        month: "short",
+                        hour: "numeric",
+                        minute: "2-digit",
+                      })}{" "}
+                      · {s.messageCount} messages
+                    </p>
+                  </div>
+                  <p className="text-sm font-semibold text-[#E0C158]">
+                    ₹{s.totalCharged.toFixed(2)}
+                  </p>
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : null}
+
+        {openAiSession ? (
+          <div className="fixed inset-0 z-[95] flex items-end justify-center bg-black/50 p-4 sm:items-center">
+            <div className="max-h-[80vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-[#0F2240] p-6 shadow-2xl">
+              <div className="mb-4 flex items-center justify-between">
+                <div>
+                  <h2 className="text-lg font-bold text-[#F5F1E8]">Chat History</h2>
+                  <p className="text-sm text-[#C7C2B4]">
+                    {openAiSession.session.astrologerName} · ₹
+                    {openAiSession.session.totalCharged.toFixed(2)} charged
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setOpenAiSession(null)}
+                  className="text-[#C7C2B4] hover:text-[#E0C158]"
+                  aria-label="Close"
+                >
+                  ✕
+                </button>
+              </div>
+              <div className="space-y-3">
+                {openAiSession.messages.map((m, idx) => (
+                  <div
+                    key={idx}
+                    className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
+                  >
+                    <div
+                      className={`max-w-[85%] whitespace-pre-wrap rounded-2xl px-4 py-2 text-sm ${
+                        m.role === "user"
+                          ? "rounded-br-md bg-gradient-to-br from-[#2A7D7B] to-[#3A9D9B] text-white"
+                          : "rounded-bl-md bg-[#0A1A2F] text-[#F5F1E8]"
+                      }`}
+                    >
+                      {m.text}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : null}
       </div>
 
       <ChatHistoryModal
