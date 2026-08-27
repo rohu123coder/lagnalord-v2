@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { io, type Socket } from "socket.io-client";
 
@@ -34,6 +35,15 @@ type Astro = {
 };
 
 type ApiSort = "rating_desc" | "price_asc" | "price_desc";
+
+type AiAstrologerCard = {
+  id: string;
+  name: string;
+  emoji: string;
+  tagline: string;
+  photo_url: string | null;
+  rate_per_min: number;
+};
 
 const SPEC_OPTIONS = [
   "Love & Relationship",
@@ -225,6 +235,9 @@ export default function AstrologersPage() {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] =
     useState<(typeof CATEGORY_PILLS)[number]>("All");
+  const [viewMode, setViewMode] = useState<"human" | "ai">("human");
+  const [aiAstrologers, setAiAstrologers] = useState<AiAstrologerCard[]>([]);
+  const [aiLoading, setAiLoading] = useState(true);
   const [pendingAction, setPendingAction] = useState<{
     astrologer: Astro;
     callType: "voice" | "video";
@@ -289,6 +302,26 @@ export default function AstrologersPage() {
       cancelled = true;
     };
   }, [sort]);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch("/api/ai-astrologer/personas");
+        const json = await res.json();
+        if (!cancelled && json?.personas) {
+          setAiAstrologers(json.personas);
+        }
+      } catch {
+        if (!cancelled) setAiAstrologers([]);
+      } finally {
+        if (!cancelled) setAiLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     if (!token || !isLoggedIn) {
@@ -416,32 +449,62 @@ export default function AstrologersPage() {
     <div className="min-h-screen bg-[#0A1A2F]">
       <Navbar />
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:flex lg:gap-8 lg:py-10">
-        <FilterSidebar
-          specs={specs}
-          langs={langs}
-          sort={sort}
-          toggleSpec={toggleSpec}
-          toggleLang={toggleLang}
-          setSort={(s) => {
-            setSort(s);
-            setPage(1);
-          }}
-          className="hidden w-64 shrink-0 lg:block"
-        />
+        {viewMode === "human" ? (
+          <FilterSidebar
+            specs={specs}
+            langs={langs}
+            sort={sort}
+            toggleSpec={toggleSpec}
+            toggleLang={toggleLang}
+            setSort={(s) => {
+              setSort(s);
+              setPage(1);
+            }}
+            className="hidden w-64 shrink-0 lg:block"
+          />
+        ) : null}
 
         <div className="min-w-0 flex-1">
-          <div className="flex items-center justify-end gap-4">
-            <button
-              type="button"
-              className="inline-flex items-center gap-2 rounded-xl border border-[#C9A227]/30 bg-[#0F2240] px-3 py-2 text-sm font-semibold text-[#C7C2B4] shadow-sm lg:hidden"
-              onClick={() => setSheetOpen(true)}
-            >
-              Filters
-            </button>
-          </div>
+          {viewMode === "human" ? (
+            <div className="flex items-center justify-end gap-4">
+              <button
+                type="button"
+                className="inline-flex items-center gap-2 rounded-xl border border-[#C9A227]/30 bg-[#0F2240] px-3 py-2 text-sm font-semibold text-[#C7C2B4] shadow-sm lg:hidden"
+                onClick={() => setSheetOpen(true)}
+              >
+                Filters
+              </button>
+            </div>
+          ) : null}
           <h1 className="text-center text-3xl font-bold text-[#F5F1E8] sm:text-4xl">
             Chat with Astrologer
           </h1>
+          <div className="mt-4 flex justify-center gap-2">
+            <button
+              type="button"
+              onClick={() => setViewMode("human")}
+              className={`rounded-full border px-5 py-2 text-sm font-semibold transition ${
+                viewMode === "human"
+                  ? "border-[#C9A227] bg-[#C9A227] text-[#0A1A2F]"
+                  : "border-[#C9A227]/20 bg-[#0F2240] text-[#C7C2B4] hover:border-[#C9A227] hover:text-[#E0C158]"
+              }`}
+            >
+              Human Astrologers
+            </button>
+            <button
+              type="button"
+              onClick={() => setViewMode("ai")}
+              className={`rounded-full border px-5 py-2 text-sm font-semibold transition ${
+                viewMode === "ai"
+                  ? "border-[#C9A227] bg-[#C9A227] text-[#0A1A2F]"
+                  : "border-[#C9A227]/20 bg-[#0F2240] text-[#C7C2B4] hover:border-[#C9A227] hover:text-[#E0C158]"
+              }`}
+            >
+              🔮 AI Astrologers
+            </button>
+          </div>
+          {viewMode === "human" ? (
+            <>
           <div className="mt-4 overflow-x-auto pb-1">
             <div className="flex min-w-max items-center gap-2">
               {CATEGORY_PILLS.map((category) => (
@@ -475,6 +538,10 @@ export default function AstrologersPage() {
               className="w-full rounded-xl border border-[#C9A227]/30 bg-[#0F2240] px-4 py-2.5 text-sm text-[#F5F1E8] outline-none ring-[#C9A227] focus:ring-2"
             />
           </div>
+            </>
+          ) : null}
+          {viewMode === "human" ? (
+            <>
           <p className="mt-3 text-sm text-[#C7C2B4]">
             {loading
               ? "Loading…"
@@ -537,10 +604,48 @@ export default function AstrologersPage() {
               </button>
             </div>
           ) : null}
+            </>
+          ) : (
+            <div className="mt-8">
+              {aiLoading ? (
+                <p className="text-center text-sm text-[#C7C2B4]">Loading…</p>
+              ) : aiAstrologers.length === 0 ? (
+                <p className="text-center text-sm text-[#C7C2B4]">No AI astrologers available right now.</p>
+              ) : (
+                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+                  {aiAstrologers.map((a) => (
+                    <Link
+                      key={a.id}
+                      href={`/ai-astrologers/${a.id}`}
+                      className="flex flex-col items-center rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-4 text-center transition duration-200 hover:-translate-y-1 hover:border-[#C9A227]/50 hover:shadow-md"
+                    >
+                      {a.photo_url ? (
+                        <img
+                          src={a.photo_url}
+                          alt={a.name}
+                          className="h-16 w-16 rounded-full object-cover"
+                        />
+                      ) : (
+                        <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#0A1A2F] text-3xl">
+                          {a.emoji}
+                        </span>
+                      )}
+                      <p className="mt-3 text-sm font-semibold text-[#F5F1E8]">{a.name}</p>
+                      <p className="mt-1 line-clamp-1 text-xs text-[#C7C2B4]">{a.tagline}</p>
+                      <p className="mt-2 text-xs font-medium text-[#E0C158]">₹{a.rate_per_min}/min</p>
+                      <span className="mt-3 w-full rounded-lg bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-3 py-1.5 text-xs font-semibold text-white">
+                        Chat karein
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
-      {sheetOpen ? (
+      {sheetOpen && viewMode === "human" ? (
         <div className="fixed inset-0 z-50 lg:hidden">
           <button
             type="button"
