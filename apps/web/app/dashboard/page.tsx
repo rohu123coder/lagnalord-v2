@@ -171,6 +171,12 @@ export default function DashboardPage() {
           >
             Browse Astrologers
           </Link>
+          <Link
+            href="/profile/birth-details"
+            className="inline-flex rounded-xl border border-[#C9A227]/40 bg-[#0A1A2F] px-5 py-2.5 text-sm font-semibold text-[#E0C158] shadow-sm transition hover:bg-[#C9A227]/10"
+          >
+            My Birth Details
+          </Link>
         </div>
 
         <div className="mt-10 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] shadow-sm">
