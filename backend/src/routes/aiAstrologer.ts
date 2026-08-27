@@ -136,4 +136,115 @@ router.post("/chat", authMiddleware, async (req, res) => {
   }
 });
 
+router.get("/sessions", authMiddleware, async (req, res) => {
+  const userId = req.user?.userId;
+  if (!userId) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+  try {
+    const result = await query<{
+      id: string;
+      ai_astrologer_id: string;
+      astrologer_name: string;
+      astrologer_emoji: string;
+      astrologer_photo_url: string | null;
+      total_charged: string;
+      message_count: number;
+      started_at: string;
+      last_message_at: string;
+    }>(
+      `SELECT s.id, s.ai_astrologer_id,
+              a.name AS astrologer_name,
+              a.emoji AS astrologer_emoji,
+              a.photo_url AS astrologer_photo_url,
+              s.total_charged::text, s.message_count,
+              s.started_at, s.last_message_at
+       FROM ai_chat_sessions s
+       JOIN ai_astrologers a ON a.id = s.ai_astrologer_id
+       WHERE s.user_id = $1
+       ORDER BY s.last_message_at DESC
+       LIMIT 50`,
+      [userId]
+    );
+    return res.json({
+      success: true,
+      sessions: result.rows.map((r) => ({
+        id: r.id,
+        astrologerId: r.ai_astrologer_id,
+        astrologerName: r.astrologer_name,
+        astrologerEmoji: r.astrologer_emoji,
+        astrologerPhotoUrl: r.astrologer_photo_url,
+        totalCharged: Number(r.total_charged),
+        messageCount: r.message_count,
+        startedAt: r.started_at,
+        lastMessageAt: r.last_message_at,
+      })),
+    });
+  } catch (e) {
+    console.error("[AIAstrologer] /sessions route error:", e);
+    return res.status(500).json({ error: "Failed to load chat sessions" });
+  }
+});
+
+router.get("/sessions/:id", authMiddleware, async (req, res) => {
+  const userId = req.user?.userId;
+  if (!userId) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+  const sessionId = req.params.id;
+  try {
+    const sessionResult = await query<{
+      id: string;
+      user_id: string;
+      astrologer_name: string;
+      astrologer_emoji: string;
+      astrologer_photo_url: string | null;
+      total_charged: string;
+    }>(
+      `SELECT s.id, s.user_id,
+              a.name AS astrologer_name,
+              a.emoji AS astrologer_emoji,
+              a.photo_url AS astrologer_photo_url,
+              s.total_charged::text
+       FROM ai_chat_sessions s
+       JOIN ai_astrologers a ON a.id = s.ai_astrologer_id
+       WHERE s.id = $1`,
+      [sessionId]
+    );
+    const session = sessionResult.rows[0];
+    if (!session || session.user_id !== userId) {
+      return res.status(404).json({ error: "Session not found" });
+    }
+    const messagesResult = await query<{
+      role: "user" | "model";
+      text: string;
+      created_at: string;
+    }>(
+      `SELECT role, text, created_at
+       FROM ai_chat_messages
+       WHERE session_id = $1
+       ORDER BY created_at ASC`,
+      [sessionId]
+    );
+    return res.json({
+      success: true,
+      session: {
+        id: session.id,
+        astrologerName: session.astrologer_name,
+        astrologerEmoji: session.astrologer_emoji,
+        astrologerPhotoUrl: session.astrologer_photo_url,
+        totalCharged: Number(session.total_charged),
+      },
+      messages: messagesResult.rows.map((m) => ({
+        role: m.role,
+        text: m.text,
+        createdAt: m.created_at,
+      })),
+    });
+  } catch (e) {
+    console.error("[AIAstrologer] /sessions/:id route error:", e);
+    return res.status(500).json({ error: "Failed to load chat session" });
+  }
+});
+
 export default router;
