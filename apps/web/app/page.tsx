@@ -903,7 +903,7 @@ export default function HomePage() {
             {aiAstrologers.map((a) => (
               <Link
                 key={a.id}
-                href={`/kundli?aiAstrologer=${a.id}`}
+                href={`/ai-astrologers/${a.id}`}
                 className="flex flex-col items-center rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-4 text-center transition duration-200 hover:-translate-y-1 hover:border-[#C9A227]/50 hover:shadow-md"
               >
                 {a.photo_url ? (
