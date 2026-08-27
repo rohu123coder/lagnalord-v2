@@ -17,6 +17,8 @@ router.get("/personas", async (_req, res) => {
       name: p.name,
       emoji: p.emoji,
       tagline: p.tagline,
+      photo_url: p.photoUrl,
+      rate_per_min: p.ratePerMin,
     }));
     return res.json({ success: true, personas: publicPersonas });
   } catch (e) {
