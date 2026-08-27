@@ -29,11 +29,12 @@ router.get("/personas", async (_req, res) => {
 
 router.post("/chat", authMiddleware, async (req, res) => {
   try {
-    const { personaId, kundliData, history, message } = req.body as {
+    const { personaId, kundliData, history, message, sessionId } = req.body as {
       personaId?: string;
       kundliData?: unknown;
       history?: ChatTurn[];
       message?: string;
+      sessionId?: string;
     };
 
     if (!personaId || typeof personaId !== "string") {
@@ -83,6 +84,17 @@ router.post("/chat", authMiddleware, async (req, res) => {
       [userId, charge]
     );
 
+    let activeSessionId = sessionId;
+    if (!activeSessionId) {
+      const sessionInsert = await query<{ id: string }>(
+        `INSERT INTO ai_chat_sessions (user_id, ai_astrologer_id)
+         VALUES ($1, $2)
+         RETURNING id`,
+        [userId, personaId]
+      );
+      activeSessionId = sessionInsert.rows[0]?.id;
+    }
+
     const safeHistory: ChatTurn[] = Array.isArray(history)
       ? history
           .filter(
@@ -101,7 +113,23 @@ router.post("/chat", authMiddleware, async (req, res) => {
       message.trim()
     );
 
-    return res.json({ success: true, reply });
+    if (activeSessionId) {
+      await query(
+        `INSERT INTO ai_chat_messages (session_id, role, text, charge)
+         VALUES ($1, 'user', $2, $3), ($1, 'model', $4, 0)`,
+        [activeSessionId, message.trim(), charge, reply]
+      );
+      await query(
+        `UPDATE ai_chat_sessions
+         SET total_charged = total_charged + $1,
+             message_count = message_count + 2,
+             last_message_at = now()
+         WHERE id = $2`,
+        [charge, activeSessionId]
+      );
+    }
+
+    return res.json({ success: true, reply, sessionId: activeSessionId });
   } catch (e) {
     console.error("[AIAstrologer] /chat route error:", e);
     return res.status(500).json({ error: "Failed to get astrologer reply" });
