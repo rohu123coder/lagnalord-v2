@@ -152,13 +152,14 @@ router.get("/sessions", authMiddleware, async (req, res) => {
       message_count: number;
       started_at: string;
       last_message_at: string;
+      rating: number | null;
     }>(
       `SELECT s.id, s.ai_astrologer_id,
               a.name AS astrologer_name,
               a.emoji AS astrologer_emoji,
               a.photo_url AS astrologer_photo_url,
               s.total_charged::text, s.message_count,
-              s.started_at, s.last_message_at
+              s.started_at, s.last_message_at, s.rating
        FROM ai_chat_sessions s
        JOIN ai_astrologers a ON a.id = s.ai_astrologer_id
        WHERE s.user_id = $1
@@ -178,6 +179,7 @@ router.get("/sessions", authMiddleware, async (req, res) => {
         messageCount: r.message_count,
         startedAt: r.started_at,
         lastMessageAt: r.last_message_at,
+        rating: r.rating,
       })),
     });
   } catch (e) {
@@ -200,12 +202,13 @@ router.get("/sessions/:id", authMiddleware, async (req, res) => {
       astrologer_emoji: string;
       astrologer_photo_url: string | null;
       total_charged: string;
+      rating: number | null;
     }>(
       `SELECT s.id, s.user_id,
               a.name AS astrologer_name,
               a.emoji AS astrologer_emoji,
               a.photo_url AS astrologer_photo_url,
-              s.total_charged::text
+              s.total_charged::text, s.rating
        FROM ai_chat_sessions s
        JOIN ai_astrologers a ON a.id = s.ai_astrologer_id
        WHERE s.id = $1`,
@@ -234,6 +237,7 @@ router.get("/sessions/:id", authMiddleware, async (req, res) => {
         astrologerEmoji: session.astrologer_emoji,
         astrologerPhotoUrl: session.astrologer_photo_url,
         totalCharged: Number(session.total_charged),
+        rating: session.rating,
       },
       messages: messagesResult.rows.map((m) => ({
         role: m.role,
@@ -244,6 +248,37 @@ router.get("/sessions/:id", authMiddleware, async (req, res) => {
   } catch (e) {
     console.error("[AIAstrologer] /sessions/:id route error:", e);
     return res.status(500).json({ error: "Failed to load chat session" });
+  }
+});
+
+router.patch("/sessions/:id/rate", authMiddleware, async (req, res) => {
+  const userId = req.user?.userId;
+  if (!userId) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+  const sessionId = req.params.id;
+  const { rating, reviewText } = req.body as {
+    rating?: number;
+    reviewText?: string;
+  };
+  if (typeof rating !== "number" || rating < 1 || rating > 5) {
+    return res.status(400).json({ error: "rating must be a number between 1 and 5" });
+  }
+  try {
+    const result = await query<{ id: string }>(
+      `UPDATE ai_chat_sessions
+       SET rating = $1, review_text = $2
+       WHERE id = $3 AND user_id = $4
+       RETURNING id`,
+      [rating, reviewText?.trim() || null, sessionId, userId]
+    );
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Session not found" });
+    }
+    return res.json({ success: true });
+  } catch (e) {
+    console.error("[AIAstrologer] rate session error:", e);
+    return res.status(500).json({ error: "Failed to save rating" });
   }
 });
 
