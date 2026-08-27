@@ -205,7 +205,17 @@ export default function AiAstrologerProfilePage() {
               ) : null}
 
               {error ? (
-                <p className="mt-4 text-sm text-red-400">{error}</p>
+                <p className="mt-4 text-sm text-red-400">
+                  {error}
+                  {error.includes("birth details") ? (
+                    <>
+                      {" "}
+                      <a href="/profile/birth-details" className="underline hover:text-red-300">
+                        Complete now →
+                      </a>
+                    </>
+                  ) : null}
+                </p>
               ) : null}
             </div>
           </div>
