@@ -336,7 +336,7 @@ async function handleStep(conversation: ConversationRow, text: string): Promise<
       if (free_questions_used >= FREE_QUESTION_LIMIT) {
         await sendWhatsAppText(
           phone,
-          "You've used your free questions for this reading. 🙏\n\nTo continue getting personalized guidance, please visit the DivineMarg app to recharge your wallet and consult with our AI astrologer or a live expert."
+          "You've used your free questions for this reading. 🙏\n\nTo continue getting personalized guidance, please visit lagnalords.com to recharge your wallet and consult with our AI astrologer or a live expert."
         );
         return;
       }
@@ -356,7 +356,7 @@ async function handleStep(conversation: ConversationRow, text: string): Promise<
       if (nowUsed >= FREE_QUESTION_LIMIT) {
         await sendWhatsAppText(
           phone,
-          "That was your last free question for now. 🙏 Visit the DivineMarg app anytime to continue your consultation."
+          "That was your last free question for now. 🙏 Visit lagnalords.com anytime to continue your consultation."
         );
       }
       return;
