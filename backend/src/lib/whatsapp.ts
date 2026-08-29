@@ -1,4 +1,5 @@
 import NodeGeocoder from "node-geocoder";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const WHATSAPP_API_VERSION = "v25.0";
 
@@ -67,42 +68,26 @@ export async function geocodePlace(place: string): Promise<GeocodeResult | null>
   }
 }
 
-let anthropicClient: import("@anthropic-ai/sdk").default | null = null;
-
-async function getWhatsAppAnthropicClient() {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) return null;
-  if (!anthropicClient) {
-    const { default: AnthropicSdk } = await import("@anthropic-ai/sdk");
-    anthropicClient = new AnthropicSdk({ apiKey });
-  }
-  return anthropicClient;
-}
-
 export async function generateAstrologyReply(params: {
   systemPrompt: string;
   userMessage: string;
 }): Promise<string> {
-  const client = await getWhatsAppAnthropicClient();
-  if (!client) {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    console.error("[WhatsApp] GEMINI_API_KEY not set");
     return "I'm having trouble reaching my astrology engine right now. Please try again shortly.";
   }
-
   try {
-    const message = await client.messages.create({
-      model: "claude-sonnet-4-6",
-      max_tokens: 1200,
-      system: params.systemPrompt,
-      messages: [{ role: "user", content: params.userMessage }],
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({
+      model: "gemini-3.6-flash",
+      systemInstruction: params.systemPrompt,
     });
-
-    return message.content
-      .filter((block): block is import("@anthropic-ai/sdk").default.TextBlock => block.type === "text")
-      .map((block) => block.text)
-      .join("\n")
-      .trim();
+    const result = await model.generateContent(params.userMessage);
+    const text = result.response.text();
+    return text.trim() || "Something went wrong generating your reading. Please try again.";
   } catch (e) {
-    console.error("[WhatsApp] Claude generation error:", e);
+    console.error("[WhatsApp] Gemini generation error:", e);
     return "Something went wrong generating your reading. Please try again.";
   }
 }
