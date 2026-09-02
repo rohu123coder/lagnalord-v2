@@ -228,13 +228,10 @@ export function KundliForm({
         <div className="overflow-hidden rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] shadow-xl shadow-black/30">
           <div className="bg-gradient-to-r from-[#0A1A2F] via-[#13294B] to-[#2A7D7B] px-6 py-8 text-center">
             <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
-              🔮 Free Kundli Generator
+              Kundali - Most Accurate Calculation
             </h1>
             <p className="mt-2 text-sm text-[#F5F1E8] sm:text-base">
-              निःशुल्क कुंडली — Swiss Ephemeris accuracy · Lahiri Ayanamsa
-            </p>
-            <p className="mt-1 text-xs text-[#C7C2B4]">
-              Birth details → instant planets, houses, Dasha &amp; Yogas
+              of Your Birth Chart
             </p>
           </div>
 
