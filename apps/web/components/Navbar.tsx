@@ -131,7 +131,7 @@ export function Navbar() {
   );
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white">
+    <header className="sticky top-0 z-50 border-b border-[#C9A227]/20 bg-[#0A1A2F]">
       <div className="mx-auto flex min-h-[68px] max-w-7xl items-center justify-between px-4 sm:px-6">
         <Link
           href="/"
@@ -149,7 +149,7 @@ export function Navbar() {
                 className="h-10 w-auto object-contain"
               />
             ) : null}
-            <span className="text-[22px] font-bold text-[#B8960C]">
+            <span className="text-[22px] font-bold text-[#E0C158]">
               {tenant.logo.text}
             </span>
           </div>
@@ -159,11 +159,11 @@ export function Navbar() {
           className="hidden flex-1 items-center justify-center md:flex"
           aria-label="Main navigation"
         >
-          <div className="flex items-center gap-2 text-sm font-medium text-slate-600">
+          <div className="flex items-center gap-2 text-sm font-medium text-[#C7C2B4]">
             {centerLinks.map((link, idx) => (
               <Fragment key={link.label}>
                 {idx > 0 ? (
-                  <span className="text-slate-300" aria-hidden="true">
+                  <span className="text-[#C9A227]/20" aria-hidden="true">
                     |
                   </span>
                 ) : null}
@@ -171,8 +171,8 @@ export function Navbar() {
                   href={link.href}
                   className={`whitespace-nowrap border-b-2 pb-0.5 text-[14px] font-medium transition ${
                     isActive(link.href)
-                      ? "border-[#B8960C] text-[#B8960C]"
-                      : "border-transparent text-slate-700 hover:text-[#B8960C]"
+                      ? "border-[#C9A227] text-[#E0C158]"
+                      : "border-transparent text-[#C7C2B4] hover:text-[#E0C158]"
                   }`}
                   onClick={() => setMenuOpen(false)}
                 >
@@ -185,11 +185,11 @@ export function Navbar() {
 
         <div className="hidden items-center gap-3 md:flex">
           {!mounted ? (
-            <div className="h-9 w-44 animate-pulse rounded-full bg-slate-100" />
+            <div className="h-9 w-44 animate-pulse rounded-full bg-[#0F2240]" />
           ) : isLoggedIn ? (
             <>
               {role !== "astrologer" ? (
-                <span className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 sm:text-sm">
+                <span className="inline-flex items-center rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-400 sm:text-sm">
                   {isWalletRefreshing ? "Updating..." : formatMoney(balance)}
                 </span>
               ) : null}
@@ -198,8 +198,8 @@ export function Navbar() {
                 href={dashboardHref}
                 className={`rounded-md px-2 py-1 text-sm font-semibold transition ${
                   isActive(dashboardHref)
-                    ? "text-[#B8960C]"
-                    : "text-slate-700 hover:text-[#B8960C]"
+                    ? "text-[#E0C158]"
+                    : "text-[#C7C2B4] hover:text-[#E0C158]"
                 }`}
                 onClick={() => setMenuOpen(false)}
               >
@@ -207,14 +207,14 @@ export function Navbar() {
               </Link>
               <button
                 type="button"
-                className="rounded-md px-2 py-1 text-sm font-semibold text-slate-600 transition hover:text-red-600"
+                className="rounded-md px-2 py-1 text-sm font-semibold text-[#C7C2B4] transition hover:text-red-400"
                 onClick={() => logout()}
               >
                 Logout
               </button>
               <Link
                 href="/astrologer/login"
-                className="text-xs text-slate-400 transition hover:text-slate-600"
+                className="text-xs text-[#C7C2B4]/60 transition hover:text-[#F5F1E8]"
               >
                 Astrologer Login
               </Link>
@@ -224,7 +224,7 @@ export function Navbar() {
               {chatCta}
               <Link
                 href="/login"
-                className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-slate-700 transition hover:text-[#B8960C]"
+                className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-[#C7C2B4] transition hover:text-[#E0C158]"
                 onClick={(event) => {
                   event.preventDefault();
                   router.push("/login");
@@ -244,7 +244,7 @@ export function Navbar() {
               </Link>
               <Link
                 href="/astrologer/login"
-                className="text-xs text-slate-400 transition hover:text-slate-600"
+                className="text-xs text-[#C7C2B4]/60 transition hover:text-[#F5F1E8]"
                 onClick={() => setMenuOpen(false)}
               >
                 Astrologer Login
@@ -255,7 +255,7 @@ export function Navbar() {
 
         <div className="flex items-center gap-2 md:hidden">
           {!mounted ? null : isLoggedIn && role === "user" ? (
-            <span className="max-w-[6.5rem] truncate rounded-full border border-emerald-200 bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700">
+            <span className="max-w-[6.5rem] truncate rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-1 text-xs font-semibold text-emerald-400">
               {isWalletRefreshing ? "Updating..." : formatMoney(balance)}
             </span>
           ) : null}
@@ -293,10 +293,10 @@ export function Navbar() {
       </div>
 
       {menuOpen && mounted ? (
-        <div className="border-t border-slate-200 bg-white px-4 py-4 md:hidden">
+        <div className="border-t border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-4 md:hidden">
           <div className="flex flex-col gap-4">
             <div>
-              <p className="px-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
+              <p className="px-1 text-xs font-semibold uppercase tracking-wider text-[#C7C2B4]/70">
                 Nav links
               </p>
               <div className="mt-2 space-y-1">
@@ -306,8 +306,8 @@ export function Navbar() {
                     href={link.href}
                     className={`block rounded-md px-3 py-2 text-sm font-medium ${
                       isActive(link.href)
-                        ? "bg-amber-50 text-[#B8960C]"
-                        : "text-slate-700 hover:bg-slate-50"
+                        ? "bg-[#C9A227]/10 text-[#E0C158]"
+                        : "text-[#C7C2B4] hover:bg-[#0F2240]"
                     }`}
                     onClick={() => setMenuOpen(false)}
                   >
@@ -317,21 +317,21 @@ export function Navbar() {
               </div>
             </div>
 
-            <div className="space-y-2 border-t border-slate-200 pt-4">
+            <div className="space-y-2 border-t border-[#C9A227]/30 pt-4">
               <div className="w-full">{chatCta}</div>
 
               {isLoggedIn ? (
                 <>
                   <Link
                     href={dashboardHref}
-                    className="block rounded-full border border-slate-200 px-4 py-2.5 text-center text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+                    className="block rounded-full border border-[#C9A227]/30 px-4 py-2.5 text-center text-sm font-semibold text-[#C7C2B4] transition hover:bg-[#0F2240]"
                     onClick={() => setMenuOpen(false)}
                   >
                     Dashboard
                   </Link>
                   <button
                     type="button"
-                    className="block w-full rounded-full border border-red-200 px-4 py-2.5 text-sm font-semibold text-red-600 transition hover:bg-red-50"
+                    className="block w-full rounded-full border border-red-500/30 px-4 py-2.5 text-sm font-semibold text-red-400 transition hover:bg-red-500/10"
                     onClick={() => {
                       setMenuOpen(false);
                       logout();
@@ -345,7 +345,7 @@ export function Navbar() {
                   <div className="grid grid-cols-2 gap-2">
                     <Link
                       href="/login"
-                      className="rounded-full border border-slate-200 px-3 py-2.5 text-center text-sm font-semibold text-slate-700"
+                      className="rounded-full border border-[#C9A227]/30 px-3 py-2.5 text-center text-sm font-semibold text-[#C7C2B4]"
                       onClick={(event) => {
                         event.preventDefault();
                         setMenuOpen(false);
@@ -369,7 +369,7 @@ export function Navbar() {
                   <div className="pt-2">
                     <Link
                       href="/astrologer/login"
-                      className="block text-center text-xs text-slate-400 transition hover:text-slate-600"
+                      className="block text-center text-xs text-[#C7C2B4]/60 transition hover:text-[#F5F1E8]"
                       onClick={(event) => {
                         event.preventDefault();
                         setMenuOpen(false);
