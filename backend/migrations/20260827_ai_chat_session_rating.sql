@@ -1,0 +1,3 @@
+ALTER TABLE ai_chat_sessions
+  ADD COLUMN IF NOT EXISTS rating SMALLINT CHECK (rating BETWEEN 1 AND 5),
+  ADD COLUMN IF NOT EXISTS review_text TEXT;
