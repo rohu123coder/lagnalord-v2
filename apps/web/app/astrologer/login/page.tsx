@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 
 import api from "@/lib/api";
 import { useAuthStore, type AuthUser } from "@/lib/store";
+import { getTenant } from "@/lib/tenants";
+import Image from "next/image";
 
 type AstrologerLoginPayload = {
   id: string;
@@ -24,6 +26,7 @@ type AstrologerLoginPayload = {
 
 export default function AstrologerLoginPage() {
   const router = useRouter();
+  const tenant = getTenant();
   const setUser = useAuthStore((s) => s.setUser);
   const { isLoggedIn, user, token } = useAuthStore();
   const [mounted, setMounted] = useState(false);
@@ -118,7 +121,23 @@ export default function AstrologerLoginPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] to-[#0F2240]">
-      <div className="mx-auto flex max-w-md flex-col px-4 py-12 sm:px-6">
+      <div className="mx-auto max-w-md px-4 pt-8 sm:px-6">
+        <Link href="/" className="inline-flex items-center gap-2">
+          {tenant.logo.imageUrl ? (
+            <Image
+              src={tenant.logo.imageUrl}
+              alt={tenant.name}
+              width={36}
+              height={36}
+              className="h-9 w-auto object-contain"
+            />
+          ) : null}
+          <span className="text-xl font-bold text-[#E0C158]">
+            {tenant.logo.text}
+          </span>
+        </Link>
+      </div>
+      <div className="mx-auto flex max-w-md flex-col px-4 py-8 sm:px-6">
         <h1 className="text-2xl font-bold text-[#F5F1E8]">
           Astrologer sign in
         </h1>
