@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { Navbar } from "@/components/Navbar";
 import { getTenant } from "@/lib/tenants";
 import { AIAstrologerChat } from "./components/AIAstrologerChat";
 import { KundliChart } from "./components/KundliChart";
@@ -394,19 +395,16 @@ export default function KundliPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] via-[#0F2240] to-[#0A1A2F]">
-      <header className="border-b border-[#C9A227]/20 bg-[#0A1A2F]/70 backdrop-blur-md print:hidden">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
-          <Link
-            href="/"
-            className="text-lg font-semibold text-[#E0C158] transition hover:text-[#C9A227]"
-          >
-            {tenant.logo.text}
-          </Link>
+      <div className="print:hidden">
+        <Navbar />
+      </div>
+      <div className="border-b border-[#C9A227]/20 bg-[#0A1A2F]/70 backdrop-blur-md print:hidden">
+        <div className="mx-auto flex max-w-6xl items-center justify-end px-4 py-2 sm:px-6">
           <span className="rounded-full bg-[#0F2240] px-3 py-1 text-xs font-medium text-[#E0C158]">
             Vedic · Sidereal · Lahiri
           </span>
         </div>
-      </header>
+      </div>
 
       <div className="print:hidden">
         <Suspense fallback={<div className="mx-auto max-w-2xl px-4 py-12 text-center text-sm text-[#C7C2B4]">Loading form...</div>}>
