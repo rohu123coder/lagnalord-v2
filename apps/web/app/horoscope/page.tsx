@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
+import { HoroscopePreviewCard } from "@/components/HoroscopePreviewCard";
 import { Navbar } from "@/components/Navbar";
 import {
   rashis,
@@ -17,21 +17,11 @@ const periods: Array<{ id: Period; label: string }> = [
   { id: "monthly", label: "Monthly" },
 ];
 
-function renderStars(value: number) {
-  const clamped = Math.max(1, Math.min(5, value));
-  return `${"⭐".repeat(clamped)}${"☆".repeat(5 - clamped)}`;
-}
-
 export default function HoroscopePage() {
   const [period, setPeriod] = useState<Period>("today");
   const [selectedRashi, setSelectedRashi] = useState<string>(rashis[0].id);
   const [data, setData] = useState<HoroscopeResponse | null>(null);
   const [loading, setLoading] = useState(false);
-
-  const selectedMeta = useMemo(
-    () => rashis.find((r) => r.id === selectedRashi) ?? rashis[0],
-    [selectedRashi]
-  );
 
   useEffect(() => {
     let cancelled = false;
@@ -124,67 +114,15 @@ export default function HoroscopePage() {
           ))}
         </section>
 
-        <section className="mt-10 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-sm">
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div>
-              <p className="text-sm font-semibold text-[#C8AC80]">
-                Selected Rashi
-              </p>
-              <h3 className="mt-1 text-2xl font-bold text-[#F5F1E8]">
-                {selectedMeta.symbol} {selectedMeta.hindi} ({selectedMeta.english})
-              </h3>
-            </div>
-            <Link
-              href={`/horoscope/${selectedMeta.id}?period=${period}`}
-              className="rounded-full bg-[#09142a] px-4 py-2 text-sm font-semibold text-[#C8AC80] transition hover:bg-[#09142a]/70"
-            >
-              Open full page
-            </Link>
-          </div>
-
-          {loading ? (
-            <div className="mt-6 h-44 animate-pulse rounded-xl bg-[#09142a]/60" />
-          ) : data ? (
-            <div className="mt-6 space-y-5">
-              <div>
-                <h4 className="font-bold text-[#F5F1E8]">Today&apos;s Overview</h4>
-                <p className="mt-2 text-sm leading-7 text-[#C7C2B4]">
-                  {data.todayOverview}
-                </p>
-              </div>
-              <div className="grid gap-3 rounded-xl bg-[#09142a] p-4 text-sm sm:grid-cols-3">
-                <p>
-                  <span className="font-semibold text-[#F5F1E8]">
-                    Lucky Number:
-                  </span>{" "}
-                  {data.lucky.number}
-                </p>
-                <p>
-                  <span className="font-semibold text-[#F5F1E8]">
-                    Lucky Color:
-                  </span>{" "}
-                  {data.lucky.color}
-                </p>
-                <p>
-                  <span className="font-semibold text-[#F5F1E8]">
-                    Lucky Time:
-                  </span>{" "}
-                  {data.lucky.time}
-                </p>
-              </div>
-              <div className="grid gap-3 text-sm sm:grid-cols-2">
-                <p>Love & Relationships: {renderStars(data.ratings.love)}</p>
-                <p>Career & Business: {renderStars(data.ratings.career)}</p>
-                <p>Health & Wellness: {renderStars(data.ratings.health)}</p>
-                <p>Finance & Money: {renderStars(data.ratings.finance)}</p>
-              </div>
-            </div>
-          ) : (
-            <p className="mt-6 text-sm text-red-600">
-              Unable to load horoscope right now.
-            </p>
-          )}
-        </section>
+        {loading ? (
+          <div className="mt-10 h-44 animate-pulse rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B]" />
+        ) : data ? (
+          <HoroscopePreviewCard data={data} className="mt-10" />
+        ) : (
+          <p className="mt-10 text-sm text-red-600">
+            Unable to load horoscope right now.
+          </p>
+        )}
       </main>
     </div>
   );

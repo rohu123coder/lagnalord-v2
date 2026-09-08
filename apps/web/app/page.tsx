@@ -27,7 +27,8 @@ import api from "@/lib/api";
 import { formatDisplayDate } from "@/lib/formatDate";
 import { getTenant } from "@/lib/tenants";
 import { firstName } from "@/lib/utils";
-import { rashis } from "@/lib/horoscope";
+import { HoroscopePreviewCard } from "@/components/HoroscopePreviewCard";
+import { createHoroscope, rashis, type Period } from "@/lib/horoscope";
 import { getSocketApiBase } from "@/lib/socketBase";
 import { useAuthStore } from "@/lib/store";
 
@@ -61,6 +62,25 @@ type AiAstrologerCard = {
   photo_url: string | null;
   rate_per_min: number;
 };
+
+function homepagePeriodToApi(period: string): Period {
+  if (period === "Weekly") return "weekly";
+  if (period === "Monthly" || period === "Yearly") return "monthly";
+  return "today";
+}
+
+function homepageOverviewHeading(period: string) {
+  switch (period) {
+    case "Weekly":
+      return "This Week's Overview";
+    case "Monthly":
+      return "This Month's Overview";
+    case "Yearly":
+      return "This Year's Overview";
+    default:
+      return "Today's Overview";
+  }
+}
 
 const topServices = [
   { icon: "🪐", name: "Kundli (Birth Chart)", href: "/kundli" },
@@ -705,6 +725,10 @@ export default function HomePage() {
   }, []);
 
   const [activePeriod, setActivePeriod] = useState("Daily");
+  const [selectedRashi, setSelectedRashi] = useState<string | null>(null);
+  const homepageRashiPreview = selectedRashi
+    ? createHoroscope(selectedRashi, homepagePeriodToApi(activePeriod))
+    : null;
   const [expertiseMode, setExpertiseMode] = useState<"astro" | "vastu">("astro");
 
   const [aiAstrologers, setAiAstrologers] = useState<AiAstrologerCard[]>([]);
@@ -921,16 +945,25 @@ export default function HomePage() {
             </div>
             <div className="mt-5 grid grid-cols-3 gap-3 sm:grid-cols-6">
               {rashis.map((rashi) => (
-                <Link
+                <button
                   key={rashi.id}
-                  href={`/horoscope/${rashi.id}`}
-                  className="rounded-xl border border-[#b18d4f]/20 bg-[#122352] p-3 text-center transition duration-200 hover:-translate-y-0.5 hover:border-[#b18d4f]/50 hover:shadow-md"
+                  type="button"
+                  onClick={() =>
+                    setSelectedRashi((current) =>
+                      current === rashi.id ? null : rashi.id
+                    )
+                  }
+                  className={`rounded-xl border bg-[#122352] p-3 text-center transition duration-200 hover:-translate-y-0.5 hover:border-[#b18d4f]/50 hover:shadow-md ${
+                    selectedRashi === rashi.id
+                      ? "border-[#b18d4f] ring-2 ring-[#b18d4f]/30"
+                      : "border-[#b18d4f]/20"
+                  }`}
                 >
                   <p className="text-2xl">{rashi.symbol}</p>
                   <p className="mt-1 text-xs font-semibold text-[#F5F1E8] sm:text-sm">
                     {rashi.english}
                   </p>
-                </Link>
+                </button>
               ))}
             </div>
             <div className="mt-5 flex flex-wrap gap-2">
@@ -949,6 +982,12 @@ export default function HomePage() {
                 </button>
               ))}
             </div>
+            {selectedRashi && homepageRashiPreview ? (
+              <HoroscopePreviewCard
+                data={homepageRashiPreview}
+                overviewHeading={homepageOverviewHeading(activePeriod)}
+              />
+            ) : null}
           </div>
         </div>
       </section>
