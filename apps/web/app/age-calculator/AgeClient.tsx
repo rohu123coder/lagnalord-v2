@@ -85,7 +85,7 @@ export function AgeClient() {
               required
               value={dob}
               onChange={(e) => setDob(e.target.value)}
-              className={fieldClass}
+              className={`${fieldClass} [color-scheme:light]`}
             />
             <label className="mb-1.5 mt-4 block text-sm font-medium text-[#C7C2B4]">
               As of date (optional, defaults to today)
@@ -94,7 +94,7 @@ export function AgeClient() {
               type="date"
               value={asOf}
               onChange={(e) => setAsOf(e.target.value)}
-              className={fieldClass}
+              className={`${fieldClass} [color-scheme:light]`}
             />
             <button
               type="submit"

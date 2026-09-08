@@ -204,7 +204,7 @@ export default function MangalDoshaClient() {
                 type="date"
                 value={dob}
                 onChange={(e) => setDob(e.target.value)}
-                className={fieldClass}
+                className={`${fieldClass} [color-scheme:light]`}
               />
             </div>
             <div>
@@ -216,7 +216,7 @@ export default function MangalDoshaClient() {
                 type="time"
                 value={tob}
                 onChange={(e) => setTob(e.target.value)}
-                className={fieldClass}
+                className={`${fieldClass} [color-scheme:light]`}
               />
             </div>
             <div ref={pobRef} className="relative">

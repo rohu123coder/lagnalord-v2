@@ -90,7 +90,7 @@ export function RatingModal({
               value={reviewText}
               onChange={(e) => setReviewText(e.target.value)}
               placeholder="Share your experience..."
-              className="mt-4 min-h-28 w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-3 py-2 text-sm text-[#F5F1E8] outline-none ring-[#b18d4f] focus:ring-2"
+              className="mt-4 min-h-28 w-full rounded-xl border border-[#b18d4f]/40 bg-white px-3 py-2 text-sm text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
             />
             <button
               type="button"

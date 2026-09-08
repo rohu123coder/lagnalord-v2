@@ -198,7 +198,7 @@ function FilterSidebar(props: {
           id="sort"
           value={sort}
           onChange={(e) => setSort(e.target.value as ApiSort)}
-          className="mt-2 w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-3 py-2 text-sm text-[#F5F1E8] outline-none ring-[#b18d4f] focus:ring-2"
+          className="mt-2 w-full rounded-xl border border-[#b18d4f]/40 bg-white px-3 py-2 text-sm text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
         >
           {SORT_OPTIONS.map((o) => (
             <option key={o.value} value={o.value}>
@@ -535,7 +535,7 @@ export default function AstrologersPage() {
                 setPage(1);
               }}
               placeholder="Search name..."
-              className="w-full rounded-xl border border-[#b18d4f]/30 bg-[#0E1C3B] px-4 py-2.5 text-sm text-[#F5F1E8] outline-none ring-[#b18d4f] focus:ring-2"
+              className="w-full rounded-xl border border-[#b18d4f]/40 bg-white px-4 py-2.5 text-sm text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
             />
           </div>
             </>

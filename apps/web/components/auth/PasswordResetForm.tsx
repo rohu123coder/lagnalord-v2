@@ -102,7 +102,7 @@ export function PasswordResetForm({
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 placeholder="New Password"
-                className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#b18d4f]"
+                className="w-full rounded-xl border border-[#b18d4f]/40 bg-white px-4 py-3 text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
               />
               <input
                 type="password"
@@ -111,7 +111,7 @@ export function PasswordResetForm({
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm Password"
-                className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#b18d4f]"
+                className="w-full rounded-xl border border-[#b18d4f]/40 bg-white px-4 py-3 text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
               />
 
               {error ? (

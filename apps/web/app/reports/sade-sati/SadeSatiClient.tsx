@@ -227,7 +227,7 @@ export default function SadeSatiClient() {
                 type="date"
                 value={dob}
                 onChange={(e) => setDob(e.target.value)}
-                className={fieldClass}
+                className={`${fieldClass} [color-scheme:light]`}
               />
             </div>
             <div>
@@ -239,7 +239,7 @@ export default function SadeSatiClient() {
                 type="time"
                 value={tob}
                 onChange={(e) => setTob(e.target.value)}
-                className={fieldClass}
+                className={`${fieldClass} [color-scheme:light]`}
               />
             </div>
             <div ref={pobRef} className="relative">
@@ -302,7 +302,7 @@ export default function SadeSatiClient() {
                 type="date"
                 value={asOf}
                 onChange={(e) => setAsOf(e.target.value || todayYmd())}
-                className={fieldClass}
+                className={`${fieldClass} [color-scheme:light]`}
               />
               <p className="mt-1 text-xs text-[#C7C2B4]">
                 Defaults to today. Change this to see Saturn’s transit on another date.

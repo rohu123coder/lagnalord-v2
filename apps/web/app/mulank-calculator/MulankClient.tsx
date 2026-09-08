@@ -90,7 +90,7 @@ export function MulankClient() {
               required
               value={dob}
               onChange={(e) => setDob(e.target.value)}
-              className={fieldClass}
+              className={`${fieldClass} [color-scheme:light]`}
             />
             <button
               type="submit"

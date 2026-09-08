@@ -272,7 +272,7 @@ export function KundliForm({
                 onChange={(e) =>
                   setForm((f) => ({ ...f, dob: e.target.value }))
                 }
-                className="w-full rounded-xl border border-[#b18d4f]/40 bg-white px-4 py-3 text-[#09142a] shadow-sm outline-none ring-[#b18d4f]/30 transition placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2"
+                className="w-full rounded-xl border border-[#b18d4f]/40 bg-white px-4 py-3 text-[#09142a] shadow-sm outline-none ring-[#b18d4f]/30 transition placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 [color-scheme:light]"
               />
             </div>
 
@@ -288,7 +288,7 @@ export function KundliForm({
                 onChange={(e) =>
                   setForm((f) => ({ ...f, tob: e.target.value || null }))
                 }
-                className="w-full rounded-xl border border-[#b18d4f]/40 bg-white px-4 py-3 text-[#09142a] shadow-sm outline-none ring-[#b18d4f]/30 transition placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+                className="w-full rounded-xl border border-[#b18d4f]/40 bg-white px-4 py-3 text-[#09142a] shadow-sm outline-none ring-[#b18d4f]/30 transition placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400 [color-scheme:light]"
               />
               <label className="mt-3 flex cursor-pointer items-start gap-3">
                 <input

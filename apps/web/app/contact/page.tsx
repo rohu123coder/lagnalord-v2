@@ -150,7 +150,7 @@ export default function ContactPage() {
                     name="name"
                     type="text"
                     required
-                    className="w-full rounded-lg border border-[#b18d4f]/30 bg-[#09142a] px-3 py-2.5 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f]"
+                    className="w-full rounded-lg border border-[#b18d4f]/40 bg-white px-3 py-2.5 text-sm text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
                   />
                 </div>
                 <div>
@@ -162,7 +162,7 @@ export default function ContactPage() {
                     name="email"
                     type="email"
                     required
-                    className="w-full rounded-lg border border-[#b18d4f]/30 bg-[#09142a] px-3 py-2.5 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f]"
+                    className="w-full rounded-lg border border-[#b18d4f]/40 bg-white px-3 py-2.5 text-sm text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
                   />
                 </div>
                 <div>
@@ -173,7 +173,7 @@ export default function ContactPage() {
                     id="phone"
                     name="phone"
                     type="tel"
-                    className="w-full rounded-lg border border-[#b18d4f]/30 bg-[#09142a] px-3 py-2.5 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f]"
+                    className="w-full rounded-lg border border-[#b18d4f]/40 bg-white px-3 py-2.5 text-sm text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
                   />
                 </div>
                 <div>
@@ -184,7 +184,7 @@ export default function ContactPage() {
                     id="subject"
                     name="subject"
                     required
-                    className="w-full rounded-lg border border-[#b18d4f]/30 bg-[#09142a] px-3 py-2.5 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f]"
+                    className="w-full rounded-lg border border-[#b18d4f]/40 bg-white px-3 py-2.5 text-sm text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
                     defaultValue="General Inquiry"
                   >
                     <option>General Inquiry</option>
@@ -203,7 +203,7 @@ export default function ContactPage() {
                     name="message"
                     rows={5}
                     required
-                    className="w-full rounded-lg border border-[#b18d4f]/30 bg-[#09142a] px-3 py-2.5 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f]"
+                    className="w-full rounded-lg border border-[#b18d4f]/40 bg-white px-3 py-2.5 text-sm text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
                   />
                 </div>
                 <button

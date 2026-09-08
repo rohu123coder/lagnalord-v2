@@ -253,7 +253,7 @@ export function PanchangClient() {
                 onChange={(e) => {
                   if (e.target.value) setDate(e.target.value);
                 }}
-                className="w-full rounded-xl border border-[#b18d4f]/40 bg-white px-4 py-2.5 text-sm text-[#09142a] shadow-sm outline-none ring-[#b18d4f]/30 transition placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2"
+                className="w-full rounded-xl border border-[#b18d4f]/40 bg-white px-4 py-2.5 text-sm text-[#09142a] shadow-sm outline-none ring-[#b18d4f]/30 transition placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 [color-scheme:light]"
               />
             </div>
             <div ref={pobRef} className="relative min-w-0 flex-1">

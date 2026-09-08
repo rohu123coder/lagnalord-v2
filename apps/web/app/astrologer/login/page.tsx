@@ -154,7 +154,7 @@ export default function AstrologerLoginPage() {
             autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f] focus:ring-2"
+            className="w-full rounded-xl border border-[#b18d4f]/40 bg-white px-4 py-3 text-[#09142a] shadow-sm outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
             placeholder="you@example.com"
           />
           <label className="block text-sm font-medium text-[#C7C2B4]">
@@ -165,7 +165,7 @@ export default function AstrologerLoginPage() {
             autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f] focus:ring-2"
+            className="w-full rounded-xl border border-[#b18d4f]/40 bg-white px-4 py-3 text-[#09142a] shadow-sm outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
           />
           <div className="text-right">
             <Link

@@ -179,7 +179,7 @@ export default function AstrologerRegisterPage() {
                   type="text"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="mt-1 w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f] focus:ring-2"
+                  className="mt-1 w-full rounded-xl border border-[#b18d4f]/40 bg-white px-4 py-3 text-[#09142a] shadow-sm outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
                   placeholder="Your full name"
                 />
               </div>
@@ -192,7 +192,7 @@ export default function AstrologerRegisterPage() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="mt-1 w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f] focus:ring-2"
+                  className="mt-1 w-full rounded-xl border border-[#b18d4f]/40 bg-white px-4 py-3 text-[#09142a] shadow-sm outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
                   placeholder="you@example.com"
                 />
               </div>
@@ -205,7 +205,7 @@ export default function AstrologerRegisterPage() {
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
-                  className="mt-1 w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f] focus:ring-2"
+                  className="mt-1 w-full rounded-xl border border-[#b18d4f]/40 bg-white px-4 py-3 text-[#09142a] shadow-sm outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
                   placeholder="10-digit phone"
                 />
               </div>
@@ -218,7 +218,7 @@ export default function AstrologerRegisterPage() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="mt-1 w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f] focus:ring-2"
+                  className="mt-1 w-full rounded-xl border border-[#b18d4f]/40 bg-white px-4 py-3 text-[#09142a] shadow-sm outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
                 />
                 <p className="mt-1 text-xs text-[#C7C2B4]/70">
                   Minimum 8 characters.
@@ -233,7 +233,7 @@ export default function AstrologerRegisterPage() {
                   type="password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="mt-1 w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f] focus:ring-2"
+                  className="mt-1 w-full rounded-xl border border-[#b18d4f]/40 bg-white px-4 py-3 text-[#09142a] shadow-sm outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
                 />
               </div>
 
@@ -263,7 +263,7 @@ export default function AstrologerRegisterPage() {
                   min={0}
                   value={experience}
                   onChange={(e) => setExperience(e.target.value)}
-                  className="mt-1 w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f] focus:ring-2"
+                  className="mt-1 w-full rounded-xl border border-[#b18d4f]/40 bg-white px-4 py-3 text-[#09142a] shadow-sm outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
                 />
               </div>
 
@@ -329,7 +329,7 @@ export default function AstrologerRegisterPage() {
                   max={500}
                   value={ratePerMinute}
                   onChange={(e) => setRatePerMinute(e.target.value)}
-                  className="mt-1 w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f] focus:ring-2"
+                  className="mt-1 w-full rounded-xl border border-[#b18d4f]/40 bg-white px-4 py-3 text-[#09142a] shadow-sm outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
                 />
                 <p className="mt-1 text-xs text-[#C7C2B4]/70">
                   Between 5 and 500.
@@ -344,7 +344,7 @@ export default function AstrologerRegisterPage() {
                   value={bio}
                   maxLength={300}
                   onChange={(e) => setBio(e.target.value)}
-                  className="mt-1 min-h-[110px] w-full resize-y rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f] focus:ring-2"
+                  className="mt-1 min-h-[110px] w-full resize-y rounded-xl border border-[#b18d4f]/40 bg-white px-4 py-3 text-[#09142a] shadow-sm outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
                   placeholder="A short introduction (max 300 chars)"
                 />
                 <div className="mt-1 text-right text-xs text-[#C7C2B4]/70">

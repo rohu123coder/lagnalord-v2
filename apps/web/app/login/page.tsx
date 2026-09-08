@@ -117,7 +117,7 @@ function LoginContent() {
                   value={identifier}
                   onChange={e => setIdentifier(e.target.value)}
                   placeholder="Phone number or Email"
-                  className="w-full border border-[#b18d4f]/20 bg-[#09142a] rounded-xl px-4 py-3 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#b18d4f]"
+                  className="w-full rounded-xl border border-[#b18d4f]/40 bg-white px-4 py-3 text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
                 />
                 <div className="text-right">
                   <Link
@@ -152,14 +152,14 @@ function LoginContent() {
               <p className="text-sm text-[#C7C2B4] text-center mt-2 mb-8">Join {tenant.name} today</p>
               <div className="space-y-4">
                 <input type="text" value={name} onChange={e => setName(e.target.value)}
-                  placeholder="Full Name" className="w-full border border-[#b18d4f]/20 bg-[#09142a] rounded-xl px-4 py-3 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#b18d4f]"/>
-                <div className="flex rounded-xl border border-[#b18d4f]/20 bg-[#09142a] focus-within:ring-2 focus-within:ring-[#b18d4f]">
-                  <span className="flex items-center px-3 border-r border-[#b18d4f]/20 text-[#C7C2B4]">🇮🇳 +91</span>
+                  placeholder="Full Name" className="w-full rounded-xl border border-[#b18d4f]/40 bg-white px-4 py-3 text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"/>
+                <div className="flex rounded-xl border border-[#b18d4f]/40 bg-white focus-within:border-[#b18d4f] focus-within:ring-2 focus-within:ring-[#b18d4f]/30">
+                  <span className="flex items-center border-r border-[#b18d4f]/40 px-3 text-[#09142a]">🇮🇳 +91</span>
                   <input type="tel" value={phone} onChange={e => setPhone(e.target.value.replace(/\D/g,"").slice(0,10))}
-                    placeholder="Phone number" className="w-full px-3 py-3 outline-none rounded-r-xl bg-transparent text-[#F5F1E8]"/>
+                    placeholder="Phone number" className="w-full rounded-r-xl bg-transparent px-3 py-3 text-[#09142a] outline-none placeholder:text-slate-400"/>
                 </div>
                 <input type="email" value={email} onChange={e => setEmail(e.target.value)}
-                  placeholder="Email address" className="w-full border border-[#b18d4f]/20 bg-[#09142a] rounded-xl px-4 py-3 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#b18d4f]"/>
+                  placeholder="Email address" className="w-full rounded-xl border border-[#b18d4f]/40 bg-white px-4 py-3 text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"/>
                 {error && <p className="text-red-600 text-sm">{error}</p>}
                 <button onClick={sendRegisterOtp} disabled={loading}
                   className="w-full py-3 rounded-xl bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white text-[#09142a] font-semibold disabled:opacity-60">
@@ -183,7 +183,7 @@ function LoginContent() {
                     <input key={i} ref={el => { inputsRef.current[i]=el; }} inputMode="numeric" maxLength={1} value={d}
                       onChange={e => setDigit(i, e.target.value)}
                       onKeyDown={e => { if(e.key==="Backspace" && !otp[i] && i>0) inputsRef.current[i-1]?.focus(); }}
-                      className="h-12 w-full rounded-lg border border-[#b18d4f]/20 bg-[#09142a] text-center text-lg font-bold text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#b18d4f]"/>
+                      className="h-12 w-full rounded-lg border border-[#b18d4f]/40 bg-white text-center text-lg font-bold text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"/>
                   ))}
                 </div>
                 {error && <p className="text-red-600 text-sm">{error}</p>}

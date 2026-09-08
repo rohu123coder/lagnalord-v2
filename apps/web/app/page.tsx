@@ -1059,12 +1059,12 @@ export default function HomePage() {
                 placeholder="Name"
                 value={kundliForm.name}
                 onChange={(e) => setKundliForm((prev) => ({ ...prev, name: e.target.value }))}
-                className="w-full rounded-lg border border-[#1B3A63] bg-[#09142a] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f] focus:ring-[#b18d4f]"
+                className="w-full rounded-lg border border-[#b18d4f]/40 bg-white px-3 py-2 text-sm text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
               />
               <select
                 value={kundliForm.gender}
                 onChange={(e) => setKundliForm((prev) => ({ ...prev, gender: e.target.value }))}
-                className="w-full rounded-lg border border-[#1B3A63] bg-[#09142a] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f] focus:ring-[#b18d4f]"
+                className="w-full rounded-lg border border-[#b18d4f]/40 bg-white px-3 py-2 text-sm text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
               >
                 <option value="male">Male</option>
                 <option value="female">Female</option>
@@ -1074,13 +1074,13 @@ export default function HomePage() {
                 type="date"
                 value={kundliForm.date}
                 onChange={(e) => setKundliForm((prev) => ({ ...prev, date: e.target.value }))}
-                className="w-full rounded-lg border border-[#1B3A63] bg-[#09142a] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f] focus:ring-[#b18d4f]"
+                className="w-full rounded-lg border border-[#b18d4f]/40 bg-white px-3 py-2 text-sm text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30 [color-scheme:light]"
               />
               <input
                 type="time"
                 value={kundliForm.time}
                 onChange={(e) => setKundliForm((prev) => ({ ...prev, time: e.target.value }))}
-                className="w-full rounded-lg border border-[#1B3A63] bg-[#09142a] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f] focus:ring-[#b18d4f]"
+                className="w-full rounded-lg border border-[#b18d4f]/40 bg-white px-3 py-2 text-sm text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30 [color-scheme:light]"
               />
               <div ref={kundliPobRef} className="relative">
                 <input
@@ -1090,7 +1090,7 @@ export default function HomePage() {
                   value={kundliForm.place}
                   onChange={(e) => onKundliPlaceChange(e.target.value)}
                   onFocus={() => kundliSuggestions.length > 0 && setKundliShowSuggest(true)}
-                  className="w-full rounded-lg border border-[#1B3A63] bg-[#09142a] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f] focus:ring-[#b18d4f]"
+                  className="w-full rounded-lg border border-[#b18d4f]/40 bg-white px-3 py-2 text-sm text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
                 />
                 {kundliGeoLoading ? (
                   <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[#b18d4f]">
@@ -1137,19 +1137,19 @@ export default function HomePage() {
                 placeholder="Boy's Name"
                 value={matchForm.name}
                 onChange={(e) => setMatchForm((prev) => ({ ...prev, name: e.target.value }))}
-                className="w-full rounded-lg border border-[#1B3A63] bg-[#09142a] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f] focus:ring-[#b18d4f]"
+                className="w-full rounded-lg border border-[#b18d4f]/40 bg-white px-3 py-2 text-sm text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
               />
               <input
                 type="date"
                 value={matchForm.date}
                 onChange={(e) => setMatchForm((prev) => ({ ...prev, date: e.target.value }))}
-                className="w-full rounded-lg border border-[#1B3A63] bg-[#09142a] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f] focus:ring-[#b18d4f]"
+                className="w-full rounded-lg border border-[#b18d4f]/40 bg-white px-3 py-2 text-sm text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30 [color-scheme:light]"
               />
               <input
                 type="time"
                 value={matchForm.time}
                 onChange={(e) => setMatchForm((prev) => ({ ...prev, time: e.target.value }))}
-                className="w-full rounded-lg border border-[#1B3A63] bg-[#09142a] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f] focus:ring-[#b18d4f]"
+                className="w-full rounded-lg border border-[#b18d4f]/40 bg-white px-3 py-2 text-sm text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30 [color-scheme:light]"
               />
               <div ref={matchPobRef} className="relative">
                 <input
@@ -1159,7 +1159,7 @@ export default function HomePage() {
                   value={matchForm.place}
                   onChange={(e) => onMatchPlaceChange(e.target.value)}
                   onFocus={() => matchSuggestions.length > 0 && setMatchShowSuggest(true)}
-                  className="w-full rounded-lg border border-[#1B3A63] bg-[#09142a] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f] focus:ring-[#b18d4f]"
+                  className="w-full rounded-lg border border-[#b18d4f]/40 bg-white px-3 py-2 text-sm text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
                 />
                 {matchGeoLoading ? (
                   <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[#b18d4f]">
