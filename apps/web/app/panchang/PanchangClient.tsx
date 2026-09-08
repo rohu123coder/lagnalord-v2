@@ -108,7 +108,7 @@ function Card({
 }) {
   return (
     <section
-      className={`rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-lg shadow-black/30 ${className}`}
+      className={`rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-5 shadow-lg shadow-black/30 ${className}`}
     >
       <h2 className="text-lg font-bold text-[#F5F1E8]">{title}</h2>
       <div className="mt-3">{children}</div>
@@ -227,7 +227,7 @@ export function PanchangClient() {
         : "Panchang";
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] via-[#0F2240] to-[#0A1A2F]">
+    <div className="min-h-screen bg-gradient-to-b from-[#09142a] via-[#0E1C3B] to-[#09142a]">
       <Navbar />
       <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <header className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
@@ -253,7 +253,7 @@ export function PanchangClient() {
                 onChange={(e) => {
                   if (e.target.value) setDate(e.target.value);
                 }}
-                className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-2.5 text-sm text-[#F5F1E8] shadow-sm outline-none ring-[#C9A227]/30 transition focus:border-[#C9A227] focus:ring-2"
+                className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-2.5 text-sm text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f]/30 transition focus:border-[#b18d4f] focus:ring-2"
               />
             </div>
             <div ref={pobRef} className="relative min-w-0 flex-1">
@@ -269,23 +269,23 @@ export function PanchangClient() {
                   value={placeName}
                   onChange={(e) => onPlaceChange(e.target.value)}
                   onFocus={() => suggestions.length > 0 && setShowSuggest(true)}
-                  className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-2.5 text-sm text-[#F5F1E8] shadow-sm outline-none ring-[#C9A227]/30 transition focus:border-[#C9A227] focus:ring-2"
+                  className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-2.5 text-sm text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f]/30 transition focus:border-[#b18d4f] focus:ring-2"
                 />
                 {geoLoading ? (
-                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[#C9A227]">
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[#b18d4f]">
                     <Spinner className="h-4 w-4" />
                   </div>
                 ) : null}
               </div>
               {showSuggest && suggestions.length > 0 ? (
-                <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#C9A227]/20 bg-[#0F2240] py-1 shadow-lg">
+                <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#b18d4f]/20 bg-[#0E1C3B] py-1 shadow-lg">
                   {suggestions.map((s, i) => {
                     const line = [s.city, s.country].filter(Boolean).join(", ");
                     return (
                       <li key={`${s.formattedAddress}-${i}`}>
                         <button
                           type="button"
-                          className="w-full px-4 py-2.5 text-left text-sm text-[#F5F1E8] hover:bg-[#0A1A2F]"
+                          className="w-full px-4 py-2.5 text-left text-sm text-[#F5F1E8] hover:bg-[#09142a]"
                           onClick={() => {
                             setPlaceName(s.formattedAddress || line || DELHI.name);
                             setLat(s.lat!);
@@ -312,7 +312,7 @@ export function PanchangClient() {
             className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
               dayToggle === "today"
                 ? "bg-[#2A7D7B] text-white hover:bg-[#3A9D9B]"
-                : "bg-[#0F2240] text-[#C7C2B4] ring-1 ring-[#C9A227]/20 hover:bg-[#0A1A2F]"
+                : "bg-[#0E1C3B] text-[#C7C2B4] ring-1 ring-[#b18d4f]/20 hover:bg-[#09142a]"
             }`}
           >
             Today
@@ -323,7 +323,7 @@ export function PanchangClient() {
             className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
               dayToggle === "tomorrow"
                 ? "bg-[#2A7D7B] text-white hover:bg-[#3A9D9B]"
-                : "bg-[#0F2240] text-[#C7C2B4] ring-1 ring-[#C9A227]/20 hover:bg-[#0A1A2F]"
+                : "bg-[#0E1C3B] text-[#C7C2B4] ring-1 ring-[#b18d4f]/20 hover:bg-[#09142a]"
             }`}
           >
             Tomorrow
@@ -355,15 +355,15 @@ export function PanchangClient() {
               ).map(([label, value]) => (
                 <article
                   key={label}
-                  className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-lg shadow-black/30"
+                  className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-5 shadow-lg shadow-black/30"
                 >
-                  <p className="text-sm font-semibold text-[#E0C158]">{label}</p>
+                  <p className="text-sm font-semibold text-[#C8AC80]">{label}</p>
                   <p className="mt-2 text-lg font-bold text-[#F5F1E8]">{value}</p>
                 </article>
               ))}
             </section>
 
-            <section className="mt-8 rounded-2xl border border-[#C9A227]/40 bg-[#0F2240] p-5 shadow-lg shadow-black/30">
+            <section className="mt-8 rounded-2xl border border-[#b18d4f]/40 bg-[#0E1C3B] p-5 shadow-lg shadow-black/30">
               <h2 className="text-lg font-bold text-[#F5F1E8]">Inauspicious timings</h2>
               <p className="mt-1 text-xs text-[#C7C2B4]">Rahu Kaal, Yamaganda, and Gulika Kaal for this location</p>
               <ul className="mt-4 grid gap-3 sm:grid-cols-3">
@@ -374,8 +374,8 @@ export function PanchangClient() {
                     ["Gulika Kaal", detail.gulikaKaal],
                   ] as const
                 ).map(([label, range]) => (
-                  <li key={label} className="rounded-xl bg-[#0A1A2F] px-4 py-3">
-                    <p className="text-sm font-semibold text-[#E0C158]">{label}</p>
+                  <li key={label} className="rounded-xl bg-[#09142a] px-4 py-3">
+                    <p className="text-sm font-semibold text-[#C8AC80]">{label}</p>
                     <p className="mt-1 text-sm font-medium text-red-400">
                       {range.start} – {range.end}
                     </p>
@@ -384,9 +384,9 @@ export function PanchangClient() {
               </ul>
             </section>
 
-            <section className="mt-8 rounded-2xl border border-[#C9A227]/40 bg-[#0F2240] p-5 shadow-lg shadow-black/30">
+            <section className="mt-8 rounded-2xl border border-[#b18d4f]/40 bg-[#0E1C3B] p-5 shadow-lg shadow-black/30">
               <h2 className="text-lg font-bold text-[#F5F1E8]">Abhijit Muhurat</h2>
-              <p className="mt-2 text-lg font-semibold text-[#E0C158]">
+              <p className="mt-2 text-lg font-semibold text-[#C8AC80]">
                 {detail.abhijitMuhurat.start} – {detail.abhijitMuhurat.end}
               </p>
               <p className="mt-1 text-sm text-[#C7C2B4]">Solar-noon-centered muhurat for this date and place.</p>
@@ -405,7 +405,7 @@ export function PanchangClient() {
               <Card title="Hora">
                 <div className="max-h-[28rem] overflow-auto">
                   <table className="min-w-full text-left text-sm">
-                    <thead className="sticky top-0 bg-[#0A1A2F] text-[#E0C158]">
+                    <thead className="sticky top-0 bg-[#09142a] text-[#C8AC80]">
                       <tr>
                         <th className="px-3 py-2 font-semibold">Start</th>
                         <th className="px-3 py-2 font-semibold">End</th>
@@ -414,7 +414,7 @@ export function PanchangClient() {
                     </thead>
                     <tbody>
                       {detail.hora.map((row) => (
-                        <tr key={`${row.start}-${row.end}-${row.planet}`} className="border-b border-[#C9A227]/10">
+                        <tr key={`${row.start}-${row.end}-${row.planet}`} className="border-b border-[#b18d4f]/10">
                           <td className="px-3 py-2 text-[#C7C2B4]">{row.start}</td>
                           <td className="px-3 py-2 text-[#C7C2B4]">{row.end}</td>
                           <td className="px-3 py-2 font-semibold text-[#F5F1E8]">{row.planet}</td>
@@ -436,7 +436,7 @@ function ChoghadiyaTable({ rows }: { rows: ChoghadiyaRow[] }) {
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full text-left text-sm">
-        <thead className="bg-[#0A1A2F] text-[#E0C158]">
+        <thead className="bg-[#09142a] text-[#C8AC80]">
           <tr>
             <th className="px-3 py-2 font-semibold">Time</th>
             <th className="px-3 py-2 font-semibold">Type</th>
@@ -445,7 +445,7 @@ function ChoghadiyaTable({ rows }: { rows: ChoghadiyaRow[] }) {
         </thead>
         <tbody>
           {rows.map((row) => (
-            <tr key={row.period} className="border-b border-[#C9A227]/10">
+            <tr key={row.period} className="border-b border-[#b18d4f]/10">
               <td className="px-3 py-2 text-[#C7C2B4]">{row.period}</td>
               <td className={`px-3 py-2 font-semibold ${choghadiyaNatureClass(row.nature)}`}>
                 {row.name}

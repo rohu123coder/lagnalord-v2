@@ -102,10 +102,10 @@ function LoginContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] to-[#0F2240]">
+    <div className="min-h-screen bg-gradient-to-b from-[#09142a] to-[#0E1C3B]">
       <Navbar />
       <div className="flex items-center justify-center px-4 py-16">
-        <div className="w-full max-w-md bg-[#0F2240] rounded-2xl shadow-lg border border-[#C9A227]/20 p-8">
+        <div className="w-full max-w-md bg-[#0E1C3B] rounded-2xl shadow-lg border border-[#b18d4f]/20 p-8">
           
           {mode === "login" && (
             <>
@@ -117,7 +117,7 @@ function LoginContent() {
                   value={identifier}
                   onChange={e => setIdentifier(e.target.value)}
                   placeholder="Phone number or Email"
-                  className="w-full border border-[#C9A227]/20 bg-[#0A1A2F] rounded-xl px-4 py-3 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#C9A227]"
+                  className="w-full border border-[#b18d4f]/20 bg-[#09142a] rounded-xl px-4 py-3 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#b18d4f]"
                 />
                 <div className="text-right">
                   <Link
@@ -133,16 +133,16 @@ function LoginContent() {
                   {loading ? "Sending..." : "Send OTP"}
                 </button>
                 <div className="flex items-center gap-3 my-2">
-                  <div className="flex-1 h-px bg-[#C9A227]/20"/>
+                  <div className="flex-1 h-px bg-[#b18d4f]/20"/>
                   <span className="text-[#C7C2B4]/70 text-sm">OR</span>
-                  <div className="flex-1 h-px bg-[#C9A227]/20"/>
+                  <div className="flex-1 h-px bg-[#b18d4f]/20"/>
                 </div>
                 <button onClick={() => { setMode("register"); setError(null); }}
-                  className="w-full py-3 rounded-xl border-2 border-[#C9A227] text-[#E0C158] font-semibold hover:bg-[#C9A227]/10">
+                  className="w-full py-3 rounded-xl border-2 border-[#b18d4f] text-[#C8AC80] font-semibold hover:bg-[#b18d4f]/10">
                   Create Account
                 </button>
               </div>
-              <Link href="/" className="block text-center text-sm text-[#E0C158] hover:underline mt-6">← Back to home</Link>
+              <Link href="/" className="block text-center text-sm text-[#C8AC80] hover:underline mt-6">← Back to home</Link>
             </>
           )}
 
@@ -152,21 +152,21 @@ function LoginContent() {
               <p className="text-sm text-[#C7C2B4] text-center mt-2 mb-8">Join {tenant.name} today</p>
               <div className="space-y-4">
                 <input type="text" value={name} onChange={e => setName(e.target.value)}
-                  placeholder="Full Name" className="w-full border border-[#C9A227]/20 bg-[#0A1A2F] rounded-xl px-4 py-3 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#C9A227]"/>
-                <div className="flex rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] focus-within:ring-2 focus-within:ring-[#C9A227]">
-                  <span className="flex items-center px-3 border-r border-[#C9A227]/20 text-[#C7C2B4]">🇮🇳 +91</span>
+                  placeholder="Full Name" className="w-full border border-[#b18d4f]/20 bg-[#09142a] rounded-xl px-4 py-3 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#b18d4f]"/>
+                <div className="flex rounded-xl border border-[#b18d4f]/20 bg-[#09142a] focus-within:ring-2 focus-within:ring-[#b18d4f]">
+                  <span className="flex items-center px-3 border-r border-[#b18d4f]/20 text-[#C7C2B4]">🇮🇳 +91</span>
                   <input type="tel" value={phone} onChange={e => setPhone(e.target.value.replace(/\D/g,"").slice(0,10))}
                     placeholder="Phone number" className="w-full px-3 py-3 outline-none rounded-r-xl bg-transparent text-[#F5F1E8]"/>
                 </div>
                 <input type="email" value={email} onChange={e => setEmail(e.target.value)}
-                  placeholder="Email address" className="w-full border border-[#C9A227]/20 bg-[#0A1A2F] rounded-xl px-4 py-3 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#C9A227]"/>
+                  placeholder="Email address" className="w-full border border-[#b18d4f]/20 bg-[#09142a] rounded-xl px-4 py-3 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#b18d4f]"/>
                 {error && <p className="text-red-600 text-sm">{error}</p>}
                 <button onClick={sendRegisterOtp} disabled={loading}
                   className="w-full py-3 rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] text-white font-semibold disabled:opacity-60">
                   {loading ? "Sending..." : "Send OTP & Register"}
                 </button>
                 <button onClick={() => { setMode("login"); setError(null); }}
-                  className="w-full text-center text-sm text-[#E0C158] hover:underline">
+                  className="w-full text-center text-sm text-[#C8AC80] hover:underline">
                   Already have account? Sign In
                 </button>
               </div>
@@ -183,7 +183,7 @@ function LoginContent() {
                     <input key={i} ref={el => { inputsRef.current[i]=el; }} inputMode="numeric" maxLength={1} value={d}
                       onChange={e => setDigit(i, e.target.value)}
                       onKeyDown={e => { if(e.key==="Backspace" && !otp[i] && i>0) inputsRef.current[i-1]?.focus(); }}
-                      className="h-12 w-full rounded-lg border border-[#C9A227]/20 bg-[#0A1A2F] text-center text-lg font-bold text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#C9A227]"/>
+                      className="h-12 w-full rounded-lg border border-[#b18d4f]/20 bg-[#09142a] text-center text-lg font-bold text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#b18d4f]"/>
                   ))}
                 </div>
                 {error && <p className="text-red-600 text-sm">{error}</p>}
@@ -193,11 +193,11 @@ function LoginContent() {
                 </button>
                 <div className="flex justify-between text-sm">
                   <button onClick={() => { setMode(isReg ? "register" : "login"); setError(null); }}
-                    className="text-[#E0C158] hover:underline">← Change {isReg ? "details" : "phone/email"}</button>
+                    className="text-[#C8AC80] hover:underline">← Change {isReg ? "details" : "phone/email"}</button>
                   {countdown > 0 ? (
                     <span className="text-[#C7C2B4]/70">Resend in {countdown}s</span>
                   ) : (
-                    <button onClick={isReg ? sendRegisterOtp : sendOtp} className="text-[#E0C158] hover:underline">Resend OTP</button>
+                    <button onClick={isReg ? sendRegisterOtp : sendOtp} className="text-[#C8AC80] hover:underline">Resend OTP</button>
                   )}
                 </div>
               </div>
@@ -211,7 +211,7 @@ function LoginContent() {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-[#0A1A2F]"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#C9A227]"></div></div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-[#09142a]"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#b18d4f]"></div></div>}>
       <LoginContent />
     </Suspense>
   );

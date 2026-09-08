@@ -167,10 +167,10 @@ export default function DashboardPage() {
 
   if (!mounted) {
     return (
-      <div className="min-h-screen bg-[#0A1A2F]">
+      <div className="min-h-screen bg-[#09142a]">
         <Navbar />
         <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
-          <div className="h-40 animate-pulse rounded-2xl bg-[#0F2240]" />
+          <div className="h-40 animate-pulse rounded-2xl bg-[#0E1C3B]" />
         </div>
       </div>
     );
@@ -245,7 +245,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0A1A2F]">
+    <div className="min-h-screen bg-[#09142a]">
       <Navbar />
       <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
         <h1 className="text-2xl font-bold text-[#F5F1E8] sm:text-3xl">
@@ -255,7 +255,7 @@ export default function DashboardPage() {
           Manage your wallet and continue conversations with astrologers.
         </p>
 
-        <div className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+        <div className="mt-8 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-sm">
           <h2 className="text-lg font-bold text-[#F5F1E8]">Wallet</h2>
           <p className="mt-1 text-sm text-[#C7C2B4]">
             Recharge securely to start new chat sessions.
@@ -274,14 +274,14 @@ export default function DashboardPage() {
           </Link>
           <Link
             href="/profile/birth-details"
-            className="inline-flex rounded-xl border border-[#C9A227]/40 bg-[#0A1A2F] px-5 py-2.5 text-sm font-semibold text-[#E0C158] shadow-sm transition hover:bg-[#C9A227]/10"
+            className="inline-flex rounded-xl border border-[#b18d4f]/40 bg-[#09142a] px-5 py-2.5 text-sm font-semibold text-[#C8AC80] shadow-sm transition hover:bg-[#b18d4f]/10"
           >
             My Birth Details
           </Link>
         </div>
 
-        <div className="mt-10 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] shadow-sm">
-          <div className="border-b border-[#C9A227]/10 px-6 py-4">
+        <div className="mt-10 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] shadow-sm">
+          <div className="border-b border-[#b18d4f]/10 px-6 py-4">
             <h2 className="text-lg font-bold text-[#F5F1E8]">Recent chats</h2>
           </div>
           <div className="overflow-x-auto">
@@ -290,7 +290,7 @@ export default function DashboardPage() {
                 {[1, 2, 3].map((i) => (
                   <div
                     key={i}
-                    className="h-10 animate-pulse rounded bg-[#0A1A2F]"
+                    className="h-10 animate-pulse rounded bg-[#09142a]"
                   />
                 ))}
               </div>
@@ -301,7 +301,7 @@ export default function DashboardPage() {
             ) : (
               <table className="min-w-full text-left text-sm">
                 <thead>
-                  <tr className="border-b border-[#C9A227]/10 bg-[#0A1A2F] text-xs uppercase tracking-wide text-[#C7C2B4]">
+                  <tr className="border-b border-[#b18d4f]/10 bg-[#09142a] text-xs uppercase tracking-wide text-[#C7C2B4]">
                     <th className="px-4 py-3 font-medium">Astrologer</th>
                     <th className="px-4 py-3 font-medium">Type</th>
                     <th className="px-4 py-3 font-medium">Date</th>
@@ -311,13 +311,13 @@ export default function DashboardPage() {
                     <th className="px-4 py-3 font-medium">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#C9A227]/10">
+                <tbody className="divide-y divide-[#b18d4f]/10">
                   {sessions.map((s) => {
                     const dateSrc = s.ended_at ?? s.started_at;
                     return (
                       <tr
                         key={s.id}
-                        className="cursor-pointer text-[#F5F1E8] hover:bg-[#0A1A2F]/50"
+                        className="cursor-pointer text-[#F5F1E8] hover:bg-[#09142a]/50"
                         onClick={() => {
                           void openHistory(s);
                         }}
@@ -332,7 +332,7 @@ export default function DashboardPage() {
                                 className="h-8 w-8 rounded-full object-cover"
                               />
                             ) : (
-                              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#C9A227]/20 text-xs font-bold text-[#E0C158]">
+                              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#b18d4f]/20 text-xs font-bold text-[#C8AC80]">
                                 {firstName(s.astrologer_name).slice(0, 1).toUpperCase()}
                               </div>
                             )}
@@ -369,7 +369,7 @@ export default function DashboardPage() {
                           <span
                             className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold ${
                               s.status === "ended"
-                                ? "bg-[#0F2240] text-[#C7C2B4]"
+                                ? "bg-[#0E1C3B] text-[#C7C2B4]"
                                 : s.status === "active"
                                   ? "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-100"
                                   : "bg-amber-50 text-amber-800 ring-1 ring-amber-100"
@@ -388,17 +388,17 @@ export default function DashboardPage() {
         </div>
 
         {aiSessions.length > 0 ? (
-          <div className="mt-10 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] shadow-sm">
-            <div className="border-b border-[#C9A227]/10 px-6 py-4">
+          <div className="mt-10 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] shadow-sm">
+            <div className="border-b border-[#b18d4f]/10 px-6 py-4">
               <h2 className="text-lg font-bold text-[#F5F1E8]">🔮 Recent AI Chats</h2>
             </div>
-            <div className="divide-y divide-[#C9A227]/10">
+            <div className="divide-y divide-[#b18d4f]/10">
               {aiSessions.map((s) => (
                 <button
                   key={s.id}
                   type="button"
                   onClick={() => void openAiSessionHistory(s)}
-                  className="flex w-full items-center gap-4 px-6 py-4 text-left transition hover:bg-[#0A1A2F]/50"
+                  className="flex w-full items-center gap-4 px-6 py-4 text-left transition hover:bg-[#09142a]/50"
                 >
                   {s.astrologerPhotoUrl ? (
                     <img
@@ -407,7 +407,7 @@ export default function DashboardPage() {
                       className="h-10 w-10 rounded-full object-cover"
                     />
                   ) : (
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0A1A2F] text-xl">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#09142a] text-xl">
                       {s.astrologerEmoji}
                     </span>
                   )}
@@ -423,7 +423,7 @@ export default function DashboardPage() {
                       · {s.messageCount} messages
                     </p>
                   </div>
-                  <p className="text-sm font-semibold text-[#E0C158]">
+                  <p className="text-sm font-semibold text-[#C8AC80]">
                     ₹{s.totalCharged.toFixed(2)}
                   </p>
                 </button>
@@ -434,7 +434,7 @@ export default function DashboardPage() {
 
         {openAiSession ? (
           <div className="fixed inset-0 z-[95] flex items-end justify-center bg-black/50 p-4 sm:items-center">
-            <div className="max-h-[80vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-[#0F2240] p-6 shadow-2xl">
+            <div className="max-h-[80vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-[#0E1C3B] p-6 shadow-2xl">
               <div className="mb-4 flex items-center justify-between">
                 <div>
                   <h2 className="text-lg font-bold text-[#F5F1E8]">Chat History</h2>
@@ -446,7 +446,7 @@ export default function DashboardPage() {
                 <button
                   type="button"
                   onClick={() => setOpenAiSession(null)}
-                  className="text-[#C7C2B4] hover:text-[#E0C158]"
+                  className="text-[#C7C2B4] hover:text-[#C8AC80]"
                   aria-label="Close"
                 >
                   ✕
@@ -462,7 +462,7 @@ export default function DashboardPage() {
                       className={`max-w-[85%] whitespace-pre-wrap rounded-2xl px-4 py-2 text-sm ${
                         m.role === "user"
                           ? "rounded-br-md bg-gradient-to-br from-[#2A7D7B] to-[#3A9D9B] text-white"
-                          : "rounded-bl-md bg-[#0A1A2F] text-[#F5F1E8]"
+                          : "rounded-bl-md bg-[#09142a] text-[#F5F1E8]"
                       }`}
                     >
                       {m.text}
@@ -470,7 +470,7 @@ export default function DashboardPage() {
                   </div>
                 ))}
               </div>
-              <div className="mt-5 flex flex-col gap-3 border-t border-[#C9A227]/10 pt-4">
+              <div className="mt-5 flex flex-col gap-3 border-t border-[#b18d4f]/10 pt-4">
                 <Link
                   href={`/ai-astrologers/${openAiSession.session.astrologerId}`}
                   onClick={() => setOpenAiSession(null)}

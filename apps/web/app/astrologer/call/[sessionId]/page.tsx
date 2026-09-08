@@ -87,7 +87,7 @@ export default function AstrologerCallPage({
         </p>
       </div>
 
-      <div className="flex h-40 w-40 items-center justify-center rounded-full bg-[#C9A227] text-6xl">
+      <div className="flex h-40 w-40 items-center justify-center rounded-full bg-[#b18d4f] text-6xl">
         📞
       </div>
 

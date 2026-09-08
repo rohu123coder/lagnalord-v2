@@ -1,3 +1,3 @@
 export default function Loading() {
-  return <div className="min-h-screen bg-[#0A1A2F]" />;
+  return <div className="min-h-screen bg-[#09142a]" />;
 }

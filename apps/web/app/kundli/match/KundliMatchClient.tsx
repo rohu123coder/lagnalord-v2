@@ -124,7 +124,7 @@ export default function KundliMatchClient() {
   }, [submitted, boy.dob, girl.dob]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] via-[#0F2240] to-[#0A1A2F]">
+    <div className="min-h-screen bg-gradient-to-b from-[#09142a] via-[#0E1C3B] to-[#09142a]">
       <Navbar />
       <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <h1 className="text-3xl font-extrabold text-[#F5F1E8] sm:text-4xl">
@@ -140,9 +140,9 @@ export default function KundliMatchClient() {
             (section) => (
               <section
                 key={section.label}
-                className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm"
+                className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-5 shadow-sm"
               >
-                <h2 className="text-lg font-bold text-[#E0C158]">{section.label}</h2>
+                <h2 className="text-lg font-bold text-[#C8AC80]">{section.label}</h2>
                 <div className="mt-4 space-y-3">
                   <input
                     value={section.state.name}
@@ -150,7 +150,7 @@ export default function KundliMatchClient() {
                       section.setState((prev) => ({ ...prev, name: e.target.value }))
                     }
                     placeholder="Name"
-                    className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#C9A227]"
+                    className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#b18d4f]"
                   />
                   <input
                     type="date"
@@ -158,7 +158,7 @@ export default function KundliMatchClient() {
                     onChange={(e) =>
                       section.setState((prev) => ({ ...prev, dob: e.target.value }))
                     }
-                    className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#C9A227]"
+                    className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#b18d4f]"
                   />
                   <input
                     type="time"
@@ -166,7 +166,7 @@ export default function KundliMatchClient() {
                     onChange={(e) =>
                       section.setState((prev) => ({ ...prev, tob: e.target.value }))
                     }
-                    className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#C9A227]"
+                    className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#b18d4f]"
                   />
                   <input
                     value={section.state.place}
@@ -174,7 +174,7 @@ export default function KundliMatchClient() {
                       section.setState((prev) => ({ ...prev, place: e.target.value }))
                     }
                     placeholder="Place of Birth"
-                    className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#C9A227]"
+                    className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#b18d4f]"
                   />
                 </div>
               </section>
@@ -192,22 +192,22 @@ export default function KundliMatchClient() {
         </button>
 
         {result ? (
-          <section className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+          <section className="mt-8 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-sm">
             <div className="grid gap-4 sm:grid-cols-3">
-              <div className="rounded-xl bg-[#0A1A2F] p-4">
-                <p className="text-sm text-[#E0C158]">Overall score</p>
+              <div className="rounded-xl bg-[#09142a] p-4">
+                <p className="text-sm text-[#C8AC80]">Overall score</p>
                 <p className="mt-1 text-2xl font-bold text-[#F5F1E8]">
                   {result.total} / 36
                 </p>
               </div>
-              <div className="rounded-xl bg-[#0A1A2F] p-4">
-                <p className="text-sm text-[#E0C158]">Compatibility</p>
+              <div className="rounded-xl bg-[#09142a] p-4">
+                <p className="text-sm text-[#C8AC80]">Compatibility</p>
                 <p className="mt-1 text-2xl font-bold text-[#F5F1E8]">
                   {result.compatibility}%
                 </p>
               </div>
-              <div className="rounded-xl bg-[#0A1A2F] p-4">
-                <p className="text-sm text-[#E0C158]">Recommendation</p>
+              <div className="rounded-xl bg-[#09142a] p-4">
+                <p className="text-sm text-[#C8AC80]">Recommendation</p>
                 <p className="mt-1 text-sm font-semibold text-[#F5F1E8]">
                   {result.recommendation}
                 </p>
@@ -219,7 +219,7 @@ export default function KundliMatchClient() {
             </h3>
             <div className="mt-3 overflow-x-auto">
               <table className="min-w-full text-left text-sm">
-                <thead className="bg-[#0A1A2F] text-[#E0C158]">
+                <thead className="bg-[#09142a] text-[#C8AC80]">
                   <tr>
                     <th className="px-3 py-2">Koot</th>
                     <th className="px-3 py-2">Max</th>
@@ -229,7 +229,7 @@ export default function KundliMatchClient() {
                 </thead>
                 <tbody>
                   {result.koots.map((koot) => (
-                    <tr key={koot.name} className="border-b border-[#C9A227]/10">
+                    <tr key={koot.name} className="border-b border-[#b18d4f]/10">
                       <td className="px-3 py-2">{koot.name}</td>
                       <td className="px-3 py-2">{koot.max}</td>
                       <td className="px-3 py-2">{koot.score}</td>
@@ -247,7 +247,7 @@ export default function KundliMatchClient() {
             </div>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] p-4">
+              <div className="rounded-xl border border-[#b18d4f]/20 bg-[#09142a] p-4">
                 <h4 className="font-semibold text-[#F5F1E8]">
                   Boy&apos;s Mangal Dosha
                 </h4>
@@ -255,7 +255,7 @@ export default function KundliMatchClient() {
                   {result.mangalBoy ? "Present" : "Not Present"}
                 </p>
               </div>
-              <div className="rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] p-4">
+              <div className="rounded-xl border border-[#b18d4f]/20 bg-[#09142a] p-4">
                 <h4 className="font-semibold text-[#F5F1E8]">
                   Girl&apos;s Mangal Dosha
                 </h4>

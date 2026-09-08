@@ -260,12 +260,12 @@ const homepageFaqs = [
 function KundliWheelMark({ size = 280 }: { size?: number }) {
   return (
     <svg className="relative z-10" width={size} height={size} viewBox="0 0 280 280" aria-hidden="true">
-      <path d="M15 15 H265 V265 H15 Z" stroke="#C9A227" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
-      <path d="M15 15 L140 140 L265 15" stroke="#C9A227" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
-      <path d="M15 265 L140 140 L265 265" stroke="#C9A227" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
-      <path d="M15 15 L140 140 L15 265" stroke="#C9A227" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
-      <path d="M265 15 L140 140 L265 265" stroke="#C9A227" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
-      <circle cx="140" cy="65" r="4" fill="#E0C158" />
+      <path d="M15 15 H265 V265 H15 Z" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
+      <path d="M15 15 L140 140 L265 15" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
+      <path d="M15 265 L140 140 L265 265" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
+      <path d="M15 15 L140 140 L15 265" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
+      <path d="M265 15 L140 140 L265 265" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
+      <circle cx="140" cy="65" r="4" fill="#C8AC80" />
     </svg>
   );
 }
@@ -275,37 +275,37 @@ const paidServices = [
     title: "Detailed Kundli Report",
     description: "Complete Janam Kundli with dosha and planetary analysis.",
     price: 199,
-    gradient: "from-[#0A1A2F] via-[#2A7D7B] to-[#C9A227]",
+    gradient: "from-[#09142a] via-[#2A7D7B] to-[#b18d4f]",
   },
   {
     title: "Marriage Compatibility",
     description: "Guna Milan, Manglik check and practical relationship insights.",
     price: 299,
-    gradient: "from-[#2A7D7B] via-[#0A1A2F] to-[#C9A227]",
+    gradient: "from-[#2A7D7B] via-[#09142a] to-[#b18d4f]",
   },
   {
     title: "Career Report",
     description: "Career timing, opportunities and profession suitability.",
     price: 249,
-    gradient: "from-[#C9A227] via-[#0A1A2F] to-[#2A7D7B]",
+    gradient: "from-[#b18d4f] via-[#09142a] to-[#2A7D7B]",
   },
   {
     title: "Ask a Question",
     description: "Get an expert personalized answer for one important query.",
     price: 99,
-    gradient: "from-[#0A1A2F] via-[#C9A227] to-[#2A7D7B]",
+    gradient: "from-[#09142a] via-[#b18d4f] to-[#2A7D7B]",
   },
   {
     title: "Finance Report",
     description: "Income, savings, investments and wealth planning guidance.",
     price: 249,
-    gradient: "from-[#2A7D7B] via-[#C9A227] to-[#0A1A2F]",
+    gradient: "from-[#2A7D7B] via-[#b18d4f] to-[#09142a]",
   },
   {
     title: "Health Report",
     description: "Planetary health tendencies and preventive remedy guidance.",
     price: 199,
-    gradient: "from-[#C9A227] via-[#2A7D7B] to-[#0A1A2F]",
+    gradient: "from-[#b18d4f] via-[#2A7D7B] to-[#09142a]",
   },
 ];
 
@@ -731,20 +731,20 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] via-[#13294B] to-[#0A1A2F] text-[#F5F1E8]">
+    <div className="min-h-screen bg-gradient-to-b from-[#09142a] via-[#122352] to-[#09142a] text-[#F5F1E8]">
       <Navbar />
       <HomepagePopup />
-      <section className="relative overflow-hidden border-b border-[#C9A227]/20 bg-gradient-to-br from-[#13294B] via-[#0A1A2F] to-[#0A1A2F]">
-        <div className="pointer-events-none absolute -top-16 right-0 h-72 w-72 rounded-full bg-[#C9A227]/15 blur-3xl" />
+      <section className="relative overflow-hidden border-b border-[#b18d4f]/20 bg-gradient-to-br from-[#122352] via-[#09142a] to-[#09142a]">
+        <div className="pointer-events-none absolute -top-16 right-0 h-72 w-72 rounded-full bg-[#b18d4f]/15 blur-3xl" />
         <div className="pointer-events-none absolute bottom-0 left-0 h-64 w-64 rounded-full bg-[#2A7D7B]/15 blur-3xl" />
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16">
-          <div className="mx-auto mb-8 flex w-fit gap-1 rounded-full border border-[#C9A227]/30 bg-[#0F2240] p-1">
+          <div className="mx-auto mb-8 flex w-fit gap-1 rounded-full border border-[#b18d4f]/30 bg-[#0E1C3B] p-1">
             <button
               type="button"
               onClick={() => setExpertiseMode("astro")}
               className={`rounded-full px-5 py-2 text-sm font-semibold transition ${
                 expertiseMode === "astro"
-                  ? "bg-gradient-to-r from-[#C9A227] to-[#E0C158] text-[#0A1A2F]"
+                  ? "bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] text-[#09142a]"
                   : "text-[#C7C2B4]"
               }`}
             >
@@ -765,12 +765,12 @@ export default function HomePage() {
 
           <div className="grid items-center gap-10 lg:grid-cols-[1fr_0.9fr]">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#E0C158]">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#C8AC80]">
                 Premium Astrology &amp; Vastu Platform
               </p>
               <h1 className="mt-3 text-3xl font-extrabold sm:text-5xl">
                 {expertiseMode === "astro" ? (
-                  <>Decode your destiny.<br /><span className="bg-gradient-to-r from-[#C9A227] to-[#E0C158] bg-clip-text text-transparent">Master your space.</span></>
+                  <>Decode your destiny.<br /><span className="bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] bg-clip-text text-transparent">Master your space.</span></>
                 ) : (
                   <>Master your space.<br /><span className="bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] bg-clip-text text-transparent">Decode your destiny.</span></>
                 )}
@@ -781,22 +781,22 @@ export default function HomePage() {
             </div>
 
             <div className="relative mx-auto flex h-64 w-64 items-center justify-center sm:h-80 sm:w-80">
-              <div className="absolute h-56 w-56 rounded-full bg-[#C9A227]/20 blur-2xl sm:h-72 sm:w-72" />
+              <div className="absolute h-56 w-56 rounded-full bg-[#b18d4f]/20 blur-2xl sm:h-72 sm:w-72" />
               <svg className="relative z-10" width="280" height="280" viewBox="0 0 280 280">
-                <path d="M15 15 H265 V265 H15 Z" stroke="#C9A227" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
-                <path d="M15 15 L140 140 L265 15" stroke="#C9A227" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
-                <path d="M15 265 L140 140 L265 265" stroke="#C9A227" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
-                <path d="M15 15 L140 140 L15 265" stroke="#C9A227" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
-                <path d="M265 15 L140 140 L265 265" stroke="#C9A227" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
-                <circle cx="140" cy="65" r="4" fill="#E0C158" />
+                <path d="M15 15 H265 V265 H15 Z" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
+                <path d="M15 15 L140 140 L265 15" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
+                <path d="M15 265 L140 140 L265 265" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
+                <path d="M15 15 L140 140 L15 265" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
+                <path d="M265 15 L140 140 L265 265" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
+                <circle cx="140" cy="65" r="4" fill="#C8AC80" />
               </svg>
             </div>
           </div>
 
-          <div className="mt-10 rounded-3xl border border-[#C9A227]/25 bg-[#0F2240]/90 p-5 shadow-sm sm:p-8">
-            <div className="flex flex-col items-start justify-between gap-3 border-b border-[#C9A227]/15 pb-4 sm:flex-row sm:items-center">
-              <h2 className="text-xl font-bold text-[#E0C158]">Select Your Rashi</h2>
-              <p className="rounded-full bg-[#C9A227]/15 px-4 py-1.5 text-sm font-semibold text-[#E0C158]">
+          <div className="mt-10 rounded-3xl border border-[#b18d4f]/25 bg-[#0E1C3B]/90 p-5 shadow-sm sm:p-8">
+            <div className="flex flex-col items-start justify-between gap-3 border-b border-[#b18d4f]/15 pb-4 sm:flex-row sm:items-center">
+              <h2 className="text-xl font-bold text-[#C8AC80]">Select Your Rashi</h2>
+              <p className="rounded-full bg-[#b18d4f]/15 px-4 py-1.5 text-sm font-semibold text-[#C8AC80]">
                 {todayLong}
               </p>
             </div>
@@ -805,7 +805,7 @@ export default function HomePage() {
                 <Link
                   key={rashi.id}
                   href={`/horoscope/${rashi.id}`}
-                  className="rounded-xl border border-[#C9A227]/20 bg-[#13294B] p-3 text-center transition duration-200 hover:-translate-y-0.5 hover:border-[#C9A227]/50 hover:shadow-md"
+                  className="rounded-xl border border-[#b18d4f]/20 bg-[#122352] p-3 text-center transition duration-200 hover:-translate-y-0.5 hover:border-[#b18d4f]/50 hover:shadow-md"
                 >
                   <p className="text-2xl">{rashi.symbol}</p>
                   <p className="mt-1 text-xs font-semibold text-[#F5F1E8] sm:text-sm">
@@ -821,8 +821,8 @@ export default function HomePage() {
                   type="button"
                   className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
                     activePeriod === period
-                      ? "bg-gradient-to-r from-[#C9A227] to-[#E0C158] text-[#0A1A2F]"
-                      : "border border-[#C9A227]/25 bg-[#0F2240] text-[#E0C158] hover:bg-[#13294B]"
+                      ? "bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] text-[#09142a]"
+                      : "border border-[#b18d4f]/25 bg-[#0E1C3B] text-[#C8AC80] hover:bg-[#122352]"
                   }`}
                   onClick={() => setActivePeriod(period)}
                 >
@@ -834,9 +834,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-b border-[#C9A227]/20 bg-[#0A1A2F] py-16 sm:py-20">
+      <section className="border-b border-[#b18d4f]/20 bg-[#09142a] py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#E0C158]">What you can do here</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#C8AC80]">What you can do here</p>
           <h2 className="mt-3 text-3xl font-extrabold text-[#F5F1E8] sm:text-5xl">Our Services</h2>
           <p className="mt-3 max-w-2xl text-[#C7C2B4]">
             Tools that already live on this site — each card opens the real page, not a teaser.
@@ -846,9 +846,9 @@ export default function HomePage() {
               <Link
                 key={service.title}
                 href={service.href}
-                className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 transition hover:-translate-y-0.5 hover:border-[#C9A227]/50"
+                className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-5 transition hover:-translate-y-0.5 hover:border-[#b18d4f]/50"
               >
-                <service.Icon className="h-7 w-7 text-[#E0C158]" />
+                <service.Icon className="h-7 w-7 text-[#C8AC80]" />
                 <h3 className="mt-4 text-lg font-bold text-[#F5F1E8]">{service.title}</h3>
                 <p className="mt-2 text-sm leading-6 text-[#C7C2B4]">{service.copy}</p>
               </Link>
@@ -857,17 +857,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-b border-[#C9A227]/20 bg-[#0F2240] py-16 sm:py-20">
+      <section className="border-b border-[#b18d4f]/20 bg-[#0E1C3B] py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#E0C158]">Why this desk</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#C8AC80]">Why this desk</p>
           <h2 className="mt-3 text-3xl font-extrabold text-[#F5F1E8] sm:text-5xl">Why LagnaLord</h2>
           <p className="mt-3 max-w-2xl text-[#C7C2B4]">
             Not another icon row. Six numbered notes about how the product is actually built.
           </p>
-          <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-[#C9A227]/20 bg-[#C9A227]/20 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-[#b18d4f]/20 bg-[#b18d4f]/20 sm:grid-cols-2 lg:grid-cols-3">
             {whyPoints.map((point) => (
-              <article key={point.n} className="bg-[#0A1A2F] p-6 sm:p-8">
-                <p className="text-5xl font-extrabold leading-none text-[#E0C158]/40">{point.n}</p>
+              <article key={point.n} className="bg-[#09142a] p-6 sm:p-8">
+                <p className="text-5xl font-extrabold leading-none text-[#C8AC80]/40">{point.n}</p>
                 <h3 className="mt-4 text-xl font-bold text-[#F5F1E8]">{point.title}</h3>
                 <p className="mt-2 text-sm leading-6 text-[#C7C2B4]">{point.body}</p>
               </article>
@@ -876,11 +876,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-b border-[#C9A227]/20 bg-[#0A1A2F] py-16 sm:py-20">
+      <section className="border-b border-[#b18d4f]/20 bg-[#09142a] py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#E0C158]">The chart, not the feed</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#C8AC80]">The chart, not the feed</p>
               <h2 className="mt-3 text-3xl font-extrabold text-[#F5F1E8] sm:text-5xl">
                 Why a Kundli still earns a seat at the table
               </h2>
@@ -895,9 +895,9 @@ export default function HomePage() {
                 {kundliReasons.map((reason) => (
                   <article
                     key={reason.title}
-                    className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-4"
+                    className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-4"
                   >
-                    <reason.Icon className="h-6 w-6 text-[#E0C158]" />
+                    <reason.Icon className="h-6 w-6 text-[#C8AC80]" />
                     <h3 className="mt-3 font-bold text-[#F5F1E8]">{reason.title}</h3>
                     <p className="mt-2 text-sm leading-6 text-[#C7C2B4]">{reason.body}</p>
                   </article>
@@ -905,7 +905,7 @@ export default function HomePage() {
               </div>
             </div>
             <div className="relative mx-auto flex h-72 w-72 items-center justify-center sm:h-96 sm:w-96">
-              <div className="absolute h-64 w-64 rounded-full bg-[#C9A227]/20 blur-2xl sm:h-80 sm:w-80" />
+              <div className="absolute h-64 w-64 rounded-full bg-[#b18d4f]/20 blur-2xl sm:h-80 sm:w-80" />
               <div className="absolute h-80 w-80 rounded-full bg-[#2A7D7B]/10 blur-3xl" />
               <KundliWheelMark size={320} />
             </div>
@@ -913,9 +913,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-b border-[#C9A227]/20 bg-[#0F2240]/50 py-16 sm:py-20">
+      <section className="border-b border-[#b18d4f]/20 bg-[#0E1C3B]/50 py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#E0C158]">Voices</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#C8AC80]">Voices</p>
           <h2 className="mt-3 text-3xl font-extrabold text-[#F5F1E8] sm:text-5xl">Testimonials</h2>
           <p className="mt-3 max-w-2xl text-sm text-[#C7C2B4]">
             Illustrative examples — not verified reviews. Written to show the kind of visit this site is built for.
@@ -924,13 +924,13 @@ export default function HomePage() {
             {illustrativeTestimonials.map((item) => (
               <article
                 key={item.name}
-                className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5"
+                className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-5"
               >
-                <p className="text-[10px] font-bold uppercase tracking-wider text-[#E0C158]">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-[#C8AC80]">
                   Illustrative example · not a verified review
                 </p>
                 <div className="mt-3 flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[#C9A227] to-[#A6745A] text-sm font-bold text-[#0A1A2F]">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[#b18d4f] to-[#A6745A] text-sm font-bold text-[#09142a]">
                     {item.initial}
                   </div>
                   <div>
@@ -938,7 +938,7 @@ export default function HomePage() {
                     <p className="text-xs text-[#C7C2B4]">{item.city}</p>
                   </div>
                 </div>
-                <p className="mt-2 text-sm text-[#E0C158]" aria-label="5 stars">
+                <p className="mt-2 text-sm text-[#C8AC80]" aria-label="5 stars">
                   ★★★★★
                 </p>
                 <p className="mt-3 text-sm leading-6 text-[#C7C2B4]">{item.quote}</p>
@@ -948,9 +948,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-b border-[#C9A227]/20 bg-[#0A1A2F] py-16 sm:py-20">
+      <section className="border-b border-[#b18d4f]/20 bg-[#09142a] py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#E0C158]">First visit</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#C8AC80]">First visit</p>
           <h2 className="mt-3 text-3xl font-extrabold text-[#F5F1E8] sm:text-5xl">
             New here? Start with this
           </h2>
@@ -963,7 +963,7 @@ export default function HomePage() {
               return (
                 <article
                   key={item.q}
-                  className="overflow-hidden rounded-2xl border border-[#C9A227]/20 bg-[#0F2240]"
+                  className="overflow-hidden rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B]"
                 >
                   <button
                     type="button"
@@ -973,13 +973,13 @@ export default function HomePage() {
                   >
                     <span className="font-semibold text-[#F5F1E8]">{item.q}</span>
                     <ChevronDown
-                      className={`h-5 w-5 shrink-0 text-[#E0C158] transition-transform ${
+                      className={`h-5 w-5 shrink-0 text-[#C8AC80] transition-transform ${
                         open ? "rotate-180" : ""
                       }`}
                     />
                   </button>
                   {open ? (
-                    <p className="border-t border-[#C9A227]/20 px-5 py-4 text-sm leading-6 text-[#C7C2B4]">
+                    <p className="border-t border-[#b18d4f]/20 px-5 py-4 text-sm leading-6 text-[#C7C2B4]">
                       {item.a}
                     </p>
                   ) : null}
@@ -993,8 +993,8 @@ export default function HomePage() {
       {!liveLoading && liveAstrologers.length > 0 ? (
         <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
           <div className="mb-5 flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-[#E0C158]">Live Astrologers</h2>
-            <Link href="/astrologers" className="text-sm font-semibold text-[#C7C2B4] hover:text-[#E0C158] hover:underline">
+            <h2 className="text-2xl font-bold text-[#C8AC80]">Live Astrologers</h2>
+            <Link href="/astrologers" className="text-sm font-semibold text-[#C7C2B4] hover:text-[#C8AC80] hover:underline">
               View all
             </Link>
           </div>
@@ -1002,7 +1002,7 @@ export default function HomePage() {
             {liveAstrologers.map((astrologer) => (
               <article
                 key={`live-${astrologer.id}`}
-                className="min-w-[240px] rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-4 shadow-sm"
+                className="min-w-[240px] rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-4 shadow-sm"
               >
                 <div className="flex items-center gap-3">
                   <div className="relative">
@@ -1014,11 +1014,11 @@ export default function HomePage() {
                         className="h-12 w-12 rounded-full object-cover"
                       />
                     ) : (
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[#C9A227] to-[#A6745A] text-sm font-bold text-[#0A1A2F]">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[#b18d4f] to-[#A6745A] text-sm font-bold text-[#09142a]">
                         {firstName(astrologer.name).slice(0, 1).toUpperCase()}
                       </div>
                     )}
-                    <span className="animate-online-pulse absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-[#0F2240] bg-emerald-500" />
+                    <span className="animate-online-pulse absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-[#0E1C3B] bg-emerald-500" />
                   </div>
                   <div className="min-w-0">
                     <p className="truncate text-sm font-semibold text-[#F5F1E8]">
@@ -1043,20 +1043,20 @@ export default function HomePage() {
 
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
         <div className="grid gap-6 lg:grid-cols-3">
-          <div className="rounded-2xl border border-[#C9A227]/25 bg-[#0F2240] p-5 shadow-sm transition hover:shadow-md">
-            <h3 className="text-lg font-bold text-[#E0C158]">Kundli / Birth Chart</h3>
+          <div className="rounded-2xl border border-[#b18d4f]/25 bg-[#0E1C3B] p-5 shadow-sm transition hover:shadow-md">
+            <h3 className="text-lg font-bold text-[#C8AC80]">Kundli / Birth Chart</h3>
             <form className="mt-4 space-y-3" onSubmit={handleKundliSubmit}>
               <input
                 type="text"
                 placeholder="Name"
                 value={kundliForm.name}
                 onChange={(e) => setKundliForm((prev) => ({ ...prev, name: e.target.value }))}
-                className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
+                className="w-full rounded-lg border border-[#1B3A63] bg-[#09142a] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f] focus:ring-[#b18d4f]"
               />
               <select
                 value={kundliForm.gender}
                 onChange={(e) => setKundliForm((prev) => ({ ...prev, gender: e.target.value }))}
-                className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
+                className="w-full rounded-lg border border-[#1B3A63] bg-[#09142a] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f] focus:ring-[#b18d4f]"
               >
                 <option value="male">Male</option>
                 <option value="female">Female</option>
@@ -1066,13 +1066,13 @@ export default function HomePage() {
                 type="date"
                 value={kundliForm.date}
                 onChange={(e) => setKundliForm((prev) => ({ ...prev, date: e.target.value }))}
-                className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
+                className="w-full rounded-lg border border-[#1B3A63] bg-[#09142a] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f] focus:ring-[#b18d4f]"
               />
               <input
                 type="time"
                 value={kundliForm.time}
                 onChange={(e) => setKundliForm((prev) => ({ ...prev, time: e.target.value }))}
-                className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
+                className="w-full rounded-lg border border-[#1B3A63] bg-[#09142a] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f] focus:ring-[#b18d4f]"
               />
               <div ref={kundliPobRef} className="relative">
                 <input
@@ -1082,22 +1082,22 @@ export default function HomePage() {
                   value={kundliForm.place}
                   onChange={(e) => onKundliPlaceChange(e.target.value)}
                   onFocus={() => kundliSuggestions.length > 0 && setKundliShowSuggest(true)}
-                  className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
+                  className="w-full rounded-lg border border-[#1B3A63] bg-[#09142a] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f] focus:ring-[#b18d4f]"
                 />
                 {kundliGeoLoading ? (
-                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[#C9A227]">
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[#b18d4f]">
                     <span className="text-xs">...</span>
                   </div>
                 ) : null}
                 {kundliShowSuggest && kundliSuggestions.length > 0 ? (
-                  <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#C9A227]/20 bg-[#0F2240] py-1 shadow-lg">
+                  <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#b18d4f]/20 bg-[#0E1C3B] py-1 shadow-lg">
                     {kundliSuggestions.map((s, i) => {
                       const line = [s.city, s.country].filter(Boolean).join(", ");
                       return (
                         <li key={`${s.formattedAddress}-${i}`}>
                           <button
                             type="button"
-                            className="w-full px-4 py-2.5 text-left text-sm text-[#F5F1E8] hover:bg-[#0A1A2F]"
+                            className="w-full px-4 py-2.5 text-left text-sm text-[#F5F1E8] hover:bg-[#09142a]"
                             onClick={() => {
                               setKundliForm((f) => ({ ...f, place: s.formattedAddress || line, lat: s.lat!, lng: s.lng! }));
                               setKundliShowSuggest(false);
@@ -1114,34 +1114,34 @@ export default function HomePage() {
               </div>
               <button
                 type="submit"
-                className="w-full rounded-lg bg-gradient-to-r from-[#C9A227] to-[#E0C158] px-4 py-2.5 text-sm font-semibold text-[#0A1A2F] transition hover:opacity-95"
+                className="w-full rounded-lg bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-4 py-2.5 text-sm font-semibold text-[#09142a] transition hover:opacity-95"
               >
                 Get Kundli
               </button>
             </form>
           </div>
 
-          <div className="rounded-2xl border border-[#C9A227]/25 bg-[#0F2240] p-5 shadow-sm transition hover:shadow-md">
-            <h3 className="text-lg font-bold text-[#E0C158]">Kundli Matching</h3>
+          <div className="rounded-2xl border border-[#b18d4f]/25 bg-[#0E1C3B] p-5 shadow-sm transition hover:shadow-md">
+            <h3 className="text-lg font-bold text-[#C8AC80]">Kundli Matching</h3>
             <form className="mt-4 space-y-3" onSubmit={handleMatchSubmit}>
               <input
                 type="text"
                 placeholder="Boy's Name"
                 value={matchForm.name}
                 onChange={(e) => setMatchForm((prev) => ({ ...prev, name: e.target.value }))}
-                className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
+                className="w-full rounded-lg border border-[#1B3A63] bg-[#09142a] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f] focus:ring-[#b18d4f]"
               />
               <input
                 type="date"
                 value={matchForm.date}
                 onChange={(e) => setMatchForm((prev) => ({ ...prev, date: e.target.value }))}
-                className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
+                className="w-full rounded-lg border border-[#1B3A63] bg-[#09142a] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f] focus:ring-[#b18d4f]"
               />
               <input
                 type="time"
                 value={matchForm.time}
                 onChange={(e) => setMatchForm((prev) => ({ ...prev, time: e.target.value }))}
-                className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
+                className="w-full rounded-lg border border-[#1B3A63] bg-[#09142a] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f] focus:ring-[#b18d4f]"
               />
               <div ref={matchPobRef} className="relative">
                 <input
@@ -1151,22 +1151,22 @@ export default function HomePage() {
                   value={matchForm.place}
                   onChange={(e) => onMatchPlaceChange(e.target.value)}
                   onFocus={() => matchSuggestions.length > 0 && setMatchShowSuggest(true)}
-                  className="w-full rounded-lg border border-[#1B3A63] bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-[#C9A227]"
+                  className="w-full rounded-lg border border-[#1B3A63] bg-[#09142a] px-3 py-2 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f] focus:ring-[#b18d4f]"
                 />
                 {matchGeoLoading ? (
-                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[#C9A227]">
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[#b18d4f]">
                     <span className="text-xs">...</span>
                   </div>
                 ) : null}
                 {matchShowSuggest && matchSuggestions.length > 0 ? (
-                  <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#C9A227]/20 bg-[#0F2240] py-1 shadow-lg">
+                  <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#b18d4f]/20 bg-[#0E1C3B] py-1 shadow-lg">
                     {matchSuggestions.map((s, i) => {
                       const line = [s.city, s.country].filter(Boolean).join(", ");
                       return (
                         <li key={`${s.formattedAddress}-${i}`}>
                           <button
                             type="button"
-                            className="w-full px-4 py-2.5 text-left text-sm text-[#F5F1E8] hover:bg-[#0A1A2F]"
+                            className="w-full px-4 py-2.5 text-left text-sm text-[#F5F1E8] hover:bg-[#09142a]"
                             onClick={() => {
                               setMatchForm((f) => ({ ...f, place: s.formattedAddress || line, lat: s.lat!, lng: s.lng! }));
                               setMatchShowSuggest(false);
@@ -1183,46 +1183,46 @@ export default function HomePage() {
               </div>
               <button
                 type="submit"
-                className="w-full rounded-lg border border-[#C9A227]/25 px-4 py-2.5 text-sm font-semibold text-[#E0C158] transition hover:bg-[#13294B]"
+                className="w-full rounded-lg border border-[#b18d4f]/25 px-4 py-2.5 text-sm font-semibold text-[#C8AC80] transition hover:bg-[#122352]"
               >
                 Continue
               </button>
               <Link
                 href="/kundli/match"
-                className="block text-center text-sm font-medium text-[#E0C158] hover:underline"
+                className="block text-center text-sm font-medium text-[#C8AC80] hover:underline"
               >
                 Open full matching report
               </Link>
             </form>
           </div>
 
-          <div className="rounded-2xl border border-[#C9A227]/25 bg-[#0F2240] p-5 shadow-sm transition hover:shadow-md">
-            <h3 className="text-lg font-bold text-[#E0C158]">Today&apos;s Panchang</h3>
+          <div className="rounded-2xl border border-[#b18d4f]/25 bg-[#0E1C3B] p-5 shadow-sm transition hover:shadow-md">
+            <h3 className="text-lg font-bold text-[#C8AC80]">Today&apos;s Panchang</h3>
             <p className="mt-1 text-sm text-[#C7C2B4]">{todayLong}</p>
             <div className="mt-4 space-y-2 text-sm">
-              <p className="flex items-center justify-between rounded-lg bg-[#13294B] px-3 py-2">
+              <p className="flex items-center justify-between rounded-lg bg-[#122352] px-3 py-2">
                 <span className="font-medium text-[#C7C2B4]">Tithi</span>
-                <span className="font-semibold text-[#E0C158]">{panchang.tithi}</span>
+                <span className="font-semibold text-[#C8AC80]">{panchang.tithi}</span>
               </p>
-              <p className="flex items-center justify-between rounded-lg bg-[#13294B] px-3 py-2">
+              <p className="flex items-center justify-between rounded-lg bg-[#122352] px-3 py-2">
                 <span className="font-medium text-[#C7C2B4]">Nakshatra</span>
-                <span className="font-semibold text-[#E0C158]">{panchang.nakshatra}</span>
+                <span className="font-semibold text-[#C8AC80]">{panchang.nakshatra}</span>
               </p>
-              <p className="flex items-center justify-between rounded-lg bg-[#13294B] px-3 py-2">
+              <p className="flex items-center justify-between rounded-lg bg-[#122352] px-3 py-2">
                 <span className="font-medium text-[#C7C2B4]">Yoga</span>
-                <span className="font-semibold text-[#E0C158]">{panchang.yoga}</span>
+                <span className="font-semibold text-[#C8AC80]">{panchang.yoga}</span>
               </p>
-              <p className="flex items-center justify-between rounded-lg bg-[#13294B] px-3 py-2">
+              <p className="flex items-center justify-between rounded-lg bg-[#122352] px-3 py-2">
                 <span className="font-medium text-[#C7C2B4]">Karan</span>
-                <span className="font-semibold text-[#E0C158]">{panchang.karan}</span>
+                <span className="font-semibold text-[#C8AC80]">{panchang.karan}</span>
               </p>
-              <p className="rounded-lg border border-[#1B3A63] bg-[#13294B] px-3 py-2 text-xs text-[#E0C158]">
+              <p className="rounded-lg border border-[#1B3A63] bg-[#122352] px-3 py-2 text-xs text-[#C8AC80]">
                 Rahukaal (Delhi): <span className="font-semibold">{panchang.rahukaal}</span>
               </p>
             </div>
             <Link
               href="/panchang"
-              className="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-[#C9A227] to-[#E0C158] px-4 py-2.5 text-sm font-semibold text-[#0A1A2F] transition hover:opacity-95"
+              className="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-4 py-2.5 text-sm font-semibold text-[#09142a] transition hover:opacity-95"
             >
               Today Panchang
             </Link>
@@ -1230,7 +1230,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-y border-[#C9A227]/15 bg-[#0F2240]/40 py-14">
+      <section className="border-y border-[#b18d4f]/15 bg-[#0E1C3B]/40 py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <h2 className="text-center text-2xl font-bold text-[#F5F1E8] sm:text-3xl">
             Free Horoscope and Astrology Services
@@ -1240,7 +1240,7 @@ export default function HomePage() {
               <Link
                 key={service.name}
                 href={service.href}
-                className="rounded-2xl border border-[#C9A227]/20 bg-[#13294B] p-4 text-center transition duration-200 hover:-translate-y-1 hover:border-[#C9A227]/50 hover:shadow-md"
+                className="rounded-2xl border border-[#b18d4f]/20 bg-[#122352] p-4 text-center transition duration-200 hover:-translate-y-1 hover:border-[#b18d4f]/50 hover:shadow-md"
               >
                 <p className="text-3xl">{service.icon}</p>
                 <p className="mt-2 text-sm font-semibold text-[#F5F1E8]">{service.name}</p>
@@ -1267,7 +1267,7 @@ export default function HomePage() {
               <Link
                 key={a.id}
                 href={`/ai-astrologers/${a.id}`}
-                className="flex flex-col items-center rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-4 text-center transition duration-200 hover:-translate-y-1 hover:border-[#C9A227]/50 hover:shadow-md"
+                className="flex flex-col items-center rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-4 text-center transition duration-200 hover:-translate-y-1 hover:border-[#b18d4f]/50 hover:shadow-md"
               >
                 {a.photo_url ? (
                   <img
@@ -1276,13 +1276,13 @@ export default function HomePage() {
                     className="h-16 w-16 rounded-full object-cover"
                   />
                 ) : (
-                  <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#0A1A2F] text-3xl">
+                  <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#09142a] text-3xl">
                     {a.emoji}
                   </span>
                 )}
                 <p className="mt-3 text-sm font-semibold text-[#F5F1E8]">{a.name}</p>
                 <p className="mt-1 line-clamp-1 text-xs text-[#C7C2B4]">{a.tagline}</p>
-                <p className="mt-2 text-xs font-medium text-[#E0C158]">
+                <p className="mt-2 text-xs font-medium text-[#C8AC80]">
                   ₹{a.rate_per_min}/min
                 </p>
                 <span className="mt-3 w-full rounded-lg bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-3 py-1.5 text-xs font-semibold text-white">
@@ -1302,14 +1302,14 @@ export default function HomePage() {
               Verified experts available now for instant call and chat sessions.
             </p>
           </div>
-          <Link href="/astrologers" className="text-sm font-semibold text-[#C7C2B4] hover:text-[#E0C158] hover:underline">
+          <Link href="/astrologers" className="text-sm font-semibold text-[#C7C2B4] hover:text-[#C8AC80] hover:underline">
             View all astrologers
           </Link>
         </div>
         {loading ? (
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             {[1, 2, 3].map((item) => (
-              <div key={item} className="h-52 animate-pulse rounded-2xl bg-[#0F2240]/60" />
+              <div key={item} className="h-52 animate-pulse rounded-2xl bg-[#0E1C3B]/60" />
             ))}
           </div>
         ) : (
@@ -1317,7 +1317,7 @@ export default function HomePage() {
             {featured.map((astrologer) => (
               <article
                 key={astrologer.id}
-                className="min-w-[270px] snap-start rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-4 shadow-sm transition hover:shadow-md md:min-w-[320px]"
+                className="min-w-[270px] snap-start rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-4 shadow-sm transition hover:shadow-md md:min-w-[320px]"
               >
                 <div className="flex items-start gap-3">
                   <div className="relative">
@@ -1329,11 +1329,11 @@ export default function HomePage() {
                         className="h-14 w-14 rounded-full object-cover"
                       />
                     ) : (
-                      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#C9A227] to-[#A6745A] text-lg font-bold text-[#0A1A2F]">
+                      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#b18d4f] to-[#A6745A] text-lg font-bold text-[#09142a]">
                         {firstName(astrologer.name).slice(0, 1).toUpperCase()}
                       </div>
                     )}
-                    <span className="absolute bottom-1 right-0 h-3.5 w-3.5 rounded-full border-2 border-[#0F2240] bg-emerald-500" />
+                    <span className="absolute bottom-1 right-0 h-3.5 w-3.5 rounded-full border-2 border-[#0E1C3B] bg-emerald-500" />
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">
@@ -1351,14 +1351,14 @@ export default function HomePage() {
                   {(astrologer.specializations ?? []).slice(0, 3).map((specialization) => (
                     <span
                       key={`${astrologer.id}-${specialization}`}
-                      className="rounded-full bg-[#0F2240]/40 px-2 py-1 text-xs font-medium text-[#E0C158]"
+                      className="rounded-full bg-[#0E1C3B]/40 px-2 py-1 text-xs font-medium text-[#C8AC80]"
                     >
                       {specialization}
                     </span>
                   ))}
                 </div>
                 <div className="mt-4 flex items-center justify-between text-sm">
-                  <p className="font-semibold text-[#E0C158]">
+                  <p className="font-semibold text-[#C8AC80]">
                     ₹{astrologer.price_per_minute ?? 0}/min
                   </p>
                   <p className="text-amber-500">
@@ -1400,7 +1400,7 @@ export default function HomePage() {
             <Link
               key={`today-${rashi.id}`}
               href={`/horoscope/${rashi.id}`}
-              className="rounded-xl border border-[#C9A227]/20 bg-[#0F2240] p-3 text-center transition duration-200 hover:-translate-y-0.5 hover:border-[#E0C158] hover:shadow-md"
+              className="rounded-xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-3 text-center transition duration-200 hover:-translate-y-0.5 hover:border-[#C8AC80] hover:shadow-md"
             >
               <p className="text-3xl">{rashi.symbol}</p>
               <p className="mt-1 text-sm font-semibold">{rashi.english}</p>
@@ -1410,14 +1410,14 @@ export default function HomePage() {
         <div className="mt-7 text-center">
           <Link
             href="/horoscope"
-            className="inline-flex rounded-full bg-[#0A1A2F] px-6 py-3 text-sm font-semibold text-[#C9A227] transition hover:bg-[#2A7D7B]"
+            className="inline-flex rounded-full bg-[#09142a] px-6 py-3 text-sm font-semibold text-[#b18d4f] transition hover:bg-[#2A7D7B]"
           >
             View All Horoscopes
           </Link>
         </div>
       </section>
 
-      <section className="border-y border-[#C9A227]/20 bg-[#0A1A2F] py-14">
+      <section className="border-y border-[#b18d4f]/20 bg-[#09142a] py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <h2 className="text-2xl font-bold sm:text-3xl">
             Astrological services for accurate answers
@@ -1426,7 +1426,7 @@ export default function HomePage() {
             {paidServices.map((service) => (
               <article
                 key={service.title}
-                className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+                className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
               >
                 <div
                   className={`h-24 rounded-xl bg-gradient-to-br ${service.gradient}`}
@@ -1435,7 +1435,7 @@ export default function HomePage() {
                 <h3 className="mt-4 text-lg font-bold text-[#F5F1E8]">{service.title}</h3>
                 <p className="mt-1 text-sm text-[#C7C2B4]">{service.description}</p>
                 <div className="mt-4 flex items-center justify-between">
-                  <p className="text-lg font-bold text-[#E0C158]">₹{service.price}</p>
+                  <p className="text-lg font-bold text-[#C8AC80]">₹{service.price}</p>
                   <Link
                     href="/reports"
                     className="rounded-lg bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-4 py-2 text-sm font-semibold text-white transition hover:opacity-95"
@@ -1455,20 +1455,20 @@ export default function HomePage() {
           {remedies.map((item, index) => (
             <article
               key={item}
-              className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+              className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
             >
               <div
                 className={`h-24 rounded-xl bg-gradient-to-br ${
                   index % 2 === 0
-                    ? "from-[#0A1A2F] via-[#2A7D7B] to-[#C9A227]"
-                    : "from-[#2A7D7B] via-[#0A1A2F] to-[#C9A227]"
+                    ? "from-[#09142a] via-[#2A7D7B] to-[#b18d4f]"
+                    : "from-[#2A7D7B] via-[#09142a] to-[#b18d4f]"
                 }`}
                 aria-hidden="true"
               />
               <h3 className="mt-4 text-lg font-bold text-[#F5F1E8]">{item}</h3>
               <Link
                 href="/shop"
-                className="mt-3 inline-flex rounded-lg border border-[#C9A227]/40 px-4 py-2 text-sm font-semibold text-[#E0C158] transition hover:bg-[#C9A227]/10"
+                className="mt-3 inline-flex rounded-lg border border-[#b18d4f]/40 px-4 py-2 text-sm font-semibold text-[#C8AC80] transition hover:bg-[#b18d4f]/10"
               >
                 Check Now
               </Link>
@@ -1477,20 +1477,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-t border-[#C9A227]/20 bg-[#0A1A2F] py-14">
+      <section className="border-t border-[#b18d4f]/20 bg-[#09142a] py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <h2 className="text-2xl font-bold sm:text-3xl">{tenant.name} Magazine</h2>
           <div className="mt-7 grid gap-4 md:grid-cols-3">
             {articles.map((article) => (
               <article
                 key={article.title}
-                className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm transition hover:shadow-md"
+                className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-5 shadow-sm transition hover:shadow-md"
               >
-                <p className="text-xs font-semibold uppercase tracking-wider text-[#E0C158]">
+                <p className="text-xs font-semibold uppercase tracking-wider text-[#C8AC80]">
                   {article.date}
                 </p>
                 <h3 className="mt-2 text-lg font-bold text-[#F5F1E8]">{article.title}</h3>
-                <Link href={article.href} className="mt-4 inline-block text-sm font-semibold text-[#C7C2B4] hover:text-[#E0C158] hover:underline">
+                <Link href={article.href} className="mt-4 inline-block text-sm font-semibold text-[#C7C2B4] hover:text-[#C8AC80] hover:underline">
                   Read More
                 </Link>
               </article>

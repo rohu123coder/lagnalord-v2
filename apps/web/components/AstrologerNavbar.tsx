@@ -29,11 +29,11 @@ export function AstrologerNavbar() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[#C9A227]/20 bg-[#0A1A2F]/90 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-[#b18d4f]/20 bg-[#09142a]/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link
           href="/astrologer/dashboard"
-          className="shrink-0 bg-gradient-to-r from-[#C9A227] via-[#E0C158] to-[#2A7D7B] bg-clip-text text-lg font-bold text-transparent sm:text-xl"
+          className="shrink-0 bg-gradient-to-r from-[#b18d4f] via-[#C8AC80] to-[#2A7D7B] bg-clip-text text-lg font-bold text-transparent sm:text-xl"
         >
           {tenant.name} · Astrologer
         </Link>
@@ -41,19 +41,19 @@ export function AstrologerNavbar() {
         <nav className="hidden items-center gap-5 md:flex">
           <Link
             href="/astrologer/dashboard"
-            className="text-sm font-medium text-[#C7C2B4] hover:text-[#E0C158]"
+            className="text-sm font-medium text-[#C7C2B4] hover:text-[#C8AC80]"
           >
             Dashboard
           </Link>
           <Link
             href="/astrologer/profile"
-            className="text-sm font-medium text-[#C7C2B4] hover:text-[#E0C158]"
+            className="text-sm font-medium text-[#C7C2B4] hover:text-[#C8AC80]"
           >
             Profile
           </Link>
           <Link
             href="/astrologer/earnings"
-            className="text-sm font-medium text-[#C7C2B4] hover:text-[#E0C158]"
+            className="text-sm font-medium text-[#C7C2B4] hover:text-[#C8AC80]"
           >
             Earnings
           </Link>
@@ -62,10 +62,10 @@ export function AstrologerNavbar() {
             <img
               src={photo}
               alt=""
-              className="h-9 w-9 rounded-full object-cover ring-2 ring-[#C9A227]/30"
+              className="h-9 w-9 rounded-full object-cover ring-2 ring-[#b18d4f]/30"
             />
           ) : mounted ? (
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-[#C9A227] to-[#A6745A] text-xs font-bold text-[#0A1A2F] ring-2 ring-[#C9A227]/30">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-[#b18d4f] to-[#A6745A] text-xs font-bold text-[#09142a] ring-2 ring-[#b18d4f]/30">
               {initials}
             </div>
           ) : null}

@@ -168,8 +168,8 @@ export function WalletWidget({ className = "" }: WalletWidgetProps) {
   return (
     <div className={className}>
       <div className="flex flex-wrap items-center gap-3">
-        <div className="inline-flex items-center gap-2 rounded-xl border border-[#C9A227]/20 bg-[#0F2240] px-3 py-2 text-[#F5F1E8]">
-          <WalletIcon className="h-5 w-5 text-[#E0C158]" />
+        <div className="inline-flex items-center gap-2 rounded-xl border border-[#b18d4f]/20 bg-[#0E1C3B] px-3 py-2 text-[#F5F1E8]">
+          <WalletIcon className="h-5 w-5 text-[#C8AC80]" />
           <span className="text-sm font-semibold">
             {isWalletRefreshing ? "Updating..." : formatMoney(balance)}
           </span>
@@ -193,7 +193,7 @@ export function WalletWidget({ className = "" }: WalletWidgetProps) {
           <div
             role="dialog"
             aria-modal="true"
-            className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-2xl bg-[#0F2240] p-6 shadow-2xl"
+            className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-2xl bg-[#0E1C3B] p-6 shadow-2xl"
           >
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -207,7 +207,7 @@ export function WalletWidget({ className = "" }: WalletWidgetProps) {
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="rounded-lg p-1 text-[#C7C2B4] hover:bg-[#0A1A2F]"
+                className="rounded-lg p-1 text-[#C7C2B4] hover:bg-[#09142a]"
                 aria-label="Close"
               >
                 ✕
@@ -226,8 +226,8 @@ export function WalletWidget({ className = "" }: WalletWidgetProps) {
                   }}
                   className={`rounded-xl border-2 py-3 text-center text-sm font-semibold transition ${
                     selected === amt
-                      ? "border-[#C9A227] bg-[#C9A227]/10 text-[#E0C158]"
-                      : "border-[#C9A227]/10 bg-[#0A1A2F] text-[#C7C2B4] hover:border-[#C9A227]/40"
+                      ? "border-[#b18d4f] bg-[#b18d4f]/10 text-[#C8AC80]"
+                      : "border-[#b18d4f]/10 bg-[#09142a] text-[#C7C2B4] hover:border-[#b18d4f]/40"
                   }`}
                 >
                   ₹{amt}
@@ -250,7 +250,7 @@ export function WalletWidget({ className = "" }: WalletWidgetProps) {
                   setError(null);
                 }}
                 placeholder="e.g. 250"
-                className="mt-1 w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-3 py-2 text-[#F5F1E8] outline-none ring-[#C9A227] focus:ring-2"
+                className="mt-1 w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-3 py-2 text-[#F5F1E8] outline-none ring-[#b18d4f] focus:ring-2"
               />
             </div>
 

@@ -153,7 +153,7 @@ export function Navbar() {
   );
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[#C9A227]/20 bg-[#0A1A2F]">
+    <header className="sticky top-0 z-50 border-b border-[#b18d4f]/20 bg-[#09142a]">
       <div className="mx-auto flex min-h-[68px] max-w-7xl items-center justify-between px-4 sm:px-6 min-[1600px]:max-w-[100rem]">
         <Link
           href="/"
@@ -172,7 +172,7 @@ export function Navbar() {
               />
             ) : null}
             <span
-              className={`text-[22px] font-bold text-[#E0C158] ${
+              className={`text-[22px] font-bold text-[#C8AC80] ${
                 tenant.logo.imageUrl ? "md:hidden" : ""
               }`}
             >
@@ -189,7 +189,7 @@ export function Navbar() {
             {centerLinks.map((link, idx) => (
               <Fragment key={link.label}>
                 {idx > 0 ? (
-                  <span className="text-[#C9A227]/20" aria-hidden="true">
+                  <span className="text-[#b18d4f]/20" aria-hidden="true">
                     |
                   </span>
                 ) : null}
@@ -197,8 +197,8 @@ export function Navbar() {
                   href={link.href}
                   className={`whitespace-nowrap border-b-2 pb-0.5 text-[13px] font-medium transition ${
                     isActive(link.href)
-                      ? "border-[#C9A227] text-[#E0C158]"
-                      : "border-transparent text-[#C7C2B4] hover:text-[#E0C158]"
+                      ? "border-[#b18d4f] text-[#C8AC80]"
+                      : "border-transparent text-[#C7C2B4] hover:text-[#C8AC80]"
                   }`}
                   onClick={() => setMenuOpen(false)}
                 >
@@ -207,7 +207,7 @@ export function Navbar() {
               </Fragment>
             ))}
           </div>
-          <span className="shrink-0 px-1 text-[#C9A227]/20" aria-hidden="true">
+          <span className="shrink-0 px-1 text-[#b18d4f]/20" aria-hidden="true">
             |
           </span>
           <div className="group relative shrink-0">
@@ -216,8 +216,8 @@ export function Navbar() {
               aria-haspopup="true"
               className={`inline-flex items-center gap-1 whitespace-nowrap border-b-2 pb-0.5 text-[13px] font-medium transition ${
                 isCalculatorActive
-                  ? "border-[#C9A227] text-[#E0C158]"
-                  : "border-transparent text-[#C7C2B4] hover:text-[#E0C158]"
+                  ? "border-[#b18d4f] text-[#C8AC80]"
+                  : "border-transparent text-[#C7C2B4] hover:text-[#C8AC80]"
               }`}
             >
                 Calculators
@@ -235,7 +235,7 @@ export function Navbar() {
                 </svg>
               </button>
               <div className="invisible absolute right-0 top-full z-50 w-[36rem] pt-2 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-                <div className="grid grid-cols-2 gap-x-1 rounded-xl border border-[#C9A227]/20 bg-[#0F2240] p-2 shadow-lg shadow-black/40">
+                <div className="grid grid-cols-2 gap-x-1 rounded-xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-2 shadow-lg shadow-black/40">
                   <div className="flex flex-col">
                     {calculatorLinks.slice(0, 5).map((link) => (
                       <Link
@@ -243,8 +243,8 @@ export function Navbar() {
                         href={link.href}
                         className={`rounded-md px-3 py-2 text-[13px] leading-5 transition ${
                           isActive(link.href)
-                            ? "bg-[#C9A227]/10 text-[#E0C158]"
-                            : "text-[#F5F1E8] hover:bg-[#0A1A2F] hover:text-[#E0C158]"
+                            ? "bg-[#b18d4f]/10 text-[#C8AC80]"
+                            : "text-[#F5F1E8] hover:bg-[#09142a] hover:text-[#C8AC80]"
                         }`}
                         onClick={() => setMenuOpen(false)}
                       >
@@ -259,8 +259,8 @@ export function Navbar() {
                         href={link.href}
                         className={`rounded-md px-3 py-2 text-[13px] leading-5 transition ${
                           isActive(link.href)
-                            ? "bg-[#C9A227]/10 text-[#E0C158]"
-                            : "text-[#F5F1E8] hover:bg-[#0A1A2F] hover:text-[#E0C158]"
+                            ? "bg-[#b18d4f]/10 text-[#C8AC80]"
+                            : "text-[#F5F1E8] hover:bg-[#09142a] hover:text-[#C8AC80]"
                         }`}
                         onClick={() => setMenuOpen(false)}
                       >
@@ -273,9 +273,9 @@ export function Navbar() {
             </div>
         </nav>
 
-        <div className="relative z-20 hidden shrink-0 items-center gap-3 self-stretch bg-[#0A1A2F] pl-4 md:flex min-[1600px]:gap-4">
+        <div className="relative z-20 hidden shrink-0 items-center gap-3 self-stretch bg-[#09142a] pl-4 md:flex min-[1600px]:gap-4">
           {!mounted ? (
-            <div className="h-9 w-44 animate-pulse rounded-full bg-[#0F2240]" />
+            <div className="h-9 w-44 animate-pulse rounded-full bg-[#0E1C3B]" />
           ) : isLoggedIn ? (
             <>
               {role !== "astrologer" ? (
@@ -288,8 +288,8 @@ export function Navbar() {
                 href={dashboardHref}
                 className={`rounded-md px-2 py-1 text-sm font-semibold transition ${
                   isActive(dashboardHref)
-                    ? "text-[#E0C158]"
-                    : "text-[#C7C2B4] hover:text-[#E0C158]"
+                    ? "text-[#C8AC80]"
+                    : "text-[#C7C2B4] hover:text-[#C8AC80]"
                 }`}
                 onClick={() => setMenuOpen(false)}
               >
@@ -314,7 +314,7 @@ export function Navbar() {
               {chatCta}
               <Link
                 href="/login"
-                className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-[#C7C2B4] transition hover:text-[#E0C158]"
+                className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-[#C7C2B4] transition hover:text-[#C8AC80]"
                 onClick={(event) => {
                   event.preventDefault();
                   router.push("/login");
@@ -324,7 +324,7 @@ export function Navbar() {
               </Link>
               <Link
                 href="/login?tab=register"
-                className="rounded-full bg-[#C9A227] px-4 py-2 text-sm font-semibold text-[#0A1A2F] transition hover:bg-[#B8960C]"
+                className="rounded-full bg-[#b18d4f] px-4 py-2 text-sm font-semibold text-[#09142a] transition hover:bg-[#B8960C]"
                 onClick={(event) => {
                   event.preventDefault();
                   router.push("/login?tab=register");
@@ -351,7 +351,7 @@ export function Navbar() {
           ) : null}
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[#C9A227]/40 text-[#C9A227]"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[#b18d4f]/40 text-[#b18d4f]"
             aria-label="Open menu"
             onClick={() => setMenuOpen((o) => !o)}
           >
@@ -383,7 +383,7 @@ export function Navbar() {
       </div>
 
       {menuOpen && mounted ? (
-        <div className="border-t border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-4 md:hidden">
+        <div className="border-t border-[#b18d4f]/20 bg-[#09142a] px-4 py-4 md:hidden">
           <div className="flex flex-col gap-4">
             <div>
               <p className="px-1 text-xs font-semibold uppercase tracking-wider text-[#C7C2B4]/70">
@@ -396,8 +396,8 @@ export function Navbar() {
                     href={link.href}
                     className={`block rounded-md px-3 py-2 text-sm font-medium ${
                       isActive(link.href)
-                        ? "bg-[#C9A227]/10 text-[#E0C158]"
-                        : "text-[#C7C2B4] hover:bg-[#0F2240]"
+                        ? "bg-[#b18d4f]/10 text-[#C8AC80]"
+                        : "text-[#C7C2B4] hover:bg-[#0E1C3B]"
                     }`}
                     onClick={() => setMenuOpen(false)}
                   >
@@ -410,8 +410,8 @@ export function Navbar() {
                     aria-expanded={calculatorsOpen}
                     className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-sm font-medium ${
                       isCalculatorActive
-                        ? "bg-[#C9A227]/10 text-[#E0C158]"
-                        : "text-[#C7C2B4] hover:bg-[#0F2240]"
+                        ? "bg-[#b18d4f]/10 text-[#C8AC80]"
+                        : "text-[#C7C2B4] hover:bg-[#0E1C3B]"
                     }`}
                     onClick={() => setCalculatorsOpen((open) => !open)}
                   >
@@ -430,15 +430,15 @@ export function Navbar() {
                     </svg>
                   </button>
                   {calculatorsOpen ? (
-                    <div className="mt-1 space-y-1 border-l border-[#C9A227]/20 pl-2">
+                    <div className="mt-1 space-y-1 border-l border-[#b18d4f]/20 pl-2">
                       {calculatorLinks.map((link) => (
                         <Link
                           key={link.href}
                           href={link.href}
                           className={`block rounded-md px-3 py-2 text-sm font-medium ${
                             isActive(link.href)
-                              ? "bg-[#C9A227]/10 text-[#E0C158]"
-                              : "text-[#F5F1E8] hover:bg-[#0F2240] hover:text-[#E0C158]"
+                              ? "bg-[#b18d4f]/10 text-[#C8AC80]"
+                              : "text-[#F5F1E8] hover:bg-[#0E1C3B] hover:text-[#C8AC80]"
                           }`}
                           onClick={() => setMenuOpen(false)}
                         >
@@ -451,14 +451,14 @@ export function Navbar() {
               </div>
             </div>
 
-            <div className="space-y-2 border-t border-[#C9A227]/30 pt-4">
+            <div className="space-y-2 border-t border-[#b18d4f]/30 pt-4">
               <div className="w-full">{chatCta}</div>
 
               {isLoggedIn ? (
                 <>
                   <Link
                     href={dashboardHref}
-                    className="block rounded-full border border-[#C9A227]/30 px-4 py-2.5 text-center text-sm font-semibold text-[#C7C2B4] transition hover:bg-[#0F2240]"
+                    className="block rounded-full border border-[#b18d4f]/30 px-4 py-2.5 text-center text-sm font-semibold text-[#C7C2B4] transition hover:bg-[#0E1C3B]"
                     onClick={() => setMenuOpen(false)}
                   >
                     Dashboard
@@ -479,7 +479,7 @@ export function Navbar() {
                   <div className="grid grid-cols-2 gap-2">
                     <Link
                       href="/login"
-                      className="rounded-full border border-[#C9A227]/30 px-3 py-2.5 text-center text-sm font-semibold text-[#C7C2B4]"
+                      className="rounded-full border border-[#b18d4f]/30 px-3 py-2.5 text-center text-sm font-semibold text-[#C7C2B4]"
                       onClick={(event) => {
                         event.preventDefault();
                         setMenuOpen(false);
@@ -490,7 +490,7 @@ export function Navbar() {
                     </Link>
                     <Link
                       href="/login?tab=register"
-                      className="rounded-full bg-[#C9A227] px-3 py-2.5 text-center text-sm font-semibold text-[#0A1A2F]"
+                      className="rounded-full bg-[#b18d4f] px-3 py-2.5 text-center text-sm font-semibold text-[#09142a]"
                       onClick={(event) => {
                         event.preventDefault();
                         setMenuOpen(false);

@@ -119,8 +119,8 @@ export default function CustomerKundaliPanel({ sessionId, authToken, apiBase }: 
 
   return (
     <div className="space-y-3 overflow-y-auto p-4">
-      <div className="rounded-lg border border-[#C9A227]/30 bg-[#C9A227]/10 p-3">
-        <h3 className="font-semibold text-[#E0C158]">{c.name}</h3>
+      <div className="rounded-lg border border-[#b18d4f]/30 bg-[#b18d4f]/10 p-3">
+        <h3 className="font-semibold text-[#C8AC80]">{c.name}</h3>
         <div className="mt-1 space-y-0.5 text-xs text-[#C7C2B4]">
           {c.dateOfBirth && (
             <div>📅 {new Date(c.dateOfBirth).toLocaleDateString("en-IN")}</div>
@@ -169,14 +169,14 @@ export default function CustomerKundaliPanel({ sessionId, authToken, apiBase }: 
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-[#C9A227]/20 bg-[#0F2240]">
-        <div className="border-b border-[#C9A227]/20 bg-[#0A1A2F] px-3 py-2 text-xs font-semibold text-[#E0C158]">
+      <div className="overflow-hidden rounded-lg border border-[#b18d4f]/20 bg-[#0E1C3B]">
+        <div className="border-b border-[#b18d4f]/20 bg-[#09142a] px-3 py-2 text-xs font-semibold text-[#C8AC80]">
           🪐 Planetary Positions
         </div>
         <table className="w-full text-xs">
           <tbody>
             {k.planets.map((p) => (
-              <tr key={p.name} className="border-b border-[#C9A227]/10 last:border-0">
+              <tr key={p.name} className="border-b border-[#b18d4f]/10 last:border-0">
                 <td className="px-3 py-1.5 font-medium text-[#F5F1E8]">{p.name}</td>
                 <td className="px-3 py-1.5 text-[#C7C2B4]">{p.rashi}</td>
                 <td className="px-3 py-1.5 text-right text-[#C7C2B4]/70">
@@ -188,7 +188,7 @@ export default function CustomerKundaliPanel({ sessionId, authToken, apiBase }: 
         </table>
       </div>
 
-      <div className="rounded-lg border border-[#C9A227]/20 bg-[#0A1A2F] p-3 text-center text-xs text-[#C7C2B4]">
+      <div className="rounded-lg border border-[#b18d4f]/20 bg-[#09142a] p-3 text-center text-xs text-[#C7C2B4]">
         🔮 Mahadasha details coming soon
       </div>
     </div>

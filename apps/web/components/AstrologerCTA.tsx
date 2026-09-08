@@ -8,8 +8,8 @@ export function AstrologerCTA({
   text?: string;
 }) {
   return (
-    <aside className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-lg shadow-black/30 md:p-8">
-      <p className="text-xs font-bold uppercase tracking-wider text-[#E0C158]">
+    <aside className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-lg shadow-black/30 md:p-8">
+      <p className="text-xs font-bold uppercase tracking-wider text-[#C8AC80]">
         Talk to an expert
       </p>
       <h2 className="mt-2 text-xl font-bold text-[#F5F1E8] md:text-2xl">{heading}</h2>
@@ -23,7 +23,7 @@ export function AstrologerCTA({
         </Link>
         <Link
           href="/astrologers"
-          className="inline-flex rounded-full border border-[#C9A227]/20 bg-[#0A1A2F] px-5 py-2.5 text-sm font-semibold text-[#F5F1E8] transition hover:border-[#C9A227] hover:text-[#E0C158]"
+          className="inline-flex rounded-full border border-[#b18d4f]/20 bg-[#09142a] px-5 py-2.5 text-sm font-semibold text-[#F5F1E8] transition hover:border-[#b18d4f] hover:text-[#C8AC80]"
         >
           Talk to Astrologer
         </Link>

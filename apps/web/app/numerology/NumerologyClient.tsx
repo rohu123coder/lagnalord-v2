@@ -95,7 +95,7 @@ export default function NumerologyClient() {
   }, [submitted, fullName, dob]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] via-[#0F2240] to-[#0A1A2F]">
+    <div className="min-h-screen bg-gradient-to-b from-[#09142a] via-[#0E1C3B] to-[#09142a]">
       <Navbar />
       <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
         <h1 className="text-3xl font-extrabold text-[#F5F1E8] sm:text-4xl">
@@ -105,19 +105,19 @@ export default function NumerologyClient() {
           Enter your name and birth date to calculate core numerology numbers.
         </p>
 
-        <section className="mt-6 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm">
+        <section className="mt-6 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-5 shadow-sm">
           <div className="grid gap-3 sm:grid-cols-2">
             <input
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               placeholder="Full name"
-              className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#C9A227]"
+              className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#b18d4f]"
             />
             <input
               type="date"
               value={dob}
               onChange={(e) => setDob(e.target.value)}
-              className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#C9A227]"
+              className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#b18d4f]"
             />
           </div>
           <button
@@ -141,15 +141,15 @@ export default function NumerologyClient() {
               ].map(([label, value]) => (
                 <article
                   key={label}
-                  className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-4 shadow-sm"
+                  className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-4 shadow-sm"
                 >
-                  <p className="text-sm font-semibold text-[#E0C158]">{label}</p>
+                  <p className="text-sm font-semibold text-[#C8AC80]">{label}</p>
                   <p className="mt-1 text-3xl font-bold text-[#F5F1E8]">{value}</p>
                 </article>
               ))}
             </div>
 
-            <div className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm">
+            <div className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-5 shadow-sm">
               <h2 className="text-lg font-bold text-[#F5F1E8]">Lucky Indicators</h2>
               <p className="mt-2 text-sm text-[#C7C2B4]">
                 Lucky Number: <span className="font-semibold">{result.luckyNumber}</span>
@@ -165,12 +165,12 @@ export default function NumerologyClient() {
           </section>
         ) : null}
 
-        <section className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm">
+        <section className="mt-8 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-5 shadow-sm">
           <h2 className="text-lg font-bold text-[#F5F1E8]">Number Meanings (1-9)</h2>
           <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
             {Object.entries(numberDescriptions).map(([num, desc]) => (
-              <article key={num} className="rounded-lg bg-[#0A1A2F] p-3">
-                <p className="font-semibold text-[#E0C158]">Number {num}</p>
+              <article key={num} className="rounded-lg bg-[#09142a] p-3">
+                <p className="font-semibold text-[#C8AC80]">Number {num}</p>
                 <p className="mt-1 text-sm text-[#C7C2B4]">{desc}</p>
               </article>
             ))}

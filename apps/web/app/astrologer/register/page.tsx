@@ -153,13 +153,13 @@ export default function AstrologerRegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] to-[#0F2240]">
+    <div className="min-h-screen bg-gradient-to-b from-[#09142a] to-[#0E1C3B]">
       <div className="mx-auto flex max-w-md flex-col px-4 py-12 sm:px-6">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold text-[#F5F1E8]">
             Astrologer Registration
           </h1>
-          <Link href="/astrologer/login" className="text-sm font-semibold text-[#E0C158] hover:underline">
+          <Link href="/astrologer/login" className="text-sm font-semibold text-[#C8AC80] hover:underline">
             Sign in
           </Link>
         </div>
@@ -168,7 +168,7 @@ export default function AstrologerRegisterPage() {
           Step {step} of 2
         </p>
 
-        <div className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+        <div className="mt-8 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-sm">
           {step === 1 ? (
             <div className="space-y-4">
               <div>
@@ -179,7 +179,7 @@ export default function AstrologerRegisterPage() {
                   type="text"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="mt-1 w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#C9A227] focus:ring-2"
+                  className="mt-1 w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f] focus:ring-2"
                   placeholder="Your full name"
                 />
               </div>
@@ -192,7 +192,7 @@ export default function AstrologerRegisterPage() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="mt-1 w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#C9A227] focus:ring-2"
+                  className="mt-1 w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f] focus:ring-2"
                   placeholder="you@example.com"
                 />
               </div>
@@ -205,7 +205,7 @@ export default function AstrologerRegisterPage() {
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
-                  className="mt-1 w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#C9A227] focus:ring-2"
+                  className="mt-1 w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f] focus:ring-2"
                   placeholder="10-digit phone"
                 />
               </div>
@@ -218,7 +218,7 @@ export default function AstrologerRegisterPage() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="mt-1 w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#C9A227] focus:ring-2"
+                  className="mt-1 w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f] focus:ring-2"
                 />
                 <p className="mt-1 text-xs text-[#C7C2B4]/70">
                   Minimum 8 characters.
@@ -233,7 +233,7 @@ export default function AstrologerRegisterPage() {
                   type="password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="mt-1 w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#C9A227] focus:ring-2"
+                  className="mt-1 w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f] focus:ring-2"
                 />
               </div>
 
@@ -263,7 +263,7 @@ export default function AstrologerRegisterPage() {
                   min={0}
                   value={experience}
                   onChange={(e) => setExperience(e.target.value)}
-                  className="mt-1 w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#C9A227] focus:ring-2"
+                  className="mt-1 w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f] focus:ring-2"
                 />
               </div>
 
@@ -277,7 +277,7 @@ export default function AstrologerRegisterPage() {
                     return (
                       <label
                         key={opt}
-                        className="flex cursor-pointer items-center gap-2 rounded-xl border border-[#C9A227]/20 px-3 py-2 text-sm text-[#C7C2B4] hover:bg-[#C9A227]/10"
+                        className="flex cursor-pointer items-center gap-2 rounded-xl border border-[#b18d4f]/20 px-3 py-2 text-sm text-[#C7C2B4] hover:bg-[#b18d4f]/10"
                       >
                         <input
                           type="checkbox"
@@ -305,7 +305,7 @@ export default function AstrologerRegisterPage() {
                     return (
                       <label
                         key={opt}
-                        className="flex cursor-pointer items-center gap-2 rounded-xl border border-[#C9A227]/20 px-3 py-2 text-sm text-[#C7C2B4] hover:bg-[#C9A227]/10"
+                        className="flex cursor-pointer items-center gap-2 rounded-xl border border-[#b18d4f]/20 px-3 py-2 text-sm text-[#C7C2B4] hover:bg-[#b18d4f]/10"
                       >
                         <input
                           type="checkbox"
@@ -329,7 +329,7 @@ export default function AstrologerRegisterPage() {
                   max={500}
                   value={ratePerMinute}
                   onChange={(e) => setRatePerMinute(e.target.value)}
-                  className="mt-1 w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#C9A227] focus:ring-2"
+                  className="mt-1 w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f] focus:ring-2"
                 />
                 <p className="mt-1 text-xs text-[#C7C2B4]/70">
                   Between 5 and 500.
@@ -344,7 +344,7 @@ export default function AstrologerRegisterPage() {
                   value={bio}
                   maxLength={300}
                   onChange={(e) => setBio(e.target.value)}
-                  className="mt-1 min-h-[110px] w-full resize-y rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#C9A227] focus:ring-2"
+                  className="mt-1 min-h-[110px] w-full resize-y rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f] focus:ring-2"
                   placeholder="A short introduction (max 300 chars)"
                 />
                 <div className="mt-1 text-right text-xs text-[#C7C2B4]/70">
@@ -363,7 +363,7 @@ export default function AstrologerRegisterPage() {
                   type="button"
                   onClick={() => setStep(1)}
                   disabled={loading}
-                  className="flex-1 rounded-xl border border-[#C9A227]/30 px-3 py-3 text-sm font-semibold text-[#C7C2B4] shadow-sm transition hover:bg-[#0A1A2F] disabled:opacity-60"
+                  className="flex-1 rounded-xl border border-[#b18d4f]/30 px-3 py-3 text-sm font-semibold text-[#C7C2B4] shadow-sm transition hover:bg-[#09142a] disabled:opacity-60"
                 >
                   Back
                 </button>

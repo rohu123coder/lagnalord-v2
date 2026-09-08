@@ -514,24 +514,24 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
       return `${base} bg-amber-50 text-amber-800 ring-1 ring-amber-100`;
     }
     if (status === "ended") {
-      return `${base} bg-[#0F2240] text-[#C7C2B4] ring-1 ring-[#C9A227]/20`;
+      return `${base} bg-[#0E1C3B] text-[#C7C2B4] ring-1 ring-[#b18d4f]/20`;
     }
     if (status === "cancelled") {
       return `${base} bg-rose-50 text-rose-700 ring-1 ring-rose-100`;
     }
-    return `${base} bg-[#C9A227]/10 text-[#E0C158] ring-1 ring-[#C9A227]/30`;
+    return `${base} bg-[#b18d4f]/10 text-[#C8AC80] ring-1 ring-[#b18d4f]/30`;
   }, [status]);
 
   if (!mounted || !isLoggedIn) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0A1A2F]">
-        <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#C9A227] border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-[#09142a]">
+        <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#b18d4f] border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#0A1A2F]">
+    <div className="flex min-h-screen flex-col bg-[#09142a]">
       <Navbar />
 
       {toast ? (
@@ -540,7 +540,7 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
         </div>
       ) : null}
 
-      <header className="sticky top-16 z-10 border-b border-[#C9A227]/20 bg-[#0F2240] px-4 py-3 shadow-sm sm:px-6">
+      <header className="sticky top-16 z-10 border-b border-[#b18d4f]/20 bg-[#0E1C3B] px-4 py-3 shadow-sm sm:px-6">
         <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-3">
           <div className="flex min-w-0 items-center gap-3">
             {headerPhoto ? (
@@ -548,10 +548,10 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
               <img
                 src={headerPhoto}
                 alt=""
-                className="h-11 w-11 shrink-0 rounded-full object-cover ring-2 ring-[#C9A227]/30"
+                className="h-11 w-11 shrink-0 rounded-full object-cover ring-2 ring-[#b18d4f]/30"
               />
             ) : (
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#C9A227] to-[#A6745A] text-sm font-bold text-[#0A1A2F] ring-2 ring-[#C9A227]/30">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#b18d4f] to-[#A6745A] text-sm font-bold text-[#09142a] ring-2 ring-[#b18d4f]/30">
                 {headerInitials}
               </div>
             )}
@@ -577,7 +577,7 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
                   type="button"
                   onClick={() => initiateCall("voice")}
                   disabled={!!callUi || callInitiated}
-                  className="rounded-xl border border-[#C9A227]/30 bg-[#0A1A2F]/70 px-3 py-2 text-sm font-semibold text-[#E0C158] transition hover:bg-[#0A1A2F] disabled:cursor-not-allowed disabled:opacity-50"
+                  className="rounded-xl border border-[#b18d4f]/30 bg-[#09142a]/70 px-3 py-2 text-sm font-semibold text-[#C8AC80] transition hover:bg-[#09142a] disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <span className="mr-2" aria-hidden>
                     📞
@@ -588,7 +588,7 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
                   type="button"
                   onClick={() => initiateCall("video")}
                   disabled={!!callUi || callInitiated}
-                  className="rounded-xl border border-[#C9A227]/30 bg-[#0A1A2F]/70 px-3 py-2 text-sm font-semibold text-[#E0C158] transition hover:bg-[#0A1A2F] disabled:cursor-not-allowed disabled:opacity-50"
+                  className="rounded-xl border border-[#b18d4f]/30 bg-[#09142a]/70 px-3 py-2 text-sm font-semibold text-[#C8AC80] transition hover:bg-[#09142a] disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <span className="mr-2" aria-hidden>
                     📹
@@ -598,7 +598,7 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
               </>
             ) : null}
             {callInitiated ? (
-              <span className="text-xs font-semibold text-[#E0C158]">Calling...</span>
+              <span className="text-xs font-semibold text-[#C8AC80]">Calling...</span>
             ) : null}
             <button
               type="button"
@@ -625,7 +625,7 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
 
         <div
           ref={listRef}
-          className="flex-1 space-y-3 overflow-y-auto rounded-2xl border border-[#C9A227]/20 bg-[#0F2240]/80 p-4 shadow-inner"
+          className="flex-1 space-y-3 overflow-y-auto rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B]/80 p-4 shadow-inner"
           style={{ maxHeight: "calc(100vh - 14rem)" }}
         >
           {messages.length === 0 ? (
@@ -644,7 +644,7 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
                   className={`max-w-[85%] rounded-2xl px-4 py-2 text-sm shadow-sm ${
                     mine
                       ? "rounded-br-md bg-gradient-to-br from-[#2A7D7B] to-[#3A9D9B] text-white"
-                      : "rounded-bl-md bg-[#0A1A2F] text-[#F5F1E8]"
+                      : "rounded-bl-md bg-[#09142a] text-[#F5F1E8]"
                   }`}
                 >
                   <p className="whitespace-pre-wrap">{m.content}</p>
@@ -669,7 +669,7 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
           ) : null}
         </div>
 
-        <div className="fixed bottom-0 left-0 right-0 border-t border-[#C9A227]/20 bg-[#0F2240]/95 p-3 backdrop-blur sm:static sm:mt-4 sm:border-0 sm:bg-transparent sm:p-0">
+        <div className="fixed bottom-0 left-0 right-0 border-t border-[#b18d4f]/20 bg-[#0E1C3B]/95 p-3 backdrop-blur sm:static sm:mt-4 sm:border-0 sm:bg-transparent sm:p-0">
           <div className="mx-auto flex max-w-3xl gap-2">
             <input
               type="text"
@@ -690,7 +690,7 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
                   ? "Type a message…"
                   : "Chat not active yet"
               }
-              className="flex-1 rounded-2xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-sm text-[#F5F1E8] outline-none ring-[#C9A227] focus:ring-2 disabled:bg-[#0F2240]/50"
+              className="flex-1 rounded-2xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-sm text-[#F5F1E8] outline-none ring-[#b18d4f] focus:ring-2 disabled:bg-[#0E1C3B]/50"
             />
             <button
               type="button"
@@ -706,7 +706,7 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
 
       {summary ? (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-sm rounded-2xl bg-[#0F2240] p-6 shadow-2xl">
+          <div className="w-full max-w-sm rounded-2xl bg-[#0E1C3B] p-6 shadow-2xl">
             <h2 className="text-lg font-bold text-[#F5F1E8]">Session ended</h2>
             <p className="mt-3 text-sm text-[#C7C2B4]">
               Thank you for chatting with {astrologerName}.

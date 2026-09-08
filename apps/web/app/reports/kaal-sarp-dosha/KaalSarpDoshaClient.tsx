@@ -32,7 +32,7 @@ type KaalSarpResult = {
 };
 
 const fieldClass =
-  "w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:border-[#C9A227] focus:ring-[#C9A227]";
+  "w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:border-[#b18d4f] focus:ring-[#b18d4f]";
 
 const TYPE_THEME: Record<string, string> = {
   Anant:
@@ -207,7 +207,7 @@ export default function KaalSarpDoshaClient() {
     result?.planetPositions.filter((p) => p.sideOfAxis === "ketu_to_rahu").length ?? 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] via-[#0F2240] to-[#0A1A2F]">
+    <div className="min-h-screen bg-gradient-to-b from-[#09142a] via-[#0E1C3B] to-[#09142a]">
       <Navbar />
       <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
         <h1 className="text-3xl font-extrabold text-[#F5F1E8]">
@@ -218,7 +218,7 @@ export default function KaalSarpDoshaClient() {
           side of the Rahu–Ketu axis.
         </p>
 
-        <section className="mt-6 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm">
+        <section className="mt-6 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-5 shadow-sm">
           <div className="space-y-3">
             <div>
               <label htmlFor="ks-dob" className="mb-1.5 block text-sm font-medium text-[#C7C2B4]">
@@ -260,7 +260,7 @@ export default function KaalSarpDoshaClient() {
                   className={fieldClass}
                 />
                 {geoLoading ? (
-                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[#E0C158]">
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[#C8AC80]">
                     <Spinner className="h-5 w-5" />
                   </div>
                 ) : null}
@@ -271,14 +271,14 @@ export default function KaalSarpDoshaClient() {
                 </p>
               ) : null}
               {showSuggest && suggestions.length > 0 ? (
-                <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#C9A227]/20 bg-[#0F2240] py-1 shadow-lg">
+                <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#b18d4f]/20 bg-[#0E1C3B] py-1 shadow-lg">
                   {suggestions.map((s, i) => {
                     const line = [s.city, s.country].filter(Boolean).join(", ");
                     return (
                       <li key={`${s.formattedAddress}-${i}`}>
                         <button
                           type="button"
-                          className="w-full px-4 py-2.5 text-left text-sm text-[#F5F1E8] hover:bg-[#0A1A2F]"
+                          className="w-full px-4 py-2.5 text-left text-sm text-[#F5F1E8] hover:bg-[#09142a]"
                           onClick={() => {
                             setPlace(s.formattedAddress || line);
                             setLat(s.lat!);
@@ -320,7 +320,7 @@ export default function KaalSarpDoshaClient() {
         </section>
 
         {result ? (
-          <section className="mt-6 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm">
+          <section className="mt-6 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-5 shadow-sm">
             <div className="flex flex-wrap items-center gap-2">
               <h2 className="text-3xl font-extrabold text-[#F5F1E8]">
                 {result.isPresent ? "Present" : "Not Present"}
@@ -356,11 +356,11 @@ export default function KaalSarpDoshaClient() {
             ) : null}
 
             <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
-              <div className="rounded-xl bg-[#0A1A2F] px-3 py-2.5">
+              <div className="rounded-xl bg-[#09142a] px-3 py-2.5">
                 <dt className="text-xs text-[#C7C2B4]">Rahu house from Lagna</dt>
                 <dd className="font-semibold text-[#F5F1E8]">{result.rahuHouse}</dd>
               </div>
-              <div className="rounded-xl bg-[#0A1A2F] px-3 py-2.5">
+              <div className="rounded-xl bg-[#09142a] px-3 py-2.5">
                 <dt className="text-xs text-[#C7C2B4]">Arc split (Sun–Saturn)</dt>
                 <dd className="font-semibold text-[#F5F1E8]">
                   {rahuArcCount} on Rahu→Ketu · {ketuArcCount} on Ketu→Rahu
@@ -370,7 +370,7 @@ export default function KaalSarpDoshaClient() {
 
             <div className="mt-4">
               <h3 className="text-sm font-bold text-[#F5F1E8]">Planet distribution</h3>
-              <ul className="mt-2 divide-y divide-[#C9A227]/20 rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F]">
+              <ul className="mt-2 divide-y divide-[#b18d4f]/20 rounded-xl border border-[#b18d4f]/20 bg-[#09142a]">
                 {result.planetPositions.map((p) => (
                   <li
                     key={p.name}

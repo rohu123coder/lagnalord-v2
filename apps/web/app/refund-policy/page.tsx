@@ -69,26 +69,26 @@ export default function RefundPolicyPage() {
   const sections = getSections(tenant.contact.supportEmail);
 
   return (
-    <div className="min-h-screen scroll-smooth bg-[#0A1A2F] text-[#F5F1E8]">
+    <div className="min-h-screen scroll-smooth bg-[#09142a] text-[#F5F1E8]">
       <Navbar />
 
-      <main className="border-b border-[#C9A227]/20">
+      <main className="border-b border-[#b18d4f]/20">
         <div className="mx-auto max-w-[1200px] px-4 py-12 md:px-8 md:py-16">
-          <h1 className="text-3xl font-extrabold text-[#E0C158] md:text-4xl">Refund Policy</h1>
+          <h1 className="text-3xl font-extrabold text-[#C8AC80] md:text-4xl">Refund Policy</h1>
           <p className="mt-3 max-w-3xl text-sm leading-7 text-[#C7C2B4]">
             Our refund process is designed to be fair and transparent for wallet recharges and
             technical service issues.
           </p>
 
           <div className="mt-8 grid gap-8 lg:grid-cols-[260px_1fr]">
-            <aside className="h-fit rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-4 lg:sticky lg:top-24">
+            <aside className="h-fit rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-4 lg:sticky lg:top-24">
               <p className="text-xs font-semibold uppercase tracking-wider text-[#C7C2B4]">On this page</p>
               <nav className="mt-3 space-y-2">
                 {sections.map((section) => (
                   <Link
                     key={section.id}
                     href={`#${section.id}`}
-                    className="block text-sm text-[#C7C2B4] transition hover:text-[#E0C158]"
+                    className="block text-sm text-[#C7C2B4] transition hover:text-[#C8AC80]"
                   >
                     {section.title}
                   </Link>
@@ -101,13 +101,13 @@ export default function RefundPolicyPage() {
                 <section
                   id={section.id}
                   key={section.id}
-                  className="scroll-mt-24 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6"
+                  className="scroll-mt-24 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6"
                 >
-                  <h2 className="text-xl font-bold text-[#E0C158]">{section.title}</h2>
+                  <h2 className="text-xl font-bold text-[#C8AC80]">{section.title}</h2>
                   <ul className="mt-3 space-y-2 text-sm leading-7 text-[#C7C2B4]">
                     {section.items.map((item) => (
                       <li key={item} className="flex gap-2">
-                        <span className="text-[#E0C158]">•</span>
+                        <span className="text-[#C8AC80]">•</span>
                         <span>{item}</span>
                       </li>
                     ))}

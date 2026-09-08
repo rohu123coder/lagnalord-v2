@@ -44,8 +44,8 @@ export default function AstrologerPendingPage() {
 
   if (!mounted) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0A1A2F]">
-        <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#C9A227] border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-[#09142a]">
+        <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#b18d4f] border-t-transparent" />
       </div>
     );
   }
@@ -54,7 +54,7 @@ export default function AstrologerPendingPage() {
   const email = details?.email ?? "your email";
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] to-[#0F2240]">
+    <div className="min-h-screen bg-gradient-to-b from-[#09142a] to-[#0E1C3B]">
       <div className="mx-auto flex max-w-xl flex-col px-4 py-12 sm:px-6">
         <h1 className="text-2xl font-bold text-[#F5F1E8]">
           Application Submitted
@@ -66,13 +66,13 @@ export default function AstrologerPendingPage() {
           This usually takes 24-48 hours.
         </p>
 
-        <div className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+        <div className="mt-8 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-sm">
           <h2 className="text-sm font-semibold text-[#F5F1E8]">
             Submitted details
           </h2>
 
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            <div className="rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3">
+            <div className="rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3">
               <p className="text-xs font-medium uppercase tracking-wide text-[#C7C2B4]">
                 Name
               </p>
@@ -80,7 +80,7 @@ export default function AstrologerPendingPage() {
                 {name}
               </p>
             </div>
-            <div className="rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3">
+            <div className="rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3">
               <p className="text-xs font-medium uppercase tracking-wide text-[#C7C2B4]">
                 Email
               </p>

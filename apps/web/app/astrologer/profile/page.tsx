@@ -199,14 +199,14 @@ export default function AstrologerProfilePage() {
 
   if (!mounted || !isLoggedIn || user?.role !== "astrologer") {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0A1A2F]">
-        <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#C9A227] border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-[#09142a]">
+        <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#b18d4f] border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#0A1A2F]">
+    <div className="min-h-screen bg-[#09142a]">
       <AstrologerNavbar />
 
       {toast ? (
@@ -223,11 +223,11 @@ export default function AstrologerProfilePage() {
 
         {loading ? (
           <div className="mt-12 flex justify-center">
-            <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#C9A227] border-t-transparent" />
+            <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#b18d4f] border-t-transparent" />
           </div>
         ) : (
           <>
-            <section className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+            <section className="mt-8 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-sm">
               <h2 className="text-lg font-semibold text-[#F5F1E8]">
                 Profile photo
               </h2>
@@ -240,10 +240,10 @@ export default function AstrologerProfilePage() {
                   <img
                     src={previewUrl ?? profilePhotoUrl ?? ""}
                     alt=""
-                    className="h-24 w-24 rounded-full object-cover ring-2 ring-[#C9A227]/30"
+                    className="h-24 w-24 rounded-full object-cover ring-2 ring-[#b18d4f]/30"
                   />
                 ) : (
-                  <div className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-[#C9A227] to-[#A6745A] text-2xl font-bold text-[#0A1A2F] ring-2 ring-[#C9A227]/30">
+                  <div className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-[#b18d4f] to-[#A6745A] text-2xl font-bold text-[#09142a] ring-2 ring-[#b18d4f]/30">
                     {photoInitials}
                   </div>
                 )}
@@ -258,7 +258,7 @@ export default function AstrologerProfilePage() {
                   <button
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
-                    className="rounded-xl border border-[#C9A227]/30 px-4 py-2 text-sm font-semibold text-[#C7C2B4] hover:bg-[#0A1A2F]"
+                    className="rounded-xl border border-[#b18d4f]/30 px-4 py-2 text-sm font-semibold text-[#C7C2B4] hover:bg-[#09142a]"
                   >
                     Change Photo
                   </button>
@@ -280,7 +280,7 @@ export default function AstrologerProfilePage() {
             </section>
 
             <form
-            className="mt-8 space-y-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm"
+            className="mt-8 space-y-8 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-sm"
             onSubmit={(e) => {
               e.preventDefault();
               void save();
@@ -294,7 +294,7 @@ export default function AstrologerProfilePage() {
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
                 rows={5}
-                className="mt-2 w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-sm text-[#F5F1E8] outline-none ring-[#C9A227] focus:ring-2"
+                className="mt-2 w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-sm text-[#F5F1E8] outline-none ring-[#b18d4f] focus:ring-2"
                 placeholder="Tell clients about your approach…"
               />
             </div>
@@ -307,7 +307,7 @@ export default function AstrologerProfilePage() {
                 {SPEC_OPTIONS.map((s) => (
                   <label
                     key={s}
-                    className="flex cursor-pointer items-center gap-2 rounded-lg border border-[#C9A227]/20 px-3 py-2 hover:bg-[#0A1A2F]"
+                    className="flex cursor-pointer items-center gap-2 rounded-lg border border-[#b18d4f]/20 px-3 py-2 hover:bg-[#09142a]"
                   >
                     <input
                       type="checkbox"
@@ -315,7 +315,7 @@ export default function AstrologerProfilePage() {
                       onChange={(e) =>
                         setSpecs(toggle(specs, s, e.target.checked))
                       }
-                      className="rounded border-[#C9A227]/40 text-[#C9A227] focus:ring-[#C9A227]"
+                      className="rounded border-[#b18d4f]/40 text-[#b18d4f] focus:ring-[#b18d4f]"
                     />
                     <span className="text-sm text-[#C7C2B4]">{s}</span>
                   </label>
@@ -329,7 +329,7 @@ export default function AstrologerProfilePage() {
                 {LANG_OPTIONS.map((s) => (
                   <label
                     key={s}
-                    className="flex cursor-pointer items-center gap-2 rounded-lg border border-[#C9A227]/20 px-3 py-2 hover:bg-[#0A1A2F]"
+                    className="flex cursor-pointer items-center gap-2 rounded-lg border border-[#b18d4f]/20 px-3 py-2 hover:bg-[#09142a]"
                   >
                     <input
                       type="checkbox"
@@ -337,7 +337,7 @@ export default function AstrologerProfilePage() {
                       onChange={(e) =>
                         setLangs(toggle(langs, s, e.target.checked))
                       }
-                      className="rounded border-[#C9A227]/40 text-[#C9A227] focus:ring-[#C9A227]"
+                      className="rounded border-[#b18d4f]/40 text-[#b18d4f] focus:ring-[#b18d4f]"
                     />
                     <span className="text-sm text-[#C7C2B4]">{s}</span>
                   </label>
@@ -358,7 +358,7 @@ export default function AstrologerProfilePage() {
                   onChange={(e) =>
                     setPrice(Number(e.target.value) || 0)
                   }
-                  className="mt-2 w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-sm text-[#F5F1E8] outline-none ring-[#C9A227] focus:ring-2"
+                  className="mt-2 w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-sm text-[#F5F1E8] outline-none ring-[#b18d4f] focus:ring-2"
                 />
                 <p className="mt-1 text-xs text-[#C7C2B4]/70">Minimum ₹5</p>
               </div>
@@ -376,7 +376,7 @@ export default function AstrologerProfilePage() {
                       Math.max(0, parseInt(e.target.value, 10) || 0)
                     )
                   }
-                  className="mt-2 w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-sm text-[#F5F1E8] outline-none ring-[#C9A227] focus:ring-2"
+                  className="mt-2 w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-sm text-[#F5F1E8] outline-none ring-[#b18d4f] focus:ring-2"
                 />
               </div>
             </div>

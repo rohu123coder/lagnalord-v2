@@ -445,11 +445,11 @@ export default function AstrologerProfilePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#0A1A2F]">
+      <div className="min-h-screen bg-[#09142a]">
         <Navbar />
         <div className="mx-auto max-w-4xl animate-pulse px-4 py-10 sm:px-6">
-          <div className="h-40 rounded-2xl bg-[#0F2240]" />
-          <div className="mt-8 h-64 rounded-2xl bg-[#0F2240]" />
+          <div className="h-40 rounded-2xl bg-[#0E1C3B]" />
+          <div className="mt-8 h-64 rounded-2xl bg-[#0E1C3B]" />
         </div>
       </div>
     );
@@ -457,13 +457,13 @@ export default function AstrologerProfilePage() {
 
   if (error || !data) {
     return (
-      <div className="min-h-screen bg-[#0A1A2F]">
+      <div className="min-h-screen bg-[#09142a]">
         <Navbar />
         <div className="mx-auto max-w-lg px-4 py-20 text-center sm:px-6">
           <p className="text-[#C7C2B4]">{error ?? "Not found"}</p>
           <Link
             href="/astrologers"
-            className="mt-6 inline-block font-semibold text-[#E0C158]"
+            className="mt-6 inline-block font-semibold text-[#C8AC80]"
           >
             ← Back to astrologers
           </Link>
@@ -495,7 +495,7 @@ export default function AstrologerProfilePage() {
   const headerRating = astrologer.rating ?? 0;
 
   return (
-    <div className="min-h-screen bg-[#0A1A2F] pb-28 lg:pb-10">
+    <div className="min-h-screen bg-[#09142a] pb-28 lg:pb-10">
       <Navbar />
 
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
@@ -511,8 +511,8 @@ export default function AstrologerProfilePage() {
         </div>
 
         {waitlistState ? (
-          <section className="mb-6 rounded-2xl border border-[#C9A227]/30 bg-[#C9A227]/10 p-5 shadow-sm">
-            <h2 className="text-lg font-bold text-[#E0C158]">You are in queue</h2>
+          <section className="mb-6 rounded-2xl border border-[#b18d4f]/30 bg-[#b18d4f]/10 p-5 shadow-sm">
+            <h2 className="text-lg font-bold text-[#C8AC80]">You are in queue</h2>
             <p className="mt-2 text-sm text-[#C7C2B4]">
               You are #{waitlistState.position} in queue for{" "}
               {astrologer.user.name}. Estimated wait: ~
@@ -524,14 +524,14 @@ export default function AstrologerProfilePage() {
             <button
               type="button"
               onClick={cancelWaitlist}
-              className="mt-4 rounded-xl border border-[#C9A227]/40 bg-[#0A1A2F] px-4 py-2 text-sm font-semibold text-[#E0C158] hover:bg-[#C9A227]/10"
+              className="mt-4 rounded-xl border border-[#b18d4f]/40 bg-[#09142a] px-4 py-2 text-sm font-semibold text-[#C8AC80] hover:bg-[#b18d4f]/10"
             >
               Cancel Request
             </button>
           </section>
         ) : null}
 
-        <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+        <section className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-sm">
           <div className="flex flex-col gap-6 lg:flex-row">
             <div className="shrink-0">
               {displayPhoto ? (
@@ -542,7 +542,7 @@ export default function AstrologerProfilePage() {
                   className="h-[200px] w-[200px] rounded-2xl object-cover"
                 />
               ) : (
-                <div className="flex h-[200px] w-[200px] items-center justify-center rounded-2xl bg-[#0A1A2F] text-4xl font-bold text-[#E0C158]">
+                <div className="flex h-[200px] w-[200px] items-center justify-center rounded-2xl bg-[#09142a] text-4xl font-bold text-[#C8AC80]">
                   {astrologer.user.name.slice(0, 1).toUpperCase()}
                 </div>
               )}
@@ -601,7 +601,7 @@ export default function AstrologerProfilePage() {
                     }
                     void startChat("voice");
                   }}
-                  className="rounded-full border border-[#C9A227]/40 bg-[#0A1A2F] px-6 py-2.5 text-sm font-semibold text-[#E0C158] disabled:opacity-60"
+                  className="rounded-full border border-[#b18d4f]/40 bg-[#09142a] px-6 py-2.5 text-sm font-semibold text-[#C8AC80] disabled:opacity-60"
                 >
                   Start Call
                 </button>
@@ -615,7 +615,7 @@ export default function AstrologerProfilePage() {
                     }
                     void startChat("video");
                   }}
-                  className="rounded-full border border-[#C9A227]/40 bg-[#0A1A2F] px-6 py-2.5 text-sm font-semibold text-[#E0C158] disabled:opacity-60"
+                  className="rounded-full border border-[#b18d4f]/40 bg-[#09142a] px-6 py-2.5 text-sm font-semibold text-[#C8AC80] disabled:opacity-60"
                 >
                   Start Video
                 </button>
@@ -624,7 +624,7 @@ export default function AstrologerProfilePage() {
           </div>
         </section>
 
-        <section className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+        <section className="mt-8 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-sm">
           <h2 className="text-xl font-bold text-[#F5F1E8]">About me</h2>
           <p className="mt-3 whitespace-pre-wrap text-[#C7C2B4]">
             {astrologer.bio?.trim()
@@ -633,10 +633,10 @@ export default function AstrologerProfilePage() {
           </p>
         </section>
 
-        <section className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+        <section className="mt-8 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-sm">
           <h2 className="text-xl font-bold text-[#F5F1E8]">Rating & Reviews</h2>
           <div className="mt-5 grid gap-6 lg:grid-cols-[340px,1fr]">
-            <div className="rounded-xl border border-[#C9A227]/20 p-4">
+            <div className="rounded-xl border border-[#b18d4f]/20 p-4">
               <p className="text-4xl font-bold text-[#F5F1E8]">
                 {(astrologer.rating ?? 0).toFixed(2)}
               </p>
@@ -654,7 +654,7 @@ export default function AstrologerProfilePage() {
                   return (
                     <div key={star} className="flex items-center gap-2 text-xs text-[#C7C2B4]">
                       <span className="w-4">{star}★</span>
-                      <div className="h-2.5 flex-1 rounded-full bg-[#0A1A2F]">
+                      <div className="h-2.5 flex-1 rounded-full bg-[#09142a]">
                         <div
                           className="h-2.5 rounded-full bg-amber-400"
                           style={{ width: `${Math.max(3, width)}%` }}
@@ -673,7 +673,7 @@ export default function AstrologerProfilePage() {
               ) : (
                 <ul className="space-y-4">
                   {reviews.slice(0, 8).map((r) => (
-                    <li key={r.id} className="rounded-xl border border-[#C9A227]/20 p-4">
+                    <li key={r.id} className="rounded-xl border border-[#b18d4f]/20 p-4">
                       <div className="flex flex-wrap items-center gap-2">
                         <span className="text-sm font-semibold text-[#F5F1E8]">
                           {r.user_name}
@@ -698,7 +698,7 @@ export default function AstrologerProfilePage() {
           </div>
         </section>
 
-        <section className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+        <section className="mt-8 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-sm">
           <h2 className="text-xl font-bold text-[#F5F1E8]">Similar Astrologers</h2>
           <div className="mt-4 flex gap-4 overflow-x-auto pb-2">
             {similarAstrologers.map((a) => (
@@ -706,7 +706,7 @@ export default function AstrologerProfilePage() {
                 key={a.id}
                 type="button"
                 onClick={() => router.push(`/astrologers/${a.id}`)}
-                className="min-w-[220px] rounded-xl border border-[#C9A227]/20 bg-[#0F2240] p-4 text-left transition hover:shadow-sm"
+                className="min-w-[220px] rounded-xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-4 text-left transition hover:shadow-sm"
               >
                 <div className="flex items-center gap-3">
                   {a.profile_photo_url || a.avatar_url ? (
@@ -717,7 +717,7 @@ export default function AstrologerProfilePage() {
                       className="h-12 w-12 rounded-full object-cover"
                     />
                   ) : (
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0A1A2F] font-bold text-[#E0C158]">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#09142a] font-bold text-[#C8AC80]">
                       {a.name.slice(0, 1).toUpperCase()}
                     </div>
                   )}
@@ -740,7 +740,7 @@ export default function AstrologerProfilePage() {
         </section>
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 border-t border-[#C9A227]/20 bg-[#0F2240]/95 p-4 backdrop-blur lg:hidden">
+      <div className="fixed bottom-0 left-0 right-0 border-t border-[#b18d4f]/20 bg-[#0E1C3B]/95 p-4 backdrop-blur lg:hidden">
         <div className="grid grid-cols-3 gap-2">
           <button
             type="button"
@@ -766,7 +766,7 @@ export default function AstrologerProfilePage() {
               }
               void startChat("voice");
             }}
-            className="rounded-xl border border-[#C9A227]/30 bg-[#0A1A2F]/70 py-3.5 text-sm font-bold text-[#E0C158] shadow-sm transition hover:bg-[#0A1A2F] disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-xl border border-[#b18d4f]/30 bg-[#09142a]/70 py-3.5 text-sm font-bold text-[#C8AC80] shadow-sm transition hover:bg-[#09142a] disabled:cursor-not-allowed disabled:opacity-50"
           >
             {chatLoading ? "…" : "Voice"}
           </button>
@@ -780,7 +780,7 @@ export default function AstrologerProfilePage() {
               }
               void startChat("video");
             }}
-            className="rounded-xl border border-[#C9A227]/30 bg-[#0A1A2F]/70 py-3.5 text-sm font-bold text-[#E0C158] shadow-sm transition hover:bg-[#0A1A2F] disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-xl border border-[#b18d4f]/30 bg-[#09142a]/70 py-3.5 text-sm font-bold text-[#C8AC80] shadow-sm transition hover:bg-[#09142a] disabled:cursor-not-allowed disabled:opacity-50"
           >
             {chatLoading ? "…" : "Video"}
           </button>
@@ -789,7 +789,7 @@ export default function AstrologerProfilePage() {
 
       {busyPromptOpen ? (
         <div className="fixed inset-0 z-[85] flex items-end justify-center bg-black/40 p-4 sm:items-center">
-          <div className="w-full max-w-md rounded-2xl bg-[#0F2240] p-6 shadow-2xl">
+          <div className="w-full max-w-md rounded-2xl bg-[#0E1C3B] p-6 shadow-2xl">
             <h2 className="text-lg font-bold text-[#F5F1E8]">Astrologer is busy</h2>
             <p className="mt-2 text-sm text-[#C7C2B4]">
               This astrologer is in another active session.
@@ -801,7 +801,7 @@ export default function AstrologerProfilePage() {
             <div className="mt-5 flex gap-3">
               <button
                 type="button"
-                className="flex-1 rounded-xl border border-[#C9A227]/30 py-2.5 text-sm font-semibold text-[#C7C2B4]"
+                className="flex-1 rounded-xl border border-[#b18d4f]/30 py-2.5 text-sm font-semibold text-[#C7C2B4]"
                 onClick={() => setBusyPromptOpen(false)}
               >
                 Not now
@@ -821,14 +821,14 @@ export default function AstrologerProfilePage() {
 
       {rechargeOpen ? (
         <div className="fixed inset-0 z-[80] flex items-end justify-center bg-black/40 p-4 sm:items-center">
-          <div className="w-full max-w-md rounded-2xl bg-[#0F2240] p-6 shadow-2xl">
+          <div className="w-full max-w-md rounded-2xl bg-[#0E1C3B] p-6 shadow-2xl">
             <div className="flex items-start justify-between gap-4">
               <h2 className="text-lg font-bold text-[#F5F1E8]">
                 Wallet balance low
               </h2>
               <button
                 type="button"
-                className="text-[#C7C2B4] hover:text-[#E0C158]"
+                className="text-[#C7C2B4] hover:text-[#C8AC80]"
                 onClick={() => setRechargeOpen(false)}
                 aria-label="Close"
               >
@@ -848,7 +848,7 @@ export default function AstrologerProfilePage() {
             </div>
             <button
               type="button"
-              className="mt-4 w-full rounded-xl border border-[#C9A227]/30 py-2 text-sm font-semibold text-[#C7C2B4]"
+              className="mt-4 w-full rounded-xl border border-[#b18d4f]/30 py-2 text-sm font-semibold text-[#C7C2B4]"
               onClick={() => setRechargeOpen(false)}
             >
               Close
@@ -859,12 +859,12 @@ export default function AstrologerProfilePage() {
 
       {queueTurn ? (
         <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-md rounded-2xl bg-[#0F2240] p-6 shadow-2xl">
+          <div className="w-full max-w-md rounded-2xl bg-[#0E1C3B] p-6 shadow-2xl">
             <h2 className="text-lg font-bold text-[#F5F1E8]">Your turn!</h2>
             <p className="mt-2 text-sm text-[#C7C2B4]">
               Connecting to {queueTurn.astrologerName}...
             </p>
-            <p className="mt-4 text-center text-3xl font-bold text-[#E0C158]">
+            <p className="mt-4 text-center text-3xl font-bold text-[#C8AC80]">
               {queueTurn.countdown}
             </p>
             <button

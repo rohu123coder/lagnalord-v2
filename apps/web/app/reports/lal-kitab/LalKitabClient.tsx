@@ -33,7 +33,7 @@ type LalKitabResult = {
 };
 
 const fieldClass =
-  "w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:border-[#C9A227] focus:ring-[#C9A227]";
+  "w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:border-[#b18d4f] focus:ring-[#b18d4f]";
 
 const SAFE_REMEDIES = [
   "In the morning, place a little jaggery or grain where birds can find it. Keep the amount small and the habit regular.",
@@ -174,7 +174,7 @@ export default function LalKitabClient() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] via-[#0F2240] to-[#0A1A2F]">
+    <div className="min-h-screen bg-gradient-to-b from-[#09142a] via-[#0E1C3B] to-[#09142a]">
       <Navbar />
       <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
         <h1 className="text-3xl font-extrabold text-[#F5F1E8]">Lal Kitab Report</h1>
@@ -198,7 +198,7 @@ export default function LalKitabClient() {
           </p>
         </div>
 
-        <section className="mt-6 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm">
+        <section className="mt-6 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-5 shadow-sm">
           <div className="space-y-3">
             <div>
               <label htmlFor="lk-dob" className="mb-1.5 block text-sm font-medium text-[#C7C2B4]">
@@ -240,7 +240,7 @@ export default function LalKitabClient() {
                   className={fieldClass}
                 />
                 {geoLoading ? (
-                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[#E0C158]">
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[#C8AC80]">
                     <Spinner className="h-5 w-5" />
                   </div>
                 ) : null}
@@ -251,14 +251,14 @@ export default function LalKitabClient() {
                 </p>
               ) : null}
               {showSuggest && suggestions.length > 0 ? (
-                <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#C9A227]/20 bg-[#0F2240] py-1 shadow-lg">
+                <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#b18d4f]/20 bg-[#0E1C3B] py-1 shadow-lg">
                   {suggestions.map((s, i) => {
                     const line = [s.city, s.country].filter(Boolean).join(", ");
                     return (
                       <li key={`${s.formattedAddress}-${i}`}>
                         <button
                           type="button"
-                          className="w-full px-4 py-2.5 text-left text-sm text-[#F5F1E8] hover:bg-[#0A1A2F]"
+                          className="w-full px-4 py-2.5 text-left text-sm text-[#F5F1E8] hover:bg-[#09142a]"
                           onClick={() => {
                             setPlace(s.formattedAddress || line);
                             setLat(s.lat!);
@@ -301,7 +301,7 @@ export default function LalKitabClient() {
 
         {result ? (
           <section className="mt-6 space-y-4">
-            <div className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm">
+            <div className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-5 shadow-sm">
               <h2 className="text-xl font-bold text-[#F5F1E8]">
                 Kaal Purush house grid
               </h2>
@@ -314,9 +314,9 @@ export default function LalKitabClient() {
                 {result.houses.map((house) => (
                   <div
                     key={house.houseNumber}
-                    className="rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-3 py-2.5"
+                    className="rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-3 py-2.5"
                   >
-                    <p className="text-xs font-semibold text-[#E0C158]">
+                    <p className="text-xs font-semibold text-[#C8AC80]">
                       House {house.houseNumber}
                     </p>
                     <p className="text-xs text-[#C7C2B4]">{house.sign}</p>
@@ -328,9 +328,9 @@ export default function LalKitabClient() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm">
+            <div className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-5 shadow-sm">
               <h2 className="text-xl font-bold text-[#F5F1E8]">Planet notes</h2>
-              <ul className="mt-3 divide-y divide-[#C9A227]/20 rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F]">
+              <ul className="mt-3 divide-y divide-[#b18d4f]/20 rounded-xl border border-[#b18d4f]/20 bg-[#09142a]">
                 {result.planetDetails.map((planet) => (
                   <li key={planet.name} className="px-3 py-3 text-sm">
                     <div className="flex flex-wrap items-center justify-between gap-2">

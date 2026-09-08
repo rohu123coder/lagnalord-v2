@@ -130,10 +130,10 @@ export default function AiAstrologerProfilePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#0A1A2F]">
+      <div className="min-h-screen bg-[#09142a]">
         <Navbar />
         <div className="mx-auto max-w-4xl animate-pulse px-4 py-10 sm:px-6">
-          <div className="h-40 rounded-2xl bg-[#0F2240]" />
+          <div className="h-40 rounded-2xl bg-[#0E1C3B]" />
         </div>
       </div>
     );
@@ -141,11 +141,11 @@ export default function AiAstrologerProfilePage() {
 
   if (!persona) {
     return (
-      <div className="min-h-screen bg-[#0A1A2F]">
+      <div className="min-h-screen bg-[#09142a]">
         <Navbar />
         <div className="mx-auto max-w-lg px-4 py-20 text-center sm:px-6">
           <p className="text-[#C7C2B4]">{error ?? "Not found"}</p>
-          <Link href="/" className="mt-6 inline-block font-semibold text-[#E0C158]">
+          <Link href="/" className="mt-6 inline-block font-semibold text-[#C8AC80]">
             ← Back to home
           </Link>
         </div>
@@ -154,17 +154,17 @@ export default function AiAstrologerProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0A1A2F] pb-16">
+    <div className="min-h-screen bg-[#09142a] pb-16">
       <Navbar />
       <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-10">
         <div className="mb-4 text-sm text-[#C7C2B4]">
-          <Link href="/" className="hover:text-[#E0C158]">
+          <Link href="/" className="hover:text-[#C8AC80]">
             Home
           </Link>{" "}
           &gt; <span>{persona.name}&apos;s Profile</span>
         </div>
 
-        <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+        <section className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-sm">
           <div className="flex flex-col gap-6 sm:flex-row">
             <div className="shrink-0">
               {persona.photo_url ? (
@@ -174,7 +174,7 @@ export default function AiAstrologerProfilePage() {
                   className="h-[160px] w-[160px] rounded-2xl object-cover"
                 />
               ) : (
-                <div className="flex h-[160px] w-[160px] items-center justify-center rounded-2xl bg-[#0A1A2F] text-5xl">
+                <div className="flex h-[160px] w-[160px] items-center justify-center rounded-2xl bg-[#09142a] text-5xl">
                   {persona.emoji}
                 </div>
               )}

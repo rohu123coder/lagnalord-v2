@@ -30,7 +30,7 @@ export function Footer() {
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="flex flex-col items-start justify-between gap-8 border-b border-slate-800 pb-8 md:flex-row">
           <div>
-            <p className="text-xl font-bold text-[#C9A227]">
+            <p className="text-xl font-bold text-[#b18d4f]">
               ✨ {tenant.logo.text}
             </p>
             <p className="mt-2 text-sm text-slate-400">

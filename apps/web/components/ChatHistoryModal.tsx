@@ -35,8 +35,8 @@ export function ChatHistoryModal({
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 p-4">
-      <div className="flex h-[min(86vh,760px)] w-full max-w-3xl flex-col rounded-2xl bg-[#0F2240] shadow-2xl">
-        <div className="flex items-center justify-between border-b border-[#C9A227]/10 px-5 py-4">
+      <div className="flex h-[min(86vh,760px)] w-full max-w-3xl flex-col rounded-2xl bg-[#0E1C3B] shadow-2xl">
+        <div className="flex items-center justify-between border-b border-[#b18d4f]/10 px-5 py-4">
           <div>
             <h2 className="text-lg font-bold text-[#F5F1E8]">Chat History</h2>
             <p className="text-sm text-[#C7C2B4]">
@@ -45,7 +45,7 @@ export function ChatHistoryModal({
           </div>
           <button
             type="button"
-            className="rounded-lg p-2 text-[#C7C2B4] hover:bg-[#0A1A2F]"
+            className="rounded-lg p-2 text-[#C7C2B4] hover:bg-[#09142a]"
             onClick={onClose}
             aria-label="Close"
           >
@@ -53,11 +53,11 @@ export function ChatHistoryModal({
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto bg-[#0A1A2F] px-4 py-4">
+        <div className="flex-1 overflow-y-auto bg-[#09142a] px-4 py-4">
           {loading ? (
             <div className="space-y-2">
               {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="h-10 animate-pulse rounded bg-[#0F2240]" />
+                <div key={i} className="h-10 animate-pulse rounded bg-[#0E1C3B]" />
               ))}
             </div>
           ) : messages.length === 0 ? (
@@ -77,7 +77,7 @@ export function ChatHistoryModal({
                       className={`max-w-[82%] rounded-2xl px-4 py-2 text-sm ${
                         mine
                           ? "rounded-br-md bg-gradient-to-br from-[#2A7D7B] to-[#3A9D9B] text-white"
-                          : "rounded-bl-md bg-[#0F2240] text-[#F5F1E8]"
+                          : "rounded-bl-md bg-[#0E1C3B] text-[#F5F1E8]"
                       }`}
                     >
                       <p className="whitespace-pre-wrap">{m.content}</p>
@@ -99,7 +99,7 @@ export function ChatHistoryModal({
           )}
         </div>
 
-        <div className="flex flex-wrap gap-2 border-t border-[#C9A227]/10 px-5 py-4">
+        <div className="flex flex-wrap gap-2 border-t border-[#b18d4f]/10 px-5 py-4">
           <button
             type="button"
             className="rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-4 py-2.5 text-sm font-semibold text-white"
@@ -110,7 +110,7 @@ export function ChatHistoryModal({
           {!rated ? (
             <button
               type="button"
-              className="rounded-xl border border-[#C9A227]/30 px-4 py-2.5 text-sm font-semibold text-[#C7C2B4]"
+              className="rounded-xl border border-[#b18d4f]/30 px-4 py-2.5 text-sm font-semibold text-[#C7C2B4]"
               onClick={onRateSession}
             >
               Rate Session

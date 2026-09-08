@@ -86,32 +86,32 @@ export default function ContactPage() {
   const faqs = getFaqs(supportEmail);
 
   return (
-    <div className="min-h-screen bg-[#0A1A2F] text-[#F5F1E8]">
+    <div className="min-h-screen bg-[#09142a] text-[#F5F1E8]">
       <Navbar />
 
       <main>
-        <section className="border-b border-[#C9A227]/20">
+        <section className="border-b border-[#b18d4f]/20">
           <div className="mx-auto max-w-[1200px] px-4 py-14 md:px-8 md:py-16">
-            <h1 className="text-3xl font-extrabold text-[#E0C158] md:text-5xl">Contact Us</h1>
+            <h1 className="text-3xl font-extrabold text-[#C8AC80] md:text-5xl">Contact Us</h1>
             <p className="mt-3 text-base text-[#C7C2B4] md:text-lg">We&apos;re here to help you</p>
           </div>
         </section>
 
-        <section className="border-b border-[#C9A227]/20">
+        <section className="border-b border-[#b18d4f]/20">
           <div className="mx-auto grid max-w-[1200px] gap-8 px-4 py-12 md:grid-cols-2 md:px-8 md:py-16">
             <div className="space-y-4">
               {contactCards.map((card) => (
-                <article key={card.title} className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5">
+                <article key={card.title} className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-5">
                   <div className="flex items-start gap-4">
                     <span className="text-2xl">{card.icon}</span>
                     <div className="min-w-0">
-                      <h2 className="text-lg font-bold text-[#E0C158]">{card.title}</h2>
+                      <h2 className="text-lg font-bold text-[#C8AC80]">{card.title}</h2>
                       {card.href ? (
                         <Link
                           href={card.href}
                           target={card.href.startsWith("http") ? "_blank" : undefined}
                           rel={card.href.startsWith("http") ? "noreferrer" : undefined}
-                          className="mt-1 block text-sm font-medium text-[#F5F1E8] hover:text-[#E0C158]"
+                          className="mt-1 block text-sm font-medium text-[#F5F1E8] hover:text-[#C8AC80]"
                         >
                           {card.value}
                         </Link>
@@ -133,8 +133,8 @@ export default function ContactPage() {
               ))}
             </div>
 
-            <div className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 md:p-7">
-              <h2 className="text-xl font-bold text-[#E0C158]">Send us a message</h2>
+            <div className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 md:p-7">
+              <h2 className="text-xl font-bold text-[#C8AC80]">Send us a message</h2>
               <form
                 className="mt-5 space-y-4"
                 action={`mailto:${supportEmail}`}
@@ -150,7 +150,7 @@ export default function ContactPage() {
                     name="name"
                     type="text"
                     required
-                    className="w-full rounded-lg border border-[#C9A227]/30 bg-[#0A1A2F] px-3 py-2.5 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227]"
+                    className="w-full rounded-lg border border-[#b18d4f]/30 bg-[#09142a] px-3 py-2.5 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f]"
                   />
                 </div>
                 <div>
@@ -162,7 +162,7 @@ export default function ContactPage() {
                     name="email"
                     type="email"
                     required
-                    className="w-full rounded-lg border border-[#C9A227]/30 bg-[#0A1A2F] px-3 py-2.5 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227]"
+                    className="w-full rounded-lg border border-[#b18d4f]/30 bg-[#09142a] px-3 py-2.5 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f]"
                   />
                 </div>
                 <div>
@@ -173,7 +173,7 @@ export default function ContactPage() {
                     id="phone"
                     name="phone"
                     type="tel"
-                    className="w-full rounded-lg border border-[#C9A227]/30 bg-[#0A1A2F] px-3 py-2.5 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227]"
+                    className="w-full rounded-lg border border-[#b18d4f]/30 bg-[#09142a] px-3 py-2.5 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f]"
                   />
                 </div>
                 <div>
@@ -184,7 +184,7 @@ export default function ContactPage() {
                     id="subject"
                     name="subject"
                     required
-                    className="w-full rounded-lg border border-[#C9A227]/30 bg-[#0A1A2F] px-3 py-2.5 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227]"
+                    className="w-full rounded-lg border border-[#b18d4f]/30 bg-[#09142a] px-3 py-2.5 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f]"
                     defaultValue="General Inquiry"
                   >
                     <option>General Inquiry</option>
@@ -203,7 +203,7 @@ export default function ContactPage() {
                     name="message"
                     rows={5}
                     required
-                    className="w-full rounded-lg border border-[#C9A227]/30 bg-[#0A1A2F] px-3 py-2.5 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227]"
+                    className="w-full rounded-lg border border-[#b18d4f]/30 bg-[#09142a] px-3 py-2.5 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f]"
                   />
                 </div>
                 <button
@@ -219,10 +219,10 @@ export default function ContactPage() {
 
         <section>
           <div className="mx-auto max-w-[1200px] px-4 py-12 md:px-8 md:py-16">
-            <h2 className="text-2xl font-bold text-[#E0C158] md:text-3xl">Frequently Asked Questions</h2>
+            <h2 className="text-2xl font-bold text-[#C8AC80] md:text-3xl">Frequently Asked Questions</h2>
             <div className="mt-6 space-y-3">
               {faqs.map((faq) => (
-                <details key={faq.question} className="rounded-xl border border-[#C9A227]/20 bg-[#0F2240] p-4">
+                <details key={faq.question} className="rounded-xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-4">
                   <summary className="cursor-pointer list-none text-sm font-semibold text-[#F5F1E8]">
                     {faq.question}
                   </summary>

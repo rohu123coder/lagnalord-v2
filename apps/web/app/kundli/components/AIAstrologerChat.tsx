@@ -132,7 +132,7 @@ export function AIAstrologerChat({
   };
 
   return (
-    <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md print:hidden">
+    <section className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-md print:hidden">
       <div className="mb-4">
         <h2 className="text-xl font-bold text-[#F5F1E8]">🔮 AI Astrologer</h2>
         <p className="mt-1 text-sm text-[#C7C2B4]">
@@ -141,13 +141,13 @@ export function AIAstrologerChat({
       </div>
 
       {!user ? (
-        <div className="rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] p-6 text-center">
+        <div className="rounded-xl border border-[#b18d4f]/20 bg-[#09142a] p-6 text-center">
           <p className="text-sm text-[#C7C2B4]">
             AI Astrologer se baat karne ke liye login karna zaroori hai.
           </p>
           <a
             href="/login"
-            className="mt-3 inline-block rounded-lg bg-gradient-to-r from-[#C9A227] to-[#E0C158] px-5 py-2.5 text-sm font-semibold text-[#0A1A2F] transition hover:opacity-95"
+            className="mt-3 inline-block rounded-lg bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-5 py-2.5 text-sm font-semibold text-[#09142a] transition hover:opacity-95"
           >
             Login karein
           </a>
@@ -156,7 +156,7 @@ export function AIAstrologerChat({
         personasLoading ? (
           <div className="grid gap-3 sm:grid-cols-2">
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="h-24 animate-pulse rounded-xl bg-[#0A1A2F]" />
+              <div key={i} className="h-24 animate-pulse rounded-xl bg-[#09142a]" />
             ))}
           </div>
         ) : (
@@ -166,7 +166,7 @@ export function AIAstrologerChat({
                 key={p.id}
                 type="button"
                 onClick={() => selectPersona(p)}
-                className="rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] p-4 text-left transition hover:border-[#C9A227] hover:bg-[#0A1A2F]/70"
+                className="rounded-xl border border-[#b18d4f]/20 bg-[#09142a] p-4 text-left transition hover:border-[#b18d4f] hover:bg-[#09142a]/70"
               >
                 <div className="flex items-center gap-3">
                   <span className="text-3xl">{p.emoji}</span>
@@ -184,7 +184,7 @@ export function AIAstrologerChat({
           <div className="mb-3 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="text-2xl">{activePersona.emoji}</span>
-              <span className="font-semibold text-[#E0C158]">{activePersona.name}</span>
+              <span className="font-semibold text-[#C8AC80]">{activePersona.name}</span>
             </div>
             <button
               type="button"
@@ -192,7 +192,7 @@ export function AIAstrologerChat({
                 setActivePersona(null);
                 setMessages([]);
               }}
-              className="text-xs font-medium text-[#C7C2B4] hover:text-[#E0C158]"
+              className="text-xs font-medium text-[#C7C2B4] hover:text-[#C8AC80]"
             >
               Change astrologer
             </button>
@@ -200,7 +200,7 @@ export function AIAstrologerChat({
 
           <div
             ref={scrollRef}
-            className="mb-3 flex max-h-[420px] min-h-[240px] flex-col gap-3 overflow-y-auto rounded-xl border border-[#C9A227]/10 bg-[#0A1A2F] p-4"
+            className="mb-3 flex max-h-[420px] min-h-[240px] flex-col gap-3 overflow-y-auto rounded-xl border border-[#b18d4f]/10 bg-[#09142a] p-4"
           >
             {messages.map((m, idx) => (
               <div
@@ -211,7 +211,7 @@ export function AIAstrologerChat({
                   className={`max-w-[85%] whitespace-pre-wrap rounded-2xl px-4 py-2 text-sm ${
                     m.role === "user"
                       ? "rounded-br-md bg-gradient-to-br from-[#2A7D7B] to-[#3A9D9B] text-white"
-                      : "rounded-bl-md bg-[#0F2240] text-[#F5F1E8]"
+                      : "rounded-bl-md bg-[#0E1C3B] text-[#F5F1E8]"
                   }`}
                 >
                   {m.text}
@@ -220,7 +220,7 @@ export function AIAstrologerChat({
             ))}
             {sending ? (
               <div className="flex justify-start">
-                <div className="rounded-2xl rounded-bl-md bg-[#0F2240] px-4 py-2 text-sm text-[#C7C2B4]">
+                <div className="rounded-2xl rounded-bl-md bg-[#0E1C3B] px-4 py-2 text-sm text-[#C7C2B4]">
                   {activePersona.name} type kar rahe hain…
                 </div>
               </div>
@@ -244,7 +244,7 @@ export function AIAstrologerChat({
               }}
               placeholder="Apna sawaal poochiye…"
               disabled={sending}
-              className="flex-1 rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-2.5 text-sm text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-2 focus:ring-[#C9A227]/30 disabled:opacity-60"
+              className="flex-1 rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-2.5 text-sm text-[#F5F1E8] outline-none focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30 disabled:opacity-60"
             />
             <button
               type="button"

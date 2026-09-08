@@ -536,24 +536,24 @@ export function AstrologerChatClient({ sessionId }: Props) {
       return `${base} bg-amber-50 text-amber-800 ring-1 ring-amber-100`;
     }
     if (status === "ended") {
-      return `${base} bg-[#0F2240] text-[#C7C2B4] ring-1 ring-[#C9A227]/20`;
+      return `${base} bg-[#0E1C3B] text-[#C7C2B4] ring-1 ring-[#b18d4f]/20`;
     }
     if (status === "cancelled") {
       return `${base} bg-rose-50 text-rose-700 ring-1 ring-rose-100`;
     }
-    return `${base} bg-[#C9A227]/10 text-[#E0C158] ring-1 ring-[#C9A227]/30`;
+    return `${base} bg-[#b18d4f]/10 text-[#C8AC80] ring-1 ring-[#b18d4f]/30`;
   }, [status]);
 
   if (!mounted || !isLoggedIn || user?.role !== "astrologer") {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0A1A2F]">
-        <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#C9A227] border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-[#09142a]">
+        <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#b18d4f] border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#0A1A2F]">
+    <div className="flex min-h-screen flex-col bg-[#09142a]">
       <AstrologerNavbar />
 
       {toast ? (
@@ -562,7 +562,7 @@ export function AstrologerChatClient({ sessionId }: Props) {
         </div>
       ) : null}
 
-      <header className="sticky top-16 z-10 border-b border-[#C9A227]/20 bg-[#0F2240] px-4 py-3 shadow-sm sm:px-6">
+      <header className="sticky top-16 z-10 border-b border-[#b18d4f]/20 bg-[#0E1C3B] px-4 py-3 shadow-sm sm:px-6">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3">
           <div>
             <h1 className="text-lg font-bold text-[#F5F1E8]">{peerName}</h1>
@@ -583,7 +583,7 @@ export function AstrologerChatClient({ sessionId }: Props) {
                   type="button"
                   onClick={() => initiateCall("voice")}
                   disabled={!!callUi || callInitiated}
-                  className="rounded-xl border border-[#C9A227]/30 bg-[#0A1A2F]/70 px-3 py-2 text-sm font-semibold text-[#E0C158] transition hover:bg-[#0A1A2F] disabled:cursor-not-allowed disabled:opacity-50"
+                  className="rounded-xl border border-[#b18d4f]/30 bg-[#09142a]/70 px-3 py-2 text-sm font-semibold text-[#C8AC80] transition hover:bg-[#09142a] disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <span className="mr-2" aria-hidden>
                     📞
@@ -594,7 +594,7 @@ export function AstrologerChatClient({ sessionId }: Props) {
                   type="button"
                   onClick={() => initiateCall("video")}
                   disabled={!!callUi || callInitiated}
-                  className="rounded-xl border border-[#C9A227]/30 bg-[#0A1A2F]/70 px-3 py-2 text-sm font-semibold text-[#E0C158] transition hover:bg-[#0A1A2F] disabled:cursor-not-allowed disabled:opacity-50"
+                  className="rounded-xl border border-[#b18d4f]/30 bg-[#09142a]/70 px-3 py-2 text-sm font-semibold text-[#C8AC80] transition hover:bg-[#09142a] disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <span className="mr-2" aria-hidden>
                     📹
@@ -604,7 +604,7 @@ export function AstrologerChatClient({ sessionId }: Props) {
               </>
             ) : null}
             {callInitiated ? (
-              <span className="text-xs font-semibold text-[#E0C158]">Calling...</span>
+              <span className="text-xs font-semibold text-[#C8AC80]">Calling...</span>
             ) : null}
             <button
               type="button"
@@ -624,7 +624,7 @@ export function AstrologerChatClient({ sessionId }: Props) {
 
       <div className="mx-auto flex w-full max-w-7xl flex-1 gap-4 px-2 pb-28 pt-4 sm:px-4">
       <main className="flex min-w-0 flex-1 flex-col">
-        <section className="mb-3 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-3 shadow-sm">
+        <section className="mb-3 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-3 shadow-sm">
           <button
             type="button"
             onClick={() => setWaitlistCollapsed((prev) => !prev)}
@@ -643,7 +643,7 @@ export function AstrologerChatClient({ sessionId }: Props) {
                 {waitlistQueue.map((entry) => (
                   <li
                     key={entry.waitlistId}
-                    className="flex items-center justify-between rounded-xl border border-[#C9A227]/20 px-3 py-2"
+                    className="flex items-center justify-between rounded-xl border border-[#b18d4f]/20 px-3 py-2"
                   >
                     <p className="text-xs font-semibold text-[#F5F1E8]">
                       #{entry.position} {entry.userName}
@@ -673,7 +673,7 @@ export function AstrologerChatClient({ sessionId }: Props) {
 
         <div
           ref={listRef}
-          className="flex-1 space-y-3 overflow-y-auto rounded-2xl border border-[#C9A227]/20 bg-[#0F2240]/80 p-4 shadow-inner"
+          className="flex-1 space-y-3 overflow-y-auto rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B]/80 p-4 shadow-inner"
           style={{ maxHeight: "calc(100vh - 14rem)" }}
         >
           {messages.length === 0 ? (
@@ -692,7 +692,7 @@ export function AstrologerChatClient({ sessionId }: Props) {
                   className={`max-w-[85%] rounded-2xl px-4 py-2 text-sm shadow-sm ${
                     mine
                       ? "rounded-br-md bg-gradient-to-br from-[#2A7D7B] to-[#3A9D9B] text-white"
-                      : "rounded-bl-md bg-[#0A1A2F] text-[#F5F1E8]"
+                      : "rounded-bl-md bg-[#09142a] text-[#F5F1E8]"
                   }`}
                 >
                   <p className="whitespace-pre-wrap">{m.content}</p>
@@ -715,7 +715,7 @@ export function AstrologerChatClient({ sessionId }: Props) {
           ) : null}
         </div>
 
-        <div className="fixed bottom-0 left-0 right-0 border-t border-[#C9A227]/20 bg-[#0F2240]/95 p-3 backdrop-blur sm:static sm:mt-4 sm:border-0 sm:bg-transparent sm:p-0">
+        <div className="fixed bottom-0 left-0 right-0 border-t border-[#b18d4f]/20 bg-[#0E1C3B]/95 p-3 backdrop-blur sm:static sm:mt-4 sm:border-0 sm:bg-transparent sm:p-0">
           <div className="mx-auto flex max-w-3xl gap-2">
             <input
               type="text"
@@ -734,7 +734,7 @@ export function AstrologerChatClient({ sessionId }: Props) {
               placeholder={
                 status === "active" ? "Type a message…" : "Chat not active yet"
               }
-              className="flex-1 rounded-2xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-sm text-[#F5F1E8] outline-none ring-[#C9A227] focus:ring-2 disabled:bg-[#0F2240]/50"
+              className="flex-1 rounded-2xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-sm text-[#F5F1E8] outline-none ring-[#b18d4f] focus:ring-2 disabled:bg-[#0E1C3B]/50"
             />
             <button
               type="button"
@@ -749,8 +749,8 @@ export function AstrologerChatClient({ sessionId }: Props) {
       </main>
 
         <aside className="hidden w-80 flex-shrink-0 lg:block xl:w-96">
-          <div className="sticky top-24 flex max-h-[calc(100vh-7rem)] flex-col overflow-hidden rounded-lg border border-[#C9A227]/20 bg-[#0F2240] shadow-sm">
-            <div className="bg-gradient-to-r from-[#0A1A2F] to-[#2A7D7B] px-4 py-3 font-semibold text-white">
+          <div className="sticky top-24 flex max-h-[calc(100vh-7rem)] flex-col overflow-hidden rounded-lg border border-[#b18d4f]/20 bg-[#0E1C3B] shadow-sm">
+            <div className="bg-gradient-to-r from-[#09142a] to-[#2A7D7B] px-4 py-3 font-semibold text-white">
               🔮 Customer Kundali
             </div>
             <div className="flex-1 overflow-y-auto">
@@ -768,7 +768,7 @@ export function AstrologerChatClient({ sessionId }: Props) {
 
       {summary ? (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-sm rounded-2xl bg-[#0F2240] p-6 shadow-2xl">
+          <div className="w-full max-w-sm rounded-2xl bg-[#0E1C3B] p-6 shadow-2xl">
             <h2 className="text-lg font-bold text-[#F5F1E8]">Session ended</h2>
             <p className="mt-3 text-sm text-[#C7C2B4]">
               Your chat with {peerName} has ended.
@@ -818,7 +818,7 @@ export function AstrologerChatClient({ sessionId }: Props) {
       ) : null}
 
       {waitlistNotice ? (
-        <div className="fixed left-1/2 top-24 z-[95] w-[min(92vw,40rem)] -translate-x-1/2 rounded-2xl border border-[#C9A227]/30 bg-[#0F2240] p-4 shadow-xl">
+        <div className="fixed left-1/2 top-24 z-[95] w-[min(92vw,40rem)] -translate-x-1/2 rounded-2xl border border-[#b18d4f]/30 bg-[#0E1C3B] p-4 shadow-xl">
           <p className="text-sm font-semibold text-[#F5F1E8]">
             {waitlistNotice.userName} wants to chat
           </p>
@@ -838,7 +838,7 @@ export function AstrologerChatClient({ sessionId }: Props) {
               onClick={() =>
                 sendWaitlistAction(waitlistNotice.waitlistId, "already_added")
               }
-              className="rounded-lg border border-[#C9A227]/40 px-3 py-1.5 text-xs font-semibold text-[#E0C158]"
+              className="rounded-lg border border-[#b18d4f]/40 px-3 py-1.5 text-xs font-semibold text-[#C8AC80]"
             >
               Add to Waitlist
             </button>

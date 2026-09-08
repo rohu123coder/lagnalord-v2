@@ -99,7 +99,7 @@ const yearlyPredictions = [
 
 export default function Horoscope2026Page() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] via-[#0F2240] to-[#0A1A2F]">
+    <div className="min-h-screen bg-gradient-to-b from-[#09142a] via-[#0E1C3B] to-[#09142a]">
       <Navbar />
       <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <h1 className="text-3xl font-extrabold text-[#F5F1E8] sm:text-4xl">
@@ -114,9 +114,9 @@ export default function Horoscope2026Page() {
           {yearlyPredictions.map((item) => (
             <article
               key={item.rashi}
-              className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm"
+              className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-5 shadow-sm"
             >
-              <h2 className="text-xl font-bold text-[#E0C158]">{item.rashi}</h2>
+              <h2 className="text-xl font-bold text-[#C8AC80]">{item.rashi}</h2>
               <ul className="mt-3 space-y-2 text-sm text-[#C7C2B4]">
                 <li>
                   <span className="font-semibold text-[#F5F1E8]">Career:</span>{" "}

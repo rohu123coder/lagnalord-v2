@@ -167,7 +167,7 @@ function FilterSidebar(props: {
                 type="checkbox"
                 checked={specs.has(s)}
                 onChange={() => toggleSpec(s)}
-                className="rounded border-[#C9A227]/40 text-[#C9A227] focus:ring-[#C9A227]"
+                className="rounded border-[#b18d4f]/40 text-[#b18d4f] focus:ring-[#b18d4f]"
               />
               <span className="text-sm text-[#C7C2B4]">{s}</span>
             </label>
@@ -183,7 +183,7 @@ function FilterSidebar(props: {
                 type="checkbox"
                 checked={langs.has(s)}
                 onChange={() => toggleLang(s)}
-                className="rounded border-[#C9A227]/40 text-[#C9A227] focus:ring-[#C9A227]"
+                className="rounded border-[#b18d4f]/40 text-[#b18d4f] focus:ring-[#b18d4f]"
               />
               <span className="text-sm text-[#C7C2B4]">{s}</span>
             </label>
@@ -198,7 +198,7 @@ function FilterSidebar(props: {
           id="sort"
           value={sort}
           onChange={(e) => setSort(e.target.value as ApiSort)}
-          className="mt-2 w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none ring-[#C9A227] focus:ring-2"
+          className="mt-2 w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-3 py-2 text-sm text-[#F5F1E8] outline-none ring-[#b18d4f] focus:ring-2"
         >
           {SORT_OPTIONS.map((o) => (
             <option key={o.value} value={o.value}>
@@ -215,7 +215,7 @@ function SkeletonGrid() {
   return (
     <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
       {Array.from({ length: PAGE_SIZE }).map((_, i) => (
-        <div key={i} className="h-72 animate-pulse rounded-2xl bg-[#0F2240]/80" />
+        <div key={i} className="h-72 animate-pulse rounded-2xl bg-[#0E1C3B]/80" />
       ))}
     </div>
   );
@@ -446,7 +446,7 @@ export default function AstrologersPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#0A1A2F]">
+    <div className="min-h-screen bg-[#09142a]">
       <Navbar />
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:flex lg:gap-8 lg:py-10">
         {viewMode === "human" ? (
@@ -469,7 +469,7 @@ export default function AstrologersPage() {
             <div className="flex items-center justify-end gap-4">
               <button
                 type="button"
-                className="inline-flex items-center gap-2 rounded-xl border border-[#C9A227]/30 bg-[#0F2240] px-3 py-2 text-sm font-semibold text-[#C7C2B4] shadow-sm lg:hidden"
+                className="inline-flex items-center gap-2 rounded-xl border border-[#b18d4f]/30 bg-[#0E1C3B] px-3 py-2 text-sm font-semibold text-[#C7C2B4] shadow-sm lg:hidden"
                 onClick={() => setSheetOpen(true)}
               >
                 Filters
@@ -485,8 +485,8 @@ export default function AstrologersPage() {
               onClick={() => setViewMode("human")}
               className={`rounded-full border px-5 py-2 text-sm font-semibold transition ${
                 viewMode === "human"
-                  ? "border-[#C9A227] bg-[#C9A227] text-[#0A1A2F]"
-                  : "border-[#C9A227]/20 bg-[#0F2240] text-[#C7C2B4] hover:border-[#C9A227] hover:text-[#E0C158]"
+                  ? "border-[#b18d4f] bg-[#b18d4f] text-[#09142a]"
+                  : "border-[#b18d4f]/20 bg-[#0E1C3B] text-[#C7C2B4] hover:border-[#b18d4f] hover:text-[#C8AC80]"
               }`}
             >
               Human Astrologers
@@ -496,8 +496,8 @@ export default function AstrologersPage() {
               onClick={() => setViewMode("ai")}
               className={`rounded-full border px-5 py-2 text-sm font-semibold transition ${
                 viewMode === "ai"
-                  ? "border-[#C9A227] bg-[#C9A227] text-[#0A1A2F]"
-                  : "border-[#C9A227]/20 bg-[#0F2240] text-[#C7C2B4] hover:border-[#C9A227] hover:text-[#E0C158]"
+                  ? "border-[#b18d4f] bg-[#b18d4f] text-[#09142a]"
+                  : "border-[#b18d4f]/20 bg-[#0E1C3B] text-[#C7C2B4] hover:border-[#b18d4f] hover:text-[#C8AC80]"
               }`}
             >
               🔮 AI Astrologers
@@ -513,8 +513,8 @@ export default function AstrologersPage() {
                   type="button"
                   className={`rounded-full border px-4 py-1.5 text-sm font-medium transition ${
                     activeCategory === category
-                      ? "border-[#C9A227] bg-[#C9A227] text-[#0A1A2F]"
-                      : "border-[#C9A227]/20 bg-[#0F2240] text-[#C7C2B4] hover:border-[#C9A227] hover:text-[#E0C158]"
+                      ? "border-[#b18d4f] bg-[#b18d4f] text-[#09142a]"
+                      : "border-[#b18d4f]/20 bg-[#0E1C3B] text-[#C7C2B4] hover:border-[#b18d4f] hover:text-[#C8AC80]"
                   }`}
                   onClick={() => {
                     setActiveCategory(category);
@@ -535,7 +535,7 @@ export default function AstrologersPage() {
                 setPage(1);
               }}
               placeholder="Search name..."
-              className="w-full rounded-xl border border-[#C9A227]/30 bg-[#0F2240] px-4 py-2.5 text-sm text-[#F5F1E8] outline-none ring-[#C9A227] focus:ring-2"
+              className="w-full rounded-xl border border-[#b18d4f]/30 bg-[#0E1C3B] px-4 py-2.5 text-sm text-[#F5F1E8] outline-none ring-[#b18d4f] focus:ring-2"
             />
           </div>
             </>
@@ -587,7 +587,7 @@ export default function AstrologersPage() {
                 type="button"
                 disabled={page <= 1}
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
-                className="rounded-lg border border-[#C9A227]/30 bg-[#0F2240] px-4 py-2 text-sm font-medium text-[#C7C2B4] disabled:opacity-40"
+                className="rounded-lg border border-[#b18d4f]/30 bg-[#0E1C3B] px-4 py-2 text-sm font-medium text-[#C7C2B4] disabled:opacity-40"
               >
                 Previous
               </button>
@@ -598,7 +598,7 @@ export default function AstrologersPage() {
                 type="button"
                 disabled={page >= totalPages}
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                className="rounded-lg border border-[#C9A227]/30 bg-[#0F2240] px-4 py-2 text-sm font-medium text-[#C7C2B4] disabled:opacity-40"
+                className="rounded-lg border border-[#b18d4f]/30 bg-[#0E1C3B] px-4 py-2 text-sm font-medium text-[#C7C2B4] disabled:opacity-40"
               >
                 Next
               </button>
@@ -617,7 +617,7 @@ export default function AstrologersPage() {
                     <Link
                       key={a.id}
                       href={`/ai-astrologers/${a.id}`}
-                      className="flex flex-col items-center rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-4 text-center transition duration-200 hover:-translate-y-1 hover:border-[#C9A227]/50 hover:shadow-md"
+                      className="flex flex-col items-center rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-4 text-center transition duration-200 hover:-translate-y-1 hover:border-[#b18d4f]/50 hover:shadow-md"
                     >
                       {a.photo_url ? (
                         <img
@@ -626,13 +626,13 @@ export default function AstrologersPage() {
                           className="h-16 w-16 rounded-full object-cover"
                         />
                       ) : (
-                        <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#0A1A2F] text-3xl">
+                        <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#09142a] text-3xl">
                           {a.emoji}
                         </span>
                       )}
                       <p className="mt-3 text-sm font-semibold text-[#F5F1E8]">{a.name}</p>
                       <p className="mt-1 line-clamp-1 text-xs text-[#C7C2B4]">{a.tagline}</p>
-                      <p className="mt-2 text-xs font-medium text-[#E0C158]">₹{a.rate_per_min}/min</p>
+                      <p className="mt-2 text-xs font-medium text-[#C8AC80]">₹{a.rate_per_min}/min</p>
                       <span className="mt-3 w-full rounded-lg bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-3 py-1.5 text-xs font-semibold text-white">
                         Chat karein
                       </span>
@@ -653,12 +653,12 @@ export default function AstrologersPage() {
             aria-label="Close filters"
             onClick={() => setSheetOpen(false)}
           />
-          <div className="absolute bottom-0 left-0 right-0 max-h-[85vh] overflow-y-auto rounded-t-2xl bg-[#0F2240] p-4 shadow-2xl">
+          <div className="absolute bottom-0 left-0 right-0 max-h-[85vh] overflow-y-auto rounded-t-2xl bg-[#0E1C3B] p-4 shadow-2xl">
             <div className="mb-3 flex items-center justify-between">
               <h2 className="text-lg font-bold text-[#F5F1E8]">Filters</h2>
               <button
                 type="button"
-                className="rounded-lg p-2 text-[#C7C2B4] hover:bg-[#0A1A2F]"
+                className="rounded-lg p-2 text-[#C7C2B4] hover:bg-[#09142a]"
                 onClick={() => setSheetOpen(false)}
               >
                 ✕
@@ -688,7 +688,7 @@ export default function AstrologersPage() {
 
       {pendingAction ? (
         <div className="fixed inset-0 z-[80] flex items-end justify-center bg-black/40 p-4 sm:items-center">
-          <div className="w-full max-w-md rounded-2xl bg-[#0F2240] p-6 shadow-2xl">
+          <div className="w-full max-w-md rounded-2xl bg-[#0E1C3B] p-6 shadow-2xl">
             <h2 className="text-lg font-bold text-[#F5F1E8]">Wallet balance low</h2>
             <p className="mt-2 text-sm text-[#C7C2B4]">
               Minimum ₹{pendingAction.required.toFixed(0)} required to start a{" "}
@@ -697,7 +697,7 @@ export default function AstrologersPage() {
             <div className="mt-5 flex gap-3">
               <button
                 type="button"
-                className="flex-1 rounded-xl border border-[#C9A227]/30 py-2.5 text-sm font-semibold text-[#C7C2B4]"
+                className="flex-1 rounded-xl border border-[#b18d4f]/30 py-2.5 text-sm font-semibold text-[#C7C2B4]"
                 onClick={() => setPendingAction(null)}
               >
                 Cancel

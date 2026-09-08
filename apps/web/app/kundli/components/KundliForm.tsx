@@ -225,8 +225,8 @@ export function KundliForm({
   return (
     <div className="w-full px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto w-full max-w-2xl">
-        <div className="overflow-hidden rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] shadow-xl shadow-black/30">
-          <div className="bg-gradient-to-r from-[#0A1A2F] via-[#13294B] to-[#2A7D7B] px-6 py-8 text-center">
+        <div className="overflow-hidden rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] shadow-xl shadow-black/30">
+          <div className="bg-gradient-to-r from-[#09142a] via-[#122352] to-[#2A7D7B] px-6 py-8 text-center">
             <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
               Kundali - Most Accurate Calculation
             </h1>
@@ -252,7 +252,7 @@ export function KundliForm({
                 onChange={(e) =>
                   setForm((f) => ({ ...f, name: e.target.value }))
                 }
-                className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#C9A227]/30 transition focus:border-[#C9A227] focus:ring-2"
+                className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f]/30 transition focus:border-[#b18d4f] focus:ring-2"
               />
             </div>
 
@@ -272,7 +272,7 @@ export function KundliForm({
                 onChange={(e) =>
                   setForm((f) => ({ ...f, dob: e.target.value }))
                 }
-                className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#C9A227]/30 transition focus:border-[#C9A227] focus:ring-2"
+                className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f]/30 transition focus:border-[#b18d4f] focus:ring-2"
               />
             </div>
 
@@ -288,7 +288,7 @@ export function KundliForm({
                 onChange={(e) =>
                   setForm((f) => ({ ...f, tob: e.target.value || null }))
                 }
-                className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#C9A227]/30 transition focus:border-[#C9A227] focus:ring-2 disabled:cursor-not-allowed disabled:bg-[#0F2240] disabled:text-[#C7C2B4]/50"
+                className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f]/30 transition focus:border-[#b18d4f] focus:ring-2 disabled:cursor-not-allowed disabled:bg-[#0E1C3B] disabled:text-[#C7C2B4]/50"
               />
               <label className="mt-3 flex cursor-pointer items-start gap-3">
                 <input
@@ -302,7 +302,7 @@ export function KundliForm({
                       tob: c ? null : "12:00",
                     }));
                   }}
-                  className="mt-1 h-4 w-4 rounded border-[#C9A227]/40 text-[#C9A227] focus:ring-[#C9A227]"
+                  className="mt-1 h-4 w-4 rounded border-[#b18d4f]/40 text-[#b18d4f] focus:ring-[#b18d4f]"
                 />
                 <span className="text-sm text-[#C7C2B4]">
                   I don&apos;t know my exact birth time (will use 12:00 noon)
@@ -321,7 +321,7 @@ export function KundliForm({
                 Place of birth <span className="text-red-500">*</span>
               </label>
               <div className="relative">
-                <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#C9A227]/60">
+                <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#b18d4f]/60">
                   <svg
                     className="h-5 w-5"
                     fill="none"
@@ -344,10 +344,10 @@ export function KundliForm({
                   value={form.pob}
                   onChange={(e) => onPobChange(e.target.value)}
                   onFocus={() => suggestions.length > 0 && setShowSuggest(true)}
-                  className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] py-3 pl-11 pr-4 text-[#F5F1E8] shadow-sm outline-none ring-[#C9A227]/30 transition focus:border-[#C9A227] focus:ring-2"
+                  className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] py-3 pl-11 pr-4 text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f]/30 transition focus:border-[#b18d4f] focus:ring-2"
                 />
                 {geoLoading ? (
-                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[#C9A227]">
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[#b18d4f]">
                     <Spinner className="h-5 w-5" />
                   </div>
                 ) : null}
@@ -358,14 +358,14 @@ export function KundliForm({
                 </p>
               ) : null}
               {showSuggest && suggestions.length > 0 ? (
-                <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#C9A227]/20 bg-[#0F2240] py-1 shadow-lg">
+                <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#b18d4f]/20 bg-[#0E1C3B] py-1 shadow-lg">
                   {suggestions.map((s, i) => {
                     const line = [s.city, s.country].filter(Boolean).join(", ");
                     return (
                       <li key={`${s.formattedAddress}-${i}`}>
                         <button
                           type="button"
-                          className="w-full px-4 py-2.5 text-left text-sm text-[#F5F1E8] hover:bg-[#0A1A2F]"
+                          className="w-full px-4 py-2.5 text-left text-sm text-[#F5F1E8] hover:bg-[#09142a]"
                           onClick={() => {
                             setForm((f) => ({
                               ...f,
@@ -401,8 +401,8 @@ export function KundliForm({
                     key={v}
                     className={`flex cursor-pointer items-center gap-2 rounded-xl border-2 px-4 py-2.5 text-sm font-medium transition ${
                       form.gender === v
-                        ? "border-[#C9A227] bg-[#C9A227]/10 text-[#E0C158]"
-                        : "border-[#C9A227]/20 bg-[#0A1A2F] text-[#C7C2B4] hover:border-[#C9A227]/40"
+                        ? "border-[#b18d4f] bg-[#b18d4f]/10 text-[#C8AC80]"
+                        : "border-[#b18d4f]/20 bg-[#09142a] text-[#C7C2B4] hover:border-[#b18d4f]/40"
                     }`}
                   >
                     <input

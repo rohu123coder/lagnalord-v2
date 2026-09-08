@@ -157,9 +157,9 @@ export function KundliChart({
 
   return (
     <div
-      className={`rounded-2xl border border-[#C9A227]/20 bg-gradient-to-br from-[#0F2240] to-[#0A1A2F] p-2 shadow-lg shadow-black/40 ${className}`}
+      className={`rounded-2xl border border-[#b18d4f]/20 bg-gradient-to-br from-[#0E1C3B] to-[#09142a] p-2 shadow-lg shadow-black/40 ${className}`}
     >
-      <p className="mb-3 text-center text-xs font-medium uppercase tracking-wider text-[#E0C158]">
+      <p className="mb-3 text-center text-xs font-medium uppercase tracking-wider text-[#C8AC80]">
         Lagna Chart (D1)
       </p>
       <svg
@@ -170,12 +170,12 @@ export function KundliChart({
       >
         <defs>
           <linearGradient id="houseFill" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#13294B" />
-            <stop offset="100%" stopColor="#0F2240" />
+            <stop offset="0%" stopColor="#122352" />
+            <stop offset="100%" stopColor="#0E1C3B" />
           </linearGradient>
           <linearGradient id="edgeGlow" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#C9A227" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="#0A1A2F" stopOpacity="0.5" />
+            <stop offset="0%" stopColor="#b18d4f" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="#09142a" stopOpacity="0.5" />
           </linearGradient>
         </defs>
 
@@ -185,7 +185,7 @@ export function KundliChart({
           width={VB.w}
           height={VB.h}
           rx="12"
-          fill="#0A1A2F"
+          fill="#09142a"
           stroke="url(#edgeGlow)"
           strokeWidth="2"
         />
@@ -195,7 +195,7 @@ export function KundliChart({
             key={i}
             d={toPath(pts)}
             fill="url(#houseFill)"
-            stroke="#C9A227"
+            stroke="#b18d4f"
             strokeOpacity={0.45}
             strokeWidth="1.25"
           />
@@ -238,7 +238,7 @@ export function KundliChart({
                       {item.degree}
                     </tspan>
                     {item.retro ? (
-                      <tspan style={{ fontSize: 8, fontWeight: 600, fill: "#C9A227" }} dy="0">
+                      <tspan style={{ fontSize: 8, fontWeight: 600, fill: "#b18d4f" }} dy="0">
                         {" "}℞
                       </tspan>
                     ) : null}

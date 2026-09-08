@@ -54,9 +54,9 @@ export function PasswordResetRequestForm({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] to-[#0F2240]">
+    <div className="min-h-screen bg-gradient-to-b from-[#09142a] to-[#0E1C3B]">
       <div className="mx-auto flex min-h-screen max-w-md items-center px-4 py-12 sm:px-6">
-        <div className="w-full rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-8 shadow-lg">
+        <div className="w-full rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-8 shadow-lg">
           <h1 className="text-2xl font-bold text-[#F5F1E8]">{heading}</h1>
           <p className="mt-2 text-sm text-[#C7C2B4]">{subtext}</p>
 
@@ -68,7 +68,7 @@ export function PasswordResetRequestForm({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#C9A227]"
+              className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#b18d4f]"
             />
 
             {successEmail ? (
@@ -95,7 +95,7 @@ export function PasswordResetRequestForm({
 
           <Link
             href={backHref}
-            className="mt-6 block text-center text-sm text-[#E0C158] hover:underline"
+            className="mt-6 block text-center text-sm text-[#C8AC80] hover:underline"
           >
             Back to login
           </Link>

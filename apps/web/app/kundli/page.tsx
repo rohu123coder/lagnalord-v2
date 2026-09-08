@@ -394,7 +394,7 @@ export default function KundliPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] via-[#0F2240] to-[#0A1A2F]">
+    <div className="min-h-screen bg-gradient-to-b from-[#09142a] via-[#0E1C3B] to-[#09142a]">
       <div className="print:hidden">
         <Navbar />
       </div>
@@ -429,47 +429,47 @@ export default function KundliPage() {
               <button
                 type="button"
                 onClick={() => window.print()}
-                className="rounded-lg border border-[#C9A227]/40 bg-[#0A1A2F] px-4 py-2 text-sm font-medium text-[#E0C158] transition hover:bg-[#C9A227]/10"
+                className="rounded-lg border border-[#b18d4f]/40 bg-[#09142a] px-4 py-2 text-sm font-medium text-[#C8AC80] transition hover:bg-[#b18d4f]/10"
               >
                 Print / Save as PDF
               </button>
             </div>
             <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
               <KundliChart chartData={result.chartData} planets={result.planets} />
-              <div className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-lg shadow-black/30">
-                <h3 className="text-sm font-semibold uppercase tracking-wide text-[#E0C158]">
+              <div className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-lg shadow-black/30">
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-[#C8AC80]">
                   Snapshot
                 </h3>
                 <dl className="mt-4 grid gap-3 text-sm">
-                  <div className="flex justify-between gap-4 border-b border-[#C9A227]/10 pb-2">
+                  <div className="flex justify-between gap-4 border-b border-[#b18d4f]/10 pb-2">
                     <dt className="text-[#C7C2B4]">Ascendant</dt>
                     <dd className="font-medium text-[#F5F1E8]">
                       {result.basicInfo.ascendant.rashi}{" "}
-                      <span className="text-[#E0C158]">
+                      <span className="text-[#C8AC80]">
                         {result.basicInfo.ascendant.degree}°
                       </span>
                     </dd>
                   </div>
-                  <div className="flex justify-between gap-4 border-b border-[#C9A227]/10 pb-2">
+                  <div className="flex justify-between gap-4 border-b border-[#b18d4f]/10 pb-2">
                     <dt className="text-[#C7C2B4]">Moon sign</dt>
                     <dd className="font-medium text-[#F5F1E8]">
                       {result.basicInfo.moonSign.rashi}{" "}
-                      <span className="text-[#E0C158]">
+                      <span className="text-[#C8AC80]">
                         {result.basicInfo.moonSign.degree}°
                       </span>
                     </dd>
                   </div>
-                  <div className="flex justify-between gap-4 border-b border-[#C9A227]/10 pb-2">
+                  <div className="flex justify-between gap-4 border-b border-[#b18d4f]/10 pb-2">
                     <dt className="text-[#C7C2B4]">Sun sign</dt>
                     <dd className="font-medium text-[#F5F1E8]">
                       {result.basicInfo.sunSign.rashi}{" "}
-                      <span className="text-[#E0C158]">
+                      <span className="text-[#C8AC80]">
                         {result.basicInfo.sunSign.degree}°{" "}
                         {result.basicInfo.sunSign.minutes}′
                       </span>
                     </dd>
                   </div>
-                  <div className="flex justify-between gap-4 border-b border-[#C9A227]/10 pb-2">
+                  <div className="flex justify-between gap-4 border-b border-[#b18d4f]/10 pb-2">
                     <dt className="text-[#C7C2B4]">Nakshatra</dt>
                     <dd className="font-medium text-[#F5F1E8]">
                       {result.basicInfo.nakshatra.name}{" "}
@@ -481,7 +481,7 @@ export default function KundliPage() {
                   </div>
                   <div className="flex justify-between gap-4">
                     <dt className="text-[#C7C2B4]">Name number</dt>
-                    <dd className="font-medium text-[#E0C158]">
+                    <dd className="font-medium text-[#C8AC80]">
                       {result.basicInfo.numerologyNumber}
                     </dd>
                   </div>
@@ -494,9 +494,9 @@ export default function KundliPage() {
             <SectionTitle subtitle="Strength rating by house support">
               Life Area Ratings
             </SectionTitle>
-            <div className="grid gap-4 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md sm:grid-cols-2 lg:grid-cols-5">
+            <div className="grid gap-4 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-md sm:grid-cols-2 lg:grid-cols-5">
               {ratings.map((rating) => (
-                <div key={rating.area} className="rounded-xl bg-[#0A1A2F]/60 p-3 text-center print:break-inside-avoid">
+                <div key={rating.area} className="rounded-xl bg-[#09142a]/60 p-3 text-center print:break-inside-avoid">
                   <p className="text-xs uppercase tracking-wide text-[#C7C2B4]">{rating.area}</p>
                   <p className="mt-1 text-lg font-semibold text-amber-500">{stars(rating.value)}</p>
                   <p className="text-xs text-[#C7C2B4]">{rating.value}/5</p>
@@ -509,10 +509,10 @@ export default function KundliPage() {
             <SectionTitle subtitle="Sidereal longitudes · retrograde marked">
               Planetary positions
             </SectionTitle>
-            <div className="overflow-x-auto rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] shadow-md">
+            <div className="overflow-x-auto rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] shadow-md">
               <table className="min-w-full text-left text-sm">
                 <thead>
-                  <tr className="border-b border-[#C9A227]/20 bg-[#0A1A2F] text-[#E0C158]">
+                  <tr className="border-b border-[#b18d4f]/20 bg-[#09142a] text-[#C8AC80]">
                     <th className="px-4 py-3 font-semibold">Planet</th>
                     <th className="px-4 py-3 font-semibold">Sign</th>
                     <th className="px-4 py-3 font-semibold">House</th>
@@ -524,20 +524,20 @@ export default function KundliPage() {
                   {result.planets.map((p) => (
                     <tr
                       key={p.name}
-                      className="border-b border-[#C9A227]/10 hover:bg-[#0A1A2F]/50"
+                      className="border-b border-[#b18d4f]/10 hover:bg-[#09142a]/50"
                     >
                       <td className="px-4 py-2.5 font-medium text-[#F5F1E8]">
-                        <span className="mr-2 text-[#E0C158]">{p.symbol}</span>
+                        <span className="mr-2 text-[#C8AC80]">{p.symbol}</span>
                         {p.name}
                       </td>
                       <td className="px-4 py-2.5 text-[#C7C2B4]">{p.rashi}</td>
-                      <td className="px-4 py-2.5 text-[#E0C158]">{p.house}</td>
+                      <td className="px-4 py-2.5 text-[#C8AC80]">{p.house}</td>
                       <td className="px-4 py-2.5 tabular-nums text-[#C7C2B4]">
                         {p.degree}° {p.minutes}′
                       </td>
                       <td className="px-4 py-2.5 text-xs text-[#C7C2B4]">
                         {p.isRetrograde ? (
-                          <span className="rounded bg-[#0F2240] px-1.5 py-0.5">
+                          <span className="rounded bg-[#0E1C3B] px-1.5 py-0.5">
                             ℞
                           </span>
                         ) : null}{" "}
@@ -548,7 +548,7 @@ export default function KundliPage() {
                           <span className="text-rose-600">Debilitated</span>
                         ) : null}{" "}
                         {p.ownSign ? (
-                          <span className="text-[#E0C158]">Own</span>
+                          <span className="text-[#C8AC80]">Own</span>
                         ) : null}
                       </td>
                     </tr>
@@ -559,12 +559,12 @@ export default function KundliPage() {
           </section>
 
           <section className="grid gap-6 lg:grid-cols-2 print:break-inside-avoid print:mb-6">
-            <div className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md">
+            <div className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-md">
               <SectionTitle>Vimshottari Dasha</SectionTitle>
               <ul className="space-y-3 text-sm">
                 <li className="flex justify-between">
                   <span className="text-[#C7C2B4]">Mahadasha</span>
-                  <span className="font-semibold text-[#E0C158]">
+                  <span className="font-semibold text-[#C8AC80]">
                     {result.dasha.mahadasha.planet}
                   </span>
                 </li>
@@ -574,7 +574,7 @@ export default function KundliPage() {
                     {result.dasha.mahadasha.endDate}
                   </span>
                 </li>
-                <li className="flex justify-between border-t border-[#C9A227]/10 pt-2">
+                <li className="flex justify-between border-t border-[#b18d4f]/10 pt-2">
                   <span className="text-[#C7C2B4]">Antardasha</span>
                   <span className="font-medium text-[#F5F1E8]">
                     {result.dasha.antardasha.planet}
@@ -589,7 +589,7 @@ export default function KundliPage() {
               </ul>
             </div>
 
-            <div className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md">
+            <div className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-md">
               <SectionTitle>Doshas</SectionTitle>
               <ul className="space-y-2 text-sm">
                 <li className="flex flex-wrap items-center gap-2">
@@ -640,8 +640,8 @@ export default function KundliPage() {
                   key={y.name}
                   className={`rounded-xl border p-4 print:break-inside-avoid ${
                     y.present
-                      ? "border-[#C9A227]/40 bg-[#C9A227]/10"
-                      : "border-[#C9A227]/10 bg-[#0A1A2F]/40"
+                      ? "border-[#b18d4f]/40 bg-[#b18d4f]/10"
+                      : "border-[#b18d4f]/10 bg-[#09142a]/40"
                   }`}
                 >
                   <div className="flex items-start justify-between gap-2">
@@ -649,7 +649,7 @@ export default function KundliPage() {
                     <span
                       className={
                         y.present
-                          ? "text-xs font-medium text-[#E0C158]"
+                          ? "text-xs font-medium text-[#C8AC80]"
                           : "text-xs text-[#C7C2B4]/50"
                       }
                     >
@@ -669,9 +669,9 @@ export default function KundliPage() {
               {Object.entries(result.predictions).map(([k, v]) => (
                 <div
                   key={k}
-                  className="rounded-xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm print:break-inside-avoid"
+                  className="rounded-xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-5 shadow-sm print:break-inside-avoid"
                 >
-                  <h3 className="capitalize text-sm font-semibold text-[#E0C158]">
+                  <h3 className="capitalize text-sm font-semibold text-[#C8AC80]">
                     {k.replace(/([A-Z])/g, " $1").trim()}
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-[#C7C2B4]">
@@ -682,7 +682,7 @@ export default function KundliPage() {
             </div>
           </section>
 
-          <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md print:break-inside-avoid print:mb-6">
+          <section className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-md print:break-inside-avoid print:mb-6">
             <SectionTitle>Detailed Personality Analysis</SectionTitle>
             <div className="space-y-3 text-sm leading-relaxed text-[#C7C2B4]">
               <p>
@@ -705,7 +705,7 @@ export default function KundliPage() {
             </div>
           </section>
 
-          <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md print:break-inside-avoid print:mb-6">
+          <section className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-md print:break-inside-avoid print:mb-6">
             <SectionTitle>Career &amp; Finance Deep Dive</SectionTitle>
             <p className="text-sm leading-relaxed text-[#C7C2B4]">
               Your 10th house in <span className="font-semibold">{result.houses[9].rashi}</span> and wealth axis
@@ -717,7 +717,7 @@ export default function KundliPage() {
               {recommendedProfessions.map((profession) => (
                 <span
                   key={profession}
-                  className="rounded-full bg-gradient-to-r from-[#C9A227]/20 to-[#2A7D7B]/20 px-3 py-1 text-xs font-medium text-[#E0C158]"
+                  className="rounded-full bg-gradient-to-r from-[#b18d4f]/20 to-[#2A7D7B]/20 px-3 py-1 text-xs font-medium text-[#C8AC80]"
                 >
                   {profession}
                 </span>
@@ -725,7 +725,7 @@ export default function KundliPage() {
             </div>
           </section>
 
-          <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md print:break-inside-avoid print:mb-6">
+          <section className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-md print:break-inside-avoid print:mb-6">
             <SectionTitle>Love &amp; Marriage Analysis</SectionTitle>
             <p className="text-sm leading-relaxed text-[#C7C2B4]">
               Your 7th house in <span className="font-semibold">{result.houses[6].rashi}</span> suggests a
@@ -736,7 +736,7 @@ export default function KundliPage() {
             </p>
           </section>
 
-          <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md print:break-inside-avoid print:mb-6">
+          <section className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-md print:break-inside-avoid print:mb-6">
             <SectionTitle>Health &amp; Wellness Guide</SectionTitle>
             <p className="text-sm leading-relaxed text-[#C7C2B4]">
               Focus on body zones indicated by your Lagna and 6th house for preventive wellness. Prioritize routine
@@ -748,42 +748,42 @@ export default function KundliPage() {
             </p>
           </section>
 
-          <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md print:break-inside-avoid print:mb-6">
+          <section className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-md print:break-inside-avoid print:mb-6">
             <SectionTitle>Lucky Numbers, Colors &amp; Gems</SectionTitle>
             <ul className="space-y-2 text-sm text-[#C7C2B4]">
               <li>
-                <span className="font-semibold text-[#E0C158]">Lucky Number:</span>{" "}
+                <span className="font-semibold text-[#C8AC80]">Lucky Number:</span>{" "}
                 {result.basicInfo.numerologyNumber}
               </li>
               <li>
-                <span className="font-semibold text-[#E0C158]">Lucky Colors:</span>{" "}
+                <span className="font-semibold text-[#C8AC80]">Lucky Colors:</span>{" "}
                 {luckyProfile.colors.join(", ")}
               </li>
               <li>
-                <span className="font-semibold text-[#E0C158]">Lucky Days:</span> {luckyProfile.days.join(", ")}
+                <span className="font-semibold text-[#C8AC80]">Lucky Days:</span> {luckyProfile.days.join(", ")}
               </li>
               <li>
-                <span className="font-semibold text-[#E0C158]">Gemstone:</span> {luckyProfile.gemstone}
+                <span className="font-semibold text-[#C8AC80]">Gemstone:</span> {luckyProfile.gemstone}
               </li>
               <li>
-                <span className="font-semibold text-[#E0C158]">Wearing Instruction:</span>{" "}
+                <span className="font-semibold text-[#C8AC80]">Wearing Instruction:</span>{" "}
                 {luckyProfile.instruction}
               </li>
               <li>
-                <span className="font-semibold text-[#E0C158]">Rudraksha:</span> {luckyProfile.rudraksha}
+                <span className="font-semibold text-[#C8AC80]">Rudraksha:</span> {luckyProfile.rudraksha}
               </li>
             </ul>
           </section>
 
-          <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-md print:break-inside-avoid print:mb-6">
+          <section className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-md print:break-inside-avoid print:mb-6">
             <SectionTitle>Remedies &amp; Upay</SectionTitle>
             <div className="space-y-4">
               {remedyPlanets.map((planet) => {
                 const remedy = PLANET_REMEDIES[planet.name];
                 if (!remedy) return null;
                 return (
-                  <div key={planet.name} className="rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F]/40 p-4 print:break-inside-avoid">
-                    <p className="text-sm font-semibold text-[#E0C158]">{planet.name} Remedies</p>
+                  <div key={planet.name} className="rounded-xl border border-[#b18d4f]/20 bg-[#09142a]/40 p-4 print:break-inside-avoid">
+                    <p className="text-sm font-semibold text-[#C8AC80]">{planet.name} Remedies</p>
                     <p className="mt-1 text-sm text-[#C7C2B4]">
                       <span className="font-medium">Mantra:</span> {remedy.mantra}
                     </p>
@@ -809,7 +809,7 @@ export default function KundliPage() {
             <AIAstrologerChatFromQuery kundliData={result} />
           </Suspense>
 
-          <section className="rounded-2xl border border-[#C9A227]/20 bg-gradient-to-r from-[#0F2240] to-[#13294B] p-6 shadow-sm print:break-inside-avoid print:mb-6 print:hidden">
+          <section className="rounded-2xl border border-[#b18d4f]/20 bg-gradient-to-r from-[#0E1C3B] to-[#122352] p-6 shadow-sm print:break-inside-avoid print:mb-6 print:hidden">
             <SectionTitle>Compatibility</SectionTitle>
             <p className="text-sm text-[#C7C2B4]">
               Match your Kundli with your partner to check guna milan, dosha compatibility, and marriage timing.
@@ -822,13 +822,13 @@ export default function KundliPage() {
             </Link>
           </section>
 
-          <section className="rounded-2xl border border-[#C9A227]/30 bg-[#C9A227]/10 p-6 text-center shadow-sm print:break-inside-avoid print:mb-6 print:hidden">
+          <section className="rounded-2xl border border-[#b18d4f]/30 bg-[#b18d4f]/10 p-6 text-center shadow-sm print:break-inside-avoid print:mb-6 print:hidden">
             <p className="text-sm text-[#C7C2B4]">
               Need deeper personalized guidance beyond algorithmic predictions?
             </p>
             <Link
               href="/astrologers"
-              className="mt-3 inline-flex rounded-lg bg-gradient-to-r from-[#C9A227] to-[#E0C158] px-5 py-2 text-sm font-semibold text-[#0A1A2F] transition hover:opacity-90"
+              className="mt-3 inline-flex rounded-lg bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-5 py-2 text-sm font-semibold text-[#09142a] transition hover:opacity-90"
             >
               Consult an Astrologer
             </Link>
@@ -836,7 +836,7 @@ export default function KundliPage() {
         </div>
       ) : null}
 
-      <footer className="border-t border-[#C9A227]/20 bg-[#0A1A2F] py-8 text-center text-xs text-[#C7C2B4]/70">
+      <footer className="border-t border-[#b18d4f]/20 bg-[#09142a] py-8 text-center text-xs text-[#C7C2B4]/70">
         {tenant.name} — Vedic astrology for clarity &amp; confidence. Results are
         algorithmic; consult a qualified astrologer for life decisions.
       </footer>

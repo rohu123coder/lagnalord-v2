@@ -67,7 +67,7 @@ const gemstones = [
 
 export default function RemediesPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] via-[#0F2240] to-[#0A1A2F]">
+    <div className="min-h-screen bg-gradient-to-b from-[#09142a] via-[#0E1C3B] to-[#09142a]">
       <Navbar />
       <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <h1 className="text-3xl font-extrabold text-[#F5F1E8] sm:text-4xl">
@@ -82,9 +82,9 @@ export default function RemediesPage() {
           {remedies.map((item) => (
             <article
               key={item.planet}
-              className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm"
+              className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-5 shadow-sm"
             >
-              <h2 className="text-xl font-bold text-[#E0C158]">{item.planet}</h2>
+              <h2 className="text-xl font-bold text-[#C8AC80]">{item.planet}</h2>
               <p className="mt-2 text-sm text-[#C7C2B4]">
                 <span className="font-semibold">Mantra:</span> {item.mantra}
               </p>
@@ -98,13 +98,13 @@ export default function RemediesPage() {
           ))}
         </section>
 
-        <section className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+        <section className="mt-8 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-sm">
           <h2 className="text-xl font-bold text-[#F5F1E8]">
             Gemstone Recommendations
           </h2>
           <div className="mt-4 overflow-x-auto">
             <table className="min-w-full text-left text-sm">
-              <thead className="bg-[#0A1A2F] text-[#E0C158]">
+              <thead className="bg-[#09142a] text-[#C8AC80]">
                 <tr>
                   <th className="px-3 py-2">Planet</th>
                   <th className="px-3 py-2">Gemstone</th>
@@ -113,7 +113,7 @@ export default function RemediesPage() {
               </thead>
               <tbody>
                 {gemstones.map((row) => (
-                  <tr key={row[0]} className="border-b border-[#C9A227]/10">
+                  <tr key={row[0]} className="border-b border-[#b18d4f]/10">
                     <td className="px-3 py-2">{row[0]}</td>
                     <td className="px-3 py-2 font-semibold text-[#F5F1E8]">{row[1]}</td>
                     <td className="px-3 py-2 text-[#C7C2B4]">{row[2]}</td>

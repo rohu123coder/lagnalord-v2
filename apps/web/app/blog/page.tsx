@@ -17,17 +17,17 @@ export default function BlogPage() {
   const tenant = getTenant();
 
   return (
-    <div className="min-h-screen bg-[#0A1A2F] text-[#F5F1E8]">
+    <div className="min-h-screen bg-[#09142a] text-[#F5F1E8]">
       <Navbar />
 
-      <main className="border-b border-[#C9A227]/20">
+      <main className="border-b border-[#b18d4f]/20">
         <div className="mx-auto max-w-[1200px] px-4 py-16 text-center md:px-8 md:py-24">
-          <h1 className="text-3xl font-extrabold text-[#E0C158] md:text-5xl">{tenant.name} Blog</h1>
+          <h1 className="text-3xl font-extrabold text-[#C8AC80] md:text-5xl">{tenant.name} Blog</h1>
           <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-[#C7C2B4] md:text-lg">
             We are preparing valuable astrology content, practical remedies, and expert guidance
             articles for you.
           </p>
-          <p className="mt-3 text-sm font-semibold text-[#E0C158]">Coming soon.</p>
+          <p className="mt-3 text-sm font-semibold text-[#C8AC80]">Coming soon.</p>
           <Link
             href="/"
             className="mt-8 inline-flex rounded-full bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-95"

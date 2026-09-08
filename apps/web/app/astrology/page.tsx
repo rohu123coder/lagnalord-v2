@@ -40,7 +40,7 @@ const houseMeanings = [
 
 export default function AstrologyPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] via-[#0F2240] to-[#0A1A2F]">
+    <div className="min-h-screen bg-gradient-to-b from-[#09142a] via-[#0E1C3B] to-[#09142a]">
       <Navbar />
       <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <h1 className="text-3xl font-extrabold text-[#F5F1E8] sm:text-4xl">
@@ -53,47 +53,47 @@ export default function AstrologyPage() {
           transits to provide practical guidance.
         </p>
 
-        <section className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+        <section className="mt-8 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-sm">
           <h2 className="text-xl font-bold text-[#F5F1E8]">
             Planets and Their Significance
           </h2>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             {planetSignificance.map(([planet, meaning]) => (
-              <article key={planet} className="rounded-lg bg-[#0A1A2F] p-3">
-                <p className="font-semibold text-[#E0C158]">{planet}</p>
+              <article key={planet} className="rounded-lg bg-[#09142a] p-3">
+                <p className="font-semibold text-[#C8AC80]">{planet}</p>
                 <p className="mt-1 text-sm text-[#C7C2B4]">{meaning}</p>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+        <section className="mt-8 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-sm">
           <h2 className="text-xl font-bold text-[#F5F1E8]">Houses and Meanings</h2>
           <ul className="mt-4 grid gap-2 text-sm text-[#C7C2B4] sm:grid-cols-2">
             {houseMeanings.map((house) => (
-              <li key={house} className="rounded-lg bg-[#0A1A2F] px-3 py-2">
+              <li key={house} className="rounded-lg bg-[#09142a] px-3 py-2">
                 {house}
               </li>
             ))}
           </ul>
         </section>
 
-        <section className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+        <section className="mt-8 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-sm">
           <h2 className="text-xl font-bold text-[#F5F1E8]">Explore Tools</h2>
           <div className="mt-4 flex flex-wrap gap-3 text-sm font-semibold">
-            <Link className="rounded-full bg-[#0F2240] px-4 py-2 text-[#E0C158]" href="/kundli">
+            <Link className="rounded-full bg-[#0E1C3B] px-4 py-2 text-[#C8AC80]" href="/kundli">
               Free Kundli
             </Link>
-            <Link className="rounded-full bg-[#0F2240] px-4 py-2 text-[#E0C158]" href="/kundli/match">
+            <Link className="rounded-full bg-[#0E1C3B] px-4 py-2 text-[#C8AC80]" href="/kundli/match">
               Kundli Matching
             </Link>
-            <Link className="rounded-full bg-[#0F2240] px-4 py-2 text-[#E0C158]" href="/panchang">
+            <Link className="rounded-full bg-[#0E1C3B] px-4 py-2 text-[#C8AC80]" href="/panchang">
               Today&apos;s Panchang
             </Link>
-            <Link className="rounded-full bg-[#0F2240] px-4 py-2 text-[#E0C158]" href="/numerology">
+            <Link className="rounded-full bg-[#0E1C3B] px-4 py-2 text-[#C8AC80]" href="/numerology">
               Numerology
             </Link>
-            <Link className="rounded-full bg-[#0F2240] px-4 py-2 text-[#E0C158]" href="/remedies">
+            <Link className="rounded-full bg-[#0E1C3B] px-4 py-2 text-[#C8AC80]" href="/remedies">
               Remedies
             </Link>
           </div>

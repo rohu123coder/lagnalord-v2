@@ -362,14 +362,14 @@ export default function AstrologerDashboardPage() {
     user?.isApproved === false
   ) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0A1A2F]">
-        <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#C9A227] border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-[#09142a]">
+        <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#b18d4f] border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#0A1A2F]">
+    <div className="min-h-screen bg-[#09142a]">
       <AstrologerNavbar />
 
       <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
@@ -378,7 +378,7 @@ export default function AstrologerDashboardPage() {
           Welcome back{user?.name ? `, ${user.name}` : ""}.
         </p>
 
-        <section className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+        <section className="mt-8 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-sm">
           <h2 className="text-lg font-semibold text-[#F5F1E8]">
             Availability Settings
           </h2>
@@ -387,7 +387,7 @@ export default function AstrologerDashboardPage() {
           </p>
 
           <div className="mt-6 space-y-6">
-            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#C9A227]/10 pb-6">
+            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#b18d4f]/10 pb-6">
               <div className="min-w-0">
                 <h3 className="font-semibold text-[#F5F1E8]">Online</h3>
                 <p className="text-sm text-[#C7C2B4]">
@@ -408,7 +408,7 @@ export default function AstrologerDashboardPage() {
                   }
                 }}
                 className={`relative h-14 w-28 shrink-0 rounded-full transition ${
-                  dash?.is_online ? "bg-emerald-500 shadow-inner" : "bg-[#13294B]"
+                  dash?.is_online ? "bg-emerald-500 shadow-inner" : "bg-[#122352]"
                 } disabled:opacity-50`}
                 aria-pressed={dash?.is_online ?? false}
               >
@@ -422,7 +422,7 @@ export default function AstrologerDashboardPage() {
               </button>
             </div>
 
-            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#C9A227]/10 pb-6">
+            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#b18d4f]/10 pb-6">
               <div className="min-w-0">
                 <h3 className="font-semibold text-[#F5F1E8]">Chat</h3>
                 <p className="text-sm text-[#C7C2B4]">Accept chat requests</p>
@@ -441,7 +441,7 @@ export default function AstrologerDashboardPage() {
                 className={`relative h-14 w-28 shrink-0 rounded-full transition ${
                   dash?.chat_available
                     ? "bg-emerald-500 shadow-inner"
-                    : "bg-[#13294B]"
+                    : "bg-[#122352]"
                 } disabled:opacity-50`}
                 aria-pressed={dash?.chat_available ?? false}
               >
@@ -457,7 +457,7 @@ export default function AstrologerDashboardPage() {
               </button>
             </div>
 
-            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#C9A227]/10 pb-6">
+            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#b18d4f]/10 pb-6">
               <div className="min-w-0">
                 <h3 className="font-semibold text-[#F5F1E8]">Voice Call</h3>
                 <p className="text-sm text-[#C7C2B4]">Accept voice calls</p>
@@ -476,7 +476,7 @@ export default function AstrologerDashboardPage() {
                 className={`relative h-14 w-28 shrink-0 rounded-full transition ${
                   dash?.voice_available
                     ? "bg-emerald-500 shadow-inner"
-                    : "bg-[#13294B]"
+                    : "bg-[#122352]"
                 } disabled:opacity-50`}
                 aria-pressed={dash?.voice_available ?? false}
               >
@@ -511,7 +511,7 @@ export default function AstrologerDashboardPage() {
                 className={`relative h-14 w-28 shrink-0 rounded-full transition ${
                   dash?.video_available
                     ? "bg-emerald-500 shadow-inner"
-                    : "bg-[#13294B]"
+                    : "bg-[#122352]"
                 } disabled:opacity-50`}
                 aria-pressed={dash?.video_available ?? false}
               >
@@ -531,13 +531,13 @@ export default function AstrologerDashboardPage() {
 
         {dashLoading ? (
           <div className="mt-8 flex justify-center py-12">
-            <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#C9A227] border-t-transparent" />
+            <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#b18d4f] border-t-transparent" />
           </div>
         ) : dashError ? (
           <p className="mt-8 text-center text-sm text-red-600">{dashError}</p>
         ) : dash ? (
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm">
+            <div className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-5 shadow-sm">
               <p className="text-xs font-medium uppercase tracking-wide text-[#C7C2B4]">
                 Today&apos;s earnings
               </p>
@@ -545,7 +545,7 @@ export default function AstrologerDashboardPage() {
                 ₹{dash.earnings_today.toFixed(0)}
               </p>
             </div>
-            <div className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm">
+            <div className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-5 shadow-sm">
               <p className="text-xs font-medium uppercase tracking-wide text-[#C7C2B4]">
                 Total sessions
               </p>
@@ -553,7 +553,7 @@ export default function AstrologerDashboardPage() {
                 {dash.total_sessions}
               </p>
             </div>
-            <div className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm">
+            <div className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-5 shadow-sm">
               <p className="text-xs font-medium uppercase tracking-wide text-[#C7C2B4]">
                 Average rating
               </p>
@@ -562,7 +562,7 @@ export default function AstrologerDashboardPage() {
                 {dash.total_reviews} reviews
               </p>
             </div>
-            <div className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm">
+            <div className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-5 shadow-sm">
               <p className="text-xs font-medium uppercase tracking-wide text-[#C7C2B4]">
                 This month
               </p>
@@ -573,7 +573,7 @@ export default function AstrologerDashboardPage() {
           </div>
         ) : null}
 
-        <section className="mt-8 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-4 shadow-sm">
+        <section className="mt-8 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-4 shadow-sm">
           <button
             type="button"
             onClick={() => setWaitlistCollapsed((prev) => !prev)}
@@ -592,7 +592,7 @@ export default function AstrologerDashboardPage() {
                 {waitlistQueue.map((entry) => (
                   <li
                     key={entry.waitlistId}
-                    className="flex items-center justify-between rounded-xl border border-[#C9A227]/20 px-3 py-2"
+                    className="flex items-center justify-between rounded-xl border border-[#b18d4f]/20 px-3 py-2"
                   >
                     <div>
                       <p className="text-sm font-semibold text-[#F5F1E8]">
@@ -619,7 +619,7 @@ export default function AstrologerDashboardPage() {
 
       {incoming ? (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-md rounded-2xl bg-[#0F2240] p-6 shadow-2xl">
+          <div className="w-full max-w-md rounded-2xl bg-[#0E1C3B] p-6 shadow-2xl">
             <h2 className="text-lg font-bold text-[#F5F1E8]">
               {incoming.type === "voice"
                 ? "Incoming voice call request"
@@ -631,14 +631,14 @@ export default function AstrologerDashboardPage() {
               New Chat Request from{" "}
               <span className="font-semibold">{incoming.userName}</span>
             </p>
-            <p className="mt-4 text-center text-3xl font-mono font-bold text-[#E0C158]">
+            <p className="mt-4 text-center text-3xl font-mono font-bold text-[#C8AC80]">
               {countdown}s
             </p>
             <div className="mt-6 flex gap-3">
               <button
                 type="button"
                 onClick={onDecline}
-                className="flex-1 rounded-xl border border-[#C9A227]/30 py-3 text-sm font-semibold text-[#C7C2B4] hover:bg-[#0A1A2F]"
+                className="flex-1 rounded-xl border border-[#b18d4f]/30 py-3 text-sm font-semibold text-[#C7C2B4] hover:bg-[#09142a]"
               >
                 Decline
               </button>
@@ -655,7 +655,7 @@ export default function AstrologerDashboardPage() {
       ) : null}
 
       {waitlistNotice ? (
-        <div className="fixed left-1/2 top-24 z-[95] w-[min(92vw,42rem)] -translate-x-1/2 rounded-2xl border border-[#C9A227]/30 bg-[#0F2240] p-4 shadow-xl">
+        <div className="fixed left-1/2 top-24 z-[95] w-[min(92vw,42rem)] -translate-x-1/2 rounded-2xl border border-[#b18d4f]/30 bg-[#0E1C3B] p-4 shadow-xl">
           <p className="text-sm font-semibold text-[#F5F1E8]">
             New request from {waitlistNotice.userName}
           </p>
@@ -675,7 +675,7 @@ export default function AstrologerDashboardPage() {
               onClick={() =>
                 sendWaitlistAction(waitlistNotice.waitlistId, "already_added")
               }
-              className="rounded-lg border border-[#C9A227]/40 px-3 py-1.5 text-xs font-semibold text-[#E0C158]"
+              className="rounded-lg border border-[#b18d4f]/40 px-3 py-1.5 text-xs font-semibold text-[#C8AC80]"
             >
               Add to Waitlist
             </button>

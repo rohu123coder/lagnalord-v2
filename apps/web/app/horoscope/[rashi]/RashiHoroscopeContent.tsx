@@ -83,11 +83,11 @@ export function RashiHoroscopeContent() {
   }, [rashiParam, period]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] via-[#0F2240] to-[#0A1A2F] pb-12">
+    <div className="min-h-screen bg-gradient-to-b from-[#09142a] via-[#0E1C3B] to-[#09142a] pb-12">
       <Navbar />
       <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
         <div className="mb-6">
-          <Link href="/horoscope" className="text-sm font-semibold text-[#E0C158]">
+          <Link href="/horoscope" className="text-sm font-semibold text-[#C8AC80]">
             ← Back to all rashis
           </Link>
         </div>
@@ -100,8 +100,8 @@ export function RashiHoroscopeContent() {
               onClick={() => updatePeriod(item.id)}
               className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
                 item.id === period
-                  ? "bg-[#C9A227] text-[#0A1A2F] shadow-md"
-                  : "bg-[#0F2240] text-[#C7C2B4] ring-1 ring-[#C9A227]/20 hover:bg-[#0A1A2F]"
+                  ? "bg-[#b18d4f] text-[#09142a] shadow-md"
+                  : "bg-[#0E1C3B] text-[#C7C2B4] ring-1 ring-[#b18d4f]/20 hover:bg-[#09142a]"
               }`}
             >
               {item.label}
@@ -110,15 +110,15 @@ export function RashiHoroscopeContent() {
         </div>
 
         {loading ? (
-          <div className="mt-8 h-72 animate-pulse rounded-2xl bg-[#0F2240]/70" />
+          <div className="mt-8 h-72 animate-pulse rounded-2xl bg-[#0E1C3B]/70" />
         ) : error || !data ? (
           <div className="mt-8 rounded-2xl border border-red-100 bg-red-50 p-6 text-red-700">
             {error ?? "Horoscope not available."}
           </div>
         ) : (
           <div className="mt-8 space-y-6">
-            <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
-              <p className="text-sm font-semibold text-[#E0C158]">{periodLabel}</p>
+            <section className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-sm">
+              <p className="text-sm font-semibold text-[#C8AC80]">{periodLabel}</p>
               <h1 className="mt-2 text-3xl font-extrabold text-[#F5F1E8]">
                 {data.rashi.symbol} {data.rashi.hindi} ({data.rashi.english}) Rashifal
               </h1>
@@ -128,14 +128,14 @@ export function RashiHoroscopeContent() {
               </p>
             </section>
 
-            <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+            <section className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-sm">
               <h2 className="text-xl font-bold text-[#F5F1E8]">A) Today&apos;s Overview</h2>
               <p className="mt-3 text-sm leading-7 text-[#C7C2B4]">
                 {data.todayOverview}
               </p>
             </section>
 
-            <section className="grid gap-4 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 text-sm shadow-sm sm:grid-cols-3">
+            <section className="grid gap-4 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 text-sm shadow-sm sm:grid-cols-3">
               <p>
                 <span className="font-semibold text-[#F5F1E8]">B) Lucky Number:</span>{" "}
                 {data.lucky.number}
@@ -150,7 +150,7 @@ export function RashiHoroscopeContent() {
               </p>
             </section>
 
-            <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+            <section className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-sm">
               <h2 className="text-xl font-bold text-[#F5F1E8]">
                 C) Life Areas Rating
               </h2>
@@ -162,7 +162,7 @@ export function RashiHoroscopeContent() {
               </div>
             </section>
 
-            <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+            <section className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-sm">
               <h2 className="text-xl font-bold text-[#F5F1E8]">
                 D) Detailed Predictions
               </h2>
@@ -194,7 +194,7 @@ export function RashiHoroscopeContent() {
               </div>
             </section>
 
-            <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+            <section className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-sm">
               <h2 className="text-xl font-bold text-[#F5F1E8]">
                 E) Today&apos;s Remedy
               </h2>
@@ -208,7 +208,7 @@ export function RashiHoroscopeContent() {
               </p>
             </section>
 
-            <section className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+            <section className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-sm">
               <h2 className="text-xl font-bold text-[#F5F1E8]">
                 F) Compatible Rashis Today
               </h2>
@@ -217,7 +217,7 @@ export function RashiHoroscopeContent() {
                   <Link
                     key={item.id}
                     href={`/horoscope/${item.id}?period=${period}`}
-                    className="rounded-full bg-[#0F2240] px-4 py-2 text-sm font-semibold text-[#E0C158] transition hover:bg-[#0A1A2F]"
+                    className="rounded-full bg-[#0E1C3B] px-4 py-2 text-sm font-semibold text-[#C8AC80] transition hover:bg-[#09142a]"
                   >
                     {item.symbol} {item.hindi} ({item.english})
                   </Link>
@@ -225,15 +225,15 @@ export function RashiHoroscopeContent() {
               </div>
             </section>
 
-            <section className="rounded-2xl border border-[#C9A227]/30 bg-gradient-to-r from-[#C9A227] to-[#E0C158] p-6 text-[#0A1A2F] shadow-md">
+            <section className="rounded-2xl border border-[#b18d4f]/30 bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] p-6 text-[#09142a] shadow-md">
               <h2 className="text-xl font-bold">G) Consult Astrologer</h2>
-              <p className="mt-2 text-sm text-[#0A1A2F]/80">
+              <p className="mt-2 text-sm text-[#09142a]/80">
                 Need deeper guidance for relationships, career, or life
                 decisions? Connect instantly with verified astrologers.
               </p>
               <Link
                 href="/astrologers"
-                className="mt-4 inline-flex rounded-full bg-[#0A1A2F] px-5 py-2.5 text-sm font-bold text-[#E0C158] transition hover:opacity-95"
+                className="mt-4 inline-flex rounded-full bg-[#09142a] px-5 py-2.5 text-sm font-bold text-[#C8AC80] transition hover:opacity-95"
               >
                 Consult Astrologer
               </Link>

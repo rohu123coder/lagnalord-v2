@@ -13,7 +13,7 @@ import {
 } from "@/lib/numerology";
 
 const fieldClass =
-  "w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:border-[#C9A227] focus:ring-[#C9A227]";
+  "w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:border-[#b18d4f] focus:ring-[#b18d4f]";
 
 const CATEGORY_BLURB: Record<string, string> = {
   Friends:
@@ -78,15 +78,15 @@ export function LoveClient() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] via-[#0F2240] to-[#0A1A2F] text-[#F5F1E8]">
+    <div className="min-h-screen bg-gradient-to-b from-[#09142a] via-[#0E1C3B] to-[#09142a] text-[#F5F1E8]">
       <Navbar />
       <main>
-        <section className="border-b border-[#C9A227]/20 bg-[#0F2240]">
+        <section className="border-b border-[#b18d4f]/20 bg-[#0E1C3B]">
           <div className="mx-auto max-w-3xl px-4 py-12 md:px-8 md:py-16">
-            <p className="text-xs font-bold uppercase tracking-wider text-[#E0C158]">
+            <p className="text-xs font-bold uppercase tracking-wider text-[#C8AC80]">
               Entertainment
             </p>
-            <h1 className="mt-2 text-3xl font-extrabold text-[#E0C158] md:text-5xl">
+            <h1 className="mt-2 text-3xl font-extrabold text-[#C8AC80] md:text-5xl">
               Love Calculator
             </h1>
             <p className="mt-4 text-base leading-7 text-[#C7C2B4]">
@@ -99,7 +99,7 @@ export function LoveClient() {
         <div className="mx-auto max-w-3xl space-y-8 px-4 py-10 md:px-8 md:py-14">
           <form
             onSubmit={onSubmit}
-            className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm"
+            className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-5 shadow-sm"
           >
             <label className="mb-1.5 block text-sm font-medium text-[#C7C2B4]">Your name</label>
             <input
@@ -131,14 +131,14 @@ export function LoveClient() {
           </form>
 
           {result ? (
-            <section className="space-y-4 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
-              <p className="text-sm font-semibold text-[#E0C158]">Love Percentage</p>
+            <section className="space-y-4 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-sm">
+              <p className="text-sm font-semibold text-[#C8AC80]">Love Percentage</p>
               <p className="text-5xl font-extrabold text-[#F5F1E8]">{result.love.total}%</p>
               <p className="text-sm text-[#C7C2B4]">
                 Destiny {result.love.destinyA} ({result.nameA}) × Destiny {result.love.destinyB} (
                 {result.nameB})
               </p>
-              <p className="text-lg font-bold text-[#E0C158]">{result.flames.label}</p>
+              <p className="text-lg font-bold text-[#C8AC80]">{result.flames.label}</p>
               <p className="text-sm leading-6 text-[#C7C2B4]">
                 {CATEGORY_BLURB[result.flames.label]} Leftover letters:{" "}
                 <span className="font-semibold text-[#F5F1E8]">
@@ -225,7 +225,7 @@ export function LoveClient() {
               {FAQS.map((item) => (
                 <article
                   key={item.q}
-                  className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-4"
+                  className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-4"
                 >
                   <h3 className="font-semibold text-[#F5F1E8]">{item.q}</h3>
                   <p className="mt-2 text-sm leading-6 text-[#C7C2B4]">{item.a}</p>

@@ -65,7 +65,7 @@ export default function HoroscopePage() {
   }, [selectedRashi, period]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] via-[#0F2240] to-[#0A1A2F]">
+    <div className="min-h-screen bg-gradient-to-b from-[#09142a] via-[#0E1C3B] to-[#09142a]">
       <Navbar />
       <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <header className="text-center">
@@ -86,8 +86,8 @@ export default function HoroscopePage() {
               onClick={() => setPeriod(item.id)}
               className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
                 period === item.id
-                  ? "bg-[#C9A227] text-[#0A1A2F] shadow-md"
-                  : "bg-[#0F2240] text-[#C7C2B4] ring-1 ring-[#C9A227]/20 hover:bg-[#0A1A2F]"
+                  ? "bg-[#b18d4f] text-[#09142a] shadow-md"
+                  : "bg-[#0E1C3B] text-[#C7C2B4] ring-1 ring-[#b18d4f]/20 hover:bg-[#09142a]"
               }`}
             >
               {item.label}
@@ -99,13 +99,13 @@ export default function HoroscopePage() {
           {rashis.map((rashi) => (
             <article
               key={rashi.id}
-              className={`rounded-2xl border bg-[#0F2240] p-5 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg ${
+              className={`rounded-2xl border bg-[#0E1C3B] p-5 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg ${
                 selectedRashi === rashi.id
-                  ? "border-[#C9A227] ring-2 ring-[#C9A227]/30"
-                  : "border-[#C9A227]/20"
+                  ? "border-[#b18d4f] ring-2 ring-[#b18d4f]/30"
+                  : "border-[#b18d4f]/20"
               }`}
               style={{
-                background: `linear-gradient(135deg, ${rashi.color}22 0%, #0F2240 55%)`,
+                background: `linear-gradient(135deg, ${rashi.color}22 0%, #0E1C3B 55%)`,
               }}
             >
               <p className="text-4xl">{rashi.symbol}</p>
@@ -124,10 +124,10 @@ export default function HoroscopePage() {
           ))}
         </section>
 
-        <section className="mt-10 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+        <section className="mt-10 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-sm">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
-              <p className="text-sm font-semibold text-[#E0C158]">
+              <p className="text-sm font-semibold text-[#C8AC80]">
                 Selected Rashi
               </p>
               <h3 className="mt-1 text-2xl font-bold text-[#F5F1E8]">
@@ -136,14 +136,14 @@ export default function HoroscopePage() {
             </div>
             <Link
               href={`/horoscope/${selectedMeta.id}?period=${period}`}
-              className="rounded-full bg-[#0A1A2F] px-4 py-2 text-sm font-semibold text-[#E0C158] transition hover:bg-[#0A1A2F]/70"
+              className="rounded-full bg-[#09142a] px-4 py-2 text-sm font-semibold text-[#C8AC80] transition hover:bg-[#09142a]/70"
             >
               Open full page
             </Link>
           </div>
 
           {loading ? (
-            <div className="mt-6 h-44 animate-pulse rounded-xl bg-[#0A1A2F]/60" />
+            <div className="mt-6 h-44 animate-pulse rounded-xl bg-[#09142a]/60" />
           ) : data ? (
             <div className="mt-6 space-y-5">
               <div>
@@ -152,7 +152,7 @@ export default function HoroscopePage() {
                   {data.todayOverview}
                 </p>
               </div>
-              <div className="grid gap-3 rounded-xl bg-[#0A1A2F] p-4 text-sm sm:grid-cols-3">
+              <div className="grid gap-3 rounded-xl bg-[#09142a] p-4 text-sm sm:grid-cols-3">
                 <p>
                   <span className="font-semibold text-[#F5F1E8]">
                     Lucky Number:

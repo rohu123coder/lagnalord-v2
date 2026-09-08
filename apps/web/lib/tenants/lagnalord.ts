@@ -7,10 +7,10 @@ export const lagnalord: TenantConfig = {
   domain: "lagnalord.com",
   theme: {
     colors: {
-      cosmicDeep: "#0A1A2F",
-      cosmicSecondary: "#13294B",
-      goldAccent: "#C9A227",
-      softGold: "#E0C158",
+      cosmicDeep: "#09142a",
+      cosmicSecondary: "#122352",
+      goldAccent: "#b18d4f",
+      softGold: "#C8AC80",
       mysticPink: "#A6745A",
       violetElectric: "#2A7D7B",
       violetLight: "#3A9D9B",
@@ -21,19 +21,19 @@ export const lagnalord: TenantConfig = {
       violet200: "#abc3db",
       violet300: "#6a8fb5",
       violet400: "#3a5f85",
-      violet500: "#13294B",
-      violet600: "#0F2240",
-      violet700: "#0A1A2F",
+      violet500: "#122352",
+      violet600: "#0E1C3B",
+      violet700: "#09142a",
       violet800: "#081424",
       violet900: "#050D1A",
     },
     gradients: {
       heroRadial:
-        "radial-gradient(ellipse at 50% 0%, #13294B 0%, #0A1A2F 55%, #050D1A 100%)",
+        "radial-gradient(ellipse at 50% 0%, #122352 0%, #09142a 55%, #050D1A 100%)",
       ctaGold:
-        "linear-gradient(135deg, #C9A227 0%, #E0C158 50%, #A6745A 100%)",
+        "linear-gradient(135deg, #b18d4f 0%, #C8AC80 50%, #A6745A 100%)",
       cardHighlight:
-        "linear-gradient(135deg, rgba(42,125,123,0.1), rgba(201,162,39,0.1))",
+        "linear-gradient(135deg, rgba(42,125,123,0.1), rgba(177, 141, 79,0.1))",
     },
     fonts: {
       heading: "var(--font-heading)",

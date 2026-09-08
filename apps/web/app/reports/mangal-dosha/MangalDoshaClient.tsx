@@ -27,7 +27,7 @@ type MangalDoshaResult = {
 };
 
 const fieldClass =
-  "w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-3 py-2.5 text-[#F5F1E8] outline-none ring-[#C9A227]/30 transition focus:border-[#C9A227] focus:ring-2";
+  "w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-3 py-2.5 text-[#F5F1E8] outline-none ring-[#b18d4f]/30 transition focus:border-[#b18d4f] focus:ring-2";
 
 function ordinal(n: number): string {
   const v = n % 100;
@@ -183,7 +183,7 @@ export default function MangalDoshaClient() {
     result != null && result.moonChartManglik !== result.isManglik;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] via-[#0F2240] to-[#0A1A2F]">
+    <div className="min-h-screen bg-gradient-to-b from-[#09142a] via-[#0E1C3B] to-[#09142a]">
       <Navbar />
       <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
         <h1 className="text-3xl font-extrabold text-[#F5F1E8]">
@@ -193,7 +193,7 @@ export default function MangalDoshaClient() {
           Enter birth details to check Mangal Dosha and suggested remedies.
         </p>
 
-        <section className="mt-6 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-lg shadow-black/30">
+        <section className="mt-6 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-5 shadow-lg shadow-black/30">
           <div className="space-y-3">
             <div>
               <label htmlFor="md-dob" className="mb-1.5 block text-sm font-medium text-[#C7C2B4]">
@@ -235,7 +235,7 @@ export default function MangalDoshaClient() {
                   className={fieldClass}
                 />
                 {geoLoading ? (
-                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[#C9A227]">
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[#b18d4f]">
                     <Spinner className="h-5 w-5" />
                   </div>
                 ) : null}
@@ -246,14 +246,14 @@ export default function MangalDoshaClient() {
                 </p>
               ) : null}
               {showSuggest && suggestions.length > 0 ? (
-                <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#C9A227]/20 bg-[#0F2240] py-1 shadow-lg">
+                <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#b18d4f]/20 bg-[#0E1C3B] py-1 shadow-lg">
                   {suggestions.map((s, i) => {
                     const line = [s.city, s.country].filter(Boolean).join(", ");
                     return (
                       <li key={`${s.formattedAddress}-${i}`}>
                         <button
                           type="button"
-                          className="w-full px-4 py-2.5 text-left text-sm text-[#F5F1E8] hover:bg-[#0A1A2F]"
+                          className="w-full px-4 py-2.5 text-left text-sm text-[#F5F1E8] hover:bg-[#09142a]"
                           onClick={() => {
                             setPlace(s.formattedAddress || line);
                             setLat(s.lat!);
@@ -295,8 +295,8 @@ export default function MangalDoshaClient() {
         </section>
 
         {result ? (
-          <section className="mt-6 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-lg shadow-black/30">
-            <p className="text-sm font-semibold text-[#E0C158]">Overall status</p>
+          <section className="mt-6 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-5 shadow-lg shadow-black/30">
+            <p className="text-sm font-semibold text-[#C8AC80]">Overall status</p>
             <div className="mt-1 flex flex-wrap items-center gap-3">
               <h2 className="text-3xl font-extrabold text-[#F5F1E8]">
                 {result.isManglik ? "Manglik" : "Non-Manglik"}
@@ -323,7 +323,7 @@ export default function MangalDoshaClient() {
             )}
 
             <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
-              <div className="rounded-xl bg-[#0A1A2F] px-3 py-2.5">
+              <div className="rounded-xl bg-[#09142a] px-3 py-2.5">
                 <dt className="text-xs text-[#C7C2B4]">Mars from Lagna</dt>
                 <dd className="font-semibold text-[#F5F1E8]">
                   {ordinal(result.marsHouse)} house
@@ -331,7 +331,7 @@ export default function MangalDoshaClient() {
                 </dd>
               </div>
               {showMoonChartDiff ? (
-                <div className="rounded-xl bg-[#0A1A2F] px-3 py-2.5">
+                <div className="rounded-xl bg-[#09142a] px-3 py-2.5">
                   <dt className="text-xs text-[#C7C2B4]">Moon Chart</dt>
                   <dd className="font-semibold text-[#F5F1E8]">
                     {result.moonChartManglik ? "Manglik" : "Non-Manglik"}
@@ -342,7 +342,7 @@ export default function MangalDoshaClient() {
                 </div>
               ) : null}
               {result.marsRashi ? (
-                <div className="rounded-xl bg-[#0A1A2F] px-3 py-2.5">
+                <div className="rounded-xl bg-[#09142a] px-3 py-2.5">
                   <dt className="text-xs text-[#C7C2B4]">Mars Rashi</dt>
                   <dd className="font-semibold text-[#F5F1E8]">{result.marsRashi}</dd>
                 </div>

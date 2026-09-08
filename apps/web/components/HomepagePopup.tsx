@@ -66,7 +66,7 @@ export function HomepagePopup() {
 
   return (
     <div
-      className="fixed inset-0 z-[60] flex items-center justify-center bg-[#0A1A2F]/80 p-4"
+      className="fixed inset-0 z-[60] flex items-center justify-center bg-[#09142a]/80 p-4"
       onClick={close}
       role="presentation"
     >
@@ -74,19 +74,19 @@ export function HomepagePopup() {
         role="dialog"
         aria-modal="true"
         aria-labelledby="homepage-popup-headline"
-        className="relative w-full max-w-md rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-2xl shadow-black/50"
+        className="relative w-full max-w-md rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-2xl shadow-black/50"
         onClick={(event) => event.stopPropagation()}
       >
         <button
           type="button"
           onClick={close}
           aria-label="Close"
-          className="absolute right-3 top-3 rounded-full px-2 py-1 text-sm text-[#C7C2B4] transition hover:text-[#E0C158]"
+          className="absolute right-3 top-3 rounded-full px-2 py-1 text-sm text-[#C7C2B4] transition hover:text-[#C8AC80]"
         >
           ✕
         </button>
 
-        <div className="mx-auto flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border border-[#C9A227]/20 bg-[#0A1A2F]">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border border-[#b18d4f]/20 bg-[#09142a]">
           {logoSrc ? (
             <Image
               src={logoSrc}
@@ -96,7 +96,7 @@ export function HomepagePopup() {
               className="h-12 w-12 object-contain"
             />
           ) : (
-            <span className="px-1 text-center text-[10px] font-bold leading-tight text-[#E0C158]">
+            <span className="px-1 text-center text-[10px] font-bold leading-tight text-[#C8AC80]">
               {tenant.logo.text}
             </span>
           )}
@@ -112,7 +112,7 @@ export function HomepagePopup() {
         ) : null}
 
         {copy.popup_offer_text ? (
-          <p className="mt-2 text-center text-lg font-semibold text-[#E0C158]">
+          <p className="mt-2 text-center text-lg font-semibold text-[#C8AC80]">
             {copy.popup_offer_text}
           </p>
         ) : null}
@@ -137,7 +137,7 @@ export function HomepagePopup() {
             <Link
               href="/astrologers"
               onClick={close}
-              className="inline-flex flex-1 items-center justify-center rounded-full border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-2.5 text-sm font-semibold text-[#F5F1E8] transition hover:border-[#C9A227] hover:text-[#E0C158]"
+              className="inline-flex flex-1 items-center justify-center rounded-full border border-[#b18d4f]/20 bg-[#09142a] px-4 py-2.5 text-sm font-semibold text-[#F5F1E8] transition hover:border-[#b18d4f] hover:text-[#C8AC80]"
             >
               {copy.popup_button2_label}
             </Link>

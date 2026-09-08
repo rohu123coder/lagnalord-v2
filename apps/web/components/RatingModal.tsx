@@ -45,7 +45,7 @@ export function RatingModal({
 
   return (
     <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/50 p-4">
-      <div className="w-full max-w-md rounded-2xl bg-[#0F2240] p-6 shadow-2xl">
+      <div className="w-full max-w-md rounded-2xl bg-[#0E1C3B] p-6 shadow-2xl">
         {submitted ? (
           <>
             <h2 className="text-lg font-bold text-[#F5F1E8]">Thank you!</h2>
@@ -90,7 +90,7 @@ export function RatingModal({
               value={reviewText}
               onChange={(e) => setReviewText(e.target.value)}
               placeholder="Share your experience..."
-              className="mt-4 min-h-28 w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-3 py-2 text-sm text-[#F5F1E8] outline-none ring-[#C9A227] focus:ring-2"
+              className="mt-4 min-h-28 w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-3 py-2 text-sm text-[#F5F1E8] outline-none ring-[#b18d4f] focus:ring-2"
             />
             <button
               type="button"
@@ -114,7 +114,7 @@ export function RatingModal({
             {onSkip ? (
               <button
                 type="button"
-                className="mt-3 w-full text-sm font-semibold text-[#C7C2B4] hover:text-[#E0C158]"
+                className="mt-3 w-full text-sm font-semibold text-[#C7C2B4] hover:text-[#C8AC80]"
                 onClick={onSkip}
               >
                 Skip

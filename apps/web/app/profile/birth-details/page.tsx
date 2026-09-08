@@ -151,17 +151,17 @@ export default function BirthDetailsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#0A1A2F]">
+      <div className="min-h-screen bg-[#09142a]">
         <Navbar />
         <div className="mx-auto max-w-xl px-4 py-10 sm:px-6">
-          <div className="h-64 animate-pulse rounded-2xl bg-[#0F2240]" />
+          <div className="h-64 animate-pulse rounded-2xl bg-[#0E1C3B]" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#0A1A2F] pb-16">
+    <div className="min-h-screen bg-[#09142a] pb-16">
       <Navbar />
       <div className="mx-auto max-w-xl px-4 py-10 sm:px-6">
         <h1 className="text-2xl font-bold text-[#F5F1E8]">Your Birth Details</h1>
@@ -179,7 +179,7 @@ export default function BirthDetailsPage() {
               required
               value={dob}
               onChange={(e) => setDob(e.target.value)}
-              className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-2 focus:ring-[#C9A227]/30"
+              className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] outline-none focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
             />
           </div>
 
@@ -191,7 +191,7 @@ export default function BirthDetailsPage() {
               type="time"
               value={tob}
               onChange={(e) => setTob(e.target.value)}
-              className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-2 focus:ring-[#C9A227]/30"
+              className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] outline-none focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
             />
           </div>
 
@@ -206,20 +206,20 @@ export default function BirthDetailsPage() {
               value={placeName}
               onChange={(e) => onPlaceChange(e.target.value)}
               onFocus={() => suggestions.length > 0 && setShowSuggest(true)}
-              className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] outline-none focus:border-[#C9A227] focus:ring-2 focus:ring-[#C9A227]/30"
+              className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] outline-none focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
             />
             {geoLoading ? (
-              <div className="absolute right-3 top-[42px] text-xs text-[#C9A227]">…</div>
+              <div className="absolute right-3 top-[42px] text-xs text-[#b18d4f]">…</div>
             ) : null}
             {showSuggest && suggestions.length > 0 ? (
-              <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#C9A227]/20 bg-[#0F2240] py-1 shadow-lg">
+              <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#b18d4f]/20 bg-[#0E1C3B] py-1 shadow-lg">
                 {suggestions.map((s, i) => {
                   const line = [s.city, s.country].filter(Boolean).join(", ");
                   return (
                     <li key={`${s.formattedAddress}-${i}`}>
                       <button
                         type="button"
-                        className="w-full px-4 py-2.5 text-left text-sm text-[#F5F1E8] hover:bg-[#0A1A2F]"
+                        className="w-full px-4 py-2.5 text-left text-sm text-[#F5F1E8] hover:bg-[#09142a]"
                         onClick={() => {
                           setPlaceName(s.formattedAddress || line);
                           setLat(s.lat!);
@@ -254,8 +254,8 @@ export default function BirthDetailsPage() {
                   onClick={() => setGender(g)}
                   className={`rounded-xl border px-5 py-2.5 text-sm font-medium capitalize transition ${
                     gender === g
-                      ? "border-[#C9A227] bg-[#C9A227]/10 text-[#E0C158]"
-                      : "border-[#C9A227]/20 text-[#C7C2B4]"
+                      ? "border-[#b18d4f] bg-[#b18d4f]/10 text-[#C8AC80]"
+                      : "border-[#b18d4f]/20 text-[#C7C2B4]"
                   }`}
                 >
                   {g}
@@ -274,7 +274,7 @@ export default function BirthDetailsPage() {
           <button
             type="submit"
             disabled={!canSubmit || saving}
-            className="w-full rounded-xl bg-gradient-to-r from-[#C9A227] to-[#E0C158] px-4 py-3 text-sm font-semibold text-[#0A1A2F] transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-50"
+            className="w-full rounded-xl bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-4 py-3 text-sm font-semibold text-[#09142a] transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {saving ? "Saving…" : "Save birth details"}
           </button>

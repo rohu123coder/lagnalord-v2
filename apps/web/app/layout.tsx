@@ -51,9 +51,9 @@ export default function RootLayout({
   } as React.CSSProperties;
 
   return (
-    <html lang="en" style={tenantThemeStyle} className="bg-[#0A1A2F]">
+    <html lang="en" style={tenantThemeStyle} className="bg-[#09142a]">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased text-[#F5F1E8] bg-[#0A1A2F]`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased text-[#F5F1E8] bg-[#09142a]`}
       >
         {children}
       </body>

@@ -76,9 +76,9 @@ export function PasswordResetForm({
   const expired = error === "This link has expired. Request a new one.";
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] to-[#0F2240]">
+    <div className="min-h-screen bg-gradient-to-b from-[#09142a] to-[#0E1C3B]">
       <div className="mx-auto flex min-h-screen max-w-md items-center px-4 py-12 sm:px-6">
-        <div className="w-full rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-8 shadow-lg">
+        <div className="w-full rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-8 shadow-lg">
           <h1 className="text-2xl font-bold text-[#F5F1E8]">{heading}</h1>
 
           {success ? (
@@ -88,7 +88,7 @@ export function PasswordResetForm({
               </p>
               <Link
                 href={loginHref}
-                className="block text-sm font-semibold text-[#E0C158] hover:underline"
+                className="block text-sm font-semibold text-[#C8AC80] hover:underline"
               >
                 Go to login
               </Link>
@@ -102,7 +102,7 @@ export function PasswordResetForm({
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 placeholder="New Password"
-                className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#C9A227]"
+                className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#b18d4f]"
               />
               <input
                 type="password"
@@ -111,7 +111,7 @@ export function PasswordResetForm({
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm Password"
-                className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#C9A227]"
+                className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#b18d4f]"
               />
 
               {error ? (
@@ -122,7 +122,7 @@ export function PasswordResetForm({
                   {expired ? (
                     <Link
                       href={expiredBackHref}
-                      className="block text-sm text-[#E0C158] hover:underline"
+                      className="block text-sm text-[#C8AC80] hover:underline"
                     >
                       Request a new reset link
                     </Link>

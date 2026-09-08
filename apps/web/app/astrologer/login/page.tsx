@@ -113,14 +113,14 @@ export default function AstrologerLoginPage() {
 
   if (!mounted) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0A1A2F]">
-        <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#C9A227] border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-[#09142a]">
+        <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#b18d4f] border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] to-[#0F2240]">
+    <div className="min-h-screen bg-gradient-to-b from-[#09142a] to-[#0E1C3B]">
       <div className="mx-auto max-w-md px-4 pt-8 sm:px-6">
         <Link href="/" className="inline-flex items-center gap-2">
           {tenant.logo.imageUrl ? (
@@ -132,7 +132,7 @@ export default function AstrologerLoginPage() {
               className="h-9 w-auto object-contain"
             />
           ) : null}
-          <span className="text-xl font-bold text-[#E0C158]">
+          <span className="text-xl font-bold text-[#C8AC80]">
             {tenant.logo.text}
           </span>
         </Link>
@@ -154,7 +154,7 @@ export default function AstrologerLoginPage() {
             autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#C9A227] focus:ring-2"
+            className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f] focus:ring-2"
             placeholder="you@example.com"
           />
           <label className="block text-sm font-medium text-[#C7C2B4]">
@@ -165,7 +165,7 @@ export default function AstrologerLoginPage() {
             autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-xl border border-[#C9A227]/20 bg-[#0A1A2F] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#C9A227] focus:ring-2"
+            className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-3 text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f] focus:ring-2"
           />
           <div className="text-right">
             <Link
@@ -190,18 +190,18 @@ export default function AstrologerLoginPage() {
           </button>
           <Link
             href="/astrologer/register"
-            className="block pt-2 text-center text-sm font-semibold text-[#C7C2B4] hover:text-[#E0C158]"
+            className="block pt-2 text-center text-sm font-semibold text-[#C7C2B4] hover:text-[#C8AC80]"
           >
             New astrologer? Register here →
           </Link>
         </div>
 
         <p className="mt-10 text-center text-sm text-[#C7C2B4]/70">
-          <Link href="/login" className="text-[#E0C158] hover:underline">
+          <Link href="/login" className="text-[#C8AC80] hover:underline">
             User login
           </Link>
           {" · "}
-          <Link href="/" className="text-[#E0C158] hover:underline">
+          <Link href="/" className="text-[#C8AC80] hover:underline">
             Home
           </Link>
         </p>

@@ -56,7 +56,7 @@ const paidReports = [
 
 export default function ReportsPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] via-[#0F2240] to-[#0A1A2F]">
+    <div className="min-h-screen bg-gradient-to-b from-[#09142a] via-[#0E1C3B] to-[#09142a]">
       <Navbar />
       <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <h1 className="text-3xl font-extrabold text-[#F5F1E8] sm:text-4xl">
@@ -71,7 +71,7 @@ export default function ReportsPage() {
           {freeReports.map((report) => (
             <article
               key={report.title}
-              className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 shadow-sm"
+              className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-5 shadow-sm"
             >
               <h2 className="text-lg font-bold text-[#F5F1E8]">{report.title}</h2>
               <p className="mt-2 text-sm text-[#C7C2B4]">{report.description}</p>
@@ -85,14 +85,14 @@ export default function ReportsPage() {
           ))}
         </section>
 
-        <section className="mt-10 rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-sm">
+        <section className="mt-10 rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-sm">
           <h2 className="text-xl font-bold text-[#F5F1E8]">Paid Reports</h2>
           <p className="mt-2 text-sm text-[#C7C2B4]">
             Need deeper insights? Premium reports are prepared by senior astrologers.
           </p>
           <ul className="mt-4 grid gap-2 text-sm text-[#C7C2B4] sm:grid-cols-2">
             {paidReports.map((report) => (
-              <li key={report} className="rounded-lg bg-[#0A1A2F] px-3 py-2">
+              <li key={report} className="rounded-lg bg-[#09142a] px-3 py-2">
                 {report}
               </li>
             ))}
