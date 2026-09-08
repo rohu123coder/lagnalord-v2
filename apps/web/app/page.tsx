@@ -737,7 +737,7 @@ export default function HomePage() {
       <section className="relative overflow-hidden border-b border-[#b18d4f]/20 bg-gradient-to-br from-[#122352] via-[#09142a] to-[#09142a]">
         <div className="pointer-events-none absolute -top-16 right-0 h-72 w-72 rounded-full bg-[#b18d4f]/15 blur-3xl" />
         <div className="pointer-events-none absolute bottom-0 left-0 h-64 w-64 rounded-full bg-[#C8AC80]/15 blur-3xl" />
-        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16">
+        <div className="mx-auto max-w-7xl px-4 pb-10 pt-14 sm:px-6 sm:pb-12 sm:pt-16">
           <div className="mx-auto mb-8 flex w-fit gap-1 rounded-full border border-[#b18d4f]/30 bg-[#0E1C3B] p-1">
             <button
               type="button"
@@ -792,8 +792,16 @@ export default function HomePage() {
               </svg>
             </div>
           </div>
+        </div>
 
-          <div className="mt-10 rounded-3xl border border-[#b18d4f]/25 bg-[#0E1C3B]/90 p-5 shadow-sm sm:p-8">
+        <div className="relative z-10 bg-gradient-to-r from-[#78543a] via-[#8a6548] to-[#78543a] px-4 py-3 sm:py-4">
+          <p className="text-center text-sm font-semibold leading-6 tracking-wide text-[#F5F1E8]">
+            Swiss Ephemeris Kundli · Verified Astrologers · Astrology &amp; Vastu in One Place
+          </p>
+        </div>
+
+        <div className="mx-auto max-w-7xl px-4 pb-14 pt-8 sm:px-6 sm:pb-16 sm:pt-10">
+          <div className="rounded-3xl border border-[#b18d4f]/25 bg-[#0E1C3B]/90 p-5 shadow-sm sm:p-8">
             <div className="flex flex-col items-start justify-between gap-3 border-b border-[#b18d4f]/15 pb-4 sm:flex-row sm:items-center">
               <h2 className="text-xl font-bold text-[#C8AC80]">Select Your Rashi</h2>
               <p className="rounded-full bg-[#b18d4f]/15 px-4 py-1.5 text-sm font-semibold text-[#C8AC80]">
