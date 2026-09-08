@@ -1,0 +1,33 @@
+import Link from "next/link";
+
+export function AstrologerCTA({
+  heading = "Want a personalized reading?",
+  text = "Numbers give a quick sketch. A conversation with a verified astrologer can place that sketch next to your chart, timing, and the question you actually care about.",
+}: {
+  heading?: string;
+  text?: string;
+}) {
+  return (
+    <aside className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-6 shadow-lg shadow-black/30 md:p-8">
+      <p className="text-xs font-bold uppercase tracking-wider text-[#E0C158]">
+        Talk to an expert
+      </p>
+      <h2 className="mt-2 text-xl font-bold text-[#F5F1E8] md:text-2xl">{heading}</h2>
+      <p className="mt-2 max-w-2xl text-sm leading-6 text-[#C7C2B4]">{text}</p>
+      <div className="mt-5 flex flex-wrap gap-3">
+        <Link
+          href="/astrologers"
+          className="inline-flex rounded-full bg-[#2A7D7B] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#3A9D9B]"
+        >
+          Chat with Astrologer
+        </Link>
+        <Link
+          href="/astrologers"
+          className="inline-flex rounded-full border border-[#C9A227]/20 bg-[#0A1A2F] px-5 py-2.5 text-sm font-semibold text-[#F5F1E8] transition hover:border-[#C9A227] hover:text-[#E0C158]"
+        >
+          Talk to Astrologer
+        </Link>
+      </div>
+    </aside>
+  );
+}
