@@ -50,6 +50,60 @@ body {
     animation: servicesMarquee 45s linear infinite;
   }
 
+  @keyframes kundliWheelSpin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animate-kundli-wheel {
+    animation: kundliWheelSpin 90s linear infinite;
+    transform-origin: 160px 160px;
+    transform-box: fill-box;
+  }
+
+  @keyframes starTwinkle {
+    0%,
+    100% {
+      opacity: 0.15;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  .animate-star-twinkle {
+    animation: starTwinkle 3s ease-in-out infinite;
+  }
+
+  @keyframes centerGlow {
+    0%,
+    100% {
+      opacity: 0.25;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.7;
+      transform: scale(1.35);
+    }
+  }
+
+  .animate-center-glow {
+    animation: centerGlow 3s ease-in-out infinite;
+    transform-box: fill-box;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-kundli-wheel,
+    .animate-star-twinkle,
+    .animate-center-glow {
+      animation: none;
+    }
+  }
+
   .text-secondary {
     color: #64748b;
   }

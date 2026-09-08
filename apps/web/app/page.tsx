@@ -303,15 +303,82 @@ const homepageFaqs = [
   },
 ] as const;
 
+const ZODIAC_GLYPHS = ["♈", "♉", "♊", "♋", "♌", "♍", "♎", "♏", "♐", "♑", "♒", "♓"] as const;
+const WHEEL_CX = 160;
+const WHEEL_CY = 160;
+const ZODIAC_R = 150;
+const CENTER_DOT = { cx: 160, cy: 85 };
+
+const WHEEL_STARS = [
+  { cx: 160, cy: 20, r: 1.2, fill: "#F5F1E8", delay: "0s", duration: "2.4s" },
+  { cx: 100, cy: 25, r: 1, fill: "#C8AC80", delay: "0.5s", duration: "3.2s" },
+  { cx: 220, cy: 28, r: 1.4, fill: "#F5F1E8", delay: "1.1s", duration: "2.8s" },
+  { cx: 20, cy: 160, r: 1.1, fill: "#C8AC80", delay: "0.2s", duration: "3.6s" },
+  { cx: 28, cy: 118, r: 1.3, fill: "#F5F1E8", delay: "1.6s", duration: "2.2s" },
+  { cx: 300, cy: 160, r: 1.2, fill: "#C8AC80", delay: "0.8s", duration: "3.0s" },
+  { cx: 292, cy: 205, r: 1, fill: "#F5F1E8", delay: "2.0s", duration: "3.8s" },
+  { cx: 160, cy: 300, r: 1.4, fill: "#C8AC80", delay: "0.3s", duration: "2.6s" },
+  { cx: 208, cy: 294, r: 1.1, fill: "#F5F1E8", delay: "1.4s", duration: "3.4s" },
+  { cx: 110, cy: 22, r: 1.2, fill: "#C8AC80", delay: "0.9s", duration: "2.9s" },
+] as const;
+
 function KundliWheelMark({ size = 280 }: { size?: number }) {
   return (
-    <svg className="relative z-10" width={size} height={size} viewBox="0 0 280 280" aria-hidden="true">
-      <path d="M15 15 H265 V265 H15 Z" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
-      <path d="M15 15 L140 140 L265 15" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
-      <path d="M15 265 L140 140 L265 265" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
-      <path d="M15 15 L140 140 L15 265" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
-      <path d="M265 15 L140 140 L265 265" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
-      <circle cx="140" cy="65" r="4" fill="#C8AC80" />
+    <svg className="relative z-10" width={size} height={size} viewBox="0 0 320 320" aria-hidden="true">
+      {WHEEL_STARS.map((star, i) => (
+        <circle
+          key={`star-${i}`}
+          cx={star.cx}
+          cy={star.cy}
+          r={star.r}
+          fill={star.fill}
+          className="animate-star-twinkle motion-reduce:animate-none"
+          style={{ animationDelay: star.delay, animationDuration: star.duration }}
+        />
+      ))}
+
+      <g
+        className="animate-kundli-wheel motion-reduce:animate-none"
+        style={{ transformOrigin: `${WHEEL_CX}px ${WHEEL_CY}px`, transformBox: "fill-box" }}
+      >
+        <circle cx={WHEEL_CX} cy={WHEEL_CY} r={ZODIAC_R} fill="none" />
+        {ZODIAC_GLYPHS.map((glyph, i) => {
+          const angle = ((i * 30 - 90) * Math.PI) / 180;
+          const x = WHEEL_CX + ZODIAC_R * Math.cos(angle);
+          const y = WHEEL_CY + ZODIAC_R * Math.sin(angle);
+          return (
+            <text
+              key={glyph}
+              x={x}
+              y={y}
+              textAnchor="middle"
+              dominantBaseline="central"
+              fill="#C8AC80"
+              fillOpacity={0.7}
+              fontSize={14}
+            >
+              {glyph}
+            </text>
+          );
+        })}
+      </g>
+
+      <path d="M35 35 H285 V285 H35 Z" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
+      <path d="M35 35 L160 160 L285 35" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
+      <path d="M35 285 L160 160 L285 285" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
+      <path d="M35 35 L160 160 L35 285" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
+      <path d="M285 35 L160 160 L285 285" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
+
+      <circle
+        cx={CENTER_DOT.cx}
+        cy={CENTER_DOT.cy}
+        r="11"
+        fill="#C8AC80"
+        fillOpacity="0.28"
+        className="animate-center-glow motion-reduce:animate-none"
+        style={{ transformOrigin: `${CENTER_DOT.cx}px ${CENTER_DOT.cy}px`, transformBox: "fill-box" }}
+      />
+      <circle cx={CENTER_DOT.cx} cy={CENTER_DOT.cy} r="4" fill="#C8AC80" />
     </svg>
   );
 }
@@ -828,14 +895,7 @@ export default function HomePage() {
 
             <div className="relative mx-auto flex h-64 w-64 items-center justify-center sm:h-80 sm:w-80">
               <div className="absolute h-56 w-56 rounded-full bg-[#b18d4f]/20 blur-2xl sm:h-72 sm:w-72" />
-              <svg className="relative z-10" width="280" height="280" viewBox="0 0 280 280">
-                <path d="M15 15 H265 V265 H15 Z" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
-                <path d="M15 15 L140 140 L265 15" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
-                <path d="M15 265 L140 140 L265 265" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
-                <path d="M15 15 L140 140 L15 265" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
-                <path d="M265 15 L140 140 L265 265" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
-                <circle cx="140" cy="65" r="4" fill="#C8AC80" />
-              </svg>
+              <KundliWheelMark />
             </div>
           </div>
         </div>
