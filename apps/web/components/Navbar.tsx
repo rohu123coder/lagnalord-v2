@@ -26,6 +26,7 @@ export function Navbar() {
   const { user, isLoggedIn, logout, isWalletRefreshing, token } = useAuthStore();
   const [mounted, setMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [calculatorsOpen, setCalculatorsOpen] = useState(false);
   const [hasOnlineAstrologers, setHasOnlineAstrologers] = useState(false);
 
   const centerLinks = [
@@ -38,9 +39,28 @@ export function Navbar() {
     { label: "Panchang", href: "/panchang" },
   ];
 
+  const calculatorLinks = [
+    { label: "Mulank Calculator", href: "/mulank-calculator" },
+    { label: "Destiny Number Calculator", href: "/destiny-number-calculator" },
+    { label: "Lucky Name Numerology Calculator", href: "/lucky-name-numerology-calculator" },
+    { label: "Mobile Number Numerology Calculator", href: "/mobile-number-numerology-calculator" },
+    { label: "Lucky Vehicle Number Calculator", href: "/lucky-vehicle-number-calculator" },
+    { label: "Love Calculator", href: "/love-calculator" },
+    { label: "FLAMES Calculator", href: "/flames-calculator" },
+    { label: "Friendship Calculator", href: "/friendship-calculator" },
+    { label: "Name Compatibility Calculator", href: "/name-compatibility-calculator" },
+    { label: "Age Calculator", href: "/age-calculator" },
+  ];
+
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (!menuOpen) {
+      setCalculatorsOpen(false);
+    }
+  }, [menuOpen]);
 
   useEffect(() => {
     let cancelled = false;
@@ -109,6 +129,8 @@ export function Navbar() {
     },
     [pathname]
   );
+
+  const isCalculatorActive = calculatorLinks.some((link) => isActive(link.href));
 
   // Astrologer pages use their own dedicated navbar component.
   if (mounted && isLoggedIn && role === "astrologer") {
@@ -180,6 +202,70 @@ export function Navbar() {
                 </Link>
               </Fragment>
             ))}
+            <span className="text-[#C9A227]/20" aria-hidden="true">
+              |
+            </span>
+            <div className="group relative">
+              <button
+                type="button"
+                aria-haspopup="true"
+                className={`inline-flex items-center gap-1 whitespace-nowrap border-b-2 pb-0.5 text-[14px] font-medium transition ${
+                  isCalculatorActive
+                    ? "border-[#C9A227] text-[#E0C158]"
+                    : "border-transparent text-[#C7C2B4] hover:text-[#E0C158]"
+                }`}
+              >
+                Calculators
+                <svg
+                  className="h-3.5 w-3.5 transition group-hover:rotate-180 group-focus-within:rotate-180"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+              <div className="invisible absolute right-0 top-full z-50 w-[36rem] pt-2 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                <div className="grid grid-cols-2 gap-x-1 rounded-xl border border-[#C9A227]/20 bg-[#0F2240] p-2 shadow-lg shadow-black/40">
+                  <div className="flex flex-col">
+                    {calculatorLinks.slice(0, 5).map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        className={`rounded-md px-3 py-2 text-[13px] leading-5 transition ${
+                          isActive(link.href)
+                            ? "bg-[#C9A227]/10 text-[#E0C158]"
+                            : "text-[#F5F1E8] hover:bg-[#0A1A2F] hover:text-[#E0C158]"
+                        }`}
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        {link.label}
+                      </Link>
+                    ))}
+                  </div>
+                  <div className="flex flex-col">
+                    {calculatorLinks.slice(5).map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        className={`rounded-md px-3 py-2 text-[13px] leading-5 transition ${
+                          isActive(link.href)
+                            ? "bg-[#C9A227]/10 text-[#E0C158]"
+                            : "text-[#F5F1E8] hover:bg-[#0A1A2F] hover:text-[#E0C158]"
+                        }`}
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        {link.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </nav>
 
@@ -314,6 +400,50 @@ export function Navbar() {
                     {link.label}
                   </Link>
                 ))}
+                <div>
+                  <button
+                    type="button"
+                    aria-expanded={calculatorsOpen}
+                    className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-sm font-medium ${
+                      isCalculatorActive
+                        ? "bg-[#C9A227]/10 text-[#E0C158]"
+                        : "text-[#C7C2B4] hover:bg-[#0F2240]"
+                    }`}
+                    onClick={() => setCalculatorsOpen((open) => !open)}
+                  >
+                    Calculators
+                    <svg
+                      className={`h-4 w-4 transition ${calculatorsOpen ? "rotate-180" : ""}`}
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                  {calculatorsOpen ? (
+                    <div className="mt-1 space-y-1 border-l border-[#C9A227]/20 pl-2">
+                      {calculatorLinks.map((link) => (
+                        <Link
+                          key={link.href}
+                          href={link.href}
+                          className={`block rounded-md px-3 py-2 text-sm font-medium ${
+                            isActive(link.href)
+                              ? "bg-[#C9A227]/10 text-[#E0C158]"
+                              : "text-[#F5F1E8] hover:bg-[#0F2240] hover:text-[#E0C158]"
+                          }`}
+                          onClick={() => setMenuOpen(false)}
+                        >
+                          {link.label}
+                        </Link>
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
               </div>
             </div>
 
