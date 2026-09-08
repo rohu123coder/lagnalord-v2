@@ -116,7 +116,7 @@ export default function HoroscopePage() {
               <button
                 type="button"
                 onClick={() => setSelectedRashi(rashi.id)}
-                className="mt-4 inline-flex rounded-full bg-[#b18d4f] hover:bg-[#C8AC80] px-4 py-2 text-sm font-semibold text-[#09142a] transition hover:opacity-95"
+                className="mt-4 inline-flex rounded-full bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white px-4 py-2 text-sm font-semibold text-[#09142a] transition hover:opacity-95"
               >
                 Read Horoscope
               </button>

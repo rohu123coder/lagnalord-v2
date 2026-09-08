@@ -324,7 +324,7 @@ export function Navbar() {
               </Link>
               <Link
                 href="/login?tab=register"
-                className="rounded-full bg-[#b18d4f] px-4 py-2 text-sm font-semibold text-[#09142a] transition hover:bg-[#B8960C]"
+                className="rounded-full bg-[#b18d4f] px-4 py-2 text-sm font-semibold text-[#09142a] transition hover:bg-[#8E713F] hover:text-white"
                 onClick={(event) => {
                   event.preventDefault();
                   router.push("/login?tab=register");
@@ -490,7 +490,7 @@ export function Navbar() {
                     </Link>
                     <Link
                       href="/login?tab=register"
-                      className="rounded-full bg-[#b18d4f] px-3 py-2.5 text-center text-sm font-semibold text-[#09142a]"
+                      className="rounded-full bg-[#b18d4f] px-3 py-2.5 text-center text-sm font-semibold text-[#09142a] transition hover:bg-[#8E713F] hover:text-white"
                       onClick={(event) => {
                         event.preventDefault();
                         setMenuOpen(false);

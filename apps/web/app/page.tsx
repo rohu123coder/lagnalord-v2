@@ -755,7 +755,7 @@ export default function HomePage() {
               onClick={() => setExpertiseMode("vastu")}
               className={`rounded-full px-5 py-2 text-sm font-semibold transition ${
                 expertiseMode === "vastu"
-                  ? "bg-[#b18d4f] hover:bg-[#C8AC80] text-[#09142a]"
+                  ? "bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white text-[#09142a]"
                   : "text-[#C7C2B4]"
               }`}
             >
@@ -1031,7 +1031,7 @@ export default function HomePage() {
                 </div>
                 <Link
                   href={`/astrologers/${astrologer.id}`}
-                  className="mt-4 block rounded-xl bg-[#b18d4f] hover:bg-[#C8AC80] py-2 text-center text-sm font-semibold text-[#09142a]"
+                  className="mt-4 block rounded-xl bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white py-2 text-center text-sm font-semibold text-[#09142a]"
                 >
                   Chat Now
                 </Link>
@@ -1285,7 +1285,7 @@ export default function HomePage() {
                 <p className="mt-2 text-xs font-medium text-[#C8AC80]">
                   ₹{a.rate_per_min}/min
                 </p>
-                <span className="mt-3 w-full rounded-lg bg-[#b18d4f] hover:bg-[#C8AC80] px-3 py-1.5 text-xs font-semibold text-[#09142a]">
+                <span className="mt-3 w-full rounded-lg bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white px-3 py-1.5 text-xs font-semibold text-[#09142a]">
                   Chat karein
                 </span>
               </Link>
@@ -1377,7 +1377,7 @@ export default function HomePage() {
                   </Link>
                   <Link
                     href={`/astrologers/${astrologer.id}`}
-                    className="rounded-lg bg-[#b18d4f] hover:bg-[#C8AC80] px-3 py-2 text-center text-sm font-semibold text-[#09142a] transition hover:opacity-95"
+                    className="rounded-lg bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white px-3 py-2 text-center text-sm font-semibold text-[#09142a] transition hover:opacity-95"
                   >
                     Chat
                   </Link>
@@ -1438,7 +1438,7 @@ export default function HomePage() {
                   <p className="text-lg font-bold text-[#C8AC80]">₹{service.price}</p>
                   <Link
                     href="/reports"
-                    className="rounded-lg bg-[#b18d4f] hover:bg-[#C8AC80] px-4 py-2 text-sm font-semibold text-[#09142a] transition hover:opacity-95"
+                    className="rounded-lg bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white px-4 py-2 text-sm font-semibold text-[#09142a] transition hover:opacity-95"
                   >
                     Buy Now
                   </Link>

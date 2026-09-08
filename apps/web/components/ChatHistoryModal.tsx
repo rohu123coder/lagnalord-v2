@@ -102,7 +102,7 @@ export function ChatHistoryModal({
         <div className="flex flex-wrap gap-2 border-t border-[#b18d4f]/10 px-5 py-4">
           <button
             type="button"
-            className="rounded-xl bg-[#b18d4f] hover:bg-[#C8AC80] px-4 py-2.5 text-sm font-semibold text-[#09142a]"
+            className="rounded-xl bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white px-4 py-2.5 text-sm font-semibold text-[#09142a]"
             onClick={onChatAgain}
           >
             Chat Again

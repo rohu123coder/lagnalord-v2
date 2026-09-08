@@ -250,7 +250,7 @@ export function AIAstrologerChat({
               type="button"
               onClick={sendMessage}
               disabled={sending || !input.trim()}
-              className="rounded-xl bg-[#b18d4f] hover:bg-[#C8AC80] px-5 py-2.5 text-sm font-semibold text-[#09142a] transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-xl bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white px-5 py-2.5 text-sm font-semibold text-[#09142a] transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-50"
             >
               Send
             </button>

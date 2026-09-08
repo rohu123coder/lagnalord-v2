@@ -129,7 +129,7 @@ function LoginContent() {
                 </div>
                 {error && <p className="text-red-600 text-sm">{error}</p>}
                 <button onClick={sendOtp} disabled={loading || !identifier}
-                  className="w-full py-3 rounded-xl bg-[#b18d4f] hover:bg-[#C8AC80] text-[#09142a] font-semibold disabled:opacity-60">
+                  className="w-full py-3 rounded-xl bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white text-[#09142a] font-semibold disabled:opacity-60">
                   {loading ? "Sending..." : "Send OTP"}
                 </button>
                 <div className="flex items-center gap-3 my-2">
@@ -162,7 +162,7 @@ function LoginContent() {
                   placeholder="Email address" className="w-full border border-[#b18d4f]/20 bg-[#09142a] rounded-xl px-4 py-3 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#b18d4f]"/>
                 {error && <p className="text-red-600 text-sm">{error}</p>}
                 <button onClick={sendRegisterOtp} disabled={loading}
-                  className="w-full py-3 rounded-xl bg-[#b18d4f] hover:bg-[#C8AC80] text-[#09142a] font-semibold disabled:opacity-60">
+                  className="w-full py-3 rounded-xl bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white text-[#09142a] font-semibold disabled:opacity-60">
                   {loading ? "Sending..." : "Send OTP & Register"}
                 </button>
                 <button onClick={() => { setMode("login"); setError(null); }}
@@ -188,7 +188,7 @@ function LoginContent() {
                 </div>
                 {error && <p className="text-red-600 text-sm">{error}</p>}
                 <button onClick={verifyOtp} disabled={loading || otp.join("").length !== 6}
-                  className="w-full py-3 rounded-xl bg-[#b18d4f] hover:bg-[#C8AC80] text-[#09142a] font-semibold disabled:opacity-60">
+                  className="w-full py-3 rounded-xl bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white text-[#09142a] font-semibold disabled:opacity-60">
                   {loading ? "Verifying..." : "Verify & Continue"}
                 </button>
                 <div className="flex justify-between text-sm">

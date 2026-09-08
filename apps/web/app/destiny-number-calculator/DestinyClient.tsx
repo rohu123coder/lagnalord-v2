@@ -95,7 +95,7 @@ export function DestinyClient() {
             />
             <button
               type="submit"
-              className="mt-4 rounded-xl bg-[#b18d4f] px-5 py-2.5 text-sm font-semibold text-[#09142a] transition hover:bg-[#C8AC80]"
+              className="mt-4 rounded-xl bg-[#b18d4f] px-5 py-2.5 text-sm font-semibold text-[#09142a] transition hover:bg-[#8E713F] hover:text-white"
             >
               Calculate Destiny Number
             </button>

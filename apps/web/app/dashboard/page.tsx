@@ -268,7 +268,7 @@ export default function DashboardPage() {
         <div className="mt-6 flex flex-wrap gap-3">
           <Link
             href="/astrologers"
-            className="inline-flex rounded-xl bg-[#b18d4f] hover:bg-[#C8AC80] px-5 py-2.5 text-sm font-semibold text-[#09142a] shadow-md transition hover:opacity-95"
+            className="inline-flex rounded-xl bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white px-5 py-2.5 text-sm font-semibold text-[#09142a] shadow-md transition hover:opacity-95"
           >
             Browse Astrologers
           </Link>
@@ -474,7 +474,7 @@ export default function DashboardPage() {
                 <Link
                   href={`/ai-astrologers/${openAiSession.session.astrologerId}`}
                   onClick={() => setOpenAiSession(null)}
-                  className="w-full rounded-xl bg-[#b18d4f] hover:bg-[#C8AC80] py-2.5 text-center text-sm font-semibold text-[#09142a] transition hover:opacity-95"
+                  className="w-full rounded-xl bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white py-2.5 text-center text-sm font-semibold text-[#09142a] transition hover:opacity-95"
                 >
                   Chat Again
                 </Link>

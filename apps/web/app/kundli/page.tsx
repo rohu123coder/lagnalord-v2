@@ -422,7 +422,7 @@ export default function KundliPage() {
               <button
                 type="button"
                 onClick={onShare}
-                className="rounded-lg bg-[#b18d4f] px-4 py-2 text-sm font-medium text-[#09142a] transition hover:bg-[#C8AC80]"
+                className="rounded-lg bg-[#b18d4f] px-4 py-2 text-sm font-medium text-[#09142a] transition hover:bg-[#8E713F] hover:text-white"
               >
                 Share Your Kundli
               </button>
@@ -816,7 +816,7 @@ export default function KundliPage() {
             </p>
             <Link
               href="/kundli/match"
-              className="mt-4 inline-flex rounded-lg bg-[#b18d4f] px-4 py-2 text-sm font-medium text-[#09142a] transition hover:bg-[#C8AC80]"
+              className="mt-4 inline-flex rounded-lg bg-[#b18d4f] px-4 py-2 text-sm font-medium text-[#09142a] transition hover:bg-[#8E713F] hover:text-white"
             >
               Match your Kundli with your partner
             </Link>

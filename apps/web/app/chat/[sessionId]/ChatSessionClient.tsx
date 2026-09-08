@@ -696,7 +696,7 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
               type="button"
               disabled={status !== "active" || !input.trim()}
               onClick={sendMessage}
-              className="rounded-2xl bg-[#b18d4f] hover:bg-[#C8AC80] px-5 py-3 text-sm font-semibold text-[#09142a] shadow-md transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-2xl bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white px-5 py-3 text-sm font-semibold text-[#09142a] shadow-md transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-50"
             >
               Send
             </button>
@@ -727,7 +727,7 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
             </ul>
             <button
               type="button"
-              className="mt-6 w-full rounded-xl bg-[#b18d4f] hover:bg-[#C8AC80] py-3 text-sm font-semibold text-[#09142a]"
+              className="mt-6 w-full rounded-xl bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white py-3 text-sm font-semibold text-[#09142a]"
               onClick={() => router.replace("/dashboard")}
             >
               Back to dashboard
