@@ -8,7 +8,7 @@ import { Navbar } from "@/components/Navbar";
 import { computeNameNumbers } from "@/lib/numerology";
 
 const fieldClass =
-  "w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:border-[#b18d4f] focus:ring-[#b18d4f]";
+  "w-full rounded-xl border border-[#b18d4f]/40 bg-white px-3 py-2.5 text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30 disabled:bg-slate-100 disabled:text-slate-400";
 
 const DESTINY_MEANINGS: Record<number, string> = {
   1: "Expression 1 is read as a public signature of standing first — not a command to ignore others, but a name that is often remembered for taking a position.",

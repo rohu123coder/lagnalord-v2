@@ -253,7 +253,7 @@ export function PanchangClient() {
                 onChange={(e) => {
                   if (e.target.value) setDate(e.target.value);
                 }}
-                className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-2.5 text-sm text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f]/30 transition focus:border-[#b18d4f] focus:ring-2"
+                className="w-full rounded-xl border border-[#b18d4f]/40 bg-white px-4 py-2.5 text-sm text-[#09142a] shadow-sm outline-none ring-[#b18d4f]/30 transition placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2"
               />
             </div>
             <div ref={pobRef} className="relative min-w-0 flex-1">
@@ -269,7 +269,7 @@ export function PanchangClient() {
                   value={placeName}
                   onChange={(e) => onPlaceChange(e.target.value)}
                   onFocus={() => suggestions.length > 0 && setShowSuggest(true)}
-                  className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-4 py-2.5 text-sm text-[#F5F1E8] shadow-sm outline-none ring-[#b18d4f]/30 transition focus:border-[#b18d4f] focus:ring-2"
+                  className="w-full rounded-xl border border-[#b18d4f]/40 bg-white px-4 py-2.5 text-sm text-[#09142a] shadow-sm outline-none ring-[#b18d4f]/30 transition placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2"
                 />
                 {geoLoading ? (
                   <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[#b18d4f]">
@@ -278,14 +278,14 @@ export function PanchangClient() {
                 ) : null}
               </div>
               {showSuggest && suggestions.length > 0 ? (
-                <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#b18d4f]/20 bg-[#0E1C3B] py-1 shadow-lg">
+                <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#b18d4f]/30 bg-white py-1 shadow-lg">
                   {suggestions.map((s, i) => {
                     const line = [s.city, s.country].filter(Boolean).join(", ");
                     return (
                       <li key={`${s.formattedAddress}-${i}`}>
                         <button
                           type="button"
-                          className="w-full px-4 py-2.5 text-left text-sm text-[#F5F1E8] hover:bg-[#09142a]"
+                          className="w-full px-4 py-2.5 text-left text-sm text-[#09142a] hover:bg-[#b18d4f]/10"
                           onClick={() => {
                             setPlaceName(s.formattedAddress || line || DELHI.name);
                             setLat(s.lat!);

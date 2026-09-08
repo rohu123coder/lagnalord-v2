@@ -150,7 +150,7 @@ export default function KundliMatchClient() {
                       section.setState((prev) => ({ ...prev, name: e.target.value }))
                     }
                     placeholder="Name"
-                    className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#b18d4f]"
+                    className="w-full rounded-xl border border-[#b18d4f]/40 bg-white px-3 py-2.5 text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
                   />
                   <input
                     type="date"
@@ -158,7 +158,7 @@ export default function KundliMatchClient() {
                     onChange={(e) =>
                       section.setState((prev) => ({ ...prev, dob: e.target.value }))
                     }
-                    className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#b18d4f]"
+                    className="w-full rounded-xl border border-[#b18d4f]/40 bg-white px-3 py-2.5 text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
                   />
                   <input
                     type="time"
@@ -166,7 +166,7 @@ export default function KundliMatchClient() {
                     onChange={(e) =>
                       section.setState((prev) => ({ ...prev, tob: e.target.value }))
                     }
-                    className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#b18d4f]"
+                    className="w-full rounded-xl border border-[#b18d4f]/40 bg-white px-3 py-2.5 text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
                   />
                   <input
                     value={section.state.place}
@@ -174,7 +174,7 @@ export default function KundliMatchClient() {
                       section.setState((prev) => ({ ...prev, place: e.target.value }))
                     }
                     placeholder="Place of Birth"
-                    className="w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:ring-[#b18d4f]"
+                    className="w-full rounded-xl border border-[#b18d4f]/40 bg-white px-3 py-2.5 text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
                   />
                 </div>
               </section>

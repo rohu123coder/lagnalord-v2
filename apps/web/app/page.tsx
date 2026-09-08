@@ -1098,14 +1098,14 @@ export default function HomePage() {
                   </div>
                 ) : null}
                 {kundliShowSuggest && kundliSuggestions.length > 0 ? (
-                  <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#b18d4f]/20 bg-[#0E1C3B] py-1 shadow-lg">
+                  <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#b18d4f]/30 bg-white py-1 shadow-lg">
                     {kundliSuggestions.map((s, i) => {
                       const line = [s.city, s.country].filter(Boolean).join(", ");
                       return (
                         <li key={`${s.formattedAddress}-${i}`}>
                           <button
                             type="button"
-                            className="w-full px-4 py-2.5 text-left text-sm text-[#F5F1E8] hover:bg-[#09142a]"
+                            className="w-full px-4 py-2.5 text-left text-sm text-[#09142a] hover:bg-[#b18d4f]/10"
                             onClick={() => {
                               setKundliForm((f) => ({ ...f, place: s.formattedAddress || line, lat: s.lat!, lng: s.lng! }));
                               setKundliShowSuggest(false);
@@ -1167,14 +1167,14 @@ export default function HomePage() {
                   </div>
                 ) : null}
                 {matchShowSuggest && matchSuggestions.length > 0 ? (
-                  <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#b18d4f]/20 bg-[#0E1C3B] py-1 shadow-lg">
+                  <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#b18d4f]/30 bg-white py-1 shadow-lg">
                     {matchSuggestions.map((s, i) => {
                       const line = [s.city, s.country].filter(Boolean).join(", ");
                       return (
                         <li key={`${s.formattedAddress}-${i}`}>
                           <button
                             type="button"
-                            className="w-full px-4 py-2.5 text-left text-sm text-[#F5F1E8] hover:bg-[#09142a]"
+                            className="w-full px-4 py-2.5 text-left text-sm text-[#09142a] hover:bg-[#b18d4f]/10"
                             onClick={() => {
                               setMatchForm((f) => ({ ...f, place: s.formattedAddress || line, lat: s.lat!, lng: s.lng! }));
                               setMatchShowSuggest(false);

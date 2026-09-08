@@ -32,7 +32,7 @@ type KaalSarpResult = {
 };
 
 const fieldClass =
-  "w-full rounded-xl border border-[#b18d4f]/20 bg-[#09142a] px-3 py-2.5 text-[#F5F1E8] outline-none focus:ring-2 focus:border-[#b18d4f] focus:ring-[#b18d4f]";
+  "w-full rounded-xl border border-[#b18d4f]/40 bg-white px-3 py-2.5 text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30 disabled:bg-slate-100 disabled:text-slate-400";
 
 const TYPE_THEME: Record<string, string> = {
   Anant:
@@ -271,14 +271,14 @@ export default function KaalSarpDoshaClient() {
                 </p>
               ) : null}
               {showSuggest && suggestions.length > 0 ? (
-                <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#b18d4f]/20 bg-[#0E1C3B] py-1 shadow-lg">
+                <ul className="absolute z-20 mt-1 max-h-56 w-full overflow-auto rounded-xl border border-[#b18d4f]/30 bg-white py-1 shadow-lg">
                   {suggestions.map((s, i) => {
                     const line = [s.city, s.country].filter(Boolean).join(", ");
                     return (
                       <li key={`${s.formattedAddress}-${i}`}>
                         <button
                           type="button"
-                          className="w-full px-4 py-2.5 text-left text-sm text-[#F5F1E8] hover:bg-[#09142a]"
+                          className="w-full px-4 py-2.5 text-left text-sm text-[#09142a] hover:bg-[#b18d4f]/10"
                           onClick={() => {
                             setPlace(s.formattedAddress || line);
                             setLat(s.lat!);
