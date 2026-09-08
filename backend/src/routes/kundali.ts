@@ -31,29 +31,29 @@ try {
   console.error("[Kundali] swisseph load error:", e);
 }
 
-const SE_SUN = 0;
-const SE_MOON = 1;
-const SE_MERCURY = 2;
-const SE_VENUS = 3;
-const SE_MARS = 4;
-const SE_JUPITER = 5;
-const SE_SATURN = 6;
-const SE_MEAN_NODE = 10;
+export const SE_SUN = 0;
+export const SE_MOON = 1;
+export const SE_MERCURY = 2;
+export const SE_VENUS = 3;
+export const SE_MARS = 4;
+export const SE_JUPITER = 5;
+export const SE_SATURN = 6;
+export const SE_MEAN_NODE = 10;
 const SE_URANUS = 7;
 const SE_NEPTUNE = 8;
 const SE_PLUTO = 9;
-const SE_SIDM_LAHIRI = 1;
+export const SE_SIDM_LAHIRI = 1;
 const SEFLG_SIDEREAL = 64;
 const SEFLG_SPEED = 256;
 
-const RASHI_NAMES = [
+export const RASHI_NAMES = [
   "Mesh (Aries)", "Vrishabh (Taurus)", "Mithun (Gemini)",
   "Kark (Cancer)", "Singh (Leo)", "Kanya (Virgo)",
   "Tula (Libra)", "Vrishchik (Scorpio)", "Dhanu (Sagittarius)",
   "Makar (Capricorn)", "Kumbh (Aquarius)", "Meen (Pisces)"
 ];
 
-const NAKSHATRA_NAMES = [
+export const NAKSHATRA_NAMES = [
   "Ashwini", "Bharani", "Krittika", "Rohini", "Mrigashira", "Ardra",
   "Punarvasu", "Pushya", "Ashlesha", "Magha", "Purva Phalguni",
   "Uttara Phalguni", "Hasta", "Chitra", "Swati", "Vishakha",
@@ -62,20 +62,24 @@ const NAKSHATRA_NAMES = [
   "Uttara Bhadrapada", "Revati"
 ];
 
-const NAKSHATRA_LORDS = [
+export const NAKSHATRA_LORDS = [
   "Ketu", "Venus", "Sun", "Moon", "Mars", "Rahu", "Jupiter",
   "Saturn", "Mercury", "Ketu", "Venus", "Sun", "Moon", "Mars",
   "Rahu", "Jupiter", "Saturn", "Mercury", "Ketu", "Venus", "Sun",
   "Moon", "Mars", "Rahu", "Jupiter", "Saturn", "Mercury"
 ];
 
-function dateToJD(year: number, month: number, day: number, hour: number, minute: number, utcOffset: number): number {
+export function getSwisseph(): typeof swisseph {
+  return swisseph;
+}
+
+export function dateToJD(year: number, month: number, day: number, hour: number, minute: number, utcOffset: number): number {
   const utHour = hour + minute / 60 - utcOffset;
   const jd = swisseph.swe_julday(year, month, day, utHour, swisseph.SE_GREG_CAL);
   return jd;
 }
 
-function getPlanetLon(jd: number, planet: number): number {
+export function getPlanetLon(jd: number, planet: number): number {
   // Get tropical position first (no sidereal flag)
   const result = swisseph.swe_calc_ut(jd, planet, SEFLG_SPEED);
   if (result.error) throw new Error(result.error);
@@ -91,7 +95,7 @@ function getPlanetLon(jd: number, planet: number): number {
   return sidereal;
 }
 
-function getAscendant(jd: number, lat: number, lon: number): number {
+export function getAscendant(jd: number, lat: number, lon: number): number {
   // Use tropical houses then convert to sidereal manually
   const houses = swisseph.swe_houses(jd, lat, lon, "P");
   if (houses.error) throw new Error(houses.error);
@@ -107,11 +111,11 @@ function getAscendant(jd: number, lat: number, lon: number): number {
   return siderealAsc;
 }
 
-function rashiFromLon(lon: number): number {
+export function rashiFromLon(lon: number): number {
   return Math.floor(((lon % 360) + 360) % 360 / 30);
 }
 
-function nakshatraFromLon(lon: number): { name: string; lord: string; pada: number } {
+export function nakshatraFromLon(lon: number): { name: string; lord: string; pada: number } {
   const normalLon = ((lon % 360) + 360) % 360;
   const nakIndex = Math.floor(normalLon / (360 / 27));
   const within = normalLon - nakIndex * (360 / 27);

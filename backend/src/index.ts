@@ -24,6 +24,11 @@ import { leadsRouter } from "./routes/leads.js";
 import { razorpayWebhookHandler } from "./routes/webhooks.js";
 import { walletRouter } from "./routes/wallet.js";
 import whatsappRouter from "./routes/whatsapp.js";
+import kaalSarpDoshaRouter from "./routes/kaalSarpDosha.js";
+import lalKitabRouter from "./routes/lalKitab.js";
+import mangalDoshaRouter from "./routes/mangalDosha.js";
+import panchangRouter from "./routes/panchang.js";
+import sadeSatiRouter from "./routes/sadeSati.js";
 
 dotenv.config();
 
@@ -53,6 +58,11 @@ app.use("/api/astrologers", astrologersRouter);
 app.use("/api/astrologer", astrologerRouter);
 app.use("/api/chat", chatRouter);
 app.use("/api/kundali", kundaliRouter);
+app.use("/api/mangal-dosha", mangalDoshaRouter);
+app.use("/api/panchang", panchangRouter);
+app.use("/api/sade-sati", sadeSatiRouter);
+app.use("/api/kaal-sarp-dosha", kaalSarpDoshaRouter);
+app.use("/api/lal-kitab", lalKitabRouter);
 app.use("/api/ai-astrologer", aiAstrologerRouter);
 app.use("/api/readings", handFaceReadingRouter);
 app.use("/api/vastu", vastuRouter);
