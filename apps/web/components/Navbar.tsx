@@ -140,7 +140,7 @@ export function Navbar() {
   const chatCta = (
     <Link
       href="/astrologers"
-      className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-4 py-2 text-sm font-semibold text-white transition hover:opacity-95"
+      className="inline-flex items-center gap-2 rounded-full bg-[#b18d4f] px-4 py-2 text-sm font-semibold text-[#09142a] transition hover:bg-[#8E713F] hover:text-white"
       onClick={() => setMenuOpen(false)}
     >
       <span

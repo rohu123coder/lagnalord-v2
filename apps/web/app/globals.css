@@ -37,6 +37,19 @@ body {
     animation: onlinePulse 1.8s infinite;
   }
 
+  @keyframes servicesMarquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-services-marquee {
+    animation: servicesMarquee 45s linear infinite;
+  }
+
   .text-secondary {
     color: #64748b;
   }

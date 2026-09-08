@@ -132,6 +132,52 @@ const homepageServices = [
   },
 ] as const;
 
+/** Verified against real app page routes. Vastu omitted — no /vastu page. */
+const HOMEPAGE_MARQUEE_SERVICES = [
+  { label: "Free Kundli", href: "/kundli" },
+  { label: "Kundli Matching", href: "/kundli/match" },
+  { label: "Daily & Weekly Horoscope", href: "/horoscope" },
+  { label: "Panchang", href: "/panchang" },
+  { label: "Mangal Dosha Report", href: "/reports/mangal-dosha" },
+  { label: "Sade Sati Report", href: "/reports/sade-sati" },
+  { label: "Kaal Sarp Dosha Report", href: "/reports/kaal-sarp-dosha" },
+  { label: "Lal Kitab Report", href: "/reports/lal-kitab" },
+  { label: "Numerology Calculators", href: "/numerology" },
+  { label: "Live Astrologer Consultation", href: "/astrologers" },
+  { label: "AI Astrologer Chat", href: "/astrologers" },
+  { label: "Remedies", href: "/remedies" },
+] as const;
+
+function HomepageServicesMarqueeCopy({
+  hidden,
+  className = "",
+}: {
+  hidden?: boolean;
+  className?: string;
+}) {
+  return (
+    <ul
+      className={`flex shrink-0 items-center motion-reduce:flex-wrap motion-reduce:justify-center ${className}`}
+      aria-hidden={hidden ? true : undefined}
+    >
+      {HOMEPAGE_MARQUEE_SERVICES.map((service) => (
+        <li key={`${hidden ? "dup-" : ""}${service.label}`} className="flex items-center">
+          <Sparkles
+            className="mx-3 h-3.5 w-3.5 shrink-0 text-[#F5F1E8]/80 sm:mx-4"
+            aria-hidden="true"
+          />
+          <Link
+            href={service.href}
+            className="whitespace-nowrap text-sm font-semibold tracking-wide text-[#F5F1E8] transition hover:text-white"
+          >
+            {service.label}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 const whyPoints = [
   {
     n: "01",
@@ -794,10 +840,15 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="relative z-10 bg-gradient-to-r from-[#78543a] via-[#8a6548] to-[#78543a] px-4 py-3 sm:py-4">
-          <p className="text-center text-sm font-semibold leading-6 tracking-wide text-[#F5F1E8]">
-            Swiss Ephemeris Kundli · Verified Astrologers · Astrology &amp; Vastu in One Place
-          </p>
+        <div
+          className="relative z-10 overflow-hidden bg-gradient-to-r from-[#78543a] via-[#8a6548] to-[#78543a] py-3 sm:py-4"
+          role="region"
+          aria-label="Platform services"
+        >
+          <div className="flex w-max animate-services-marquee hover:[animation-play-state:paused] motion-reduce:w-full motion-reduce:max-w-7xl motion-reduce:animate-none motion-reduce:flex-wrap motion-reduce:justify-center motion-reduce:px-4">
+            <HomepageServicesMarqueeCopy />
+            <HomepageServicesMarqueeCopy hidden className="motion-reduce:hidden" />
+          </div>
         </div>
 
         <div className="mx-auto max-w-7xl px-4 pb-14 pt-8 sm:px-6 sm:pb-16 sm:pt-10">
