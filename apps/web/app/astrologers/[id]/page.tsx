@@ -752,7 +752,7 @@ export default function AstrologerProfilePage() {
               }
               void startChat();
             }}
-            className="rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-3.5 text-sm font-bold text-white shadow-lg transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-xl bg-[#b18d4f] hover:bg-[#C8AC80] py-3.5 text-sm font-bold text-[#09142a] shadow-lg transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {chatLoading ? "…" : "Chat"}
           </button>
@@ -808,7 +808,7 @@ export default function AstrologerProfilePage() {
               </button>
               <button
                 type="button"
-                className="flex-1 rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+                className="flex-1 rounded-xl bg-[#b18d4f] hover:bg-[#C8AC80] py-2.5 text-sm font-semibold text-[#09142a] disabled:opacity-60"
                 onClick={joinWaitlist}
                 disabled={joinWaitlistLoading}
               >
@@ -869,7 +869,7 @@ export default function AstrologerProfilePage() {
             </p>
             <button
               type="button"
-              className="mt-5 w-full rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-2.5 text-sm font-semibold text-white"
+              className="mt-5 w-full rounded-xl bg-[#b18d4f] hover:bg-[#C8AC80] py-2.5 text-sm font-semibold text-[#09142a]"
               onClick={() => {
                 const astrologerName = encodeURIComponent(queueTurn.astrologerName);
                 router.push(`/chat/${queueTurn.sessionId}?name=${astrologerName}`);

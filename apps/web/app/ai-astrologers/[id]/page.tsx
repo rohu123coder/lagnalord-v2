@@ -184,7 +184,7 @@ export default function AiAstrologerProfilePage() {
                 <h1 className="text-2xl font-bold text-[#F5F1E8] sm:text-3xl">
                   {persona.name}
                 </h1>
-                <span className="inline-flex items-center rounded-full bg-[#2A7D7B]/20 px-2 py-0.5 text-xs font-semibold text-[#3A9D9B]">
+                <span className="inline-flex items-center rounded-full bg-[#b18d4f]/20 px-2 py-0.5 text-xs font-semibold text-[#C8AC80]">
                   AI
                 </span>
               </div>

@@ -226,7 +226,7 @@ export function KundliForm({
     <div className="w-full px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto w-full max-w-2xl">
         <div className="overflow-hidden rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] shadow-xl shadow-black/30">
-          <div className="bg-gradient-to-r from-[#09142a] via-[#122352] to-[#2A7D7B] px-6 py-8 text-center">
+          <div className="bg-gradient-to-r from-[#09142a] via-[#122352] to-[#b18d4f] px-6 py-8 text-center">
             <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
               Kundali - Most Accurate Calculation
             </h1>
@@ -422,11 +422,11 @@ export function KundliForm({
             <button
               type="submit"
               disabled={!canSubmit || loading}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-4 py-4 text-base font-semibold text-white shadow-md shadow-black/25 transition hover:from-[#3A9D9B] hover:to-[#2A7D7B] disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#b18d4f] px-4 py-4 text-base font-semibold text-[#09142a] shadow-md shadow-black/25 transition hover:bg-[#C8AC80] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading ? (
                 <>
-                  <Spinner className="h-5 w-5 text-white" />
+                  <Spinner className="h-5 w-5 text-[#09142a]" />
                   Calculating planetary positions...
                 </>
               ) : (

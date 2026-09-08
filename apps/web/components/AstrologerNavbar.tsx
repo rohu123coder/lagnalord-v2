@@ -33,7 +33,7 @@ export function AstrologerNavbar() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link
           href="/astrologer/dashboard"
-          className="shrink-0 bg-gradient-to-r from-[#b18d4f] via-[#C8AC80] to-[#2A7D7B] bg-clip-text text-lg font-bold text-transparent sm:text-xl"
+          className="shrink-0 bg-gradient-to-r from-[#b18d4f] via-[#C8AC80] to-[#b18d4f] bg-clip-text text-lg font-bold text-transparent sm:text-xl"
         >
           {tenant.name} · Astrologer
         </Link>

@@ -76,14 +76,14 @@ export function ChatHistoryModal({
                     <div
                       className={`max-w-[82%] rounded-2xl px-4 py-2 text-sm ${
                         mine
-                          ? "rounded-br-md bg-gradient-to-br from-[#2A7D7B] to-[#3A9D9B] text-white"
+                          ? "rounded-br-md bg-[#b18d4f] text-[#09142a]"
                           : "rounded-bl-md bg-[#0E1C3B] text-[#F5F1E8]"
                       }`}
                     >
                       <p className="whitespace-pre-wrap">{m.content}</p>
                       <p
                         className={`mt-1 text-[10px] ${
-                          mine ? "text-white/70" : "text-[#C7C2B4]/60"
+                          mine ? "text-[#09142a]/70" : "text-[#C7C2B4]/60"
                         }`}
                       >
                         {new Date(m.created_at).toLocaleString("en-IN", {
@@ -102,7 +102,7 @@ export function ChatHistoryModal({
         <div className="flex flex-wrap gap-2 border-t border-[#b18d4f]/10 px-5 py-4">
           <button
             type="button"
-            className="rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-4 py-2.5 text-sm font-semibold text-white"
+            className="rounded-xl bg-[#b18d4f] hover:bg-[#C8AC80] px-4 py-2.5 text-sm font-semibold text-[#09142a]"
             onClick={onChatAgain}
           >
             Chat Again

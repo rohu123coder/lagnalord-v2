@@ -311,7 +311,7 @@ export function PanchangClient() {
             onClick={() => setDate(todayYmd)}
             className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
               dayToggle === "today"
-                ? "bg-[#2A7D7B] text-white hover:bg-[#3A9D9B]"
+                ? "bg-[#b18d4f] text-[#09142a] hover:bg-[#C8AC80]"
                 : "bg-[#0E1C3B] text-[#C7C2B4] ring-1 ring-[#b18d4f]/20 hover:bg-[#09142a]"
             }`}
           >
@@ -322,7 +322,7 @@ export function PanchangClient() {
             onClick={() => setDate(tomorrowYmd)}
             className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
               dayToggle === "tomorrow"
-                ? "bg-[#2A7D7B] text-white hover:bg-[#3A9D9B]"
+                ? "bg-[#b18d4f] text-[#09142a] hover:bg-[#C8AC80]"
                 : "bg-[#0E1C3B] text-[#C7C2B4] ring-1 ring-[#b18d4f]/20 hover:bg-[#09142a]"
             }`}
           >

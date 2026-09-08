@@ -54,7 +54,7 @@ export function RatingModal({
             </p>
             <button
               type="button"
-              className="mt-6 w-full rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-3 text-sm font-semibold text-white"
+              className="mt-6 w-full rounded-xl bg-[#b18d4f] hover:bg-[#C8AC80] py-3 text-sm font-semibold text-[#09142a]"
               onClick={onClose}
             >
               Done
@@ -95,7 +95,7 @@ export function RatingModal({
             <button
               type="button"
               disabled={submitting || rating < 1}
-              className="mt-4 w-full rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
+              className="mt-4 w-full rounded-xl bg-[#b18d4f] hover:bg-[#C8AC80] py-3 text-sm font-semibold text-[#09142a] disabled:cursor-not-allowed disabled:opacity-60"
               onClick={async () => {
                 if (rating < 1) {
                   return;

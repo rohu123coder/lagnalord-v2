@@ -128,7 +128,7 @@ export function HomepagePopup() {
             <Link
               href="/astrologers"
               onClick={close}
-              className="inline-flex flex-1 items-center justify-center rounded-full bg-[#2A7D7B] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#3A9D9B]"
+              className="inline-flex flex-1 items-center justify-center rounded-full bg-[#b18d4f] px-4 py-2.5 text-sm font-semibold text-[#09142a] transition hover:bg-[#C8AC80]"
             >
               {copy.popup_button1_label}
             </Link>

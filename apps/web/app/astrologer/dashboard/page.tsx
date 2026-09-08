@@ -603,7 +603,7 @@ export default function AstrologerDashboardPage() {
                       type="button"
                       onClick={() => acceptFromQueue(entry)}
                       disabled={Boolean(incoming)}
-                      className="rounded-lg bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-3 py-1.5 text-xs font-semibold text-white disabled:opacity-50"
+                      className="rounded-lg bg-[#b18d4f] hover:bg-[#C8AC80] px-3 py-1.5 text-xs font-semibold text-[#09142a] disabled:opacity-50"
                     >
                       Accept
                     </button>
@@ -645,7 +645,7 @@ export default function AstrologerDashboardPage() {
               <button
                 type="button"
                 onClick={onAccept}
-                className="flex-1 rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-3 text-sm font-semibold text-white"
+                className="flex-1 rounded-xl bg-[#b18d4f] hover:bg-[#C8AC80] py-3 text-sm font-semibold text-[#09142a]"
               >
                 Accept
               </button>
@@ -666,7 +666,7 @@ export default function AstrologerDashboardPage() {
             <button
               type="button"
               onClick={() => sendWaitlistAction(waitlistNotice.waitlistId, "accept")}
-              className="rounded-lg bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-3 py-1.5 text-xs font-semibold text-white"
+              className="rounded-lg bg-[#b18d4f] hover:bg-[#C8AC80] px-3 py-1.5 text-xs font-semibold text-[#09142a]"
             >
               Accept
             </button>

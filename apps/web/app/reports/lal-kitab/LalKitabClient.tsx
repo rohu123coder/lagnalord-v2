@@ -281,7 +281,7 @@ export default function LalKitabClient() {
             type="button"
             disabled={!canSubmit || loading}
             onClick={() => void handleSubmit()}
-            className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#2A7D7B] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#3A9D9B] disabled:cursor-not-allowed disabled:opacity-60"
+            className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#b18d4f] px-5 py-2.5 text-sm font-semibold text-[#09142a] transition hover:bg-[#C8AC80] disabled:cursor-not-allowed disabled:opacity-60"
           >
             {loading ? (
               <>

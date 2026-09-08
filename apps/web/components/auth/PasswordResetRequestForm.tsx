@@ -87,7 +87,7 @@ export function PasswordResetRequestForm({
               type="button"
               disabled={loading}
               onClick={() => void submit()}
-              className="w-full rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-3 text-sm font-semibold text-white disabled:opacity-60"
+              className="w-full rounded-xl bg-[#b18d4f] hover:bg-[#C8AC80] py-3 text-sm font-semibold text-[#09142a] disabled:opacity-60"
             >
               {loading ? "Sending..." : "Send Reset Link"}
             </button>

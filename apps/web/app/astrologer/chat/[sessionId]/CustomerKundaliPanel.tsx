@@ -160,10 +160,10 @@ export default function CustomerKundaliPanel({ sessionId, authToken, apiBase }: 
         />
       </div>
 
-      <div className="rounded-lg border border-[#2A7D7B]/30 bg-[#2A7D7B]/10 p-3">
-        <div className="mb-1 text-xs text-[#3A9D9B]">⭐ Nakshatra</div>
+      <div className="rounded-lg border border-[#b18d4f]/30 bg-[#b18d4f]/10 p-3">
+        <div className="mb-1 text-xs text-[#C8AC80]">⭐ Nakshatra</div>
         <div className="font-semibold text-[#F5F1E8]">{k.nakshatra.name}</div>
-        <div className="mt-1 text-xs text-[#3A9D9B]">
+        <div className="mt-1 text-xs text-[#C8AC80]">
           Lord: <span className="font-medium">{k.nakshatra.lord}</span> • Pada:{" "}
           {k.nakshatra.pada}
         </div>
@@ -211,7 +211,7 @@ function SignCard({
   const colorClasses = {
     orange: "bg-orange-500/10 border-orange-500/30 text-orange-300",
     blue: "bg-blue-500/10 border-blue-500/30 text-blue-300",
-    purple: "bg-[#2A7D7B]/10 border-[#2A7D7B]/30 text-[#3A9D9B]",
+    purple: "bg-[#b18d4f]/10 border-[#b18d4f]/30 text-[#C8AC80]",
   };
 
   return (

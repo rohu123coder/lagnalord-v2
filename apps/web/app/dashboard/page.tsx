@@ -268,7 +268,7 @@ export default function DashboardPage() {
         <div className="mt-6 flex flex-wrap gap-3">
           <Link
             href="/astrologers"
-            className="inline-flex rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:opacity-95"
+            className="inline-flex rounded-xl bg-[#b18d4f] hover:bg-[#C8AC80] px-5 py-2.5 text-sm font-semibold text-[#09142a] shadow-md transition hover:opacity-95"
           >
             Browse Astrologers
           </Link>
@@ -461,7 +461,7 @@ export default function DashboardPage() {
                     <div
                       className={`max-w-[85%] whitespace-pre-wrap rounded-2xl px-4 py-2 text-sm ${
                         m.role === "user"
-                          ? "rounded-br-md bg-gradient-to-br from-[#2A7D7B] to-[#3A9D9B] text-white"
+                          ? "rounded-br-md bg-[#b18d4f] text-[#09142a]"
                           : "rounded-bl-md bg-[#09142a] text-[#F5F1E8]"
                       }`}
                     >
@@ -474,7 +474,7 @@ export default function DashboardPage() {
                 <Link
                   href={`/ai-astrologers/${openAiSession.session.astrologerId}`}
                   onClick={() => setOpenAiSession(null)}
-                  className="w-full rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-2.5 text-center text-sm font-semibold text-white transition hover:opacity-95"
+                  className="w-full rounded-xl bg-[#b18d4f] hover:bg-[#C8AC80] py-2.5 text-center text-sm font-semibold text-[#09142a] transition hover:opacity-95"
                 >
                   Chat Again
                 </Link>

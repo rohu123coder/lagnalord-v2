@@ -17,7 +17,7 @@ export function AstrologerCTA({
       <div className="mt-5 flex flex-wrap gap-3">
         <Link
           href="/astrologers"
-          className="inline-flex rounded-full bg-[#2A7D7B] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#3A9D9B]"
+          className="inline-flex rounded-full bg-[#b18d4f] px-5 py-2.5 text-sm font-semibold text-[#09142a] transition hover:bg-[#C8AC80]"
         >
           Chat with Astrologer
         </Link>

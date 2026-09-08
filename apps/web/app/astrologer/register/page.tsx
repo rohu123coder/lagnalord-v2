@@ -247,7 +247,7 @@ export default function AstrologerRegisterPage() {
                 type="button"
                 onClick={onContinue}
                 disabled={loading}
-                className="w-full rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-3 text-sm font-semibold text-white shadow-md transition hover:opacity-95 disabled:opacity-60"
+                className="w-full rounded-xl bg-[#b18d4f] hover:bg-[#C8AC80] py-3 text-sm font-semibold text-[#09142a] shadow-md transition hover:opacity-95 disabled:opacity-60"
               >
                 Continue
               </button>
@@ -371,7 +371,7 @@ export default function AstrologerRegisterPage() {
                   type="button"
                   onClick={() => void onSubmit()}
                   disabled={loading}
-                  className="flex-1 rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-3 py-3 text-sm font-semibold text-white shadow-md transition hover:opacity-95 disabled:opacity-60"
+                  className="flex-1 rounded-xl bg-[#b18d4f] hover:bg-[#C8AC80] px-3 py-3 text-sm font-semibold text-[#09142a] shadow-md transition hover:opacity-95 disabled:opacity-60"
                 >
                   {loading ? "Submitting…" : "Submit application"}
                 </button>

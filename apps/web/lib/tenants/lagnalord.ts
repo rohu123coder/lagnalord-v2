@@ -12,8 +12,8 @@ export const lagnalord: TenantConfig = {
       goldAccent: "#b18d4f",
       softGold: "#C8AC80",
       mysticPink: "#A6745A",
-      violetElectric: "#2A7D7B",
-      violetLight: "#3A9D9B",
+      violetElectric: "#b18d4f",
+      violetLight: "#C8AC80",
       creamWhite: "#F5F1E8",
       successGreen: "#10B981",
       violet50: "#eaf0f6",
@@ -33,7 +33,7 @@ export const lagnalord: TenantConfig = {
       ctaGold:
         "linear-gradient(135deg, #b18d4f 0%, #C8AC80 50%, #A6745A 100%)",
       cardHighlight:
-        "linear-gradient(135deg, rgba(42,125,123,0.1), rgba(177, 141, 79,0.1))",
+        "linear-gradient(135deg, rgba(177,141,79,0.1), rgba(200,172,128,0.1))",
     },
     fonts: {
       heading: "var(--font-heading)",

@@ -30,7 +30,7 @@ export default function BlogPage() {
           <p className="mt-3 text-sm font-semibold text-[#C8AC80]">Coming soon.</p>
           <Link
             href="/"
-            className="mt-8 inline-flex rounded-full bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-95"
+            className="mt-8 inline-flex rounded-full bg-[#b18d4f] hover:bg-[#C8AC80] px-5 py-3 text-sm font-semibold text-[#09142a] transition hover:opacity-95"
           >
             Back to Home
           </Link>

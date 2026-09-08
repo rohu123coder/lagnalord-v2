@@ -124,7 +124,7 @@ export default function NumerologyClient() {
             type="button"
             disabled={!fullName || !dob}
             onClick={() => setSubmitted(true)}
-            className="mt-4 rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+            className="mt-4 rounded-xl bg-[#b18d4f] hover:bg-[#C8AC80] px-5 py-2.5 text-sm font-semibold text-[#09142a] disabled:opacity-60"
           >
             Calculate
           </button>

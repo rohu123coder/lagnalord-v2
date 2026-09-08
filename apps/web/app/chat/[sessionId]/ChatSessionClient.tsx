@@ -643,14 +643,14 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
                 <div
                   className={`max-w-[85%] rounded-2xl px-4 py-2 text-sm shadow-sm ${
                     mine
-                      ? "rounded-br-md bg-gradient-to-br from-[#2A7D7B] to-[#3A9D9B] text-white"
+                      ? "rounded-br-md bg-[#b18d4f] text-[#09142a]"
                       : "rounded-bl-md bg-[#09142a] text-[#F5F1E8]"
                   }`}
                 >
                   <p className="whitespace-pre-wrap">{m.content}</p>
                   <p
                     className={`mt-1 text-[10px] ${
-                      mine ? "text-white/70" : "text-[#C7C2B4]/60"
+                      mine ? "text-[#09142a]/70" : "text-[#C7C2B4]/60"
                     }`}
                   >
                     {new Date(m.createdAt).toLocaleTimeString("en-IN", {
@@ -696,7 +696,7 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
               type="button"
               disabled={status !== "active" || !input.trim()}
               onClick={sendMessage}
-              className="rounded-2xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-5 py-3 text-sm font-semibold text-white shadow-md transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-2xl bg-[#b18d4f] hover:bg-[#C8AC80] px-5 py-3 text-sm font-semibold text-[#09142a] shadow-md transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-50"
             >
               Send
             </button>
@@ -727,7 +727,7 @@ export function ChatSessionClient({ sessionId }: ChatSessionClientProps) {
             </ul>
             <button
               type="button"
-              className="mt-6 w-full rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-3 text-sm font-semibold text-white"
+              className="mt-6 w-full rounded-xl bg-[#b18d4f] hover:bg-[#C8AC80] py-3 text-sm font-semibold text-[#09142a]"
               onClick={() => router.replace("/dashboard")}
             >
               Back to dashboard

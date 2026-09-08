@@ -182,7 +182,7 @@ export function WalletWidget({ className = "" }: WalletWidgetProps) {
             setSelected(null);
             setCustom("");
           }}
-          className="rounded-full bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:opacity-95"
+          className="rounded-full bg-[#b18d4f] hover:bg-[#C8AC80] px-4 py-2 text-sm font-semibold text-[#09142a] shadow-sm transition hover:opacity-95"
         >
           Recharge
         </button>
@@ -262,7 +262,7 @@ export function WalletWidget({ className = "" }: WalletWidgetProps) {
               type="button"
               disabled={loading}
               onClick={() => void startCheckout()}
-              className="mt-5 w-full rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-3 text-sm font-semibold text-white shadow-md transition hover:opacity-95 disabled:opacity-60"
+              className="mt-5 w-full rounded-xl bg-[#b18d4f] hover:bg-[#C8AC80] py-3 text-sm font-semibold text-[#09142a] shadow-md transition hover:opacity-95 disabled:opacity-60"
             >
               {loading ? "Please wait…" : "Pay with Razorpay"}
             </button>

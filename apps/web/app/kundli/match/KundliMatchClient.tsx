@@ -186,7 +186,7 @@ export default function KundliMatchClient() {
           type="button"
           disabled={!canSubmit}
           onClick={() => setSubmitted(true)}
-          className="mt-6 rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-6 py-3 text-sm font-semibold text-white shadow-md disabled:cursor-not-allowed disabled:opacity-60"
+          className="mt-6 rounded-xl bg-[#b18d4f] hover:bg-[#C8AC80] px-6 py-3 text-sm font-semibold text-[#09142a] shadow-md disabled:cursor-not-allowed disabled:opacity-60"
         >
           Match Kundli
         </button>

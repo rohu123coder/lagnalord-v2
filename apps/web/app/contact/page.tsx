@@ -122,7 +122,7 @@ export default function ContactPage() {
                       {card.cta && card.href ? (
                         <Link
                           href={card.href}
-                          className="mt-4 inline-flex rounded-full bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-4 py-2 text-sm font-semibold text-white transition hover:opacity-95"
+                          className="mt-4 inline-flex rounded-full bg-[#b18d4f] hover:bg-[#C8AC80] px-4 py-2 text-sm font-semibold text-[#09142a] transition hover:opacity-95"
                         >
                           {card.cta}
                         </Link>
@@ -208,7 +208,7 @@ export default function ContactPage() {
                 </div>
                 <button
                   type="submit"
-                  className="inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-95 md:w-auto"
+                  className="inline-flex w-full items-center justify-center rounded-full bg-[#b18d4f] hover:bg-[#C8AC80] px-5 py-3 text-sm font-semibold text-[#09142a] transition hover:opacity-95 md:w-auto"
                 >
                   Send Message
                 </button>

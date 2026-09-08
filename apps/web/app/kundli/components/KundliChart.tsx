@@ -142,7 +142,7 @@ export function KundliChart({
     for (const p of planets) {
       const short = PLANET_SHORT[p.name] ?? p.name.slice(0, 2);
       if (!map[p.house]) map[p.house] = [];
-      let color = "#2A7D7B";
+      let color = "#C7C2B4";
       if (OUTER_PLANET_COLORS[p.name]) {
         color = OUTER_PLANET_COLORS[p.name];
       } else {

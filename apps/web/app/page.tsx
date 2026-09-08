@@ -275,37 +275,37 @@ const paidServices = [
     title: "Detailed Kundli Report",
     description: "Complete Janam Kundli with dosha and planetary analysis.",
     price: 199,
-    gradient: "from-[#09142a] via-[#2A7D7B] to-[#b18d4f]",
+    gradient: "from-[#09142a] via-[#C8AC80] to-[#b18d4f]",
   },
   {
     title: "Marriage Compatibility",
     description: "Guna Milan, Manglik check and practical relationship insights.",
     price: 299,
-    gradient: "from-[#2A7D7B] via-[#09142a] to-[#b18d4f]",
+    gradient: "from-[#C8AC80] via-[#09142a] to-[#b18d4f]",
   },
   {
     title: "Career Report",
     description: "Career timing, opportunities and profession suitability.",
     price: 249,
-    gradient: "from-[#b18d4f] via-[#09142a] to-[#2A7D7B]",
+    gradient: "from-[#b18d4f] via-[#09142a] to-[#C8AC80]",
   },
   {
     title: "Ask a Question",
     description: "Get an expert personalized answer for one important query.",
     price: 99,
-    gradient: "from-[#09142a] via-[#b18d4f] to-[#2A7D7B]",
+    gradient: "from-[#09142a] via-[#b18d4f] to-[#C8AC80]",
   },
   {
     title: "Finance Report",
     description: "Income, savings, investments and wealth planning guidance.",
     price: 249,
-    gradient: "from-[#2A7D7B] via-[#b18d4f] to-[#09142a]",
+    gradient: "from-[#C8AC80] via-[#b18d4f] to-[#09142a]",
   },
   {
     title: "Health Report",
     description: "Planetary health tendencies and preventive remedy guidance.",
     price: 199,
-    gradient: "from-[#b18d4f] via-[#2A7D7B] to-[#09142a]",
+    gradient: "from-[#b18d4f] via-[#C8AC80] to-[#09142a]",
   },
 ];
 
@@ -736,7 +736,7 @@ export default function HomePage() {
       <HomepagePopup />
       <section className="relative overflow-hidden border-b border-[#b18d4f]/20 bg-gradient-to-br from-[#122352] via-[#09142a] to-[#09142a]">
         <div className="pointer-events-none absolute -top-16 right-0 h-72 w-72 rounded-full bg-[#b18d4f]/15 blur-3xl" />
-        <div className="pointer-events-none absolute bottom-0 left-0 h-64 w-64 rounded-full bg-[#2A7D7B]/15 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-0 left-0 h-64 w-64 rounded-full bg-[#C8AC80]/15 blur-3xl" />
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16">
           <div className="mx-auto mb-8 flex w-fit gap-1 rounded-full border border-[#b18d4f]/30 bg-[#0E1C3B] p-1">
             <button
@@ -755,7 +755,7 @@ export default function HomePage() {
               onClick={() => setExpertiseMode("vastu")}
               className={`rounded-full px-5 py-2 text-sm font-semibold transition ${
                 expertiseMode === "vastu"
-                  ? "bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] text-white"
+                  ? "bg-[#b18d4f] hover:bg-[#C8AC80] text-[#09142a]"
                   : "text-[#C7C2B4]"
               }`}
             >
@@ -772,7 +772,7 @@ export default function HomePage() {
                 {expertiseMode === "astro" ? (
                   <>Decode your destiny.<br /><span className="bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] bg-clip-text text-transparent">Master your space.</span></>
                 ) : (
-                  <>Master your space.<br /><span className="bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] bg-clip-text text-transparent">Decode your destiny.</span></>
+                  <>Master your space.<br /><span className="bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] bg-clip-text text-transparent">Decode your destiny.</span></>
                 )}
               </h1>
               <p className="mt-3 max-w-xl text-[#C7C2B4]">
@@ -906,7 +906,7 @@ export default function HomePage() {
             </div>
             <div className="relative mx-auto flex h-72 w-72 items-center justify-center sm:h-96 sm:w-96">
               <div className="absolute h-64 w-64 rounded-full bg-[#b18d4f]/20 blur-2xl sm:h-80 sm:w-80" />
-              <div className="absolute h-80 w-80 rounded-full bg-[#2A7D7B]/10 blur-3xl" />
+              <div className="absolute h-80 w-80 rounded-full bg-[#b18d4f]/10 blur-3xl" />
               <KundliWheelMark size={320} />
             </div>
           </div>
@@ -1031,7 +1031,7 @@ export default function HomePage() {
                 </div>
                 <Link
                   href={`/astrologers/${astrologer.id}`}
-                  className="mt-4 block rounded-xl bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] py-2 text-center text-sm font-semibold text-white"
+                  className="mt-4 block rounded-xl bg-[#b18d4f] hover:bg-[#C8AC80] py-2 text-center text-sm font-semibold text-[#09142a]"
                 >
                   Chat Now
                 </Link>
@@ -1285,7 +1285,7 @@ export default function HomePage() {
                 <p className="mt-2 text-xs font-medium text-[#C8AC80]">
                   ₹{a.rate_per_min}/min
                 </p>
-                <span className="mt-3 w-full rounded-lg bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-3 py-1.5 text-xs font-semibold text-white">
+                <span className="mt-3 w-full rounded-lg bg-[#b18d4f] hover:bg-[#C8AC80] px-3 py-1.5 text-xs font-semibold text-[#09142a]">
                   Chat karein
                 </span>
               </Link>
@@ -1377,7 +1377,7 @@ export default function HomePage() {
                   </Link>
                   <Link
                     href={`/astrologers/${astrologer.id}`}
-                    className="rounded-lg bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-3 py-2 text-center text-sm font-semibold text-white transition hover:opacity-95"
+                    className="rounded-lg bg-[#b18d4f] hover:bg-[#C8AC80] px-3 py-2 text-center text-sm font-semibold text-[#09142a] transition hover:opacity-95"
                   >
                     Chat
                   </Link>
@@ -1410,7 +1410,7 @@ export default function HomePage() {
         <div className="mt-7 text-center">
           <Link
             href="/horoscope"
-            className="inline-flex rounded-full bg-[#09142a] px-6 py-3 text-sm font-semibold text-[#b18d4f] transition hover:bg-[#2A7D7B]"
+            className="inline-flex rounded-full bg-[#09142a] px-6 py-3 text-sm font-semibold text-[#b18d4f] transition hover:bg-[#b18d4f] hover:text-[#09142a]"
           >
             View All Horoscopes
           </Link>
@@ -1438,7 +1438,7 @@ export default function HomePage() {
                   <p className="text-lg font-bold text-[#C8AC80]">₹{service.price}</p>
                   <Link
                     href="/reports"
-                    className="rounded-lg bg-gradient-to-r from-[#2A7D7B] to-[#3A9D9B] px-4 py-2 text-sm font-semibold text-white transition hover:opacity-95"
+                    className="rounded-lg bg-[#b18d4f] hover:bg-[#C8AC80] px-4 py-2 text-sm font-semibold text-[#09142a] transition hover:opacity-95"
                   >
                     Buy Now
                   </Link>
@@ -1460,8 +1460,8 @@ export default function HomePage() {
               <div
                 className={`h-24 rounded-xl bg-gradient-to-br ${
                   index % 2 === 0
-                    ? "from-[#09142a] via-[#2A7D7B] to-[#b18d4f]"
-                    : "from-[#2A7D7B] via-[#09142a] to-[#b18d4f]"
+                    ? "from-[#09142a] via-[#C8AC80] to-[#b18d4f]"
+                    : "from-[#C8AC80] via-[#09142a] to-[#b18d4f]"
                 }`}
                 aria-hidden="true"
               />
