@@ -6,6 +6,7 @@ import { type FormEvent, useCallback, useEffect, useRef, useState } from "react"
 import { io, type Socket } from "socket.io-client";
 
 import { Footer } from "@/components/Footer";
+import { HomepagePopup } from "@/components/HomepagePopup";
 import { Navbar } from "@/components/Navbar";
 import api from "@/lib/api";
 import { formatDisplayDate } from "@/lib/formatDate";
@@ -527,6 +528,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0A1A2F] via-[#13294B] to-[#0A1A2F] text-[#F5F1E8]">
       <Navbar />
+      <HomepagePopup />
       <section className="relative overflow-hidden border-b border-[#C9A227]/20 bg-gradient-to-br from-[#13294B] via-[#0A1A2F] to-[#0A1A2F]">
         <div className="pointer-events-none absolute -top-16 right-0 h-72 w-72 rounded-full bg-[#C9A227]/15 blur-3xl" />
         <div className="pointer-events-none absolute bottom-0 left-0 h-64 w-64 rounded-full bg-[#2A7D7B]/15 blur-3xl" />

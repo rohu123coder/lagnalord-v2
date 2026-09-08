@@ -28,6 +28,7 @@ import kaalSarpDoshaRouter from "./routes/kaalSarpDosha.js";
 import lalKitabRouter from "./routes/lalKitab.js";
 import mangalDoshaRouter from "./routes/mangalDosha.js";
 import panchangRouter from "./routes/panchang.js";
+import publicSettingsRouter from "./routes/publicSettings.js";
 import sadeSatiRouter from "./routes/sadeSati.js";
 
 dotenv.config();
@@ -60,6 +61,7 @@ app.use("/api/chat", chatRouter);
 app.use("/api/kundali", kundaliRouter);
 app.use("/api/mangal-dosha", mangalDoshaRouter);
 app.use("/api/panchang", panchangRouter);
+app.use("/api/settings", publicSettingsRouter);
 app.use("/api/sade-sati", sadeSatiRouter);
 app.use("/api/kaal-sarp-dosha", kaalSarpDoshaRouter);
 app.use("/api/lal-kitab", lalKitabRouter);
