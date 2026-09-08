@@ -587,7 +587,7 @@ export default function AstrologerProfilePage() {
                     }
                     void startChat();
                   }}
-                  className="rounded-full bg-[#16A34A] px-6 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+                  className="rounded-full bg-[#b18d4f] px-6 py-2.5 text-sm font-semibold text-[#09142a] transition hover:bg-[#8E713F] hover:text-white disabled:opacity-60"
                 >
                   Start Chat
                 </button>

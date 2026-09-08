@@ -198,7 +198,7 @@ export default function AiAstrologerProfilePage() {
                   type="button"
                   disabled={starting}
                   onClick={() => void handleStartChat()}
-                  className="mt-6 rounded-full bg-[#16A34A] px-6 py-2.5 text-sm font-semibold text-white transition disabled:cursor-not-allowed disabled:opacity-60"
+                  className="mt-6 rounded-full bg-[#b18d4f] px-6 py-2.5 text-sm font-semibold text-[#09142a] transition hover:bg-[#8E713F] hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {starting ? "Preparing your chat…" : "Start Chat"}
                 </button>
