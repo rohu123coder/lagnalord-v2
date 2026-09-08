@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useId, useMemo } from "react";
 import { planetInfo } from "@/lib/kundli/ephemerisUtils";
 import type { KundliCalculateResponse, KundliChartPayload } from "../types";
 
@@ -121,6 +121,58 @@ const OUTER_PLANET_COLORS: Record<string, string> = {
   Pluto: "#a3a3a3",
 };
 
+/** Pale semantic colors that wash out on cream #F5F1E8 — darker same-hue substitutes for light variant only. */
+const LIGHT_PLANET_OVERRIDES: Record<string, string> = {
+  Sun: "#b45309",
+  Moon: "#475569",
+  Mercury: "#15803d",
+  Jupiter: "#a16207",
+  Uranus: "#0369a1",
+  Neptune: "#4f46e5",
+  Pluto: "#525252",
+};
+
+export type KundliChartVariant = "dark" | "light";
+
+const CHART_THEMES = {
+  dark: {
+    cardClass:
+      "rounded-2xl border border-[#b18d4f]/20 bg-gradient-to-br from-[#0E1C3B] to-[#09142a] p-2 shadow-lg shadow-black/40",
+    titleClass:
+      "mb-3 text-center text-xs font-medium uppercase tracking-wider text-[#C8AC80]",
+    boardFill: "#09142a",
+    edgeStart: "#b18d4f",
+    edgeStartOpacity: 0.35,
+    edgeEnd: "#09142a",
+    edgeEndOpacity: 0.5,
+    houseFillStart: "#122352",
+    houseFillEnd: "#0E1C3B",
+    houseStroke: "#b18d4f",
+    houseStrokeOpacity: 0.45,
+    rashi: "#C7C2B4",
+    planetFallback: "#C7C2B4",
+    retrograde: "#b18d4f",
+  },
+  light: {
+    cardClass:
+      "rounded-2xl border border-[#b18d4f]/40 bg-gradient-to-br from-[#FFFFFF] to-[#F5F1E8] p-2 shadow-lg shadow-black/10",
+    titleClass:
+      "mb-3 text-center text-xs font-medium uppercase tracking-wider text-[#78543a]",
+    boardFill: "#F5F1E8",
+    edgeStart: "#b18d4f",
+    edgeStartOpacity: 0.6,
+    edgeEnd: "#F5F1E8",
+    edgeEndOpacity: 0.5,
+    houseFillStart: "#FFFFFF",
+    houseFillEnd: "#F5F1E8",
+    houseStroke: "#b18d4f",
+    houseStrokeOpacity: 0.7,
+    rashi: "#09142a",
+    planetFallback: "#4B5563",
+    retrograde: "#78543a",
+  },
+} as const;
+
 function toPath(points: [number, number][]): string {
   return points
     .map(([x, y], i) => `${i === 0 ? "M" : "L"} ${x} ${sy(y)}`)
@@ -131,18 +183,26 @@ export function KundliChart({
   chartData,
   planets,
   className = "",
+  variant = "dark",
 }: {
   chartData: KundliChartPayload;
   planets: KundliCalculateResponse["planets"];
   className?: string;
+  variant?: KundliChartVariant;
 }) {
+  const reactId = useId();
+  const gid = useMemo(() => `kc${reactId.replace(/:/g, "")}`, [reactId]);
+  const houseFillId = `${gid}-houseFill`;
+  const edgeGlowId = `${gid}-edgeGlow`;
+  const theme = CHART_THEMES[variant];
+
   const byHouse = useMemo(() => {
     const map: Record<number, { short: string; degree: number; retro: boolean; color: string }[]> = {};
     for (let h = 1; h <= 12; h++) map[h] = [];
     for (const p of planets) {
       const short = PLANET_SHORT[p.name] ?? p.name.slice(0, 2);
       if (!map[p.house]) map[p.house] = [];
-      let color = "#C7C2B4";
+      let color: string = theme.planetFallback;
       if (OUTER_PLANET_COLORS[p.name]) {
         color = OUTER_PLANET_COLORS[p.name];
       } else {
@@ -150,16 +210,17 @@ export function KundliChart({
           color = planetInfo(p.name as Parameters<typeof planetInfo>[0]).color;
         } catch {}
       }
+      if (variant === "light" && LIGHT_PLANET_OVERRIDES[p.name]) {
+        color = LIGHT_PLANET_OVERRIDES[p.name];
+      }
       map[p.house].push({ short, degree: p.degree, retro: p.isRetrograde, color });
     }
     return map;
-  }, [planets]);
+  }, [planets, theme.planetFallback, variant]);
 
   return (
-    <div
-      className={`rounded-2xl border border-[#b18d4f]/20 bg-gradient-to-br from-[#0E1C3B] to-[#09142a] p-2 shadow-lg shadow-black/40 ${className}`}
-    >
-      <p className="mb-3 text-center text-xs font-medium uppercase tracking-wider text-[#C8AC80]">
+    <div className={`${theme.cardClass} ${className}`}>
+      <p className={theme.titleClass}>
         Lagna Chart (D1)
       </p>
       <svg
@@ -169,13 +230,13 @@ export function KundliChart({
         aria-label="Lagna Chart (D1) — North Indian style Vedic birth chart"
       >
         <defs>
-          <linearGradient id="houseFill" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#122352" />
-            <stop offset="100%" stopColor="#0E1C3B" />
+          <linearGradient id={houseFillId} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor={theme.houseFillStart} />
+            <stop offset="100%" stopColor={theme.houseFillEnd} />
           </linearGradient>
-          <linearGradient id="edgeGlow" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#b18d4f" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="#09142a" stopOpacity="0.5" />
+          <linearGradient id={edgeGlowId} x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor={theme.edgeStart} stopOpacity={theme.edgeStartOpacity} />
+            <stop offset="100%" stopColor={theme.edgeEnd} stopOpacity={theme.edgeEndOpacity} />
           </linearGradient>
         </defs>
 
@@ -185,8 +246,8 @@ export function KundliChart({
           width={VB.w}
           height={VB.h}
           rx="12"
-          fill="#09142a"
-          stroke="url(#edgeGlow)"
+          fill={theme.boardFill}
+          stroke={`url(#${edgeGlowId})`}
           strokeWidth="2"
         />
 
@@ -194,9 +255,9 @@ export function KundliChart({
           <path
             key={i}
             d={toPath(pts)}
-            fill="url(#houseFill)"
-            stroke="#b18d4f"
-            strokeOpacity={0.45}
+            fill={`url(#${houseFillId})`}
+            stroke={theme.houseStroke}
+            strokeOpacity={theme.houseStrokeOpacity}
             strokeWidth="1.25"
           />
         ))}
@@ -217,7 +278,7 @@ export function KundliChart({
                 style={{ fontSize: 10, fontWeight: 400 }}
               >
                 {rashiShort ? (
-                  <tspan className="fill-[#C7C2B4]">{rashiShort}</tspan>
+                  <tspan style={{ fill: theme.rashi }}>{rashiShort}</tspan>
                 ) : null}
               </text>
               {planetsInHouse.map((item, idx) => {
@@ -238,7 +299,7 @@ export function KundliChart({
                       {item.degree}
                     </tspan>
                     {item.retro ? (
-                      <tspan style={{ fontSize: 8, fontWeight: 600, fill: "#b18d4f" }} dy="0">
+                      <tspan style={{ fontSize: 8, fontWeight: 600, fill: theme.retrograde }} dy="0">
                         {" "}℞
                       </tspan>
                     ) : null}

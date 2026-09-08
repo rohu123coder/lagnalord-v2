@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { Navbar } from "@/components/Navbar";
 import { getTenant } from "@/lib/tenants";
 import { AIAstrologerChat } from "./components/AIAstrologerChat";
-import { KundliChart } from "./components/KundliChart";
+import { KundliChart, type KundliChartVariant } from "./components/KundliChart";
 import { KundliForm } from "./components/KundliForm";
 import type { KundliCalculateResponse } from "./types";
 
@@ -346,6 +346,7 @@ function stars(starCount: number) {
 export default function KundliPage() {
   const tenant = getTenant();
   const [result, setResult] = useState<KundliCalculateResponse | null>(null);
+  const [chartVariant, setChartVariant] = useState<KundliChartVariant>("dark");
   const lagnaKey = result ? signKey(result.basicInfo.ascendant.rashi) : "";
   const moonKey = result ? signKey(result.basicInfo.moonSign.rashi) : "";
   const sunKey = result ? signKey(result.basicInfo.sunSign.rashi) : "";
@@ -418,7 +419,7 @@ export default function KundliPage() {
             <SectionTitle subtitle="Lagna chart with signs & planets by house">
               Your birth chart
             </SectionTitle>
-            <div className="mb-4 flex flex-wrap gap-2 print:hidden">
+            <div className="mb-4 flex flex-wrap items-center gap-2 print:hidden">
               <button
                 type="button"
                 onClick={onShare}
@@ -433,9 +434,41 @@ export default function KundliPage() {
               >
                 Print / Save as PDF
               </button>
+              <div
+                className="ml-auto flex w-fit gap-1 rounded-full border border-[#b18d4f]/30 bg-[#0E1C3B] p-1"
+                role="group"
+                aria-label="Chart style"
+              >
+                <button
+                  type="button"
+                  onClick={() => setChartVariant("dark")}
+                  className={`rounded-full px-4 py-1.5 text-sm font-semibold transition ${
+                    chartVariant === "dark"
+                      ? "bg-[#b18d4f] text-[#09142a]"
+                      : "text-[#C7C2B4]"
+                  }`}
+                >
+                  Style 1
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setChartVariant("light")}
+                  className={`rounded-full px-4 py-1.5 text-sm font-semibold transition ${
+                    chartVariant === "light"
+                      ? "bg-[#b18d4f] text-[#09142a]"
+                      : "text-[#C7C2B4]"
+                  }`}
+                >
+                  Style 2
+                </button>
+              </div>
             </div>
             <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
-              <KundliChart chartData={result.chartData} planets={result.planets} />
+              <KundliChart
+                chartData={result.chartData}
+                planets={result.planets}
+                variant={chartVariant}
+              />
               <div className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-6 shadow-lg shadow-black/30">
                 <h3 className="text-sm font-semibold uppercase tracking-wide text-[#C8AC80]">
                   Snapshot
