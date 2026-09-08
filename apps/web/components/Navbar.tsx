@@ -154,7 +154,7 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-[#C9A227]/20 bg-[#0A1A2F]">
-      <div className="mx-auto flex min-h-[68px] max-w-7xl items-center justify-between px-4 sm:px-6">
+      <div className="mx-auto flex min-h-[68px] max-w-7xl items-center justify-between px-4 sm:px-6 min-[1600px]:max-w-[100rem]">
         <Link
           href="/"
           className="shrink-0"
@@ -171,17 +171,21 @@ export function Navbar() {
                 className="h-10 w-auto object-contain"
               />
             ) : null}
-            <span className="text-[22px] font-bold text-[#E0C158]">
+            <span
+              className={`text-[22px] font-bold text-[#E0C158] ${
+                tenant.logo.imageUrl ? "md:hidden" : ""
+              }`}
+            >
               {tenant.logo.text}
             </span>
           </div>
         </Link>
 
         <nav
-          className="ml-6 hidden min-w-0 flex-1 items-center justify-center md:flex lg:ml-10"
+          className="ml-4 hidden min-w-0 flex-1 items-center justify-center md:flex min-[1600px]:ml-10"
           aria-label="Main navigation"
         >
-          <div className="flex items-center gap-4 text-sm font-medium text-[#C7C2B4] xl:gap-5">
+          <div className="flex min-w-0 flex-1 items-center justify-center gap-3 overflow-x-hidden text-sm font-medium text-[#C7C2B4] min-[1600px]:gap-4">
             {centerLinks.map((link, idx) => (
               <Fragment key={link.label}>
                 {idx > 0 ? (
@@ -202,19 +206,20 @@ export function Navbar() {
                 </Link>
               </Fragment>
             ))}
-            <span className="text-[#C9A227]/20" aria-hidden="true">
-              |
-            </span>
-            <div className="group relative">
-              <button
-                type="button"
-                aria-haspopup="true"
-                className={`inline-flex items-center gap-1 whitespace-nowrap border-b-2 pb-0.5 text-[13px] font-medium transition ${
-                  isCalculatorActive
-                    ? "border-[#C9A227] text-[#E0C158]"
-                    : "border-transparent text-[#C7C2B4] hover:text-[#E0C158]"
-                }`}
-              >
+          </div>
+          <span className="shrink-0 px-1 text-[#C9A227]/20" aria-hidden="true">
+            |
+          </span>
+          <div className="group relative shrink-0">
+            <button
+              type="button"
+              aria-haspopup="true"
+              className={`inline-flex items-center gap-1 whitespace-nowrap border-b-2 pb-0.5 text-[13px] font-medium transition ${
+                isCalculatorActive
+                  ? "border-[#C9A227] text-[#E0C158]"
+                  : "border-transparent text-[#C7C2B4] hover:text-[#E0C158]"
+              }`}
+            >
                 Calculators
                 <svg
                   className="h-3.5 w-3.5 transition group-hover:rotate-180 group-focus-within:rotate-180"
@@ -266,10 +271,9 @@ export function Navbar() {
                 </div>
               </div>
             </div>
-          </div>
         </nav>
 
-        <div className="hidden shrink-0 items-center gap-4 md:flex">
+        <div className="relative z-20 hidden shrink-0 items-center gap-3 self-stretch bg-[#0A1A2F] pl-4 md:flex min-[1600px]:gap-4">
           {!mounted ? (
             <div className="h-9 w-44 animate-pulse rounded-full bg-[#0F2240]" />
           ) : isLoggedIn ? (
@@ -300,7 +304,7 @@ export function Navbar() {
               </button>
               <Link
                 href="/astrologer/login"
-                className="ml-2 text-xs text-[#C7C2B4]/60 transition hover:text-[#F5F1E8]"
+                className="ml-2 hidden text-xs text-[#C7C2B4]/60 transition hover:text-[#F5F1E8] min-[1600px]:inline"
               >
                 Astrologer Login
               </Link>
@@ -330,7 +334,7 @@ export function Navbar() {
               </Link>
               <Link
                 href="/astrologer/login"
-                className="ml-2 text-xs text-[#C7C2B4]/60 transition hover:text-[#F5F1E8]"
+                className="ml-2 hidden text-xs text-[#C7C2B4]/60 transition hover:text-[#F5F1E8] min-[1600px]:inline"
                 onClick={() => setMenuOpen(false)}
               >
                 Astrologer Login
