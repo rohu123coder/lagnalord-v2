@@ -1242,7 +1242,7 @@ export default function HomePage() {
               </div>
               <button
                 type="submit"
-                className="w-full rounded-lg border border-[#b18d4f]/25 px-4 py-2.5 text-sm font-semibold text-[#C8AC80] transition hover:bg-[#122352]"
+                className="w-full rounded-lg bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-4 py-2.5 text-sm font-semibold text-[#09142a] transition hover:opacity-95"
               >
                 Continue
               </button>
@@ -1275,8 +1275,9 @@ export default function HomePage() {
                 <span className="font-medium text-[#C7C2B4]">Karan</span>
                 <span className="font-semibold text-[#C8AC80]">{panchang.karan}</span>
               </p>
-              <p className="rounded-lg border border-[#1B3A63] bg-[#122352] px-3 py-2 text-xs text-[#C8AC80]">
-                Rahukaal (Delhi): <span className="font-semibold">{panchang.rahukaal}</span>
+              <p className="flex items-center justify-between rounded-lg bg-[#122352] px-3 py-2">
+                <span className="font-medium text-[#C7C2B4]">Rahukaal (Delhi)</span>
+                <span className="font-semibold text-[#C8AC80]">{panchang.rahukaal}</span>
               </p>
             </div>
             <Link
@@ -1430,7 +1431,7 @@ export default function HomePage() {
                 <div className="mt-4 grid grid-cols-2 gap-2">
                   <Link
                     href={`/astrologers/${astrologer.id}`}
-                    className="rounded-lg bg-emerald-600 px-3 py-2 text-center text-sm font-semibold text-white transition hover:bg-emerald-700"
+                    className="rounded-lg bg-[#b18d4f] px-3 py-2 text-center text-sm font-semibold text-[#09142a] transition hover:bg-[#8E713F] hover:text-white"
                   >
                     Call
                   </Link>
