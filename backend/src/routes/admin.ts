@@ -8,6 +8,7 @@ import { z } from "zod";
 import { pool, query } from "../db/index.js";
 import { cloudinary } from "../lib/cloudinary.js";
 import { authMiddleware, requireAdmin } from "../middleware/auth.js";
+import { notifyWalletCredited } from "../services/pushNotifications.js";
 
 const router = Router();
 
@@ -143,7 +144,7 @@ router.get("/stats", async (_req: Request, res: Response) => {
 const transactionsListQuery = paginationQuery.extend({
   limit: z.coerce.number().int().min(1).max(10000).default(20),
   status: z.enum(["pending", "success", "failed"]).optional(),
-  type: z.enum(["recharge", "deduction", "refund"]).optional(),
+  type: z.enum(["recharge", "deduction", "refund", "admin_credit", "admin_debit"]).optional(),
   from: z.string().optional(),
   to: z.string().optional(),
 });
@@ -649,6 +650,137 @@ router.post("/users/:id/suspend", async (req: Request, res: Response) => {
   }
 
   res.json({ success: true, data: { userId: id, is_suspended: true } });
+});
+
+const walletAdjustmentBody = z.object({
+  amount: z.number().positive(),
+  direction: z.enum(["credit", "debit"]),
+  reason: z.string().trim().min(10).max(500),
+});
+
+router.post("/users/:id/wallet-adjustment", async (req: Request, res: Response) => {
+  const idParsed = idParamSchema.safeParse(req.params);
+  if (!idParsed.success) {
+    res.status(400).json({ success: false, error: "Invalid user id" });
+    return;
+  }
+
+  const bodyParsed = walletAdjustmentBody.safeParse(req.body);
+  if (!bodyParsed.success) {
+    res.status(400).json({
+      success: false,
+      error: bodyParsed.error.issues[0]?.message ?? "Invalid body",
+    });
+    return;
+  }
+
+  const adminId = req.user?.userId;
+  if (!adminId) {
+    res.status(401).json({ success: false, error: "Unauthorized" });
+    return;
+  }
+
+  const { id: userId } = idParsed.data;
+  const { direction, reason } = bodyParsed.data;
+  const amount = Math.round(bodyParsed.data.amount * 100) / 100;
+  if (amount <= 0) {
+    res.status(400).json({ success: false, error: "Amount must be greater than 0" });
+    return;
+  }
+
+  const txType = direction === "credit" ? "admin_credit" : "admin_debit";
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+
+    const userResult = await client.query<{ id: string; wallet_balance: string }>(
+      `SELECT id, wallet_balance::text AS wallet_balance
+       FROM users
+       WHERE id = $1
+       FOR UPDATE`,
+      [userId]
+    );
+    const user = userResult.rows[0];
+    if (!user) {
+      await client.query("ROLLBACK");
+      res.status(404).json({ success: false, error: "User not found" });
+      return;
+    }
+
+    const currentBalance = Number(user.wallet_balance);
+    if (direction === "debit" && currentBalance < amount) {
+      await client.query("ROLLBACK");
+      res.status(400).json({
+        success: false,
+        error: "Insufficient wallet balance",
+      });
+      return;
+    }
+
+    const updated =
+      direction === "credit"
+        ? await client.query<{ wallet_balance: string }>(
+            `UPDATE users
+             SET wallet_balance = wallet_balance + $1::numeric
+             WHERE id = $2
+             RETURNING wallet_balance::text AS wallet_balance`,
+            [amount, userId]
+          )
+        : await client.query<{ wallet_balance: string }>(
+            `UPDATE users
+             SET wallet_balance = wallet_balance - $1::numeric
+             WHERE id = $2 AND wallet_balance >= $1::numeric
+             RETURNING wallet_balance::text AS wallet_balance`,
+            [amount, userId]
+          );
+
+    if (!updated.rows[0]) {
+      await client.query("ROLLBACK");
+      res.status(400).json({
+        success: false,
+        error: "Insufficient wallet balance",
+      });
+      return;
+    }
+
+    await client.query(
+      `INSERT INTO transactions
+         (user_id, type, amount, status, reason, performed_by_admin_id)
+       VALUES ($1, $2::transaction_type, $3, 'success', $4, $5)`,
+      [userId, txType, amount, reason, adminId]
+    );
+
+    await client.query("COMMIT");
+
+    const newWalletBalance = Number(updated.rows[0].wallet_balance);
+
+    if (direction === "credit") {
+      void notifyWalletCredited({
+        userId,
+        amount,
+        newBalance: newWalletBalance,
+      }).catch((err) =>
+        console.error("[Push] Failed to notify admin wallet credit:", err)
+      );
+    }
+
+    res.json({
+      success: true,
+      data: {
+        userId,
+        direction,
+        amount,
+        type: txType,
+        wallet_balance: newWalletBalance,
+      },
+    });
+  } catch (e) {
+    await client.query("ROLLBACK");
+    console.error("admin wallet-adjustment failed:", e);
+    res.status(500).json({ success: false, error: "Could not adjust wallet" });
+  } finally {
+    client.release();
+  }
 });
 
 router.get("/settings", async (_req: Request, res: Response) => {

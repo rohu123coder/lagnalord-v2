@@ -4,7 +4,7 @@ CREATE TYPE chat_session_status AS ENUM ('waiting', 'active', 'ended', 'cancelle
 
 CREATE TYPE message_sender_type AS ENUM ('user', 'astrologer');
 
-CREATE TYPE transaction_type AS ENUM ('recharge', 'deduction', 'refund');
+CREATE TYPE transaction_type AS ENUM ('recharge', 'deduction', 'refund', 'admin_credit', 'admin_debit');
 
 CREATE TYPE transaction_status AS ENUM ('pending', 'success', 'failed');
 
@@ -127,6 +127,14 @@ CREATE TABLE admins (
   role admin_role NOT NULL DEFAULT 'admin',
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+
+ALTER TABLE transactions
+  ADD COLUMN IF NOT EXISTS reason TEXT,
+  ADD COLUMN IF NOT EXISTS performed_by_admin_id UUID REFERENCES admins (id) ON DELETE SET NULL;
+
+CREATE INDEX IF NOT EXISTS idx_transactions_performed_by_admin
+  ON transactions (performed_by_admin_id)
+  WHERE performed_by_admin_id IS NOT NULL;
 
 CREATE TABLE platform_settings (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
