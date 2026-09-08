@@ -144,47 +144,74 @@ export function compareNameToMulank(nameNumber: number, mulank: number): Compati
 
 export const compareDestinyNumbers = compareNameToMulank;
 
+export type LoveScoreBreakdown = {
+  destinyA: number;
+  destinyB: number;
+  gap: number;
+  base: number;
+  sameBonus: number;
+  sumBonus: number;
+  triadBonus: number;
+  clashPenalty: number;
+  pair: Compatibility;
+  total: number;
+};
+
 /**
  * Love % from two Destiny digits (1–9).
  * 100 minus 9 per step of gap, plus small bonuses for a match, a 9/10 sum,
  * or a friendly triad; a clash pair knocks 12 off. Clamped to 18–99.
  */
-export function lovePercentageFromDestiny(a: number, b: number): number {
+export function lovePercentageBreakdown(a: number, b: number): LoveScoreBreakdown | null {
   if (!a || !b) {
-    return 0;
+    return null;
   }
   const gap = Math.abs(a - b);
-  let score = 100 - gap * 9;
-  if (a === b) {
-    score += 8;
-  }
-  if (a + b === 9 || a + b === 10) {
-    score += 10;
-  }
   const pair = compareDestinyNumbers(a, b);
-  if (pair === "favorable" && a !== b) {
-    score += 6;
-  }
-  if (pair === "avoid") {
-    score -= 12;
-  }
-  return Math.min(99, Math.max(18, score));
+  const sameBonus = a === b ? 8 : 0;
+  const sumBonus = a + b === 9 || a + b === 10 ? 10 : 0;
+  const triadBonus = pair === "favorable" && a !== b ? 6 : 0;
+  const clashPenalty = pair === "avoid" ? 12 : 0;
+  const base = 100 - gap * 9;
+  const total = Math.min(99, Math.max(18, base + sameBonus + sumBonus + triadBonus - clashPenalty));
+  return {
+    destinyA: a,
+    destinyB: b,
+    gap,
+    base,
+    sameBonus,
+    sumBonus,
+    triadBonus,
+    clashPenalty,
+    pair,
+    total,
+  };
+}
+
+export function lovePercentageFromDestiny(a: number, b: number): number {
+  return lovePercentageBreakdown(a, b)?.total ?? 0;
+}
+
+export function uniqueLetterSet(name: string): Set<string> {
+  return new Set(
+    name
+      .toUpperCase()
+      .split("")
+      .filter((ch) => ch >= "A" && ch <= "Z")
+  );
+}
+
+export function sharedUniqueLetters(nameA: string, nameB: string): string[] {
+  const setB = uniqueLetterSet(nameB);
+  return Array.from(uniqueLetterSet(nameA))
+    .filter((ch) => setB.has(ch))
+    .sort();
 }
 
 /** Unique-letter overlap (Jaccard) scaled into 35–95. Used only by friendship. */
 export function friendshipPercentageFromNames(nameA: string, nameB: string): number {
-  const setA = new Set(
-    nameA
-      .toUpperCase()
-      .split("")
-      .filter((ch) => ch >= "A" && ch <= "Z")
-  );
-  const setB = new Set(
-    nameB
-      .toUpperCase()
-      .split("")
-      .filter((ch) => ch >= "A" && ch <= "Z")
-  );
+  const setA = uniqueLetterSet(nameA);
+  const setB = uniqueLetterSet(nameB);
   if (setA.size === 0 || setB.size === 0) {
     return 0;
   }
@@ -194,7 +221,7 @@ export function friendshipPercentageFromNames(nameA: string, nameB: string): num
       shared += 1;
     }
   });
-  const union = new Set(Array.from(setA).concat(Array.from(setB))).size
+  const union = new Set(Array.from(setA).concat(Array.from(setB))).size;
   const jaccard = shared / union;
   return Math.round(35 + 60 * jaccard);
 }
