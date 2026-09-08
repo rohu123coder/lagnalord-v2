@@ -213,6 +213,13 @@ const periodOffsets: Record<Period, number> = {
   monthly: 30,
 };
 
+const overviewOpeners: Record<Period, string> = {
+  today: "Today brings",
+  tomorrow: "Tomorrow brings",
+  weekly: "This week brings",
+  monthly: "This month brings",
+};
+
 export type HoroscopeResponse = {
   rashi: Rashi;
   period: Period;
@@ -308,7 +315,7 @@ export function createHoroscope(
             ? "Weekly"
             : "Monthly",
     generatedOn: date.toISOString(),
-    todayOverview: `Today brings focused cosmic support for ${rashi.english} natives. ${pickTemplate(
+    todayOverview: `${overviewOpeners[normalizedPeriod]} focused cosmic support for ${rashi.english} natives. ${pickTemplate(
       loveTemplates,
       seed
     ).split(". ")[0]}. ${pickTemplate(careerTemplates, seed, 1).split(". ")[0]}. Keep faith in your intuition and take steady steps through the day.`,
