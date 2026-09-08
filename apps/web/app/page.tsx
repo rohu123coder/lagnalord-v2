@@ -4,6 +4,21 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { io, type Socket } from "socket.io-client";
+import {
+  Bot,
+  CalendarDays,
+  ChevronDown,
+  Clock3,
+  Compass,
+  GitCompare,
+  HeartHandshake,
+  Lock,
+  MessageCircle,
+  Orbit,
+  ShieldCheck,
+  Sparkles,
+  Sun,
+} from "lucide-react";
 
 import { Footer } from "@/components/Footer";
 import { HomepagePopup } from "@/components/HomepagePopup";
@@ -65,6 +80,195 @@ const topServices = [
   { icon: "📚", name: "Learn Astrology", href: "/learn-astrology" },
   { icon: "📱", name: "Talk to Astrologer", href: "/astrologers" },
 ];
+
+const homepageServices = [
+  {
+    title: "Kundli / Birth Chart",
+    href: "/kundli",
+    Icon: Orbit,
+    copy: "Cast a sidereal chart from your birth details. Houses, rashis, and planetary longitudes come from Swiss Ephemeris — not a stock template.",
+  },
+  {
+    title: "Kundli Matching",
+    href: "/kundli/match",
+    Icon: GitCompare,
+    copy: "Place two charts side by side. See how lagna, moon, and the 7th-house story sit together before you treat a match as settled.",
+  },
+  {
+    title: "Horoscope",
+    href: "/horoscope",
+    Icon: Sun,
+    copy: "Daily, weekly, and yearly notes by rashi. Use them as a weather report for the sky, not as a script you have to follow.",
+  },
+  {
+    title: "AI Astrologers",
+    href: "/astrologers",
+    Icon: Bot,
+    copy: "Ask a persona that reads the same chart JSON the rest of the app uses. Fast when you want a grounded first pass, not a fortune.",
+  },
+  {
+    title: "Live Astrologer Consultation",
+    href: "/astrologers",
+    Icon: MessageCircle,
+    copy: "Chat or call a verified astrologer. The rate on their card is what you pay per minute — no surprise add-ons in the lobby.",
+  },
+  {
+    title: "Numerology Calculators",
+    href: "/numerology",
+    Icon: Compass,
+    copy: "Mulank, Destiny, name checks, and the lighter name games. All of it runs in the browser from the numbers you type.",
+  },
+  {
+    title: "Panchang",
+    href: "/panchang",
+    Icon: CalendarDays,
+    copy: "Tithi, nakshatra, yoga, karan, and Rahu Kaal for a date and place. Useful before you pick a muhurat or simply a quieter hour.",
+  },
+  {
+    title: "Remedies",
+    href: "/remedies",
+    Icon: Sparkles,
+    copy: "Traditional upay written as practice, not as a product pitch. Read them next to a chart, not instead of one.",
+  },
+] as const;
+
+const whyPoints = [
+  {
+    n: "01",
+    title: "Verified astrologers",
+    body: "The people you call are accounts the admin desk has marked verified. You see who is online before you start a session.",
+  },
+  {
+    n: "02",
+    title: "Swiss Ephemeris Kundli",
+    body: "Birth charts are computed from planetary longitudes, not copied from a sample PDF. Same engine behind reports and the AI chat.",
+  },
+  {
+    n: "03",
+    title: "AI and human, both on tap",
+    body: "Start with an AI persona when you want speed. Move to a live astrologer when the question needs a conversation, not a paragraph.",
+  },
+  {
+    n: "04",
+    title: "Pricing on the card",
+    body: "Per-minute rates sit on each astrologer’s card. We do not invent a “from ₹X” banner here — you pay the number you already saw.",
+  },
+  {
+    n: "05",
+    title: "Birth details stay yours",
+    body: "Date, time, and place are used to cast the chart you asked for. We do not sell that packet as a marketing list.",
+  },
+  {
+    n: "06",
+    title: "One shelf, many tools",
+    body: "Kundli, matching, horoscope, panchang, remedies, and numerology share the same login and the same navy-and-gold desk.",
+  },
+] as const;
+
+const kundliReasons = [
+  {
+    Icon: Compass,
+    title: "A map of first instincts",
+    body: "Lagna and moon describe how you tend to begin and how you recover. That is useful even if you never open a dasha table.",
+  },
+  {
+    Icon: Clock3,
+    title: "Timing, not a deadline",
+    body: "Dasha and transits sketch seasons — when effort is cheaper, when waiting is wiser. They do not print a guaranteed date on a calendar.",
+  },
+  {
+    Icon: HeartHandshake,
+    title: "How two charts sit together",
+    body: "Matching is a second pair of eyes on temperament and 7th-house patterns. It is a conversation starter, not a veto from the sky.",
+  },
+  {
+    Icon: ShieldCheck,
+    title: "A language for hard years",
+    body: "Saturn, Rahu, and Sade Sati give names to stretches that already feel heavy. Naming them does not remove the work; it can stop the panic of thinking you invented the weather.",
+  },
+] as const;
+
+const illustrativeTestimonials = [
+  {
+    name: "Meera K.",
+    city: "Pune",
+    initial: "M",
+    quote:
+      "I ran my Kundli here before a job move. The dasha note matched the restlessness I already felt — the live chat helped me plan the month, not invent a promotion date.",
+  },
+  {
+    name: "Arjun S.",
+    city: "Bengaluru",
+    initial: "A",
+    quote:
+      "We used Kundli Matching as a family conversation, not a stamp. Seeing both moons written plainly was more useful than a single “gunas” number on a printout.",
+  },
+  {
+    name: "Nisha R.",
+    city: "Jaipur",
+    initial: "N",
+    quote:
+      "The AI astrologer answered a 11 p.m. question with the planets from my chart, not a generic pep talk. I still booked a human the next morning for the family piece.",
+  },
+  {
+    name: "Vikram D.",
+    city: "Ahmedabad",
+    initial: "V",
+    quote:
+      "Panchang plus Rahu Kaal on the same screen saved a needless argument about when to leave for the registrar. Small tool, quiet morning.",
+  },
+  {
+    name: "Sana P.",
+    city: "Hyderabad",
+    initial: "S",
+    quote:
+      "Wallet deducted per minute exactly as the card showed. I stopped the chat when I had enough — no package leftover to feel guilty about.",
+  },
+] as const;
+
+const homepageFaqs = [
+  {
+    q: "What is a Kundli on LagnaLord?",
+    a: "A Kundli is a map of the sky at your birth, drawn in the sidereal zodiac this app uses. You enter date, time, and place; Swiss Ephemeris supplies the longitudes. Houses, rashis, and dashas are read from that map — not from a one-size essay.",
+  },
+  {
+    q: "Is my birth data private?",
+    a: "Birth details are stored so you can reopen a chart and so an astrologer can see the same numbers you do. They are not published on a public wall. Treat any share link you generate as something you control.",
+  },
+  {
+    q: "How are AI astrologers different from live ones?",
+    a: "AI personas answer from the same chart JSON, quickly, in character. Live astrologers can ask follow-ups, sit with family context, and disagree with a first reading. Use AI for a sketch; use a human when the question is a decision.",
+  },
+  {
+    q: "What if I do not know my birth time?",
+    a: "You can still cast a chart with a noted approximation. Ascendant and house cusps will be less trustworthy than the moon and planets. Say so in chat — a good reading will shrink its claims instead of pretending the lagna is certain.",
+  },
+  {
+    q: "How does the wallet work?",
+    a: "You recharge, then pay the per-minute rate printed on the astrologer’s card (or the AI persona’s rate). Unused balance stays in the wallet. There is no hidden “session fee” on top of that displayed rate.",
+  },
+  {
+    q: "Can I trust the horoscope on this site?",
+    a: "Rashi notes are sky-weather, written to be read in a minute. They are not a substitute for your Kundli, and they cannot see your hour of birth. If a line feels wrong, prefer the chart over the daily blurb.",
+  },
+  {
+    q: "What makes LagnaLord different?",
+    a: "One desk for Kundli, matching, panchang, remedies, numerology, AI chat, and verified live sessions — with calculations from the same ephemeris instead of a collage of unrelated widgets. The rest is still your judgment.",
+  },
+] as const;
+
+function KundliWheelMark({ size = 280 }: { size?: number }) {
+  return (
+    <svg className="relative z-10" width={size} height={size} viewBox="0 0 280 280" aria-hidden="true">
+      <path d="M15 15 H265 V265 H15 Z" stroke="#C9A227" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
+      <path d="M15 15 L140 140 L265 15" stroke="#C9A227" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
+      <path d="M15 265 L140 140 L265 265" stroke="#C9A227" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
+      <path d="M15 15 L140 140 L15 265" stroke="#C9A227" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
+      <path d="M265 15 L140 140 L265 265" stroke="#C9A227" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
+      <circle cx="140" cy="65" r="4" fill="#E0C158" />
+    </svg>
+  );
+}
 
 const paidServices = [
   {
@@ -312,6 +516,7 @@ export default function HomePage() {
   const [matchGeoLoading, setMatchGeoLoading] = useState(false);
   const matchDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const matchPobRef = useRef<HTMLDivElement>(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   const onKundliPlaceChange = useCallback((value: string) => {
     setKundliForm((f) => ({ ...f, place: value, lat: null, lng: null }));
@@ -625,6 +830,162 @@ export default function HomePage() {
                 </button>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-[#C9A227]/20 bg-[#0A1A2F] py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#E0C158]">What you can do here</p>
+          <h2 className="mt-3 text-3xl font-extrabold text-[#F5F1E8] sm:text-5xl">Our Services</h2>
+          <p className="mt-3 max-w-2xl text-[#C7C2B4]">
+            Tools that already live on this site — each card opens the real page, not a teaser.
+          </p>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {homepageServices.map((service) => (
+              <Link
+                key={service.title}
+                href={service.href}
+                className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5 transition hover:-translate-y-0.5 hover:border-[#C9A227]/50"
+              >
+                <service.Icon className="h-7 w-7 text-[#E0C158]" />
+                <h3 className="mt-4 text-lg font-bold text-[#F5F1E8]">{service.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-[#C7C2B4]">{service.copy}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-[#C9A227]/20 bg-[#0F2240] py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#E0C158]">Why this desk</p>
+          <h2 className="mt-3 text-3xl font-extrabold text-[#F5F1E8] sm:text-5xl">Why LagnaLord</h2>
+          <p className="mt-3 max-w-2xl text-[#C7C2B4]">
+            Not another icon row. Six numbered notes about how the product is actually built.
+          </p>
+          <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-[#C9A227]/20 bg-[#C9A227]/20 sm:grid-cols-2 lg:grid-cols-3">
+            {whyPoints.map((point) => (
+              <article key={point.n} className="bg-[#0A1A2F] p-6 sm:p-8">
+                <p className="text-5xl font-extrabold leading-none text-[#E0C158]/40">{point.n}</p>
+                <h3 className="mt-4 text-xl font-bold text-[#F5F1E8]">{point.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-[#C7C2B4]">{point.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-[#C9A227]/20 bg-[#0A1A2F] py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="grid items-center gap-12 lg:grid-cols-2">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#E0C158]">The chart, not the feed</p>
+              <h2 className="mt-3 text-3xl font-extrabold text-[#F5F1E8] sm:text-5xl">
+                Why a Kundli still earns a seat at the table
+              </h2>
+              <p className="mt-4 text-base leading-7 text-[#C7C2B4]">
+                A birth chart does not replace a doctor, a lawyer, or a bank statement. It is a second language for
+                temperament and timing — the same sky the rest of this site computes from Swiss Ephemeris. People open
+                one when a decision already exists and they want vocabulary for it: a move, a match, a year that feels
+                heavier than the last. The four notes below are why that still happens, even in a feed full of daily
+                rashifal.
+              </p>
+              <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                {kundliReasons.map((reason) => (
+                  <article
+                    key={reason.title}
+                    className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-4"
+                  >
+                    <reason.Icon className="h-6 w-6 text-[#E0C158]" />
+                    <h3 className="mt-3 font-bold text-[#F5F1E8]">{reason.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-[#C7C2B4]">{reason.body}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+            <div className="relative mx-auto flex h-72 w-72 items-center justify-center sm:h-96 sm:w-96">
+              <div className="absolute h-64 w-64 rounded-full bg-[#C9A227]/20 blur-2xl sm:h-80 sm:w-80" />
+              <div className="absolute h-80 w-80 rounded-full bg-[#2A7D7B]/10 blur-3xl" />
+              <KundliWheelMark size={320} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-[#C9A227]/20 bg-[#0F2240]/50 py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#E0C158]">Voices</p>
+          <h2 className="mt-3 text-3xl font-extrabold text-[#F5F1E8] sm:text-5xl">Testimonials</h2>
+          <p className="mt-3 max-w-2xl text-sm text-[#C7C2B4]">
+            Illustrative examples — not verified reviews. Written to show the kind of visit this site is built for.
+          </p>
+          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {illustrativeTestimonials.map((item) => (
+              <article
+                key={item.name}
+                className="rounded-2xl border border-[#C9A227]/20 bg-[#0F2240] p-5"
+              >
+                <p className="text-[10px] font-bold uppercase tracking-wider text-[#E0C158]">
+                  Illustrative example · not a verified review
+                </p>
+                <div className="mt-3 flex items-center gap-3">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[#C9A227] to-[#A6745A] text-sm font-bold text-[#0A1A2F]">
+                    {item.initial}
+                  </div>
+                  <div>
+                    <p className="font-semibold text-[#F5F1E8]">{item.name}</p>
+                    <p className="text-xs text-[#C7C2B4]">{item.city}</p>
+                  </div>
+                </div>
+                <p className="mt-2 text-sm text-[#E0C158]" aria-label="5 stars">
+                  ★★★★★
+                </p>
+                <p className="mt-3 text-sm leading-6 text-[#C7C2B4]">{item.quote}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-[#C9A227]/20 bg-[#0A1A2F] py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#E0C158]">First visit</p>
+          <h2 className="mt-3 text-3xl font-extrabold text-[#F5F1E8] sm:text-5xl">
+            New here? Start with this
+          </h2>
+          <p className="mt-3 max-w-2xl text-[#C7C2B4]">
+            Short answers for the questions people usually ask before they type a birth time.
+          </p>
+          <div className="mt-10 space-y-3">
+            {homepageFaqs.map((item, index) => {
+              const open = openFaq === index;
+              return (
+                <article
+                  key={item.q}
+                  className="overflow-hidden rounded-2xl border border-[#C9A227]/20 bg-[#0F2240]"
+                >
+                  <button
+                    type="button"
+                    aria-expanded={open}
+                    className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
+                    onClick={() => setOpenFaq(open ? null : index)}
+                  >
+                    <span className="font-semibold text-[#F5F1E8]">{item.q}</span>
+                    <ChevronDown
+                      className={`h-5 w-5 shrink-0 text-[#E0C158] transition-transform ${
+                        open ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                  {open ? (
+                    <p className="border-t border-[#C9A227]/20 px-5 py-4 text-sm leading-6 text-[#C7C2B4]">
+                      {item.a}
+                    </p>
+                  ) : null}
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
