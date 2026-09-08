@@ -37,7 +37,7 @@ function getContactCards(supportEmail: string): ContactCard[] {
       value: "Connect with us on Facebook",
       detail: "Follow updates and announcements",
       icon: "📘",
-      href: "https://www.facebook.com/DivineMargOfficial",
+      href: "#",
     },
     {
       title: "Support Hours",
