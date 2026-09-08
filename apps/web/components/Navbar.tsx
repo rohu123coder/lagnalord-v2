@@ -178,10 +178,10 @@ export function Navbar() {
         </Link>
 
         <nav
-          className="hidden flex-1 items-center justify-center md:flex"
+          className="ml-6 hidden min-w-0 flex-1 items-center justify-center md:flex lg:ml-10"
           aria-label="Main navigation"
         >
-          <div className="flex items-center gap-2 text-sm font-medium text-[#C7C2B4]">
+          <div className="flex items-center gap-4 text-sm font-medium text-[#C7C2B4] xl:gap-5">
             {centerLinks.map((link, idx) => (
               <Fragment key={link.label}>
                 {idx > 0 ? (
@@ -191,7 +191,7 @@ export function Navbar() {
                 ) : null}
                 <Link
                   href={link.href}
-                  className={`whitespace-nowrap border-b-2 pb-0.5 text-[14px] font-medium transition ${
+                  className={`whitespace-nowrap border-b-2 pb-0.5 text-[13px] font-medium transition ${
                     isActive(link.href)
                       ? "border-[#C9A227] text-[#E0C158]"
                       : "border-transparent text-[#C7C2B4] hover:text-[#E0C158]"
@@ -209,7 +209,7 @@ export function Navbar() {
               <button
                 type="button"
                 aria-haspopup="true"
-                className={`inline-flex items-center gap-1 whitespace-nowrap border-b-2 pb-0.5 text-[14px] font-medium transition ${
+                className={`inline-flex items-center gap-1 whitespace-nowrap border-b-2 pb-0.5 text-[13px] font-medium transition ${
                   isCalculatorActive
                     ? "border-[#C9A227] text-[#E0C158]"
                     : "border-transparent text-[#C7C2B4] hover:text-[#E0C158]"
@@ -269,7 +269,7 @@ export function Navbar() {
           </div>
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden shrink-0 items-center gap-4 md:flex">
           {!mounted ? (
             <div className="h-9 w-44 animate-pulse rounded-full bg-[#0F2240]" />
           ) : isLoggedIn ? (
@@ -300,7 +300,7 @@ export function Navbar() {
               </button>
               <Link
                 href="/astrologer/login"
-                className="text-xs text-[#C7C2B4]/60 transition hover:text-[#F5F1E8]"
+                className="ml-2 text-xs text-[#C7C2B4]/60 transition hover:text-[#F5F1E8]"
               >
                 Astrologer Login
               </Link>
@@ -330,7 +330,7 @@ export function Navbar() {
               </Link>
               <Link
                 href="/astrologer/login"
-                className="text-xs text-[#C7C2B4]/60 transition hover:text-[#F5F1E8]"
+                className="ml-2 text-xs text-[#C7C2B4]/60 transition hover:text-[#F5F1E8]"
                 onClick={() => setMenuOpen(false)}
               >
                 Astrologer Login
