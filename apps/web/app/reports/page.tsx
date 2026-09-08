@@ -22,7 +22,7 @@ const freeReports = [
     title: "Sade Sati Report",
     description:
       "Understand your Saturn cycle phase and how it may affect life areas.",
-    href: "/reports",
+    href: "/reports/sade-sati",
   },
   {
     title: "Numerology Report",
@@ -33,7 +33,7 @@ const freeReports = [
   {
     title: "Lal Kitab Report",
     description: "Simple Lal Kitab based insights with remedy suggestions.",
-    href: "/reports",
+    href: "/reports/lal-kitab",
   },
   {
     title: "Varshphal / Annual Horoscope",
@@ -43,7 +43,7 @@ const freeReports = [
   {
     title: "Kaalsarp Dosha",
     description: "Quick check for Kaalsarp dosha combinations and guidance.",
-    href: "/reports",
+    href: "/reports/kaal-sarp-dosha",
   },
 ];
 
