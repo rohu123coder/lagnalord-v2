@@ -402,7 +402,7 @@ export function KundliForm({
                     className={`flex cursor-pointer items-center gap-2 rounded-xl border-2 px-4 py-2.5 text-sm font-medium transition ${
                       form.gender === v
                         ? "border-[#b18d4f] bg-[#b18d4f]/10 text-[#C8AC80]"
-                        : "border-[#b18d4f]/40 bg-white text-[#09142a] hover:border-[#b18d4f]"
+                        : "border-[#b18d4f]/40 bg-[#09142a] text-[#C7C2B4] hover:border-[#b18d4f] hover:text-[#F5F1E8]"
                     }`}
                   >
                     <input
