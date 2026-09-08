@@ -1,5 +1,7 @@
 import NodeGeocoder from "node-geocoder";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+
+import { generateText } from "./aiProvider.js";
+import { findBestMatch } from "./knowledgeRetrieval.js";
 
 const WHATSAPP_API_VERSION = "v25.0";
 
@@ -71,23 +73,31 @@ export async function geocodePlace(place: string): Promise<GeocodeResult | null>
 export async function generateAstrologyReply(params: {
   systemPrompt: string;
   userMessage: string;
+  knowledgeCategory?: string;
 }): Promise<string> {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    console.error("[WhatsApp] GEMINI_API_KEY not set");
-    return "I'm having trouble reaching my astrology engine right now. Please try again shortly.";
+  if (params.knowledgeCategory) {
+    try {
+      const kbHit = await findBestMatch(params.knowledgeCategory, params.userMessage);
+      if (kbHit) {
+        return kbHit.answer;
+      }
+    } catch (e) {
+      console.error("[WhatsApp] Knowledge base lookup failed, falling through to Gemini:", e);
+    }
   }
+
   try {
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({
-      model: "gemini-3.6-flash",
-      systemInstruction: params.systemPrompt,
+    const text = await generateText({
+      systemPrompt: params.systemPrompt,
+      userMessage: params.userMessage,
     });
-    const result = await model.generateContent(params.userMessage);
-    const text = result.response.text();
-    return text.trim() || "Something went wrong generating your reading. Please try again.";
+    return text || "Something went wrong generating your reading. Please try again.";
   } catch (e) {
     console.error("[WhatsApp] Gemini generation error:", e);
+    if (e instanceof Error && e.message.includes("GEMINI_API_KEY")) {
+      console.error("[WhatsApp] GEMINI_API_KEY not set");
+      return "I'm having trouble reaching my astrology engine right now. Please try again shortly.";
+    }
     return "Something went wrong generating your reading. Please try again.";
   }
 }

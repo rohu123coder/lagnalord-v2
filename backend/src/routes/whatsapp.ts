@@ -344,6 +344,7 @@ async function handleStep(conversation: ConversationRow, text: string): Promise<
       const answer = await generateAstrologyReply({
         systemPrompt: QA_SYSTEM_PROMPT_PREFIX + JSON.stringify(chart_data),
         userMessage: text,
+        knowledgeCategory: "astrology",
       });
       await sendWhatsAppText(phone, answer);
 

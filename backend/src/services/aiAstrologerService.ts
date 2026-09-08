@@ -1,5 +1,6 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
 import { query } from "../db/index.js";
+import { generateText, type ChatTurn } from "../lib/aiProvider.js";
+import { findBestMatch } from "../lib/knowledgeRetrieval.js";
 
 export type AstrologerPersona = {
   id: string;
@@ -86,23 +87,7 @@ USER'S BIRTH CHART DATA (ground truth — use only this):
 ${kundliJson}`;
 }
 
-function getGeminiModel(systemInstruction: string) {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    console.error("[AIAstrologer] GEMINI_API_KEY not set");
-    return null;
-  }
-  const genAI = new GoogleGenerativeAI(apiKey);
-  return genAI.getGenerativeModel({
-    model: "gemini-3.6-flash",
-    systemInstruction,
-  });
-}
-
-export type ChatTurn = {
-  role: "user" | "model";
-  text: string;
-};
+export type { ChatTurn };
 
 export async function getAstrologerReply(
   personaId: string,
@@ -114,29 +99,31 @@ export async function getAstrologerReply(
   if (!persona) {
     return "Yeh astrologer ab available nahi hai. Kripya doosra astrologer select karein.";
   }
-  const systemPrompt = buildSystemPrompt(persona, kundliData);
-  const model = getGeminiModel(systemPrompt);
-
-  if (!model) {
-    return "Maaf kijiye, abhi AI Astrologer service unavailable hai. Kripya thodi der baad try karein.";
-  }
 
   try {
-    let sanitizedHistory = history;
-    const firstUserIdx = sanitizedHistory.findIndex((t) => t.role === "user");
-    sanitizedHistory = firstUserIdx === -1 ? [] : sanitizedHistory.slice(firstUserIdx);
+    const kbHit = await findBestMatch("astrology", message);
+    if (kbHit) {
+      return kbHit.answer;
+    }
+  } catch (e) {
+    console.error("[AIAstrologer] Knowledge base lookup failed, falling through to Gemini:", e);
+  }
 
-    const chat = model.startChat({
-      history: sanitizedHistory.map((turn) => ({
-        role: turn.role,
-        parts: [{ text: turn.text }],
-      })),
+  const systemPrompt = buildSystemPrompt(persona, kundliData);
+
+  try {
+    const text = await generateText({
+      systemPrompt,
+      userMessage: message,
+      history,
     });
-    const result = await chat.sendMessage(message);
-    const text = result.response.text();
-    return text.trim() || "Maaf kijiye, main abhi is sawaal ka jawab nahi de paaya. Dobara try karein.";
+    return text || "Maaf kijiye, main abhi is sawaal ka jawab nahi de paaya. Dobara try karein.";
   } catch (e) {
     console.error("[AIAstrologer] Gemini chat error:", e);
+    if (e instanceof Error && e.message.includes("GEMINI_API_KEY")) {
+      console.error("[AIAstrologer] GEMINI_API_KEY not set");
+      return "Maaf kijiye, abhi AI Astrologer service unavailable hai. Kripya thodi der baad try karein.";
+    }
     return "Kuch technical dikkat aa gayi hai. Kripya thodi der baad phir try karein.";
   }
 }
