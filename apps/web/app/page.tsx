@@ -183,12 +183,12 @@ function HomepageServicesMarqueeCopy({
       {HOMEPAGE_MARQUEE_SERVICES.map((service) => (
         <li key={`${hidden ? "dup-" : ""}${service.label}`} className="flex items-center">
           <Sparkles
-            className="mx-3 h-3.5 w-3.5 shrink-0 text-[#F5F1E8]/80 sm:mx-4"
+            className="mx-3 h-3.5 w-3.5 shrink-0 text-[#09142a]/70 sm:mx-4"
             aria-hidden="true"
           />
           <Link
             href={service.href}
-            className="whitespace-nowrap text-sm font-semibold tracking-wide text-[#F5F1E8] transition hover:text-white"
+            className="whitespace-nowrap text-sm font-semibold tracking-wide text-[#09142a] transition hover:opacity-80"
           >
             {service.label}
           </Link>
@@ -892,7 +892,7 @@ export default function HomePage() {
               onClick={() => setExpertiseMode("vastu")}
               className={`rounded-full px-5 py-2 text-sm font-semibold transition ${
                 expertiseMode === "vastu"
-                  ? "bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white text-[#09142a]"
+                  ? "bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] text-[#09142a]"
                   : "text-[#C7C2B4]"
               }`}
             >
@@ -925,7 +925,7 @@ export default function HomePage() {
         </div>
 
         <div
-          className="relative z-10 overflow-hidden bg-gradient-to-r from-[#78543a] via-[#8a6548] to-[#78543a] py-3 sm:py-4"
+          className="relative z-10 overflow-hidden bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] py-3 sm:py-4"
           role="region"
           aria-label="Platform services"
         >
