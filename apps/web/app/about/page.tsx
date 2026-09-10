@@ -54,7 +54,7 @@ export default function AboutPage() {
   const tenant = getTenant();
 
   return (
-    <div className="min-h-screen bg-[#09142a] text-[#F5F1E8]">
+    <div className="min-h-screen text-[#F5F1E8]">
       <Navbar />
 
       <main>

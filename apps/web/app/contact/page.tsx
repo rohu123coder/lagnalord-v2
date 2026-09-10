@@ -86,7 +86,7 @@ export default function ContactPage() {
   const faqs = getFaqs(supportEmail);
 
   return (
-    <div className="min-h-screen bg-[#09142a] text-[#F5F1E8]">
+    <div className="min-h-screen text-[#F5F1E8]">
       <Navbar />
 
       <main>

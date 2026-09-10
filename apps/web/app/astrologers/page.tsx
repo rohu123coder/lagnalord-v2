@@ -447,7 +447,7 @@ export default function AstrologersPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#09142a]">
+    <div className="min-h-screen">
       <Navbar />
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:flex lg:gap-8 lg:py-10">
         {viewMode === "human" ? (

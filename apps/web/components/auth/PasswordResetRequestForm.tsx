@@ -54,7 +54,7 @@ export function PasswordResetRequestForm({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#09142a] to-[#0E1C3B]">
+    <div className="min-h-screen">
       <div className="mx-auto flex min-h-screen max-w-md items-center px-4 py-12 sm:px-6">
         <div className="w-full rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-8 shadow-lg">
           <h1 className="text-2xl font-bold text-[#F5F1E8]">{heading}</h1>

@@ -131,7 +131,7 @@ export default function AiAstrologerProfilePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#09142a]">
+      <div className="min-h-screen">
         <Navbar />
         <div className="mx-auto max-w-4xl animate-pulse px-4 py-10 sm:px-6">
           <div className="h-40 rounded-2xl bg-[#0E1C3B]" />
@@ -143,7 +143,7 @@ export default function AiAstrologerProfilePage() {
 
   if (!persona) {
     return (
-      <div className="min-h-screen bg-[#09142a]">
+      <div className="min-h-screen">
         <Navbar />
         <div className="mx-auto max-w-lg px-4 py-20 text-center sm:px-6">
           <p className="text-[#C7C2B4]">{error ?? "Not found"}</p>
@@ -157,7 +157,7 @@ export default function AiAstrologerProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#09142a] pb-16">
+    <div className="min-h-screen pb-16">
       <Navbar />
       <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-10">
         <div className="mb-4 text-sm text-[#C7C2B4]">

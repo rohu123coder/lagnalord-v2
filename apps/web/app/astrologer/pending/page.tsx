@@ -44,7 +44,7 @@ export default function AstrologerPendingPage() {
 
   if (!mounted) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#09142a]">
+      <div className="flex min-h-screen items-center justify-center">
         <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#b18d4f] border-t-transparent" />
       </div>
     );
@@ -54,7 +54,7 @@ export default function AstrologerPendingPage() {
   const email = details?.email ?? "your email";
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#09142a] to-[#0E1C3B]">
+    <div className="min-h-screen">
       <div className="mx-auto flex max-w-xl flex-col px-4 py-12 sm:px-6">
         <h1 className="text-2xl font-bold text-[#F5F1E8]">
           Application Submitted

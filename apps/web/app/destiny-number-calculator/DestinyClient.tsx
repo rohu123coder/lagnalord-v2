@@ -59,7 +59,7 @@ export function DestinyClient() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#09142a] via-[#0E1C3B] to-[#09142a] text-[#F5F1E8]">
+    <div className="min-h-screen text-[#F5F1E8]">
       <Navbar />
       <main>
         <section className="border-b border-[#b18d4f]/20 bg-[#0E1C3B]">

@@ -17,7 +17,7 @@ export default function BlogPage() {
   const tenant = getTenant();
 
   return (
-    <div className="min-h-screen bg-[#09142a] text-[#F5F1E8]">
+    <div className="min-h-screen text-[#F5F1E8]">
       <Navbar />
 
       <main className="border-b border-[#b18d4f]/20">

@@ -228,7 +228,7 @@ export function PanchangClient() {
         : "Panchang";
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#09142a] via-[#0E1C3B] to-[#09142a]">
+    <div className="min-h-screen">
       <Navbar />
       <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <header className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">

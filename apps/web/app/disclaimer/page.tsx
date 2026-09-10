@@ -60,7 +60,7 @@ export default function DisclaimerPage() {
   const sections = getSections(tenant.name);
 
   return (
-    <div className="min-h-screen scroll-smooth bg-[#09142a] text-[#F5F1E8]">
+    <div className="min-h-screen scroll-smooth text-[#F5F1E8]">
       <Navbar />
 
       <main className="border-b border-[#b18d4f]/20">

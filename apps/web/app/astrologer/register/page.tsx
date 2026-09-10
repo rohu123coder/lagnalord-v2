@@ -153,7 +153,7 @@ export default function AstrologerRegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#09142a] to-[#0E1C3B]">
+    <div className="min-h-screen">
       <div className="mx-auto flex max-w-md flex-col px-4 py-12 sm:px-6">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold text-[#F5F1E8]">

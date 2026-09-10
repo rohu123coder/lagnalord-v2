@@ -396,7 +396,7 @@ export default function KundliPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#09142a] via-[#0E1C3B] to-[#09142a]">
+    <div className="min-h-screen">
       <div className="print:hidden">
         <Navbar />
       </div>

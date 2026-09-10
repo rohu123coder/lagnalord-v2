@@ -125,7 +125,7 @@ export default function KundliMatchClient() {
   }, [submitted, boy.dob, girl.dob]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#09142a] via-[#0E1C3B] to-[#09142a]">
+    <div className="min-h-screen">
       <Navbar />
       <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <h1 className="text-3xl font-extrabold text-[#F5F1E8] sm:text-4xl">

@@ -167,7 +167,7 @@ export default function DashboardPage() {
 
   if (!mounted) {
     return (
-      <div className="min-h-screen bg-[#09142a]">
+      <div className="min-h-screen">
         <Navbar />
         <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
           <div className="h-40 animate-pulse rounded-2xl bg-[#0E1C3B]" />
@@ -245,7 +245,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#09142a]">
+    <div className="min-h-screen">
       <Navbar />
       <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
         <h1 className="text-2xl font-bold text-[#F5F1E8] sm:text-3xl">

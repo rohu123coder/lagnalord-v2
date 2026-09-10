@@ -199,14 +199,14 @@ export default function AstrologerProfilePage() {
 
   if (!mounted || !isLoggedIn || user?.role !== "astrologer") {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#09142a]">
+      <div className="flex min-h-screen items-center justify-center">
         <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#b18d4f] border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#09142a]">
+    <div className="min-h-screen">
       <AstrologerNavbar />
 
       {toast ? (

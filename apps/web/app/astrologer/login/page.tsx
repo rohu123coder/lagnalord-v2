@@ -113,14 +113,14 @@ export default function AstrologerLoginPage() {
 
   if (!mounted) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#09142a]">
+      <div className="flex min-h-screen items-center justify-center">
         <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#b18d4f] border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#09142a] to-[#0E1C3B]">
+    <div className="min-h-screen">
       <div className="mx-auto max-w-md px-4 pt-8 sm:px-6">
         <Link href="/" className="inline-flex items-center gap-2">
           {tenant.logo.imageUrl ? (
