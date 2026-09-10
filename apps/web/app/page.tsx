@@ -788,7 +788,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#09142a] via-[#122352] to-[#09142a] text-[#F5F1E8]">
+    <div className="min-h-screen text-[#F5F1E8]">
       <Navbar />
       <HomepagePopup />
       <section className="relative overflow-hidden border-b border-[#b18d4f]/20 bg-gradient-to-br from-[#122352] via-[#09142a] to-[#09142a]">
