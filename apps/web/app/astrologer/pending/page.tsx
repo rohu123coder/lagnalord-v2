@@ -94,7 +94,7 @@ export default function AstrologerPendingPage() {
         <div className="mt-8 flex items-center justify-center">
           <Link
             href="/"
-            className="rounded-xl bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white px-6 py-3 text-sm font-semibold text-[#09142a] shadow-md transition hover:opacity-95"
+            className="rounded-xl bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-6 py-3 text-sm font-semibold text-[#09142a] shadow-md transition hover:opacity-95"
           >
             Go to Home
           </Link>

@@ -140,7 +140,7 @@ export function Navbar() {
   const chatCta = (
     <Link
       href="/astrologers"
-      className="inline-flex items-center gap-2 rounded-full bg-[#b18d4f] px-4 py-2 text-sm font-semibold text-[#09142a] transition hover:bg-[#8E713F] hover:text-white"
+      className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-4 py-2 text-sm font-semibold text-[#09142a] transition hover:opacity-95"
       onClick={() => setMenuOpen(false)}
     >
       <span
@@ -324,7 +324,7 @@ export function Navbar() {
               </Link>
               <Link
                 href="/login?tab=register"
-                className="rounded-full bg-[#b18d4f] px-4 py-2 text-sm font-semibold text-[#09142a] transition hover:bg-[#8E713F] hover:text-white"
+                className="rounded-full bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-4 py-2 text-sm font-semibold text-[#09142a] transition hover:opacity-95"
                 onClick={(event) => {
                   event.preventDefault();
                   router.push("/login?tab=register");
@@ -490,7 +490,7 @@ export function Navbar() {
                     </Link>
                     <Link
                       href="/login?tab=register"
-                      className="rounded-full bg-[#b18d4f] px-3 py-2.5 text-center text-sm font-semibold text-[#09142a] transition hover:bg-[#8E713F] hover:text-white"
+                      className="rounded-full bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-3 py-2.5 text-center text-sm font-semibold text-[#09142a] transition hover:opacity-95"
                       onClick={(event) => {
                         event.preventDefault();
                         setMenuOpen(false);

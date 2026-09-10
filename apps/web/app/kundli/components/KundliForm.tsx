@@ -422,7 +422,7 @@ export function KundliForm({
             <button
               type="submit"
               disabled={!canSubmit || loading}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#b18d4f] px-4 py-4 text-base font-semibold text-[#09142a] shadow-md shadow-black/25 transition hover:bg-[#8E713F] hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-4 py-4 text-base font-semibold text-[#09142a] shadow-md shadow-black/25 transition disabled:cursor-not-allowed disabled:opacity-50 hover:opacity-95"
             >
               {loading ? (
                 <>

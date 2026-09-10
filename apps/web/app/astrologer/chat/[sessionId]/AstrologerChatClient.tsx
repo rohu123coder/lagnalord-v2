@@ -652,7 +652,7 @@ export function AstrologerChatClient({ sessionId }: Props) {
                       type="button"
                       onClick={() => acceptFromQueue(entry)}
                       disabled={status === "active"}
-                      className="rounded-lg bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white px-3 py-1 text-xs font-semibold text-[#09142a] disabled:opacity-50"
+                      className="rounded-lg bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-3 py-1 text-xs font-semibold text-[#09142a] disabled:opacity-50 hover:opacity-95"
                     >
                       Accept
                     </button>
@@ -740,7 +740,7 @@ export function AstrologerChatClient({ sessionId }: Props) {
               type="button"
               disabled={status !== "active" || !input.trim()}
               onClick={sendMessage}
-              className="rounded-2xl bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white px-5 py-3 text-sm font-semibold text-[#09142a] shadow-md transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-2xl bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-5 py-3 text-sm font-semibold text-[#09142a] shadow-md transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-50"
             >
               Send
             </button>
@@ -787,7 +787,7 @@ export function AstrologerChatClient({ sessionId }: Props) {
             </ul>
             <button
               type="button"
-              className="mt-6 w-full rounded-xl bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white py-3 text-sm font-semibold text-[#09142a]"
+              className="mt-6 w-full rounded-xl bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] py-3 text-sm font-semibold text-[#09142a] hover:opacity-95"
               onClick={() => router.replace("/astrologer/dashboard")}
             >
               Back to dashboard
@@ -829,7 +829,7 @@ export function AstrologerChatClient({ sessionId }: Props) {
             <button
               type="button"
               onClick={() => sendWaitlistAction(waitlistNotice.waitlistId, "accept")}
-              className="rounded-lg bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white px-3 py-1.5 text-xs font-semibold text-[#09142a]"
+              className="rounded-lg bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-3 py-1.5 text-xs font-semibold text-[#09142a] hover:opacity-95"
             >
               Accept
             </button>

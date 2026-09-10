@@ -267,7 +267,7 @@ export default function AstrologerProfilePage() {
                       type="button"
                       disabled={photoUploading}
                       onClick={() => void savePhoto()}
-                      className="rounded-xl bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white px-4 py-2 text-sm font-semibold text-[#09142a] shadow-md disabled:opacity-60"
+                      className="rounded-xl bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-4 py-2 text-sm font-semibold text-[#09142a] shadow-md disabled:opacity-60 hover:opacity-95"
                     >
                       {photoUploading ? "Uploading…" : "Save Photo"}
                     </button>
@@ -384,7 +384,7 @@ export default function AstrologerProfilePage() {
             <button
               type="submit"
               disabled={saving}
-              className="w-full rounded-xl bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white py-3 text-sm font-semibold text-[#09142a] shadow-md disabled:opacity-60"
+              className="w-full rounded-xl bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] py-3 text-sm font-semibold text-[#09142a] shadow-md disabled:opacity-60 hover:opacity-95"
             >
               {saving ? "Saving…" : "Save profile"}
             </button>

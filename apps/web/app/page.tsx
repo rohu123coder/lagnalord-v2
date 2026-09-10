@@ -1189,7 +1189,7 @@ export default function HomePage() {
                 </div>
                 <Link
                   href={`/astrologers/${astrologer.id}`}
-                  className="mt-4 block rounded-xl bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white py-2 text-center text-sm font-semibold text-[#09142a]"
+                  className="mt-4 block rounded-xl bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] py-2 text-center text-sm font-semibold text-[#09142a] hover:opacity-95"
                 >
                   Chat Now
                 </Link>
@@ -1444,7 +1444,7 @@ export default function HomePage() {
                 <p className="mt-2 text-xs font-medium text-[#C8AC80]">
                   ₹{a.rate_per_min}/min
                 </p>
-                <span className="mt-3 w-full rounded-lg bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white px-3 py-1.5 text-xs font-semibold text-[#09142a]">
+                <span className="mt-3 w-full rounded-lg bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-3 py-1.5 text-xs font-semibold text-[#09142a] hover:opacity-95">
                   Chat karein
                 </span>
               </Link>
@@ -1530,13 +1530,13 @@ export default function HomePage() {
                 <div className="mt-4 grid grid-cols-2 gap-2">
                   <Link
                     href={`/astrologers/${astrologer.id}`}
-                    className="rounded-lg bg-[#b18d4f] px-3 py-2 text-center text-sm font-semibold text-[#09142a] transition hover:bg-[#8E713F] hover:text-white"
+                    className="rounded-lg bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-3 py-2 text-center text-sm font-semibold text-[#09142a] transition hover:opacity-95"
                   >
                     Call
                   </Link>
                   <Link
                     href={`/astrologers/${astrologer.id}`}
-                    className="rounded-lg bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white px-3 py-2 text-center text-sm font-semibold text-[#09142a] transition hover:opacity-95"
+                    className="rounded-lg bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-3 py-2 text-center text-sm font-semibold text-[#09142a] transition hover:opacity-95"
                   >
                     Chat
                   </Link>
@@ -1597,7 +1597,7 @@ export default function HomePage() {
                   <p className="text-lg font-bold text-[#C8AC80]">₹{service.price}</p>
                   <Link
                     href="/reports"
-                    className="rounded-lg bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white px-4 py-2 text-sm font-semibold text-[#09142a] transition hover:opacity-95"
+                    className="rounded-lg bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-4 py-2 text-sm font-semibold text-[#09142a] transition hover:opacity-95"
                   >
                     Buy Now
                   </Link>

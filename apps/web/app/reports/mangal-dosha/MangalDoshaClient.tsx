@@ -277,7 +277,7 @@ export default function MangalDoshaClient() {
             type="button"
             disabled={!canSubmit || loading}
             onClick={() => void handleSubmit()}
-            className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#b18d4f] px-5 py-2.5 text-sm font-semibold text-[#09142a] transition hover:bg-[#8E713F] hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+            className="mt-4 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-5 py-2.5 text-sm font-semibold text-[#09142a] transition disabled:cursor-not-allowed disabled:opacity-60 hover:opacity-95"
           >
             {loading ? (
               <>

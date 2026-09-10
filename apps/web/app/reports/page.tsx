@@ -78,7 +78,7 @@ export default function ReportsPage() {
               <p className="mt-2 text-sm text-[#C7C2B4]">{report.description}</p>
               <Link
                 href={report.href}
-                className="mt-4 inline-flex rounded-full bg-[#b18d4f] hover:bg-[#8E713F] hover:text-white px-4 py-2 text-sm font-semibold text-[#09142a]"
+                className="mt-4 inline-flex rounded-full bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-4 py-2 text-sm font-semibold text-[#09142a] hover:opacity-95"
               >
                 Check Now
               </Link>
