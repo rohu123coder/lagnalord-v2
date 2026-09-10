@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
+import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 
 type PersonDetails = {
@@ -267,6 +268,7 @@ export default function KundliMatchClient() {
           </section>
         ) : null}
       </main>
+      <Footer />
     </div>
   );
 }

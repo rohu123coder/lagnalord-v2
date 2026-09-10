@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 
 type GeocodeHit = {
@@ -383,6 +384,7 @@ export default function MangalDoshaClient() {
           </section>
         ) : null}
       </main>
+      <Footer />
     </div>
   );
 }

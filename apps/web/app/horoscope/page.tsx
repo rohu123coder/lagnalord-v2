@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+import { Footer } from "@/components/Footer";
 import { HoroscopePreviewCard } from "@/components/HoroscopePreviewCard";
 import { Navbar } from "@/components/Navbar";
 import {
@@ -124,6 +125,7 @@ export default function HoroscopePage() {
           </p>
         )}
       </main>
+      <Footer />
     </div>
   );
 }

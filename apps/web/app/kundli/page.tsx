@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { getTenant } from "@/lib/tenants";
 import { AIAstrologerChat } from "./components/AIAstrologerChat";
@@ -869,10 +870,9 @@ export default function KundliPage() {
         </div>
       ) : null}
 
-      <footer className="border-t border-[#b18d4f]/20 bg-[#09142a] py-8 text-center text-xs text-[#C7C2B4]/70">
-        {tenant.name} — Vedic astrology for clarity &amp; confidence. Results are
-        algorithmic; consult a qualified astrologer for life decisions.
-      </footer>
+      <div className="print:hidden">
+        <Footer />
+      </div>
     </div>
   );
 }

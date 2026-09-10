@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 
+import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 
 type Nakshatra = { name: string; lord: string; pada: number };
@@ -428,6 +429,7 @@ export function PanchangClient() {
           </>
         ) : null}
       </main>
+      <Footer />
     </div>
   );
 }

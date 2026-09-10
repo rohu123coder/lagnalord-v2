@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { useAuthStore } from "@/lib/store";
 import { AIAstrologerChat } from "../../kundli/components/AIAstrologerChat";
@@ -135,6 +136,7 @@ export default function AiAstrologerProfilePage() {
         <div className="mx-auto max-w-4xl animate-pulse px-4 py-10 sm:px-6">
           <div className="h-40 rounded-2xl bg-[#0E1C3B]" />
         </div>
+        <Footer />
       </div>
     );
   }
@@ -149,6 +151,7 @@ export default function AiAstrologerProfilePage() {
             ← Back to home
           </Link>
         </div>
+        <Footer />
       </div>
     );
   }
@@ -230,6 +233,7 @@ export default function AiAstrologerProfilePage() {
           </div>
         ) : null}
       </div>
+      <Footer />
     </div>
   );
 }

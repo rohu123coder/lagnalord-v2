@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
+import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { useAuthStore } from "@/lib/store";
 
@@ -156,6 +157,7 @@ export default function BirthDetailsPage() {
         <div className="mx-auto max-w-xl px-4 py-10 sm:px-6">
           <div className="h-64 animate-pulse rounded-2xl bg-[#0E1C3B]" />
         </div>
+        <Footer />
       </div>
     );
   }
@@ -280,6 +282,7 @@ export default function BirthDetailsPage() {
           </button>
         </form>
       </div>
+      <Footer />
     </div>
   );
 }

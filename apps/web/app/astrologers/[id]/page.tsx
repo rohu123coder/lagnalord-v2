@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { io, type Socket } from "socket.io-client";
 
+import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { WalletWidget } from "@/components/WalletWidget";
 import api from "@/lib/api";
@@ -451,6 +452,7 @@ export default function AstrologerProfilePage() {
           <div className="h-40 rounded-2xl bg-[#0E1C3B]" />
           <div className="mt-8 h-64 rounded-2xl bg-[#0E1C3B]" />
         </div>
+        <Footer />
       </div>
     );
   }
@@ -468,6 +470,7 @@ export default function AstrologerProfilePage() {
             ← Back to astrologers
           </Link>
         </div>
+        <Footer />
       </div>
     );
   }
@@ -739,6 +742,8 @@ export default function AstrologerProfilePage() {
           </div>
         </section>
       </div>
+
+      <Footer />
 
       <div className="fixed bottom-0 left-0 right-0 border-t border-[#b18d4f]/20 bg-[#0E1C3B]/95 p-4 backdrop-blur lg:hidden">
         <div className="grid grid-cols-3 gap-2">

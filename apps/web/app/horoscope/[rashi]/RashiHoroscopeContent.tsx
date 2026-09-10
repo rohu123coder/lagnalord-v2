@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
+import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { type HoroscopeResponse, type Period } from "@/lib/horoscope";
 
@@ -241,6 +242,7 @@ export function RashiHoroscopeContent() {
           </div>
         )}
       </main>
+      <Footer />
     </div>
   );
 }

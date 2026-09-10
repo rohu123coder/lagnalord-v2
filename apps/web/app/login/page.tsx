@@ -1,6 +1,7 @@
 "use client";
 import { Suspense, useState, useRef, useCallback, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import api from "@/lib/api";
 import { getTenant } from "@/lib/tenants";
@@ -205,6 +206,7 @@ function LoginContent() {
           )}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

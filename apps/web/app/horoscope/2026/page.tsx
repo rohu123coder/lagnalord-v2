@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { tenantPageTitle } from "@/lib/tenantBranding";
 
+import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 
 export const metadata: Metadata = {
@@ -139,6 +140,7 @@ export default function Horoscope2026Page() {
           ))}
         </section>
       </main>
+      <Footer />
     </div>
   );
 }

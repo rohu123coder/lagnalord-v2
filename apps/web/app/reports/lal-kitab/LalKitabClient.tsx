@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 
 type GeocodeHit = {
@@ -415,6 +416,7 @@ export default function LalKitabClient() {
           </div>
         </section>
       </main>
+      <Footer />
     </div>
   );
 }

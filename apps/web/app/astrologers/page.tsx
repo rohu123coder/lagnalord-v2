@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { io, type Socket } from "socket.io-client";
 
 import { AstrologerCard } from "@/components/AstrologerCard";
+import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import api from "@/lib/api";
 import { getSocketApiBase } from "@/lib/socketBase";
@@ -644,6 +645,8 @@ export default function AstrologersPage() {
           )}
         </div>
       </div>
+
+      <Footer />
 
       {sheetOpen && viewMode === "human" ? (
         <div className="fixed inset-0 z-50 lg:hidden">

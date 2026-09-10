@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 
+import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 
 const numberDescriptions: Record<number, string> = {
@@ -177,6 +178,7 @@ export default function NumerologyClient() {
           </div>
         </section>
       </main>
+      <Footer />
     </div>
   );
 }
