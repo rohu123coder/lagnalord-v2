@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { AnimatedBackground } from "@/components/AnimatedBackground";
 import { getTenant } from "@/lib/tenants";
 import { tenantRootMetadata } from "@/lib/tenantBranding";
 import "./globals.css";
@@ -55,7 +56,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased text-[#F5F1E8] bg-[#09142a]`}
       >
-        {children}
+        <AnimatedBackground />
+        <div className="relative z-[1]">{children}</div>
       </body>
     </html>
   );

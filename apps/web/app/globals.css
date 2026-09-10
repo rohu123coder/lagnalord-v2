@@ -50,28 +50,26 @@ body {
     animation: servicesMarquee 45s linear infinite;
   }
 
-  @keyframes kundliWheelSpin {
+  @keyframes nebulaDrift {
     from {
-      transform: rotate(0deg);
+      transform: translate3d(-2.5%, -1.5%, 0) scale(1);
     }
     to {
-      transform: rotate(360deg);
+      transform: translate3d(3%, 2.5%, 0) scale(1.05);
     }
   }
 
-  .animate-kundli-wheel {
-    animation: kundliWheelSpin 90s linear infinite;
-    transform-origin: 160px 160px;
-    transform-box: fill-box;
+  .animate-nebula-drift {
+    animation: nebulaDrift 90s ease-in-out infinite alternate;
   }
 
   @keyframes starTwinkle {
     0%,
     100% {
-      opacity: 0.15;
+      opacity: var(--star-min, 0.15);
     }
     50% {
-      opacity: 1;
+      opacity: var(--star-max, 0.4);
     }
   }
 
@@ -79,27 +77,9 @@ body {
     animation: starTwinkle 3s ease-in-out infinite;
   }
 
-  @keyframes centerGlow {
-    0%,
-    100% {
-      opacity: 0.25;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.7;
-      transform: scale(1.35);
-    }
-  }
-
-  .animate-center-glow {
-    animation: centerGlow 3s ease-in-out infinite;
-    transform-box: fill-box;
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    .animate-kundli-wheel,
-    .animate-star-twinkle,
-    .animate-center-glow {
+    .animate-nebula-drift,
+    .animate-star-twinkle {
       animation: none;
     }
   }

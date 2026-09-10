@@ -323,86 +323,6 @@ const homepageFaqs = [
   },
 ] as const;
 
-const ZODIAC_GLYPHS = ["♈", "♉", "♊", "♋", "♌", "♍", "♎", "♏", "♐", "♑", "♒", "♓"] as const;
-const WHEEL_CX = 160;
-const WHEEL_CY = 160;
-const ZODIAC_R = 150;
-const CENTER_DOT = { cx: 160, cy: 85 };
-
-const WHEEL_STARS = [
-  { cx: 160, cy: 20, r: 1.2, fill: "#F5F1E8", delay: "0s", duration: "2.4s" },
-  { cx: 100, cy: 25, r: 1, fill: "#C8AC80", delay: "0.5s", duration: "3.2s" },
-  { cx: 220, cy: 28, r: 1.4, fill: "#F5F1E8", delay: "1.1s", duration: "2.8s" },
-  { cx: 20, cy: 160, r: 1.1, fill: "#C8AC80", delay: "0.2s", duration: "3.6s" },
-  { cx: 28, cy: 118, r: 1.3, fill: "#F5F1E8", delay: "1.6s", duration: "2.2s" },
-  { cx: 300, cy: 160, r: 1.2, fill: "#C8AC80", delay: "0.8s", duration: "3.0s" },
-  { cx: 292, cy: 205, r: 1, fill: "#F5F1E8", delay: "2.0s", duration: "3.8s" },
-  { cx: 160, cy: 300, r: 1.4, fill: "#C8AC80", delay: "0.3s", duration: "2.6s" },
-  { cx: 208, cy: 294, r: 1.1, fill: "#F5F1E8", delay: "1.4s", duration: "3.4s" },
-  { cx: 110, cy: 22, r: 1.2, fill: "#C8AC80", delay: "0.9s", duration: "2.9s" },
-] as const;
-
-function KundliWheelMark({ size = 280 }: { size?: number }) {
-  return (
-    <svg className="relative z-10" width={size} height={size} viewBox="0 0 320 320" aria-hidden="true">
-      {WHEEL_STARS.map((star, i) => (
-        <circle
-          key={`star-${i}`}
-          cx={star.cx}
-          cy={star.cy}
-          r={star.r}
-          fill={star.fill}
-          className="animate-star-twinkle motion-reduce:animate-none"
-          style={{ animationDelay: star.delay, animationDuration: star.duration }}
-        />
-      ))}
-
-      <g
-        className="animate-kundli-wheel motion-reduce:animate-none"
-        style={{ transformOrigin: `${WHEEL_CX}px ${WHEEL_CY}px`, transformBox: "fill-box" }}
-      >
-        <circle cx={WHEEL_CX} cy={WHEEL_CY} r={ZODIAC_R} fill="none" />
-        {ZODIAC_GLYPHS.map((glyph, i) => {
-          const angle = ((i * 30 - 90) * Math.PI) / 180;
-          const x = WHEEL_CX + ZODIAC_R * Math.cos(angle);
-          const y = WHEEL_CY + ZODIAC_R * Math.sin(angle);
-          return (
-            <text
-              key={glyph}
-              x={x}
-              y={y}
-              textAnchor="middle"
-              dominantBaseline="central"
-              fill="#C8AC80"
-              fillOpacity={0.7}
-              fontSize={14}
-            >
-              {glyph}
-            </text>
-          );
-        })}
-      </g>
-
-      <path d="M35 35 H285 V285 H35 Z" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
-      <path d="M35 35 L160 160 L285 35" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
-      <path d="M35 285 L160 160 L285 285" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
-      <path d="M35 35 L160 160 L35 285" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
-      <path d="M285 35 L160 160 L285 285" stroke="#b18d4f" strokeOpacity="0.5" strokeWidth="1.3" fill="none" />
-
-      <circle
-        cx={CENTER_DOT.cx}
-        cy={CENTER_DOT.cy}
-        r="11"
-        fill="#C8AC80"
-        fillOpacity="0.28"
-        className="animate-center-glow motion-reduce:animate-none"
-        style={{ transformOrigin: `${CENTER_DOT.cx}px ${CENTER_DOT.cy}px`, transformBox: "fill-box" }}
-      />
-      <circle cx={CENTER_DOT.cx} cy={CENTER_DOT.cy} r="4" fill="#C8AC80" />
-    </svg>
-  );
-}
-
 const paidServices = [
   {
     title: "Detailed Kundli Report",
@@ -900,27 +820,20 @@ export default function HomePage() {
             </button>
           </div>
 
-          <div className="grid items-center gap-10 lg:grid-cols-[1fr_0.9fr]">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#C8AC80]">
-                Premium Astrology &amp; Vastu Platform
-              </p>
-              <h1 className="mt-3 text-3xl font-extrabold sm:text-5xl">
-                {expertiseMode === "astro" ? (
-                  <>Decode your destiny.<br /><span className="bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] bg-clip-text text-transparent">Master your space.</span></>
-                ) : (
-                  <>Master your space.<br /><span className="bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] bg-clip-text text-transparent">Decode your destiny.</span></>
-                )}
-              </h1>
-              <p className="mt-3 max-w-xl text-[#C7C2B4]">
-                Explore horoscope, get your free Kundli, match compatibility, and consult verified astrologers with modern tools in one place.
-              </p>
-            </div>
-
-            <div className="relative mx-auto flex h-64 w-64 items-center justify-center sm:h-80 sm:w-80">
-              <div className="absolute h-56 w-56 rounded-full bg-[#b18d4f]/20 blur-2xl sm:h-72 sm:w-72" />
-              <KundliWheelMark />
-            </div>
+          <div className="mx-auto grid max-w-3xl grid-cols-1 text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#C8AC80]">
+              Premium Astrology &amp; Vastu Platform
+            </p>
+            <h1 className="mt-3 text-3xl font-extrabold sm:text-5xl">
+              {expertiseMode === "astro" ? (
+                <>Decode your destiny.<br /><span className="bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] bg-clip-text text-transparent">Master your space.</span></>
+              ) : (
+                <>Master your space.<br /><span className="bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] bg-clip-text text-transparent">Decode your destiny.</span></>
+              )}
+            </h1>
+            <p className="mx-auto mt-3 max-w-xl text-[#C7C2B4]">
+              Explore horoscope, get your free Kundli, match compatibility, and consult verified astrologers with modern tools in one place.
+            </p>
           </div>
         </div>
 
@@ -1036,37 +949,28 @@ export default function HomePage() {
 
       <section className="border-b border-[#b18d4f]/20 bg-[#09142a] py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#C8AC80]">The chart, not the feed</p>
-              <h2 className="mt-3 text-3xl font-extrabold text-[#F5F1E8] sm:text-5xl">
-                Why a Kundli still earns a seat at the table
-              </h2>
-              <p className="mt-4 text-base leading-7 text-[#C7C2B4]">
-                A birth chart does not replace a doctor, a lawyer, or a bank statement. It is a second language for
-                temperament and timing — the same sky the rest of this site computes from Swiss Ephemeris. People open
-                one when a decision already exists and they want vocabulary for it: a move, a match, a year that feels
-                heavier than the last. The four notes below are why that still happens, even in a feed full of daily
-                rashifal.
-              </p>
-              <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                {kundliReasons.map((reason) => (
-                  <article
-                    key={reason.title}
-                    className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-4"
-                  >
-                    <reason.Icon className="h-6 w-6 text-[#C8AC80]" />
-                    <h3 className="mt-3 font-bold text-[#F5F1E8]">{reason.title}</h3>
-                    <p className="mt-2 text-sm leading-6 text-[#C7C2B4]">{reason.body}</p>
-                  </article>
-                ))}
-              </div>
-            </div>
-            <div className="relative mx-auto flex h-72 w-72 items-center justify-center sm:h-96 sm:w-96">
-              <div className="absolute h-64 w-64 rounded-full bg-[#b18d4f]/20 blur-2xl sm:h-80 sm:w-80" />
-              <div className="absolute h-80 w-80 rounded-full bg-[#b18d4f]/10 blur-3xl" />
-              <KundliWheelMark size={320} />
-            </div>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#C8AC80]">The chart, not the feed</p>
+          <h2 className="mt-3 text-3xl font-extrabold text-[#F5F1E8] sm:text-5xl">
+            Why a Kundli still earns a seat at the table
+          </h2>
+          <p className="mt-4 max-w-3xl text-base leading-7 text-[#C7C2B4]">
+            A birth chart does not replace a doctor, a lawyer, or a bank statement. It is a second language for
+            temperament and timing — the same sky the rest of this site computes from Swiss Ephemeris. People open
+            one when a decision already exists and they want vocabulary for it: a move, a match, a year that feels
+            heavier than the last. The four notes below are why that still happens, even in a feed full of daily
+            rashifal.
+          </p>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            {kundliReasons.map((reason) => (
+              <article
+                key={reason.title}
+                className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-4"
+              >
+                <reason.Icon className="h-6 w-6 text-[#C8AC80]" />
+                <h3 className="mt-3 font-bold text-[#F5F1E8]">{reason.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-[#C7C2B4]">{reason.body}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
