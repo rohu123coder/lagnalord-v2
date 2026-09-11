@@ -79,6 +79,82 @@ export async function getActiveEligibleOffer(
   return result.rows[0] ?? null;
 }
 
+export type HumanChatMinutesOfferResult = {
+  billableMinutes: number;
+  offerApplied: boolean;
+};
+
+export async function applyMinutesOfferToHumanChat(
+  userId: string,
+  elapsedMinutes: number,
+  _ratePerMinute: number,
+  client?: PoolClient
+): Promise<HumanChatMinutesOfferResult> {
+  const elapsed = Math.max(0, elapsedMinutes);
+  if (elapsed === 0) {
+    return { billableMinutes: 0, offerApplied: false };
+  }
+
+  const run = async (cx: PoolClient): Promise<HumanChatMinutesOfferResult> => {
+    const offer = await getActiveEligibleOffer(
+      userId,
+      "human_chat",
+      cx,
+      "minutes"
+    );
+    if (!offer) {
+      return { billableMinutes: elapsed, offerApplied: false };
+    }
+
+    const existing = await cx.query<{
+      units_granted: number;
+      units_used: number;
+    }>(
+      `SELECT units_granted, units_used
+       FROM promo_offer_claims
+       WHERE offer_id = $1 AND user_id = $2
+       FOR UPDATE`,
+      [offer.id, userId]
+    );
+
+    const granted = existing.rows[0]?.units_granted ?? offer.unit_value;
+    const used = existing.rows[0]?.units_used ?? 0;
+    const remaining = Math.max(0, granted - used);
+    const freeMinutes = Math.min(elapsed, remaining, offer.unit_value);
+    const billableMinutes = Math.max(0, elapsed - freeMinutes);
+
+    if (freeMinutes > 0) {
+      const nextUsed = Math.min(granted, used + freeMinutes);
+      await cx.query(
+        `INSERT INTO promo_offer_claims (offer_id, user_id, units_granted, units_used)
+         VALUES ($1, $2, $3, $4)
+         ON CONFLICT (offer_id, user_id) DO UPDATE
+         SET units_used = GREATEST(promo_offer_claims.units_used, EXCLUDED.units_used)`,
+        [offer.id, userId, granted, nextUsed]
+      );
+    }
+
+    return { billableMinutes, offerApplied: freeMinutes > 0 };
+  };
+
+  if (client) {
+    return run(client);
+  }
+
+  const own = await pool.connect();
+  try {
+    await own.query("BEGIN");
+    const result = await run(own);
+    await own.query("COMMIT");
+    return result;
+  } catch (e) {
+    await own.query("ROLLBACK");
+    throw e;
+  } finally {
+    own.release();
+  }
+}
+
 export async function consumeOfferUnit(
   userId: string,
   offerId: string,

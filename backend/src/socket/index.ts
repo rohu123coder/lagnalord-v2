@@ -5,6 +5,7 @@ import { z } from "zod";
 
 import { pool } from "../db/index.js";
 import { generateAgoraToken, generateChannelName } from "../services/agoraService.js";
+import { applyMinutesOfferToHumanChat } from "../services/promoOfferService.js";
 import { notifyNewMessage, notifySessionEnded } from "../services/pushNotifications.js";
 
 declare module "socket.io" {
@@ -704,10 +705,16 @@ async function finalizeChatSession(
     const finalDuration = rawDuration > 0 ? rawDuration : bothCommunicated ? 1 : 0;
     const effectiveDuration = bothCommunicated ? finalDuration : 0;
 
-    const rawCharge = effectiveDuration * price;
-    const totalCharged = Math.round(rawCharge * 100) / 100;
     const userId = row.user_id;
     const astrologerName = row.astrologer_name;
+    const { billableMinutes } = await applyMinutesOfferToHumanChat(
+      userId,
+      effectiveDuration,
+      price,
+      client
+    );
+    const rawCharge = billableMinutes * price;
+    const totalCharged = Math.round(rawCharge * 100) / 100;
 
     if (totalCharged > 0) {
       const deduct = await client.query<{ wallet_balance: string }>(

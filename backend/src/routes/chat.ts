@@ -5,6 +5,7 @@ import { autoInjectIntroMessage } from "../lib/chatAutoIntro.js";
 import { pool, query } from "../db/index.js";
 import { authMiddleware } from "../middleware/auth.js";
 import { notifyIncomingChat } from "../services/pushNotifications.js";
+import { applyMinutesOfferToHumanChat } from "../services/promoOfferService.js";
 import { getSocketServer } from "../socket/io.js";
 
 const router = Router();
@@ -246,7 +247,13 @@ router.post(
         totalMinutes = Math.max(0, Math.ceil(ms / 60_000));
       }
 
-      const rawCharge = totalMinutes * price;
+      const { billableMinutes } = await applyMinutesOfferToHumanChat(
+        userId,
+        totalMinutes,
+        price,
+        client
+      );
+      const rawCharge = billableMinutes * price;
       const totalCharged = Math.round(rawCharge * 100) / 100;
 
       if (totalCharged > 0) {
