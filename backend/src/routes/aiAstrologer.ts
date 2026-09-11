@@ -6,6 +6,7 @@ import {
   getAstrologerReply,
   type ChatTurn,
 } from "../services/aiAstrologerService.js";
+import { applyPromoThenWalletDebit } from "../services/promoOfferService.js";
 
 const router = Router();
 
@@ -65,24 +66,20 @@ router.post("/chat", authMiddleware, async (req, res) => {
     }
     const charge = Number(rateRow.rate_per_min);
 
-    const deduct = await query<{ wallet_balance: string }>(
-      `UPDATE users
-       SET wallet_balance = wallet_balance - $1::numeric
-       WHERE id = $2 AND wallet_balance >= $1::numeric
-       RETURNING wallet_balance`,
-      [charge, userId]
-    );
-    if (deduct.rows.length === 0) {
+    const settlement = await applyPromoThenWalletDebit({
+      userId,
+      appliesTo: "ai_chat",
+      unitType: "messages",
+      unitsToConsume: 1,
+      walletAmount: charge,
+    });
+    if (settlement.ok === false) {
       return res.status(400).json({
         error: "Insufficient wallet balance. Please recharge to continue chatting.",
-        data: { required: charge },
+        data: { required: settlement.required },
       });
     }
-    await query(
-      `INSERT INTO transactions (user_id, type, amount, status)
-       VALUES ($1, 'deduction', $2, 'success')`,
-      [userId, charge]
-    );
+    const charged = settlement.charged;
 
     let activeSessionId = sessionId;
     if (!activeSessionId) {
@@ -117,7 +114,7 @@ router.post("/chat", authMiddleware, async (req, res) => {
       await query(
         `INSERT INTO ai_chat_messages (session_id, role, text, charge)
          VALUES ($1, 'user', $2, $3), ($1, 'model', $4, 0)`,
-        [activeSessionId, message.trim(), charge, reply]
+        [activeSessionId, message.trim(), charged, reply]
       );
       await query(
         `UPDATE ai_chat_sessions
@@ -125,7 +122,7 @@ router.post("/chat", authMiddleware, async (req, res) => {
              message_count = message_count + 2,
              last_message_at = now()
          WHERE id = $2`,
-        [charge, activeSessionId]
+        [charged, activeSessionId]
       );
     }
 

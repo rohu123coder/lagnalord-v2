@@ -8,6 +8,7 @@ const nav = [
   { href: "/astrologers", label: "Astrologers" },
   { href: "/ai-astrologers", label: "AI Astrologers" },
   { href: "/knowledge-base", label: "Knowledge Base" },
+  { href: "/offers", label: "Offers" },
   { href: "/users", label: "Users" },
   { href: "/transactions", label: "Transactions" },
   { href: "/settings", label: "Settings" },
