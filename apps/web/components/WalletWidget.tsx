@@ -3,34 +3,40 @@
 import { useCallback, useState } from "react";
 
 import api from "@/lib/api";
-import { getTenant } from "@/lib/tenants";
 import { useAuthStore } from "@/lib/store";
 
 declare global {
   interface Window {
-    Razorpay?: new (options: Record<string, unknown>) => {
-      open: () => void;
+    Cashfree?: (options: { mode: "sandbox" | "production" }) => {
+      checkout: (opts: {
+        paymentSessionId: string;
+        redirectTarget?: string;
+      }) => Promise<{
+        error?: { message?: string };
+        redirect?: boolean;
+        paymentDetails?: { paymentMessage?: string };
+      }>;
     };
   }
 }
 
 const PRESETS = [99, 199, 499, 999];
 
-function loadRazorpayScript(): Promise<void> {
+function loadCashfreeScript(): Promise<void> {
   return new Promise((resolve, reject) => {
     if (typeof window === "undefined") {
       resolve();
       return;
     }
-    if (window.Razorpay) {
+    if (window.Cashfree) {
       resolve();
       return;
     }
     const script = document.createElement("script");
-    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.src = "https://sdk.cashfree.com/js/v3/cashfree.js";
     script.async = true;
     script.onload = () => resolve();
-    script.onerror = () => reject(new Error("Failed to load Razorpay"));
+    script.onerror = () => reject(new Error("Failed to load Cashfree"));
     document.body.appendChild(script);
   });
 }
@@ -48,7 +54,6 @@ type WalletWidgetProps = {
 };
 
 export function WalletWidget({ className = "" }: WalletWidgetProps) {
-  const tenant = getTenant();
   const { user, updateWalletBalance, isWalletRefreshing } = useAuthStore();
   const balance = user?.wallet_balance ?? 0;
   const [open, setOpen] = useState(false);
@@ -69,10 +74,10 @@ export function WalletWidget({ className = "" }: WalletWidgetProps) {
     setError(null);
     setLoading(true);
     try {
-      await loadRazorpayScript();
-      const Razorpay = window.Razorpay;
-      if (!Razorpay) {
-        throw new Error("Razorpay unavailable");
+      await loadCashfreeScript();
+      const CashfreeCtor = window.Cashfree;
+      if (!CashfreeCtor) {
+        throw new Error("Cashfree unavailable");
       }
 
       const orderRes = await api.post(`/api/wallet/create-order`, {
@@ -82,68 +87,43 @@ export function WalletWidget({ className = "" }: WalletWidgetProps) {
 
       const d = orderRes.data?.data as {
         orderId: string;
+        paymentSessionId: string;
         amount: number;
         currency: string;
-        keyId: string;
+        mode?: "sandbox" | "production";
       };
 
-      if (!d?.orderId || !d.keyId) {
+      if (!d?.orderId || !d.paymentSessionId) {
         throw new Error("Could not create order");
       }
 
-      const rzp = new Razorpay({
-        key: d.keyId,
-        amount: d.amount,
-        currency: d.currency,
-        name: tenant.name,
-        description: "Wallet recharge",
-        order_id: d.orderId,
-        handler: async (response: {
-          razorpay_payment_id: string;
-          razorpay_order_id: string;
-          razorpay_signature: string;
-        }) => {
-          setLoading(true);
-          try {
-            const verify = await api.post(`/api/wallet/verify-payment`, {
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-            });
-            const bal = verify.data?.data?.wallet_balance as number | undefined;
-            if (typeof bal === "number") {
-              updateWalletBalance(bal);
-            }
-            setOpen(false);
-            setSelected(null);
-            setCustom("");
-          } catch (e: unknown) {
-            const msg =
-              e &&
-              typeof e === "object" &&
-              "response" in e &&
-              e.response &&
-              typeof e.response === "object" &&
-              "data" in e.response &&
-              e.response.data &&
-              typeof e.response.data === "object" &&
-              "error" in e.response.data
-                ? String((e.response.data as { error?: string }).error)
-                : "Payment verification failed";
-            setError(msg);
-          } finally {
-            setLoading(false);
-          }
-        },
-        modal: {
-          ondismiss: () => {
-            setLoading(false);
-          },
-        },
+      const cashfree = CashfreeCtor({
+        mode: d.mode === "sandbox" ? "sandbox" : "production",
       });
 
-      setLoading(false);
-      rzp.open();
+      const result = await cashfree.checkout({
+        paymentSessionId: d.paymentSessionId,
+        redirectTarget: "_modal",
+      });
+
+      if (result.error) {
+        return;
+      }
+
+      if (!result.paymentDetails && !result.redirect) {
+        return;
+      }
+
+      const verify = await api.post(`/api/wallet/verify-payment`, {
+        orderId: d.orderId,
+      });
+      const bal = verify.data?.data?.wallet_balance as number | undefined;
+      if (typeof bal === "number") {
+        updateWalletBalance(bal);
+      }
+      setOpen(false);
+      setSelected(null);
+      setCustom("");
     } catch (e: unknown) {
       const msg =
         e &&
@@ -264,7 +244,7 @@ export function WalletWidget({ className = "" }: WalletWidgetProps) {
               onClick={() => void startCheckout()}
               className="mt-5 w-full rounded-xl bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] py-3 text-sm font-semibold text-[#09142a] shadow-md transition hover:opacity-95 disabled:opacity-60"
             >
-              {loading ? "Please wait…" : "Pay with Razorpay"}
+              {loading ? "Please wait…" : "Pay with Cashfree"}
             </button>
           </div>
         </div>

@@ -98,6 +98,8 @@ CREATE TABLE transactions (
   amount NUMERIC(14, 2) NOT NULL,
   razorpay_order_id TEXT,
   razorpay_payment_id TEXT,
+  cashfree_order_id TEXT,
+  cashfree_payment_id TEXT,
   status transaction_status NOT NULL DEFAULT 'pending',
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );

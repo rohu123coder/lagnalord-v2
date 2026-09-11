@@ -22,6 +22,7 @@ import { sessionsRouter } from "./routes/sessions.js";
 import { usersRouter } from "./routes/users.js";
 import { leadsRouter } from "./routes/leads.js";
 import { razorpayWebhookHandler } from "./routes/webhooks.js";
+import { cashfreeWebhookHandler } from "./routes/cashfreeWebhook.js";
 import { walletRouter } from "./routes/wallet.js";
 import whatsappRouter from "./routes/whatsapp.js";
 import kaalSarpDoshaRouter from "./routes/kaalSarpDosha.js";
@@ -44,6 +45,12 @@ app.post(
   "/api/webhooks/razorpay",
   express.raw({ type: "application/json" }),
   razorpayWebhookHandler
+);
+
+app.post(
+  "/api/webhooks/cashfree",
+  express.raw({ type: "application/json" }),
+  cashfreeWebhookHandler
 );
 
 app.use(express.json());
