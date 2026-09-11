@@ -258,7 +258,7 @@ function AiAstrologersPageContent() {
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium text-slate-700">
-                Rate per minute (₹)
+                Rate per message (₹)
               </label>
               <input
                 required
@@ -339,7 +339,7 @@ function AiAstrologersPageContent() {
               <tr>
                 <th className="px-4 py-3">Astrologer</th>
                 <th className="px-4 py-3">Tagline</th>
-                <th className="px-4 py-3">Rate/min</th>
+                <th className="px-4 py-3">Rate/msg</th>
                 <th className="px-4 py-3">Status</th>
                 <th className="px-4 py-3 text-right">Actions</th>
               </tr>
