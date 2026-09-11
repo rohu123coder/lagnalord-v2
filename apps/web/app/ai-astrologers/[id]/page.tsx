@@ -193,7 +193,7 @@ export default function AiAstrologerProfilePage() {
               </div>
               <p className="mt-2 text-sm text-[#C7C2B4]">{persona.tagline}</p>
               <p className="mt-3 text-lg font-bold text-[#F5F1E8]">
-                ₹{persona.rate_per_min}/min
+                ₹{persona.rate_per_min}/message
               </p>
 
               {!chatStarted ? (

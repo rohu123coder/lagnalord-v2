@@ -311,7 +311,7 @@ const homepageFaqs = [
   },
   {
     q: "How does the wallet work?",
-    a: "You recharge, then pay the per-minute rate printed on the astrologer’s card (or the AI persona’s rate). Unused balance stays in the wallet. There is no hidden “session fee” on top of that displayed rate.",
+    a: "You recharge, then pay the per-minute rate printed on a live astrologer’s card, or the per-message rate shown on an AI persona. Unused balance stays in the wallet. There is no hidden “session fee” on top of that displayed rate.",
   },
   {
     q: "Can I trust the horoscope on this site?",
@@ -1346,7 +1346,7 @@ export default function HomePage() {
                 <p className="mt-3 text-sm font-semibold text-[#F5F1E8]">{a.name}</p>
                 <p className="mt-1 line-clamp-1 text-xs text-[#C7C2B4]">{a.tagline}</p>
                 <p className="mt-2 text-xs font-medium text-[#C8AC80]">
-                  ₹{a.rate_per_min}/min
+                  ₹{a.rate_per_min}/message
                 </p>
                 <span className="mt-3 w-full rounded-lg bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-3 py-1.5 text-xs font-semibold text-[#09142a] hover:opacity-95">
                   Chat karein

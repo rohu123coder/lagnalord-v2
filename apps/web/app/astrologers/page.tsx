@@ -633,7 +633,7 @@ export default function AstrologersPage() {
                       )}
                       <p className="mt-3 text-sm font-semibold text-[#F5F1E8]">{a.name}</p>
                       <p className="mt-1 line-clamp-1 text-xs text-[#C7C2B4]">{a.tagline}</p>
-                      <p className="mt-2 text-xs font-medium text-[#C8AC80]">₹{a.rate_per_min}/min</p>
+                      <p className="mt-2 text-xs font-medium text-[#C8AC80]">₹{a.rate_per_min}/message</p>
                       <span className="mt-3 w-full rounded-lg bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-3 py-1.5 text-xs font-semibold text-[#09142a] hover:opacity-95">
                         Chat karein
                       </span>
