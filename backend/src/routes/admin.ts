@@ -207,6 +207,8 @@ router.get("/transactions", async (req: Request, res: Response) => {
     amount: string;
     razorpay_order_id: string | null;
     razorpay_payment_id: string | null;
+    cashfree_order_id: string | null;
+    cashfree_payment_id: string | null;
     status: string;
     created_at: Date;
   }>(
@@ -218,6 +220,8 @@ router.get("/transactions", async (req: Request, res: Response) => {
        t.amount::text AS amount,
        t.razorpay_order_id,
        t.razorpay_payment_id,
+       t.cashfree_order_id,
+       t.cashfree_payment_id,
        t.status::text AS status,
        t.created_at
      FROM transactions t
@@ -239,6 +243,8 @@ router.get("/transactions", async (req: Request, res: Response) => {
         amount: Number(row.amount),
         razorpay_order_id: row.razorpay_order_id,
         razorpay_payment_id: row.razorpay_payment_id,
+        cashfree_order_id: row.cashfree_order_id,
+        cashfree_payment_id: row.cashfree_payment_id,
         status: row.status,
         created_at: row.created_at,
       })),

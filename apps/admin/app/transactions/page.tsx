@@ -12,6 +12,8 @@ type TxRow = {
   amount: number;
   razorpay_order_id: string | null;
   razorpay_payment_id: string | null;
+  cashfree_order_id: string | null;
+  cashfree_payment_id: string | null;
   status: string;
   created_at: string;
 };
@@ -50,8 +52,14 @@ function StatusBadge({ status }: { status: string }) {
   );
 }
 
-function razorpayId(row: TxRow): string {
-  return row.razorpay_payment_id ?? row.razorpay_order_id ?? "—";
+function gatewayId(row: TxRow): string {
+  return (
+    row.cashfree_payment_id ??
+    row.cashfree_order_id ??
+    row.razorpay_payment_id ??
+    row.razorpay_order_id ??
+    "—"
+  );
 }
 
 function toCsv(rows: TxRow[]): string {
@@ -59,7 +67,7 @@ function toCsv(rows: TxRow[]): string {
     "user_phone",
     "type",
     "amount",
-    "razorpay_id",
+    "gateway_id",
     "status",
     "created_at",
   ];
@@ -71,7 +79,7 @@ function toCsv(rows: TxRow[]): string {
         esc(r.user_phone),
         esc(r.type),
         String(r.amount),
-        esc(razorpayId(r) === "—" ? "" : razorpayId(r)),
+        esc(gatewayId(r) === "—" ? "" : gatewayId(r)),
         esc(r.status),
         esc(new Date(r.created_at).toISOString()),
       ].join(",")
@@ -228,7 +236,7 @@ function TransactionsPageContent() {
                 <th className="px-4 py-3">User phone</th>
                 <th className="px-4 py-3">Type</th>
                 <th className="px-4 py-3">Amount</th>
-                <th className="px-4 py-3">Razorpay ID</th>
+                <th className="px-4 py-3">Gateway ID</th>
                 <th className="px-4 py-3">Status</th>
                 <th className="px-4 py-3">Date</th>
               </tr>
@@ -262,7 +270,7 @@ function TransactionsPageContent() {
                       })}
                     </td>
                     <td className="px-4 py-3 font-mono text-xs text-slate-600">
-                      {razorpayId(t)}
+                      {gatewayId(t)}
                     </td>
                     <td className="px-4 py-3">
                       <StatusBadge status={t.status} />
