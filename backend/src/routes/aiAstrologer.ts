@@ -6,7 +6,7 @@ import {
   getAstrologerReply,
   type ChatTurn,
 } from "../services/aiAstrologerService.js";
-import { applyPromoThenWalletDebit } from "../services/promoOfferService.js";
+import { applyPromoThenWalletDebit, checkMinutesOfferGate, getActiveEligibleOffer } from "../services/promoOfferService.js";
 
 const router = Router();
 
@@ -66,30 +66,75 @@ router.post("/chat", authMiddleware, async (req, res) => {
     }
     const charge = Number(rateRow.rate_per_min);
 
-    const settlement = await applyPromoThenWalletDebit({
-      userId,
-      appliesTo: "ai_chat",
-      unitType: "messages",
-      unitsToConsume: 1,
-      walletAmount: charge,
-    });
-    if (settlement.ok === false) {
-      return res.status(400).json({
-        error: "Insufficient wallet balance. Please recharge to continue chatting.",
-        data: { required: settlement.required },
-      });
+    let activeSessionId = typeof sessionId === "string" && sessionId.length > 0 ? sessionId : undefined;
+    let sessionStartedAt: Date | null = null;
+    let createdSessionThisRequest = false;
+    if (activeSessionId) {
+      const existingSession = await query<{ id: string; started_at: Date }>(
+        `SELECT id, started_at FROM ai_chat_sessions WHERE id = $1 AND user_id = $2`,
+        [activeSessionId, userId]
+      );
+      if (existingSession.rows[0]) {
+        sessionStartedAt = existingSession.rows[0].started_at;
+      } else {
+        activeSessionId = undefined;
+      }
     }
-    const charged = settlement.charged;
-
-    let activeSessionId = sessionId;
     if (!activeSessionId) {
-      const sessionInsert = await query<{ id: string }>(
+      const sessionInsert = await query<{ id: string; started_at: Date }>(
         `INSERT INTO ai_chat_sessions (user_id, ai_astrologer_id)
          VALUES ($1, $2)
-         RETURNING id`,
+         RETURNING id, started_at`,
         [userId, personaId]
       );
       activeSessionId = sessionInsert.rows[0]?.id;
+      sessionStartedAt = sessionInsert.rows[0]?.started_at ?? null;
+      createdSessionThisRequest = true;
+    }
+
+    let charged = charge;
+    let minutesCovered = false;
+    if (sessionStartedAt) {
+      const minutesOffer = await getActiveEligibleOffer(
+        userId,
+        "ai_chat",
+        undefined,
+        "minutes"
+      );
+      if (minutesOffer) {
+        const gate = await checkMinutesOfferGate(
+          userId,
+          minutesOffer.id,
+          sessionStartedAt
+        );
+        if (gate.status === "free") {
+          charged = 0;
+          minutesCovered = true;
+        }
+      }
+    }
+
+    if (!minutesCovered) {
+      const settlement = await applyPromoThenWalletDebit({
+        userId,
+        appliesTo: "ai_chat",
+        unitType: "messages",
+        unitsToConsume: 1,
+        walletAmount: charge,
+      });
+      if (settlement.ok === false) {
+        if (createdSessionThisRequest && activeSessionId) {
+          await query(
+            `DELETE FROM ai_chat_sessions WHERE id = $1 AND message_count = 0`,
+            [activeSessionId]
+          );
+        }
+        return res.status(400).json({
+          error: "Insufficient wallet balance. Please recharge to continue chatting.",
+          data: { required: settlement.required },
+        });
+      }
+      charged = settlement.charged;
     }
 
     const safeHistory: ChatTurn[] = Array.isArray(history)

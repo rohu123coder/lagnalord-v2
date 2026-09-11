@@ -165,6 +165,80 @@ export async function consumeOfferUnit(
   }
 }
 
+export type MinutesGateResult =
+  | { status: "free" }
+  | { status: "not_covered" };
+
+/**
+ * Session-scoped minutes gate for AI chat. Uses ai_chat_sessions.started_at
+ * (no live timer). Claim row exists for per_user_limit tracking only.
+ */
+export async function checkMinutesOfferGate(
+  userId: string,
+  offerId: string,
+  sessionStartedAt: Date | string
+): Promise<MinutesGateResult> {
+  const offerResult = await query<{
+    unit_value: number;
+    per_user_limit: number;
+  }>(
+    `SELECT unit_value, per_user_limit FROM promo_offers WHERE id = $1`,
+    [offerId]
+  );
+  const offer = offerResult.rows[0];
+  if (!offer) {
+    return { status: "not_covered" };
+  }
+
+  const startedMs = new Date(sessionStartedAt).getTime();
+  if (Number.isNaN(startedMs)) {
+    return { status: "not_covered" };
+  }
+
+  const elapsedMinutes = (Date.now() - startedMs) / 60_000;
+  if (elapsedMinutes > offer.unit_value) {
+    return { status: "not_covered" };
+  }
+
+  const claimResult = await query<{
+    units_granted: number;
+    units_used: number;
+  }>(
+    `SELECT units_granted, units_used
+     FROM promo_offer_claims
+     WHERE offer_id = $1 AND user_id = $2`,
+    [offerId, userId]
+  );
+  const existing = claimResult.rows[0];
+  if (!existing) {
+    const countResult = await query<{ count: string }>(
+      `SELECT COUNT(*)::text AS count
+       FROM promo_offer_claims
+       WHERE offer_id = $1 AND user_id = $2`,
+      [offerId, userId]
+    );
+    const claimCount = Number(countResult.rows[0]?.count ?? 0);
+    if (claimCount >= offer.per_user_limit) {
+      return { status: "not_covered" };
+    }
+  }
+
+  const unitsUsed = Math.min(
+    offer.unit_value,
+    Math.max(0, Math.ceil(elapsedMinutes))
+  );
+
+  await query(
+    `INSERT INTO promo_offer_claims (offer_id, user_id, units_granted, units_used)
+     VALUES ($1, $2, $3, $4)
+     ON CONFLICT (offer_id, user_id) DO UPDATE
+     SET units_used = GREATEST(promo_offer_claims.units_used, EXCLUDED.units_used)`,
+    [offerId, userId, offer.unit_value, unitsUsed]
+  );
+
+  return { status: "free" };
+}
+
 export async function applyPromoThenWalletDebit(params: {
   userId: string;
   appliesTo: Exclude<PromoAppliesTo, "both">;
