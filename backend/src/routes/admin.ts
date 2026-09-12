@@ -1085,7 +1085,7 @@ router.delete("/knowledge-base/:id", async (req: Request, res: Response) => {
   res.json({ success: true, data: { id: deleted.rows[0].id } });
 });
 
-const offerAppliesTo = z.enum(["ai_chat", "human_chat", "both"]);
+const offerAppliesTo = z.enum(["ai_chat", "human_chat", "both", "whatsapp_ai_chat"]);
 const offerUnitType = z.enum(["minutes", "messages"]);
 
 const offerCreateBody = z.object({
@@ -1113,7 +1113,7 @@ const offerPatchBody = z.object({
 type OfferRow = {
   id: string;
   name: string;
-  applies_to: "ai_chat" | "human_chat" | "both";
+  applies_to: "ai_chat" | "human_chat" | "both" | "whatsapp_ai_chat";
   unit_type: "minutes" | "messages";
   unit_value: number;
   start_at: Date;
@@ -1234,7 +1234,7 @@ router.patch("/offers/:id", async (req: Request, res: Response) => {
   const existing = await query<{
     id: string;
     name: string;
-    applies_to: "ai_chat" | "human_chat" | "both";
+    applies_to: "ai_chat" | "human_chat" | "both" | "whatsapp_ai_chat";
     unit_type: "minutes" | "messages";
     unit_value: number;
     start_at: Date;

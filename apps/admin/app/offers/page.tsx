@@ -6,7 +6,7 @@ import ClientWrapper from "../ClientWrapper";
 import api from "@/lib/api";
 
 type OfferStatus = "inactive" | "scheduled" | "live" | "expired";
-type AppliesTo = "ai_chat" | "human_chat" | "both";
+type AppliesTo = "ai_chat" | "human_chat" | "both" | "whatsapp_ai_chat";
 type UnitType = "minutes" | "messages";
 
 type Offer = {
@@ -202,6 +202,7 @@ function OffersPageContent() {
               <option value="ai_chat">AI chat</option>
               <option value="human_chat">Human chat</option>
               <option value="both">Both</option>
+              <option value="whatsapp_ai_chat">WhatsApp AI chat</option>
             </select>
           </label>
           <label className="block text-sm">

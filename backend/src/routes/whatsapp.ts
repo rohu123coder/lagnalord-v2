@@ -2,11 +2,10 @@ import { Router, type Request, type Response } from "express";
 
 import { query } from "../db/index.js";
 import { sendWhatsAppText, geocodePlace, generateAstrologyReply } from "../lib/whatsapp.js";
+import { getWhatsAppFreeQuestionLimit } from "../services/promoOfferService.js";
 import { calculateKundaliFromInput } from "./kundali.js";
 
 const router = Router();
-
-const FREE_QUESTION_LIMIT = 2;
 
 type ConversationRow = {
   id: string;
@@ -319,9 +318,10 @@ async function handleStep(conversation: ConversationRow, text: string): Promise<
       });
       await sendWhatsAppText(phone, narration);
 
+      const freeQuestionLimit = await getWhatsAppFreeQuestionLimit();
       await sendWhatsAppText(
         phone,
-        `💬 What's on your mind — career, relationships, health, or finances?\n\n✨ You have ${FREE_QUESTION_LIMIT} free questions — ask away!`
+        `💬 What's on your mind — career, relationships, health, or finances?\n\n✨ You have ${freeQuestionLimit} free questions — ask away!`
       );
 
       await updateConversation(id, {
@@ -333,7 +333,8 @@ async function handleStep(conversation: ConversationRow, text: string): Promise<
     }
 
     case "qa": {
-      if (free_questions_used >= FREE_QUESTION_LIMIT) {
+      const freeQuestionLimit = await getWhatsAppFreeQuestionLimit();
+      if (free_questions_used >= freeQuestionLimit) {
         await sendWhatsAppText(
           phone,
           "You've used your free questions for this reading. 🙏\n\nTo continue getting personalized guidance, please visit lagnalords.com to recharge your wallet and consult with our AI astrologer or a live expert."
@@ -354,7 +355,7 @@ async function handleStep(conversation: ConversationRow, text: string): Promise<
         question_count: conversation.question_count + 1,
       });
 
-      if (nowUsed >= FREE_QUESTION_LIMIT) {
+      if (nowUsed >= freeQuestionLimit) {
         await sendWhatsAppText(
           phone,
           "That was your last free question for now. 🙏 Visit lagnalords.com anytime to continue your consultation."

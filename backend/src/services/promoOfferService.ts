@@ -79,6 +79,27 @@ export async function getActiveEligibleOffer(
   return result.rows[0] ?? null;
 }
 
+const WHATSAPP_FREE_QUESTION_FALLBACK = 2;
+
+/** Admin-configurable WhatsApp free-question cap. No per-user claim tracking. */
+export async function getWhatsAppFreeQuestionLimit(): Promise<number> {
+  const result = await query<{ unit_value: number }>(
+    `SELECT unit_value
+     FROM promo_offers
+     WHERE active = true
+       AND now() BETWEEN start_at AND end_at
+       AND applies_to = 'whatsapp_ai_chat'
+       AND unit_type = 'messages'
+     ORDER BY created_at DESC
+     LIMIT 1`
+  );
+  const value = Number(result.rows[0]?.unit_value);
+  if (!Number.isFinite(value) || value < 1) {
+    return WHATSAPP_FREE_QUESTION_FALLBACK;
+  }
+  return value;
+}
+
 export type HumanChatMinutesOfferResult = {
   billableMinutes: number;
   offerApplied: boolean;
