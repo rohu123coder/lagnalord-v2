@@ -1,4 +1,3 @@
-import { headers } from "next/headers";
 import Link from "next/link";
 
 type AiAstrologerCard = {
@@ -10,21 +9,22 @@ type AiAstrologerCard = {
   rate_per_min: number;
 };
 
+const API_BASE =
+  process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ?? "http://localhost:4000";
+
 async function fetchPersonas(): Promise<AiAstrologerCard[]> {
-  const headerStore = await headers();
-  const host =
-    headerStore.get("x-forwarded-host") ??
-    headerStore.get("host") ??
-    "localhost:3000";
-  const proto = headerStore.get("x-forwarded-proto") ?? "http";
-  const res = await fetch(`${proto}://${host}/api/ai-astrologer/personas`, {
-    cache: "no-store",
-  });
-  if (!res.ok) {
+  try {
+    const res = await fetch(`${API_BASE}/api/ai-astrologer/personas`, {
+      cache: "no-store",
+    });
+    if (!res.ok) {
+      return [];
+    }
+    const json = (await res.json()) as { personas?: AiAstrologerCard[] };
+    return json.personas ?? [];
+  } catch {
     return [];
   }
-  const json = (await res.json()) as { personas?: AiAstrologerCard[] };
-  return json.personas ?? [];
 }
 
 export async function AiPersonasHomepage() {
