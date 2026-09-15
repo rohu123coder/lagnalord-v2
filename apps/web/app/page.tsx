@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import {
   Bot,
@@ -13,16 +14,44 @@ import {
   Sun,
 } from "lucide-react";
 
+import { AiPersonasHomepage } from "@/components/AiPersonasHomepage";
 import { FaqAccordion } from "@/components/FaqAccordion";
+import {
+  FeaturedAstrologers,
+  FeaturedAstrologersSkeleton,
+  type HomepageAstro,
+} from "@/components/FeaturedAstrologers";
 import { Footer } from "@/components/Footer";
 import { HeroExpertiseToggle } from "@/components/HeroExpertiseToggle";
 import { HomepageNetworkSection } from "@/components/HomepageNetworkSection";
 import { HomepagePopup } from "@/components/HomepagePopup";
+import { LiveAstrologersIsland } from "@/components/LiveAstrologersIsland";
 import { Navbar } from "@/components/Navbar";
 import { RashiPreviewIsland } from "@/components/RashiPreviewIsland";
 import { formatDisplayDate } from "@/lib/formatDate";
 import { rashis } from "@/lib/horoscope";
 import { getTenant } from "@/lib/tenants";
+
+const API_BASE =
+  process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ?? "http://localhost:4000";
+
+async function LiveAstrologersSection() {
+  let initial: HomepageAstro[] = [];
+  try {
+    const url = new URL(`${API_BASE}/api/astrologers`);
+    url.searchParams.set("online", "true");
+    url.searchParams.set("limit", "10");
+    url.searchParams.set("page", "1");
+    const res = await fetch(url.toString(), { cache: "no-store" });
+    if (res.ok) {
+      const json = (await res.json()) as { data?: { astrologers: HomepageAstro[] } };
+      initial = json.data?.astrologers ?? [];
+    }
+  } catch {
+    initial = [];
+  }
+  return <LiveAstrologersIsland initial={initial} />;
+}
 
 const topServices = [
   { icon: "🪐", name: "Kundli (Birth Chart)", href: "/kundli" },
@@ -434,27 +463,45 @@ export default async function HomePage() {
 
       <FaqAccordion />
 
-      <HomepageNetworkSection>
-        <section className="border-y border-[#b18d4f]/15 bg-[#0E1C3B]/40 py-14">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6">
-            <h2 className="text-center text-2xl font-bold text-[#F5F1E8] sm:text-3xl">
-              Free Horoscope and Astrology Services
-            </h2>
-            <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
-              {topServices.map((service) => (
-                <Link
-                  key={service.name}
-                  href={service.href}
-                  className="rounded-2xl border border-[#b18d4f]/20 bg-[#122352] p-4 text-center transition duration-200 hover:-translate-y-1 hover:border-[#b18d4f]/50 hover:shadow-md"
-                >
-                  <p className="text-3xl">{service.icon}</p>
-                  <p className="mt-2 text-sm font-semibold text-[#F5F1E8]">{service.name}</p>
-                </Link>
-              ))}
-            </div>
+      <Suspense fallback={null}>
+        <LiveAstrologersSection />
+      </Suspense>
+
+      <HomepageNetworkSection />
+
+      <section className="border-y border-[#b18d4f]/15 bg-[#0E1C3B]/40 py-14">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <h2 className="text-center text-2xl font-bold text-[#F5F1E8] sm:text-3xl">
+            Free Horoscope and Astrology Services
+          </h2>
+          <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
+            {topServices.map((service) => (
+              <Link
+                key={service.name}
+                href={service.href}
+                className="rounded-2xl border border-[#b18d4f]/20 bg-[#122352] p-4 text-center transition duration-200 hover:-translate-y-1 hover:border-[#b18d4f]/50 hover:shadow-md"
+              >
+                <p className="text-3xl">{service.icon}</p>
+                <p className="mt-2 text-sm font-semibold text-[#F5F1E8]">{service.name}</p>
+              </Link>
+            ))}
           </div>
-        </section>
-      </HomepageNetworkSection>
+        </div>
+      </section>
+
+      <Suspense
+        fallback={
+          <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+            <p className="text-center text-sm text-[#C7C2B4]">Loading…</p>
+          </div>
+        }
+      >
+        <AiPersonasHomepage />
+      </Suspense>
+
+      <Suspense fallback={<FeaturedAstrologersSkeleton />}>
+        <FeaturedAstrologers />
+      </Suspense>
 
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
