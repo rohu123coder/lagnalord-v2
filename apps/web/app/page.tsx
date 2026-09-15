@@ -964,7 +964,7 @@ export default function HomePage() {
             {kundliReasons.map((reason) => (
               <article
                 key={reason.title}
-                className="rounded-2xl border border-[#E7DCC4] bg-[#FBF8F1] p-4"
+                className="rounded-2xl border border-[#E7DCC4] bg-[#fcfafa] p-4"
               >
                 <reason.Icon className="h-6 w-6 text-[#C8AC80]" />
                 <h3 className="mt-3 font-bold text-[#09142A]">{reason.title}</h3>
