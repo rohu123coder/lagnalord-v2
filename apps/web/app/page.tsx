@@ -947,13 +947,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-b border-[#b18d4f]/20 bg-[#09142a] py-16 sm:py-20">
+      <section className="border-b border-[#E7DCC4] bg-white py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#C8AC80]">The chart, not the feed</p>
-          <h2 className="mt-3 text-3xl font-extrabold text-[#F5F1E8] sm:text-5xl">
+          <h2 className="mt-3 text-3xl font-extrabold text-[#09142A] sm:text-5xl">
             Why a Kundli still earns a seat at the table
           </h2>
-          <p className="mt-4 max-w-3xl text-base leading-7 text-[#C7C2B4]">
+          <p className="mt-4 max-w-3xl text-base leading-7 text-[#5B5A55]">
             A birth chart does not replace a doctor, a lawyer, or a bank statement. It is a second language for
             temperament and timing — the same sky the rest of this site computes from Swiss Ephemeris. People open
             one when a decision already exists and they want vocabulary for it: a move, a match, a year that feels
@@ -964,11 +964,11 @@ export default function HomePage() {
             {kundliReasons.map((reason) => (
               <article
                 key={reason.title}
-                className="rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-4"
+                className="rounded-2xl border border-[#E7DCC4] bg-[#FBF8F1] p-4"
               >
                 <reason.Icon className="h-6 w-6 text-[#C8AC80]" />
-                <h3 className="mt-3 font-bold text-[#F5F1E8]">{reason.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-[#C7C2B4]">{reason.body}</p>
+                <h3 className="mt-3 font-bold text-[#09142A]">{reason.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-[#5B5A55]">{reason.body}</p>
               </article>
             ))}
           </div>
