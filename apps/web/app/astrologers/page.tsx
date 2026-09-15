@@ -1,129 +1,72 @@
-"use client";
+import { Suspense } from "react";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { io, type Socket } from "socket.io-client";
-
-import { AstrologerCard } from "@/components/AstrologerCard";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
-import api from "@/lib/api";
-import { getSocketApiBase } from "@/lib/socketBase";
-import { useAuthStore } from "@/lib/store";
 
-type Astro = {
-  id: string;
-  name: string;
-  avatar_url: string | null;
-  profile_photo_url: string | null;
-  specializations: string[];
-  languages: string[];
-  rating: number | null;
-  total_reviews: number;
-  price_per_minute: number | null;
-  is_available: boolean;
-  is_online: boolean;
-  is_verified?: boolean;
-  chat_available: boolean;
-  voice_available: boolean;
-  video_available: boolean;
-  is_busy: boolean;
-  waiting_count: number;
-  avg_session_duration: number | null;
-  estimated_wait: number;
-  experience_years: number | null;
-};
+import { AiAstrologerGrid } from "./AiAstrologerGrid";
+import { AstrologerDirectory, SkeletonGrid, type Astro } from "./AstrologerDirectory";
+import {
+  AstrologersControls,
+  CATEGORY_PILLS,
+  type ApiSort,
+  type AstrologersView,
+  type CategoryPill,
+} from "./AstrologersControls";
 
-type ApiSort = "rating_desc" | "price_asc" | "price_desc";
+const API_BASE =
+  process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ?? "http://localhost:4000";
 
-type AiAstrologerCard = {
-  id: string;
-  name: string;
-  emoji: string;
-  tagline: string;
-  photo_url: string | null;
-  rate_per_min: number;
-};
+const SORTS: ApiSort[] = ["rating_desc", "price_asc", "price_desc"];
 
-const SPEC_OPTIONS = [
-  "Love & Relationship",
-  "Career",
-  "Finance",
-  "Vastu",
-  "Numerology",
-  "Tarot",
-  "Palmistry",
-] as const;
-
-const LANG_OPTIONS = [
-  "Hindi",
-  "English",
-  "Tamil",
-  "Telugu",
-  "Bengali",
-] as const;
-
-const SORT_OPTIONS: { label: string; value: ApiSort }[] = [
-  { label: "Top Rated", value: "rating_desc" },
-  { label: "Price: Low to High", value: "price_asc" },
-  { label: "Price: High to Low", value: "price_desc" },
-];
-
-const PAGE_SIZE = 9;
-const CATEGORY_PILLS = [
-  "All",
-  "Love",
-  "Career",
-  "Finance",
-  "Marriage",
-  "Health",
-  "Vastu",
-  "Numerology",
-  "Tarot",
-] as const;
-
-function matchesCategory(a: Astro, category: string): boolean {
-  if (category === "All") {
-    return true;
+function toList(value: string | string[] | undefined): string[] {
+  if (!value) {
+    return [];
   }
-  const lowered = category.toLowerCase();
-  return a.specializations.some((spec) => {
-    const s = spec.toLowerCase();
-    if (lowered === "love" || lowered === "marriage") {
-      return s.includes("love") || s.includes("relationship") || s.includes("marriage");
-    }
-    return s.includes(lowered);
-  });
+  return Array.isArray(value) ? value : [value];
 }
 
-function matchesFilters(
-  a: Astro,
-  specs: string[],
-  langs: string[]
-): boolean {
-  if (
-    specs.length > 0 &&
-    !specs.some((s) => a.specializations.includes(s))
-  ) {
-    return false;
-  }
-  if (langs.length > 0 && !langs.some((l) => a.languages.includes(l))) {
-    return false;
-  }
-  return true;
+function parseView(value: string | string[] | undefined): AstrologersView {
+  const raw = Array.isArray(value) ? value[0] : value;
+  return raw === "ai" ? "ai" : "human";
+}
+
+function parseSort(value: string | string[] | undefined): ApiSort {
+  const raw = Array.isArray(value) ? value[0] : value;
+  return raw && SORTS.includes(raw as ApiSort) ? (raw as ApiSort) : "rating_desc";
+}
+
+function parseCategory(value: string | string[] | undefined): CategoryPill {
+  const raw = Array.isArray(value) ? value[0] : value;
+  return raw && CATEGORY_PILLS.includes(raw as CategoryPill)
+    ? (raw as CategoryPill)
+    : "All";
+}
+
+function parseQ(value: string | string[] | undefined): string {
+  const raw = Array.isArray(value) ? value[0] : value;
+  return raw ?? "";
 }
 
 async function fetchAstrologersPage(page: number, sort: ApiSort) {
-  const res = await api.get(`/api/astrologers`, {
-    params: { page, limit: 50, sort },
-  });
-  return res.data.data as {
-    astrologers: Astro[];
-    page: number;
-    limit: number;
-    total: number;
+  const url = new URL(`${API_BASE}/api/astrologers`);
+  url.searchParams.set("page", String(page));
+  url.searchParams.set("limit", "50");
+  url.searchParams.set("sort", sort);
+  const res = await fetch(url.toString(), { cache: "no-store" });
+  if (!res.ok) {
+    throw new Error("Could not fetch astrologers");
+  }
+  const json = (await res.json()) as {
+    data?: { astrologers: Astro[]; page: number; limit: number; total: number };
   };
+  return (
+    json.data ?? {
+      astrologers: [] as Astro[],
+      page,
+      limit: 50,
+      total: 0,
+    }
+  );
 }
 
 async function fetchAllAstrologers(sort: ApiSort): Promise<Astro[]> {
@@ -136,589 +79,85 @@ async function fetchAllAstrologers(sort: ApiSort): Promise<Astro[]> {
     all.push(...next.astrologers);
     p++;
   }
-  return all;
+  return all.map((a) => ({
+    ...a,
+    profile_photo_url: a.profile_photo_url ?? null,
+    chat_available: a.chat_available ?? true,
+    voice_available: a.voice_available ?? false,
+    video_available: a.video_available ?? false,
+  }));
 }
 
-function FilterSidebar(props: {
-  specs: Set<string>;
-  langs: Set<string>;
-  sort: ApiSort;
-  toggleSpec: (s: string) => void;
-  toggleLang: (s: string) => void;
-  setSort: (s: ApiSort) => void;
-  className?: string;
+async function HumanAstrologerList({ sort }: { sort: ApiSort }) {
+  let astrologers: Astro[] = [];
+  try {
+    astrologers = await fetchAllAstrologers(sort);
+  } catch {
+    astrologers = [];
+  }
+  return <AstrologerDirectory astrologers={astrologers} />;
+}
+
+export default async function AstrologersPage({
+  searchParams,
+}: {
+  searchParams: {
+    view?: string | string[];
+    sort?: string | string[];
+    spec?: string | string[];
+    lang?: string | string[];
+    category?: string | string[];
+    q?: string | string[];
+  };
 }) {
-  const {
-    specs,
-    langs,
-    sort,
-    toggleSpec,
-    toggleLang,
-    setSort,
-    className = "",
-  } = props;
-  return (
-    <aside className={`space-y-6 ${className}`}>
-      <div>
-        <h3 className="text-sm font-bold text-[#F5F1E8]">Specialization</h3>
-        <div className="mt-3 space-y-2">
-          {SPEC_OPTIONS.map((s) => (
-            <label key={s} className="flex cursor-pointer items-center gap-2">
-              <input
-                type="checkbox"
-                checked={specs.has(s)}
-                onChange={() => toggleSpec(s)}
-                className="rounded border-[#b18d4f]/40 text-[#b18d4f] focus:ring-[#b18d4f]"
-              />
-              <span className="text-sm text-[#C7C2B4]">{s}</span>
-            </label>
-          ))}
-        </div>
-      </div>
-      <div>
-        <h3 className="text-sm font-bold text-[#F5F1E8]">Language</h3>
-        <div className="mt-3 space-y-2">
-          {LANG_OPTIONS.map((s) => (
-            <label key={s} className="flex cursor-pointer items-center gap-2">
-              <input
-                type="checkbox"
-                checked={langs.has(s)}
-                onChange={() => toggleLang(s)}
-                className="rounded border-[#b18d4f]/40 text-[#b18d4f] focus:ring-[#b18d4f]"
-              />
-              <span className="text-sm text-[#C7C2B4]">{s}</span>
-            </label>
-          ))}
-        </div>
-      </div>
-      <div>
-        <label className="text-sm font-bold text-[#F5F1E8]" htmlFor="sort">
-          Sort
-        </label>
-        <select
-          id="sort"
-          value={sort}
-          onChange={(e) => setSort(e.target.value as ApiSort)}
-          className="mt-2 w-full rounded-xl border border-[#b18d4f]/40 bg-white px-3 py-2 text-sm text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
-        >
-          {SORT_OPTIONS.map((o) => (
-            <option key={o.value} value={o.value}>
-              {o.label}
-            </option>
-          ))}
-        </select>
-      </div>
-    </aside>
-  );
-}
-
-function SkeletonGrid() {
-  return (
-    <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-      {Array.from({ length: PAGE_SIZE }).map((_, i) => (
-        <div key={i} className="h-72 animate-pulse rounded-2xl bg-[#0E1C3B]/80" />
-      ))}
-    </div>
-  );
-}
-
-export default function AstrologersPage() {
-  const router = useRouter();
-  const { isLoggedIn, user, token } = useAuthStore();
-  const [sort, setSort] = useState<ApiSort>("rating_desc");
-  const [specs, setSpecs] = useState<Set<string>>(new Set());
-  const [langs, setLangs] = useState<Set<string>>(new Set());
-  const [all, setAll] = useState<Astro[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
-  const [sheetOpen, setSheetOpen] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [search, setSearch] = useState("");
-  const [activeCategory, setActiveCategory] =
-    useState<(typeof CATEGORY_PILLS)[number]>("All");
-  const [viewMode, setViewMode] = useState<"human" | "ai">("human");
-  const [aiAstrologers, setAiAstrologers] = useState<AiAstrologerCard[]>([]);
-  const [aiLoading, setAiLoading] = useState(true);
-  const [pendingAction, setPendingAction] = useState<{
-    astrologer: Astro;
-    callType: "voice" | "video";
-    required: number;
-  } | null>(null);
-  const [actionLoadingKey, setActionLoadingKey] = useState<string | null>(null);
-
-  const toggleSpec = useCallback((s: string) => {
-    setSpecs((prev) => {
-      const next = new Set(prev);
-      if (next.has(s)) {
-        next.delete(s);
-      } else {
-        next.add(s);
-      }
-      return next;
-    });
-    setPage(1);
-  }, []);
-
-  const toggleLang = useCallback((s: string) => {
-    setLangs((prev) => {
-      const next = new Set(prev);
-      if (next.has(s)) {
-        next.delete(s);
-      } else {
-        next.add(s);
-      }
-      return next;
-    });
-    setPage(1);
-  }, []);
-
-  useEffect(() => {
-    let cancelled = false;
-    setLoading(true);
-    void (async () => {
-      try {
-        const rows = await fetchAllAstrologers(sort);
-        if (!cancelled) {
-          setAll(
-            rows.map((a) => ({
-              ...a,
-              profile_photo_url: a.profile_photo_url ?? null,
-              chat_available: a.chat_available ?? true,
-              voice_available: a.voice_available ?? false,
-              video_available: a.video_available ?? false,
-            }))
-          );
-        }
-      } catch {
-        if (!cancelled) {
-          setAll([]);
-        }
-      } finally {
-        if (!cancelled) {
-          setLoading(false);
-        }
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [sort]);
-
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const res = await fetch("/api/ai-astrologer/personas");
-        const json = await res.json();
-        if (!cancelled && json?.personas) {
-          setAiAstrologers(json.personas);
-        }
-      } catch {
-        if (!cancelled) setAiAstrologers([]);
-      } finally {
-        if (!cancelled) setAiLoading(false);
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!token || !isLoggedIn) {
-      return;
-    }
-    const socket: Socket = io(getSocketApiBase(), {
-      auth: { token },
-      transports: ["websocket", "polling"],
-    });
-    socket.on(
-      "astrologer_status_changed",
-      (payload: { astrologerId: string; is_online: boolean }) => {
-        setAll((prev) =>
-          prev.map((astro) =>
-            astro.id === payload.astrologerId
-              ? { ...astro, is_online: payload.is_online }
-              : astro
-          )
-        );
-      }
-    );
-    return () => {
-      socket.disconnect();
-    };
-  }, [isLoggedIn, token]);
-
-  const filtered = useMemo(() => {
-    const s = Array.from(specs);
-    const l = Array.from(langs);
-    const term = search.trim().toLowerCase();
-    return all
-      .filter((a) => matchesFilters(a, s, l))
-      .filter((a) => matchesCategory(a, activeCategory))
-      .filter((a) => (term ? a.name.toLowerCase().includes(term) : true));
-  }, [activeCategory, all, search, specs, langs]);
-
-  const totalFiltered = filtered.length;
-  const totalPages = Math.max(1, Math.ceil(totalFiltered / PAGE_SIZE));
-
-  useEffect(() => {
-    if (page > totalPages) {
-      setPage(totalPages);
-    }
-  }, [page, totalPages]);
-
-  const slice = useMemo(() => {
-    const start = (page - 1) * PAGE_SIZE;
-    return filtered.slice(start, start + PAGE_SIZE);
-  }, [filtered, page]);
-
-  const startSession = useCallback(
-    async (astrologer: Astro, callType: "chat" | "voice" | "video") => {
-      const actionKey = `${astrologer.id}:${callType}`;
-      setActionLoadingKey(actionKey);
-      setError(null);
-      try {
-        let res;
-        try {
-          res = await api.post(`/api/sessions/request`, {
-            astrologerId: astrologer.id,
-            sessionType: callType === "chat" ? undefined : callType,
-          });
-        } catch (e: unknown) {
-          const status =
-            e &&
-            typeof e === "object" &&
-            "response" in e &&
-            e.response &&
-            typeof e.response === "object" &&
-            "status" in e.response
-              ? Number(e.response.status)
-              : null;
-          if (status !== 404) {
-            throw e;
-          }
-          res = await api.post(`/api/chat/request`, {
-            astrologer_id: astrologer.id,
-          });
-        }
-
-        const sessionId = (res.data?.data?.session_id ??
-          res.data?.data?.sessionId) as string | undefined;
-        if (!sessionId) {
-          throw new Error("No session returned");
-        }
-
-        const name = encodeURIComponent(astrologer.name);
-        const autoCallQuery =
-          callType === "voice" || callType === "video"
-            ? `&autoCall=${callType}`
-            : "";
-        router.push(`/chat/${sessionId}?name=${name}${autoCallQuery}`);
-      } catch {
-        setError("Could not start session. Please try again.");
-      } finally {
-        setActionLoadingKey(null);
-      }
-    },
-    [router]
-  );
-
-  const handleCardAction = useCallback(
-    (astrologer: Astro, callType: "chat" | "voice" | "video") => {
-      if (!isLoggedIn) {
-        router.push(`/login?redirect=${encodeURIComponent("/astrologers")}`);
-        return;
-      }
-
-      if (callType === "voice" || callType === "video") {
-        const rate = Number(astrologer.price_per_minute ?? 0);
-        const required = Math.max(0, rate * 3);
-        const balance = Number(user?.wallet_balance ?? 0);
-        if (balance < required) {
-          setPendingAction({ astrologer, callType, required });
-          return;
-        }
-      }
-
-      void startSession(astrologer, callType);
-    },
-    [isLoggedIn, router, startSession, user?.wallet_balance]
-  );
+  const view = parseView(searchParams.view);
+  const sort = parseSort(searchParams.sort);
+  const specs = toList(searchParams.spec);
+  const langs = toList(searchParams.lang);
+  const category = parseCategory(searchParams.category);
+  const q = parseQ(searchParams.q);
 
   return (
     <div className="min-h-screen">
       <Navbar />
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:flex lg:gap-8 lg:py-10">
-        {viewMode === "human" ? (
-          <FilterSidebar
-            specs={specs}
-            langs={langs}
-            sort={sort}
-            toggleSpec={toggleSpec}
-            toggleLang={toggleLang}
-            setSort={(s) => {
-              setSort(s);
-              setPage(1);
-            }}
-            className="hidden w-64 shrink-0 lg:block"
-          />
-        ) : null}
-
-        <div className="min-w-0 flex-1">
-          {viewMode === "human" ? (
-            <div className="flex items-center justify-end gap-4">
-              <button
-                type="button"
-                className="inline-flex items-center gap-2 rounded-xl border border-[#b18d4f]/30 bg-[#0E1C3B] px-3 py-2 text-sm font-semibold text-[#C7C2B4] shadow-sm lg:hidden"
-                onClick={() => setSheetOpen(true)}
-              >
-                Filters
-              </button>
-            </div>
-          ) : null}
-          <h1 className="text-center text-3xl font-bold text-[#F5F1E8] sm:text-4xl">
-            Chat with Astrologer
-          </h1>
-          <div className="mt-4 flex justify-center gap-2">
-            <button
-              type="button"
-              onClick={() => setViewMode("human")}
-              className={`rounded-full border px-5 py-2 text-sm font-semibold transition ${
-                viewMode === "human"
-                  ? "border-[#b18d4f] bg-[#b18d4f] text-[#09142a]"
-                  : "border-[#b18d4f]/20 bg-[#0E1C3B] text-[#C7C2B4] hover:border-[#b18d4f] hover:text-[#C8AC80]"
-              }`}
-            >
-              Human Astrologers
-            </button>
-            <button
-              type="button"
-              onClick={() => setViewMode("ai")}
-              className={`rounded-full border px-5 py-2 text-sm font-semibold transition ${
-                viewMode === "ai"
-                  ? "border-[#b18d4f] bg-[#b18d4f] text-[#09142a]"
-                  : "border-[#b18d4f]/20 bg-[#0E1C3B] text-[#C7C2B4] hover:border-[#b18d4f] hover:text-[#C8AC80]"
-              }`}
-            >
-              🔮 AI Astrologers
-            </button>
-          </div>
-          {viewMode === "human" ? (
-            <>
-          <div className="mt-4 overflow-x-auto pb-1">
-            <div className="flex min-w-max items-center gap-2">
-              {CATEGORY_PILLS.map((category) => (
-                <button
-                  key={category}
-                  type="button"
-                  className={`rounded-full border px-4 py-1.5 text-sm font-medium transition ${
-                    activeCategory === category
-                      ? "border-[#b18d4f] bg-[#b18d4f] text-[#09142a]"
-                      : "border-[#b18d4f]/20 bg-[#0E1C3B] text-[#C7C2B4] hover:border-[#b18d4f] hover:text-[#C8AC80]"
-                  }`}
-                  onClick={() => {
-                    setActiveCategory(category);
-                    setPage(1);
-                  }}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className="mt-4">
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
-                setPage(1);
-              }}
-              placeholder="Search name..."
-              className="w-full rounded-xl border border-[#b18d4f]/40 bg-white px-4 py-2.5 text-sm text-[#09142a] outline-none placeholder:text-slate-400 focus:border-[#b18d4f] focus:ring-2 focus:ring-[#b18d4f]/30"
-            />
-          </div>
-            </>
-          ) : null}
-          {viewMode === "human" ? (
-            <>
-          <p className="mt-3 text-sm text-[#C7C2B4]">
-            {loading
-              ? "Loading…"
-              : `${totalFiltered} astrologer${totalFiltered === 1 ? "" : "s"} found`}
-          </p>
-          {error ? (
-            <p className="mt-2 text-sm font-medium text-red-600">{error}</p>
-          ) : null}
-
-          <div className="mt-8">
-            {loading ? (
-              <SkeletonGrid />
-            ) : (
-              <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-                {slice.map((a) => (
-                  <AstrologerCard
-                    key={a.id}
-                    {...a}
-                    languages={a.languages}
-                    total_reviews={a.total_reviews}
-                    is_online={a.is_online}
-                    is_verified={a.is_verified ?? false}
-                    estimated_wait={a.estimated_wait}
-                    actionLoading={actionLoadingKey?.startsWith(a.id) ?? false}
-                    onChatNow={() => handleCardAction(a, "chat")}
-                    onVoiceCall={() => handleCardAction(a, "voice")}
-                    onVideoCall={() => handleCardAction(a, "video")}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
-
-          {!loading && totalFiltered === 0 ? (
-            <p className="mt-10 text-center text-[#C7C2B4]">
-              No astrologers match these filters. Try adjusting your selection.
-            </p>
-          ) : null}
-
-          {!loading && totalFiltered > 0 ? (
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
-              <button
-                type="button"
-                disabled={page <= 1}
-                onClick={() => setPage((p) => Math.max(1, p - 1))}
-                className="rounded-lg border border-[#b18d4f]/30 bg-[#0E1C3B] px-4 py-2 text-sm font-medium text-[#C7C2B4] disabled:opacity-40"
-              >
-                Previous
-              </button>
-              <span className="text-sm text-[#C7C2B4]">
-                Page {page} of {totalPages}
-              </span>
-              <button
-                type="button"
-                disabled={page >= totalPages}
-                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                className="rounded-lg border border-[#b18d4f]/30 bg-[#0E1C3B] px-4 py-2 text-sm font-medium text-[#C7C2B4] disabled:opacity-40"
-              >
-                Next
-              </button>
-            </div>
-          ) : null}
-            </>
-          ) : (
-            <div className="mt-8">
-              {aiLoading ? (
-                <p className="text-center text-sm text-[#C7C2B4]">Loading…</p>
-              ) : aiAstrologers.length === 0 ? (
-                <p className="text-center text-sm text-[#C7C2B4]">No AI astrologers available right now.</p>
-              ) : (
-                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
-                  {aiAstrologers.map((a) => (
-                    <Link
-                      key={a.id}
-                      href={`/ai-astrologers/${a.id}`}
-                      className="flex flex-col items-center rounded-2xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-4 text-center transition duration-200 hover:-translate-y-1 hover:border-[#b18d4f]/50 hover:shadow-md"
-                    >
-                      {a.photo_url ? (
-                        <img
-                          src={a.photo_url}
-                          alt={a.name}
-                          className="h-16 w-16 rounded-full object-cover"
-                        />
-                      ) : (
-                        <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#09142a] text-3xl">
-                          {a.emoji}
-                        </span>
-                      )}
-                      <p className="mt-3 text-sm font-semibold text-[#F5F1E8]">{a.name}</p>
-                      <p className="mt-1 line-clamp-1 text-xs text-[#C7C2B4]">{a.tagline}</p>
-                      <p className="mt-2 text-xs font-medium text-[#C8AC80]">₹{a.rate_per_min}/message</p>
-                      <span className="mt-3 w-full rounded-lg bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-3 py-1.5 text-xs font-semibold text-[#09142a] hover:opacity-95">
-                        Chat karein
-                      </span>
-                    </Link>
-                  ))}
+        <AstrologersControls
+          view={view}
+          sort={sort}
+          specs={specs}
+          langs={langs}
+          category={category}
+          q={q}
+        >
+          {view === "human" ? (
+            <Suspense
+              key={`human-${sort}-${view}`}
+              fallback={
+                <div className="mt-8">
+                  <p className="mt-3 text-sm text-[#C7C2B4]">Loading…</p>
+                  <div className="mt-8">
+                    <SkeletonGrid />
+                  </div>
                 </div>
-              )}
-            </div>
-          )}
-        </div>
-      </div>
-
-      <Footer />
-
-      {sheetOpen && viewMode === "human" ? (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <button
-            type="button"
-            className="absolute inset-0 bg-black/40"
-            aria-label="Close filters"
-            onClick={() => setSheetOpen(false)}
-          />
-          <div className="absolute bottom-0 left-0 right-0 max-h-[85vh] overflow-y-auto rounded-t-2xl bg-[#0E1C3B] p-4 shadow-2xl">
-            <div className="mb-3 flex items-center justify-between">
-              <h2 className="text-lg font-bold text-[#F5F1E8]">Filters</h2>
-              <button
-                type="button"
-                className="rounded-lg p-2 text-[#C7C2B4] hover:bg-[#09142a]"
-                onClick={() => setSheetOpen(false)}
-              >
-                ✕
-              </button>
-            </div>
-            <FilterSidebar
-              specs={specs}
-              langs={langs}
-              sort={sort}
-              toggleSpec={toggleSpec}
-              toggleLang={toggleLang}
-              setSort={(s) => {
-                setSort(s);
-                setPage(1);
-              }}
-            />
-            <button
-              type="button"
-              className="mt-6 w-full rounded-xl bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] py-3 text-sm font-semibold text-[#09142a] hover:opacity-95"
-              onClick={() => setSheetOpen(false)}
+              }
             >
-              Apply
-            </button>
-          </div>
-        </div>
-      ) : null}
-
-      {pendingAction ? (
-        <div className="fixed inset-0 z-[80] flex items-end justify-center bg-black/40 p-4 sm:items-center">
-          <div className="w-full max-w-md rounded-2xl bg-[#0E1C3B] p-6 shadow-2xl">
-            <h2 className="text-lg font-bold text-[#F5F1E8]">Wallet balance low</h2>
-            <p className="mt-2 text-sm text-[#C7C2B4]">
-              Minimum ₹{pendingAction.required.toFixed(0)} required to start a{" "}
-              {pendingAction.callType} call. Recharge now?
-            </p>
-            <div className="mt-5 flex gap-3">
-              <button
-                type="button"
-                className="flex-1 rounded-xl border border-[#b18d4f]/30 py-2.5 text-sm font-semibold text-[#C7C2B4]"
-                onClick={() => setPendingAction(null)}
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                className="flex-1 rounded-xl bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] py-2.5 text-sm font-semibold text-[#09142a] hover:opacity-95"
-                onClick={() => {
-                  setPendingAction(null);
-                  router.push("/dashboard");
-                }}
-              >
-                Recharge
-              </button>
-            </div>
-          </div>
-        </div>
-      ) : null}
+              <HumanAstrologerList sort={sort} />
+            </Suspense>
+          ) : (
+            <Suspense
+              key={`ai-${view}`}
+              fallback={
+                <div className="mt-8">
+                  <p className="text-center text-sm text-[#C7C2B4]">Loading…</p>
+                </div>
+              }
+            >
+              <AiAstrologerGrid />
+            </Suspense>
+          )}
+        </AstrologersControls>
+      </div>
+      <Footer />
     </div>
   );
 }
