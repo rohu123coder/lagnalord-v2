@@ -100,19 +100,21 @@ async function markLeadPaid(
   paymentId: string,
   amountPaise: number
 ): Promise<void> {
-  if (lead.status === "paid") return;
-
   const amountPaid = amountPaise / 100;
 
-  await query(
+  const updated = await query(
     `UPDATE demo_booking_leads
      SET status = 'paid',
          razorpay_payment_id = $1,
          amount_paid = $2,
          paid_at = now()
-     WHERE id = $3`,
+     WHERE id = $3 AND status <> 'paid'
+     RETURNING id`,
     [paymentId, amountPaid, lead.id]
   );
+  if (!updated.rows[0]) {
+    return;
+  }
 
   void sendDemoBookingConfirmation(lead.email, lead.name).catch((err) =>
     console.error("[Email] Demo confirmation failed:", err)

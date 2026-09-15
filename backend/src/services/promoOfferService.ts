@@ -297,43 +297,56 @@ export async function checkMinutesOfferGate(
     return { status: "not_covered" };
   }
 
-  const claimResult = await query<{
-    units_granted: number;
-    units_used: number;
-  }>(
-    `SELECT units_granted, units_used
-     FROM promo_offer_claims
-     WHERE offer_id = $1 AND user_id = $2`,
-    [offerId, userId]
-  );
-  const existing = claimResult.rows[0];
-  if (!existing) {
-    const countResult = await query<{ count: string }>(
-      `SELECT COUNT(*)::text AS count
-       FROM promo_offer_claims
-       WHERE offer_id = $1 AND user_id = $2`,
-      [offerId, userId]
-    );
-    const claimCount = Number(countResult.rows[0]?.count ?? 0);
-    if (claimCount >= offer.per_user_limit) {
-      return { status: "not_covered" };
-    }
-  }
-
   const unitsUsed = Math.min(
     offer.unit_value,
     Math.max(0, Math.ceil(elapsedMinutes))
   );
 
-  await query(
-    `INSERT INTO promo_offer_claims (offer_id, user_id, units_granted, units_used)
-     VALUES ($1, $2, $3, $4)
-     ON CONFLICT (offer_id, user_id) DO UPDATE
-     SET units_used = GREATEST(promo_offer_claims.units_used, EXCLUDED.units_used)`,
-    [offerId, userId, offer.unit_value, unitsUsed]
-  );
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
 
-  return { status: "free" };
+    const claimResult = await client.query<{
+      units_granted: number;
+      units_used: number;
+    }>(
+      `SELECT units_granted, units_used
+       FROM promo_offer_claims
+       WHERE offer_id = $1 AND user_id = $2
+       FOR UPDATE`,
+      [offerId, userId]
+    );
+    const existing = claimResult.rows[0];
+    if (!existing) {
+      const countResult = await client.query<{ count: string }>(
+        `SELECT COUNT(*)::text AS count
+         FROM promo_offer_claims
+         WHERE offer_id = $1 AND user_id = $2`,
+        [offerId, userId]
+      );
+      const claimCount = Number(countResult.rows[0]?.count ?? 0);
+      if (claimCount >= offer.per_user_limit) {
+        await client.query("ROLLBACK");
+        return { status: "not_covered" };
+      }
+    }
+
+    await client.query(
+      `INSERT INTO promo_offer_claims (offer_id, user_id, units_granted, units_used)
+       VALUES ($1, $2, $3, $4)
+       ON CONFLICT (offer_id, user_id) DO UPDATE
+       SET units_used = GREATEST(promo_offer_claims.units_used, EXCLUDED.units_used)`,
+      [offerId, userId, offer.unit_value, unitsUsed]
+    );
+
+    await client.query("COMMIT");
+    return { status: "free" };
+  } catch (e) {
+    await client.query("ROLLBACK");
+    throw e;
+  } finally {
+    client.release();
+  }
 }
 
 export async function applyPromoThenWalletDebit(params: {

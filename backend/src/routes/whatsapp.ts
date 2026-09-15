@@ -342,6 +342,23 @@ async function handleStep(conversation: ConversationRow, text: string): Promise<
         return;
       }
 
+      const claimed = await query<{ free_questions_used: number }>(
+        `UPDATE whatsapp_conversations
+         SET free_questions_used = free_questions_used + 1,
+             question_count = question_count + 1,
+             updated_at = now()
+         WHERE id = $1 AND free_questions_used < $2
+         RETURNING free_questions_used`,
+        [id, freeQuestionLimit]
+      );
+      if (!claimed.rows[0]) {
+        await sendWhatsAppText(
+          phone,
+          "You've used your free questions for this reading. 🙏\n\nTo continue getting personalized guidance, please visit lagnalords.com to recharge your wallet and consult with our AI astrologer or a live expert."
+        );
+        return;
+      }
+
       const answer = await generateAstrologyReply({
         systemPrompt: QA_SYSTEM_PROMPT_PREFIX + JSON.stringify(chart_data),
         userMessage: text,
@@ -349,12 +366,7 @@ async function handleStep(conversation: ConversationRow, text: string): Promise<
       });
       await sendWhatsAppText(phone, answer);
 
-      const nowUsed = free_questions_used + 1;
-      await updateConversation(id, {
-        free_questions_used: nowUsed,
-        question_count: conversation.question_count + 1,
-      });
-
+      const nowUsed = claimed.rows[0].free_questions_used;
       if (nowUsed >= freeQuestionLimit) {
         await sendWhatsAppText(
           phone,

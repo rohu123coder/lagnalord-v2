@@ -124,21 +124,21 @@ router.post("/demo-booking/verify", async (req: Request, res: Response) => {
     return;
   }
 
-  if (lead.status === "paid") {
-    res.json({ success: true, data: { alreadyPaid: true } });
-    return;
-  }
-
-  await query(
+  const paid = await query<{ id: string }>(
     `UPDATE demo_booking_leads
      SET status = 'paid',
          razorpay_payment_id = $1,
          razorpay_order_id = COALESCE(razorpay_order_id, $2),
          amount_paid = $3,
          paid_at = now()
-     WHERE id = $4`,
+     WHERE id = $4 AND status <> 'paid'
+     RETURNING id`,
     [razorpay_payment_id, razorpay_order_id, DEMO_AMOUNT_INR, leadId]
   );
+  if (!paid.rows[0]) {
+    res.json({ success: true, data: { alreadyPaid: true } });
+    return;
+  }
 
   void sendDemoBookingConfirmation(lead.email, lead.name).catch((err) =>
     console.error("[Email] Demo confirmation failed:", err)
