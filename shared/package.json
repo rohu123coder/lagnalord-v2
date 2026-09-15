@@ -8,6 +8,9 @@
     "build": "tsc",
     "dev": "tsc --watch"
   },
+  "dependencies": {
+    "luxon": "^3.5.0"
+  },
   "devDependencies": {
     "typescript": "^5.5.0"
   }

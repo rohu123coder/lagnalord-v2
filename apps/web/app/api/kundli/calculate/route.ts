@@ -5,7 +5,7 @@ import { DateTime } from "luxon";
 import {
   computeKundli,
   type SwissEphemerisData,
-} from "@/lib/kundli/computeKundli";
+} from "divinemarg-shared";
 
 const BACKEND_URL =
   process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ??

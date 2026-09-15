@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useMemo } from "react";
-import { planetInfo } from "@/lib/kundli/ephemerisUtils";
+import { planetInfo } from "divinemarg-shared";
 import type { KundliCalculateResponse, KundliChartPayload } from "../types";
 
 const VB = { w: 400, h: 400 };
