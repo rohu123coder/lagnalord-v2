@@ -1,6 +1,6 @@
 import { pool } from "../db/index.js";
 import { getSocketServer } from "../socket/io.js";
-import { noteAutomatedUserIntro } from "../socket/index.js";
+import { noteAutomatedUserIntro } from "../socket/sessionState.js";
 
 export async function autoInjectIntroMessage(
   sessionId: string,
