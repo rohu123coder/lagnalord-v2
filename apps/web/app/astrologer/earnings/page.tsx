@@ -26,17 +26,22 @@ export default function AstrologerEarningsPage() {
   const [dash, setDash] = useState<DashboardData | null>(null);
   const [sessions, setSessions] = useState<HistorySession[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
+    setError(null);
     try {
       const [dRes, hRes] = await Promise.all([
         api.get(`/api/astrologers/dashboard`),
-        api.get(`/api/chat/history`, { params: { page: 1, limit: 100 } }),
+        api.get(`/api/chat/history`, { params: { page: 1, limit: 50 } }),
       ]);
       setDash(dRes.data?.data as DashboardData);
       const rows = hRes.data?.data?.sessions as HistorySession[] | undefined;
       setSessions(rows ?? []);
+    } catch (err) {
+      console.error("Failed to load earnings data:", err);
+      setError("Could not load earnings. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -75,9 +80,24 @@ export default function AstrologerEarningsPage() {
       <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
         <h1 className="text-2xl font-bold text-slate-900">My Earnings</h1>
 
-        {loading || !dash ? (
+        {loading ? (
           <div className="mt-12 flex justify-center">
             <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#b18d4f] border-t-transparent" />
+          </div>
+        ) : error || !dash ? (
+          <div className="mt-12 rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-sm">
+            <p className="text-sm text-slate-600">
+              {error ?? "Could not load earnings. Please try again."}
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                void load();
+              }}
+              className="mt-4 rounded-xl bg-[#b18d4f] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#a07d3f]"
+            >
+              Retry
+            </button>
           </div>
         ) : (
           <>
