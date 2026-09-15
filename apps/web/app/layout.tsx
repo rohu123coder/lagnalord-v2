@@ -35,6 +35,12 @@ export default function RootLayout({
     "--violet-electric": colors.violetElectric,
     "--violet-light": colors.violetLight,
     "--cream-white": colors.creamWhite,
+    "--primary": colors.goldAccent,
+    "--primary-hover": colors.softGold,
+    "--muted": "#C7C2B4",
+    "--surface": "#0E1C3B",
+    "--surface-light": "#fcfafa",
+    "--border-gold-muted": "#E7DCC4",
     "--success-green": colors.successGreen,
     "--hero-radial": gradients.heroRadial,
     "--cta-gold": gradients.ctaGold,
@@ -52,9 +58,9 @@ export default function RootLayout({
   } as React.CSSProperties;
 
   return (
-    <html lang="en" style={tenantThemeStyle} className="bg-[#09142a]">
+    <html lang="en" style={tenantThemeStyle} className="bg-background">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased text-[#F5F1E8] bg-[#09142a]`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased text-foreground bg-background`}
       >
         <AnimatedBackground />
         <div className="relative z-[1]">{children}</div>

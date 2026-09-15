@@ -10,8 +10,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: "var(--cosmic-deep)",
+        foreground: "var(--cream-white)",
+        primary: "var(--primary, #b18d4f)",
+        "primary-hover": "var(--primary-hover, #C8AC80)",
+        muted: "var(--muted, #C7C2B4)",
+        surface: "var(--surface, #0E1C3B)",
+        "surface-light": "var(--surface-light, #fcfafa)",
+        "border-gold-muted": "var(--border-gold-muted, #E7DCC4)",
         "cosmic-deep": "var(--cosmic-deep, #1A0B2E)",
         "cosmic-secondary": "var(--cosmic-secondary, #2D1B4E)",
         "gold-accent": "var(--gold-accent, #FFD700)",

@@ -82,7 +82,7 @@ function SocialIcons() {
           href={href}
           title={platform}
           aria-label={platform}
-          className="flex h-8 w-8 items-center justify-center rounded-full border border-[#b18d4f]/30 text-xs font-bold uppercase text-[#C7C2B4] transition hover:border-[#C8AC80] hover:text-[#C8AC80]"
+          className="flex h-8 w-8 items-center justify-center rounded-full border border-primary/30 text-xs font-bold uppercase text-muted transition hover:border-primary-hover hover:text-primary-hover"
         >
           {text}
         </Link>
@@ -96,12 +96,12 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-[#b18d4f]/20 bg-[#09142a] text-[#C7C2B4]">
+    <footer className="border-t border-primary/20 bg-background text-muted">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-14">
-        <div className="flex flex-col gap-6 border-b border-[#b18d4f]/20 pb-8 sm:flex-row sm:items-end sm:justify-between">
+        <div className="flex flex-col gap-6 border-b border-primary/20 pb-8 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-xl font-bold text-[#C8AC80]">{tenant.logo.text}</p>
-            <p className="mt-2 max-w-sm text-sm text-[#C7C2B4]">{tenant.tagline}</p>
+            <p className="text-xl font-bold text-primary-hover">{tenant.logo.text}</p>
+            <p className="mt-2 max-w-sm text-sm text-muted">{tenant.tagline}</p>
           </div>
           <SocialIcons />
         </div>
@@ -109,7 +109,7 @@ export function Footer() {
         <div className="mt-10 grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-6">
           {columns.map((column) => (
             <div key={column.title}>
-              <h3 className="text-sm font-semibold tracking-wide text-[#F5F1E8]">
+              <h3 className="text-sm font-semibold tracking-wide text-foreground">
                 {column.title}
               </h3>
               <ul className="mt-4 space-y-2.5">
@@ -117,7 +117,7 @@ export function Footer() {
                   <li key={`${column.title}-${link.label}`}>
                     <Link
                       href={link.href}
-                      className="text-sm text-[#C7C2B4] transition hover:text-[#C8AC80]"
+                      className="text-sm text-muted transition hover:text-primary-hover"
                     >
                       {link.label}
                     </Link>
@@ -128,8 +128,8 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-12 border-t border-[#b18d4f]/20 pt-6">
-          <p className="text-xs text-[#C7C2B4]/70">
+        <div className="mt-12 border-t border-primary/20 pt-6">
+          <p className="text-xs text-muted/70">
             © {year} {tenant.name}. All rights reserved.
           </p>
         </div>

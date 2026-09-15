@@ -140,7 +140,7 @@ export function Navbar() {
   const chatCta = (
     <Link
       href="/astrologers"
-      className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-4 py-2 text-sm font-semibold text-[#09142a] transition hover:opacity-95"
+      className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-primary-hover px-4 py-2 text-sm font-semibold text-background transition hover:opacity-95"
       onClick={() => setMenuOpen(false)}
     >
       <span
@@ -153,7 +153,7 @@ export function Navbar() {
   );
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[#b18d4f]/20 bg-[#09142a]">
+    <header className="sticky top-0 z-50 border-b border-primary/20 bg-background">
       <div className="mx-auto flex min-h-[68px] max-w-7xl items-center justify-between px-4 sm:px-6 min-[1600px]:max-w-[100rem]">
         <Link
           href="/"
@@ -172,7 +172,7 @@ export function Navbar() {
               />
             ) : null}
             <span
-              className={`text-[22px] font-bold text-[#C8AC80] ${
+              className={`text-[22px] font-bold text-primary-hover ${
                 tenant.logo.imageUrl ? "md:hidden" : ""
               }`}
             >
@@ -185,11 +185,11 @@ export function Navbar() {
           className="ml-4 hidden min-w-0 flex-1 items-center justify-center md:flex min-[1600px]:ml-10"
           aria-label="Main navigation"
         >
-          <div className="flex min-w-0 flex-1 items-center justify-center gap-3 overflow-x-hidden text-sm font-medium text-[#C7C2B4] min-[1600px]:gap-4">
+          <div className="flex min-w-0 flex-1 items-center justify-center gap-3 overflow-x-hidden text-sm font-medium text-muted min-[1600px]:gap-4">
             {centerLinks.map((link, idx) => (
               <Fragment key={link.label}>
                 {idx > 0 ? (
-                  <span className="text-[#b18d4f]/20" aria-hidden="true">
+                  <span className="text-primary/20" aria-hidden="true">
                     |
                   </span>
                 ) : null}
@@ -197,8 +197,8 @@ export function Navbar() {
                   href={link.href}
                   className={`whitespace-nowrap border-b-2 pb-0.5 text-[13px] font-medium transition ${
                     isActive(link.href)
-                      ? "border-[#b18d4f] text-[#C8AC80]"
-                      : "border-transparent text-[#C7C2B4] hover:text-[#C8AC80]"
+                      ? "border-primary text-primary-hover"
+                      : "border-transparent text-muted hover:text-primary-hover"
                   }`}
                   onClick={() => setMenuOpen(false)}
                 >
@@ -207,7 +207,7 @@ export function Navbar() {
               </Fragment>
             ))}
           </div>
-          <span className="shrink-0 px-1 text-[#b18d4f]/20" aria-hidden="true">
+          <span className="shrink-0 px-1 text-primary/20" aria-hidden="true">
             |
           </span>
           <div className="group relative shrink-0">
@@ -216,8 +216,8 @@ export function Navbar() {
               aria-haspopup="true"
               className={`inline-flex items-center gap-1 whitespace-nowrap border-b-2 pb-0.5 text-[13px] font-medium transition ${
                 isCalculatorActive
-                  ? "border-[#b18d4f] text-[#C8AC80]"
-                  : "border-transparent text-[#C7C2B4] hover:text-[#C8AC80]"
+                  ? "border-primary text-primary-hover"
+                  : "border-transparent text-muted hover:text-primary-hover"
               }`}
             >
                 Calculators
@@ -235,7 +235,7 @@ export function Navbar() {
                 </svg>
               </button>
               <div className="invisible absolute right-0 top-full z-50 w-[36rem] pt-2 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-                <div className="grid grid-cols-2 gap-x-1 rounded-xl border border-[#b18d4f]/20 bg-[#0E1C3B] p-2 shadow-lg shadow-black/40">
+                <div className="grid grid-cols-2 gap-x-1 rounded-xl border border-primary/20 bg-surface p-2 shadow-lg shadow-black/40">
                   <div className="flex flex-col">
                     {calculatorLinks.slice(0, 5).map((link) => (
                       <Link
@@ -243,8 +243,8 @@ export function Navbar() {
                         href={link.href}
                         className={`rounded-md px-3 py-2 text-[13px] leading-5 transition ${
                           isActive(link.href)
-                            ? "bg-[#b18d4f]/10 text-[#C8AC80]"
-                            : "text-[#F5F1E8] hover:bg-[#09142a] hover:text-[#C8AC80]"
+                            ? "bg-primary/10 text-primary-hover"
+                            : "text-foreground hover:bg-background hover:text-primary-hover"
                         }`}
                         onClick={() => setMenuOpen(false)}
                       >
@@ -259,8 +259,8 @@ export function Navbar() {
                         href={link.href}
                         className={`rounded-md px-3 py-2 text-[13px] leading-5 transition ${
                           isActive(link.href)
-                            ? "bg-[#b18d4f]/10 text-[#C8AC80]"
-                            : "text-[#F5F1E8] hover:bg-[#09142a] hover:text-[#C8AC80]"
+                            ? "bg-primary/10 text-primary-hover"
+                            : "text-foreground hover:bg-background hover:text-primary-hover"
                         }`}
                         onClick={() => setMenuOpen(false)}
                       >
@@ -273,9 +273,9 @@ export function Navbar() {
             </div>
         </nav>
 
-        <div className="relative z-20 hidden shrink-0 items-center gap-3 self-stretch bg-[#09142a] pl-4 md:flex min-[1600px]:gap-4">
+        <div className="relative z-20 hidden shrink-0 items-center gap-3 self-stretch bg-background pl-4 md:flex min-[1600px]:gap-4">
           {!mounted ? (
-            <div className="h-9 w-44 animate-pulse rounded-full bg-[#0E1C3B]" />
+            <div className="h-9 w-44 animate-pulse rounded-full bg-surface" />
           ) : isLoggedIn ? (
             <>
               {role !== "astrologer" ? (
@@ -288,8 +288,8 @@ export function Navbar() {
                 href={dashboardHref}
                 className={`rounded-md px-2 py-1 text-sm font-semibold transition ${
                   isActive(dashboardHref)
-                    ? "text-[#C8AC80]"
-                    : "text-[#C7C2B4] hover:text-[#C8AC80]"
+                    ? "text-primary-hover"
+                    : "text-muted hover:text-primary-hover"
                 }`}
                 onClick={() => setMenuOpen(false)}
               >
@@ -297,14 +297,14 @@ export function Navbar() {
               </Link>
               <button
                 type="button"
-                className="rounded-md px-2 py-1 text-sm font-semibold text-[#C7C2B4] transition hover:text-red-400"
+                className="rounded-md px-2 py-1 text-sm font-semibold text-muted transition hover:text-red-400"
                 onClick={() => logout()}
               >
                 Logout
               </button>
               <Link
                 href="/astrologer/login"
-                className="ml-2 hidden text-xs text-[#C7C2B4]/60 transition hover:text-[#F5F1E8] min-[1600px]:inline"
+                className="ml-2 hidden text-xs text-muted/60 transition hover:text-foreground min-[1600px]:inline"
               >
                 Astrologer Login
               </Link>
@@ -314,7 +314,7 @@ export function Navbar() {
               {chatCta}
               <Link
                 href="/login"
-                className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-[#C7C2B4] transition hover:text-[#C8AC80]"
+                className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-muted transition hover:text-primary-hover"
                 onClick={(event) => {
                   event.preventDefault();
                   router.push("/login");
@@ -324,7 +324,7 @@ export function Navbar() {
               </Link>
               <Link
                 href="/login?tab=register"
-                className="rounded-full bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-4 py-2 text-sm font-semibold text-[#09142a] transition hover:opacity-95"
+                className="rounded-full bg-gradient-to-r from-primary to-primary-hover px-4 py-2 text-sm font-semibold text-background transition hover:opacity-95"
                 onClick={(event) => {
                   event.preventDefault();
                   router.push("/login?tab=register");
@@ -334,7 +334,7 @@ export function Navbar() {
               </Link>
               <Link
                 href="/astrologer/login"
-                className="ml-2 hidden text-xs text-[#C7C2B4]/60 transition hover:text-[#F5F1E8] min-[1600px]:inline"
+                className="ml-2 hidden text-xs text-muted/60 transition hover:text-foreground min-[1600px]:inline"
                 onClick={() => setMenuOpen(false)}
               >
                 Astrologer Login
@@ -351,7 +351,7 @@ export function Navbar() {
           ) : null}
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[#b18d4f]/40 text-[#b18d4f]"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-primary/40 text-primary"
             aria-label="Open menu"
             onClick={() => setMenuOpen((o) => !o)}
           >
@@ -383,10 +383,10 @@ export function Navbar() {
       </div>
 
       {menuOpen && mounted ? (
-        <div className="border-t border-[#b18d4f]/20 bg-[#09142a] px-4 py-4 md:hidden">
+        <div className="border-t border-primary/20 bg-background px-4 py-4 md:hidden">
           <div className="flex flex-col gap-4">
             <div>
-              <p className="px-1 text-xs font-semibold uppercase tracking-wider text-[#C7C2B4]/70">
+              <p className="px-1 text-xs font-semibold uppercase tracking-wider text-muted/70">
                 Nav links
               </p>
               <div className="mt-2 space-y-1">
@@ -396,8 +396,8 @@ export function Navbar() {
                     href={link.href}
                     className={`block rounded-md px-3 py-2 text-sm font-medium ${
                       isActive(link.href)
-                        ? "bg-[#b18d4f]/10 text-[#C8AC80]"
-                        : "text-[#C7C2B4] hover:bg-[#0E1C3B]"
+                        ? "bg-primary/10 text-primary-hover"
+                        : "text-muted hover:bg-surface"
                     }`}
                     onClick={() => setMenuOpen(false)}
                   >
@@ -410,8 +410,8 @@ export function Navbar() {
                     aria-expanded={calculatorsOpen}
                     className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-sm font-medium ${
                       isCalculatorActive
-                        ? "bg-[#b18d4f]/10 text-[#C8AC80]"
-                        : "text-[#C7C2B4] hover:bg-[#0E1C3B]"
+                        ? "bg-primary/10 text-primary-hover"
+                        : "text-muted hover:bg-surface"
                     }`}
                     onClick={() => setCalculatorsOpen((open) => !open)}
                   >
@@ -430,15 +430,15 @@ export function Navbar() {
                     </svg>
                   </button>
                   {calculatorsOpen ? (
-                    <div className="mt-1 space-y-1 border-l border-[#b18d4f]/20 pl-2">
+                    <div className="mt-1 space-y-1 border-l border-primary/20 pl-2">
                       {calculatorLinks.map((link) => (
                         <Link
                           key={link.href}
                           href={link.href}
                           className={`block rounded-md px-3 py-2 text-sm font-medium ${
                             isActive(link.href)
-                              ? "bg-[#b18d4f]/10 text-[#C8AC80]"
-                              : "text-[#F5F1E8] hover:bg-[#0E1C3B] hover:text-[#C8AC80]"
+                              ? "bg-primary/10 text-primary-hover"
+                              : "text-foreground hover:bg-surface hover:text-primary-hover"
                           }`}
                           onClick={() => setMenuOpen(false)}
                         >
@@ -451,14 +451,14 @@ export function Navbar() {
               </div>
             </div>
 
-            <div className="space-y-2 border-t border-[#b18d4f]/30 pt-4">
+            <div className="space-y-2 border-t border-primary/30 pt-4">
               <div className="w-full">{chatCta}</div>
 
               {isLoggedIn ? (
                 <>
                   <Link
                     href={dashboardHref}
-                    className="block rounded-full border border-[#b18d4f]/30 px-4 py-2.5 text-center text-sm font-semibold text-[#C7C2B4] transition hover:bg-[#0E1C3B]"
+                    className="block rounded-full border border-primary/30 px-4 py-2.5 text-center text-sm font-semibold text-muted transition hover:bg-surface"
                     onClick={() => setMenuOpen(false)}
                   >
                     Dashboard
@@ -479,7 +479,7 @@ export function Navbar() {
                   <div className="grid grid-cols-2 gap-2">
                     <Link
                       href="/login"
-                      className="rounded-full border border-[#b18d4f]/30 px-3 py-2.5 text-center text-sm font-semibold text-[#C7C2B4]"
+                      className="rounded-full border border-primary/30 px-3 py-2.5 text-center text-sm font-semibold text-muted"
                       onClick={(event) => {
                         event.preventDefault();
                         setMenuOpen(false);
@@ -490,7 +490,7 @@ export function Navbar() {
                     </Link>
                     <Link
                       href="/login?tab=register"
-                      className="rounded-full bg-gradient-to-r from-[#b18d4f] to-[#C8AC80] px-3 py-2.5 text-center text-sm font-semibold text-[#09142a] transition hover:opacity-95"
+                      className="rounded-full bg-gradient-to-r from-primary to-primary-hover px-3 py-2.5 text-center text-sm font-semibold text-background transition hover:opacity-95"
                       onClick={(event) => {
                         event.preventDefault();
                         setMenuOpen(false);
@@ -503,7 +503,7 @@ export function Navbar() {
                   <div className="pt-2">
                     <Link
                       href="/astrologer/login"
-                      className="block text-center text-xs text-[#C7C2B4]/60 transition hover:text-[#F5F1E8]"
+                      className="block text-center text-xs text-muted/60 transition hover:text-foreground"
                       onClick={(event) => {
                         event.preventDefault();
                         setMenuOpen(false);
