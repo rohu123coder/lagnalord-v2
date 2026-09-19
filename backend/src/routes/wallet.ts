@@ -166,7 +166,7 @@ export async function creditCashfreeRechargeIfPending(opts: {
 }
 
 const createOrderBody = z.object({
-  amount: z.number().positive(),
+  amount: z.number().positive().max(10_000),
   currency: z.string().length(3).default("INR"),
 });
 
@@ -200,6 +200,13 @@ router.post("/create-order", async (req: Request, res: Response) => {
     res.status(400).json({
       success: false,
       error: "Minimum recharge amount is 1 INR",
+    });
+    return;
+  }
+  if (amount > 10_000) {
+    res.status(400).json({
+      success: false,
+      error: "Maximum recharge amount is 10000 INR",
     });
     return;
   }
@@ -387,12 +394,10 @@ router.get("/transactions", async (req: Request, res: Response) => {
     amount: string;
     status: string;
     created_at: Date;
-    razorpay_order_id: string | null;
-    razorpay_payment_id: string | null;
     cashfree_order_id: string | null;
     cashfree_payment_id: string | null;
   }>(
-    `SELECT id, type, amount, status, created_at, razorpay_order_id, razorpay_payment_id,
+    `SELECT id, type, amount, status, created_at,
             cashfree_order_id, cashfree_payment_id
      FROM transactions
      WHERE user_id = $1

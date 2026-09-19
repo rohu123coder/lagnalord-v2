@@ -80,16 +80,9 @@ docker compose -f docker-compose.prod.yml run --rm --env-file .env backend node 
 
 Alternatively, from the host with `DATABASE_URL` pointing at production: `npm run migrate --workspace=divinemarg-backend`.
 
-### 5. GitHub Actions deploy
+### 5. GitHub Actions
 
-Workflow: `.github/workflows/deploy.yml` — runs on every push to `main`.
-
-Configure the repository:
-
-- **Secrets:** `SSH_HOST`, `SSH_USER`, `SSH_PRIVATE_KEY` (deploy key or user key with pull access)
-- **Variables:** `DEPLOY_PATH` — absolute path to the repo on the server (e.g. `/var/www/divinemarg-platform`)
-
-The job SSHs in, runs `git pull origin main`, then `docker compose -f docker-compose.prod.yml --env-file .env up --build -d`.
+Type-check gate: `.github/workflows/ci.yml` runs on every push and pull request to `main` (`tsc --noEmit` for backend and `apps/web`, plus `apps/web` lint). There is **no** deploy workflow in the repo yet — `.github/workflows/deploy.yml` is not present. Production deploy remains the Docker Compose steps above until a real deploy workflow is added separately.
 
 ## Environment variables
 
