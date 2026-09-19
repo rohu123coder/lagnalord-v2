@@ -52,8 +52,7 @@ export async function finalizeChatSession(
   io: Server,
   sessionId: string
 ): Promise<
-  | { ended: true; totalMinutes: number; totalCharged: number }
-  | { ended: false; reason: "deduction_failed" }
+  | { ended: true; totalMinutes: number; totalCharged: number; accruedCharge: number }
   | null
 > {
   const liveState = liveSessions.get(sessionId);
@@ -139,36 +138,44 @@ export async function finalizeChatSession(
       client
     );
     const rawCharge = billableMinutes * price;
-    const totalCharged = Math.round(rawCharge * 100) / 100;
+    const accruedCharge = Math.round(rawCharge * 100) / 100;
+    let actualCharged = 0;
 
-    if (totalCharged > 0) {
-      const deduct = await client.query<{ wallet_balance: string }>(
-        `UPDATE users
-         SET wallet_balance = wallet_balance - $1::numeric
-         WHERE id = $2 AND wallet_balance >= $1::numeric
-         RETURNING wallet_balance`,
-        [totalCharged, userId]
+    if (accruedCharge > 0) {
+      const deduct = await client.query<{
+        wallet_balance: string;
+        actual_charged: string;
+      }>(
+        `WITH locked AS (
+           SELECT id, LEAST(wallet_balance, $1::numeric) AS actual_charged
+           FROM users
+           WHERE id = $2
+           FOR UPDATE
+         )
+         UPDATE users AS u
+         SET wallet_balance = u.wallet_balance - locked.actual_charged
+         FROM locked
+         WHERE u.id = locked.id
+         RETURNING u.wallet_balance, locked.actual_charged`,
+        [accruedCharge, userId]
       );
-      if (deduct.rows.length === 0) {
-        if (live) {
-          startSessionTimer(io, sessionId, live.startTime);
-          live.billed = false;
-        }
-        await client.query("ROLLBACK");
-        return { ended: false, reason: "deduction_failed" };
+      actualCharged = Math.round(
+        Number(deduct.rows[0]?.actual_charged ?? 0) * 100
+      ) / 100;
+
+      if (actualCharged > 0) {
+        await client.query(
+          `INSERT INTO transactions (user_id, type, amount, status)
+           VALUES ($1, 'deduction', $2, 'success')`,
+          [userId, actualCharged]
+        );
+
+        await client.query(
+          `INSERT INTO astrologer_earnings_log (astrologer_id, session_id, amount)
+           VALUES ($1, $2, $3)`,
+          [row.astrologer_id, sessionId, actualCharged]
+        );
       }
-
-      await client.query(
-        `INSERT INTO transactions (user_id, type, amount, status)
-         VALUES ($1, 'deduction', $2, 'success')`,
-        [userId, totalCharged]
-      );
-
-      await client.query(
-        `INSERT INTO astrologer_earnings_log (astrologer_id, session_id, amount)
-         VALUES ($1, $2, $3)`,
-        [row.astrologer_id, sessionId, totalCharged]
-      );
     }
 
     await client.query(
@@ -178,7 +185,7 @@ export async function finalizeChatSession(
            total_minutes = $1,
            total_charged = $2::numeric
        WHERE id = $3`,
-      [effectiveDuration, totalCharged, sessionId]
+      [effectiveDuration, actualCharged, sessionId]
     );
     await updateAstrologerAverageSessionDuration(client, row.astrologer_id);
 
@@ -186,7 +193,7 @@ export async function finalizeChatSession(
     liveSessions.delete(sessionId);
 
     console.log("[TIMER] session ended", sessionId, "duration:", effectiveDuration, "mins");
-    console.log("[BILLING] charged:", effectiveDuration * price);
+    console.log("[BILLING] charged:", actualCharged, "accrued:", accruedCharge);
     console.log(
       "[BILLING AUDIT]",
       JSON.stringify({
@@ -195,7 +202,8 @@ export async function finalizeChatSession(
         astrologerName,
         durationMinutes: effectiveDuration,
         ratePerMinute: price,
-        totalCharged,
+        totalCharged: actualCharged,
+        accruedCharge,
         timestamp: new Date().toISOString(),
         timerSource: live ? "live_memory" : "db_fallback",
         bothCommunicated,
@@ -207,17 +215,18 @@ export async function finalizeChatSession(
     io.to(sessionId).emit("session_ended", {
       sessionId,
       duration: effectiveDuration,
-      charge: totalCharged,
+      charge: actualCharged,
       astrologerName,
       totalMinutes: effectiveDuration,
-      totalCharged,
+      totalCharged: actualCharged,
+      accruedCharge,
     });
 
     void notifySessionEnded({
       userId,
       astrologerName,
       duration: effectiveDuration,
-      cost: totalCharged,
+      cost: actualCharged,
     }).catch((err) => console.error("[Push] Failed to notify session end:", err));
 
     await emitWaitlistUpdated(
@@ -233,7 +242,12 @@ export async function finalizeChatSession(
       row.astrologer_name
     );
 
-    return { ended: true, totalMinutes: effectiveDuration, totalCharged };
+    return {
+      ended: true,
+      totalMinutes: effectiveDuration,
+      totalCharged: actualCharged,
+      accruedCharge,
+    };
   } catch (e) {
     if (live) {
       startSessionTimer(io, sessionId, live.startTime);

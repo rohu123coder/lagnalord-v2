@@ -254,36 +254,44 @@ router.post(
         client
       );
       const rawCharge = billableMinutes * price;
-      const totalCharged = Math.round(rawCharge * 100) / 100;
+      const accruedCharge = Math.round(rawCharge * 100) / 100;
+      let actualCharged = 0;
 
-      if (totalCharged > 0) {
-        const deduct = await client.query<{ wallet_balance: string }>(
-          `UPDATE users
-           SET wallet_balance = wallet_balance - $1::numeric
-           WHERE id = $2 AND wallet_balance >= $1::numeric
-           RETURNING wallet_balance`,
-          [totalCharged, userId]
+      if (accruedCharge > 0) {
+        const deduct = await client.query<{
+          wallet_balance: string;
+          actual_charged: string;
+        }>(
+          `WITH locked AS (
+             SELECT id, LEAST(wallet_balance, $1::numeric) AS actual_charged
+             FROM users
+             WHERE id = $2
+             FOR UPDATE
+           )
+           UPDATE users AS u
+           SET wallet_balance = u.wallet_balance - locked.actual_charged
+           FROM locked
+           WHERE u.id = locked.id
+           RETURNING u.wallet_balance, locked.actual_charged`,
+          [accruedCharge, userId]
         );
-        if (deduct.rows.length === 0) {
-          await client.query("ROLLBACK");
-          res.status(400).json({
-            success: false,
-            error: "Insufficient wallet balance to cover session charges",
-          });
-          return;
+        actualCharged = Math.round(
+          Number(deduct.rows[0]?.actual_charged ?? 0) * 100
+        ) / 100;
+
+        if (actualCharged > 0) {
+          await client.query(
+            `INSERT INTO transactions (user_id, type, amount, status)
+             VALUES ($1, 'deduction', $2, 'success')`,
+            [userId, actualCharged]
+          );
+
+          await client.query(
+            `INSERT INTO astrologer_earnings_log (astrologer_id, session_id, amount)
+             VALUES ($1, $2, $3)`,
+            [row.astrologer_id, sessionId, actualCharged]
+          );
         }
-
-        await client.query(
-          `INSERT INTO transactions (user_id, type, amount, status)
-           VALUES ($1, 'deduction', $2, 'success')`,
-          [userId, totalCharged]
-        );
-
-        await client.query(
-          `INSERT INTO astrologer_earnings_log (astrologer_id, session_id, amount)
-           VALUES ($1, $2, $3)`,
-          [row.astrologer_id, sessionId, totalCharged]
-        );
       }
 
       await client.query(
@@ -293,7 +301,7 @@ router.post(
              total_minutes = $1,
              total_charged = $2::numeric
          WHERE id = $3`,
-        [totalMinutes, totalCharged, sessionId]
+        [totalMinutes, actualCharged, sessionId]
       );
       await client.query(
         `UPDATE astrologers
@@ -320,7 +328,8 @@ router.post(
         data: {
           session_id: sessionId,
           total_minutes: totalMinutes,
-          total_charged: totalCharged,
+          total_charged: actualCharged,
+          accrued_charge: accruedCharge,
         },
       });
     } catch (e) {
