@@ -113,6 +113,16 @@ function UsersPageContent() {
     }
   }
 
+  async function unsuspendUser(id: string) {
+    if (!confirm("Unsuspend this user?")) return;
+    try {
+      await api.post(`/api/admin/users/${id}/unsuspend`);
+      await load();
+    } catch {
+      setErr("Unsuspend failed");
+    }
+  }
+
   async function submitAdjustment(e: FormEvent) {
     e.preventDefault();
     if (!adjustUser) {
@@ -238,14 +248,23 @@ function UsersPageContent() {
                         >
                           Adjust wallet
                         </button>
-                        <button
-                          type="button"
-                          disabled={u.is_suspended}
-                          onClick={() => void suspendUser(u.id)}
-                          className="rounded-lg border border-red-200 px-2 py-1 text-xs font-medium text-red-700 hover:bg-red-50 disabled:opacity-40"
-                        >
-                          Suspend
-                        </button>
+                        {u.is_suspended ? (
+                          <button
+                            type="button"
+                            onClick={() => void unsuspendUser(u.id)}
+                            className="rounded-lg border border-green-200 px-2 py-1 text-xs font-medium text-green-700 hover:bg-green-50"
+                          >
+                            Unsuspend
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => void suspendUser(u.id)}
+                            className="rounded-lg border border-red-200 px-2 py-1 text-xs font-medium text-red-700 hover:bg-red-50"
+                          >
+                            Suspend
+                          </button>
+                        )}
                       </div>
                     </td>
                   </tr>
