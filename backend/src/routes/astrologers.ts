@@ -601,6 +601,7 @@ type RatingBreakdownRow = {
 
 type DetailRow = {
   id: string;
+  user_id: string;
   bio: string | null;
   specializations: string[];
   languages: string[];
@@ -637,6 +638,7 @@ router.get("/:id", optionalAuthMiddleware, async (req: Request, res: Response) =
   const result = await query<DetailRow>(
     `SELECT
           a.id,
+          a.user_id,
           a.bio,
           a.specializations,
           a.languages,
@@ -713,6 +715,12 @@ router.get("/:id", optionalAuthMiddleware, async (req: Request, res: Response) =
   );
   const breakdown = ratingBreakdownResult.rows[0];
 
+  const viewerRole = req.user?.role;
+  const canSeePii =
+    viewerRole === "admin" ||
+    viewerRole === "superadmin" ||
+    (viewerId !== null && viewerId === row.user_id);
+
   res.json({
     success: true,
     data: {
@@ -747,8 +755,9 @@ router.get("/:id", optionalAuthMiddleware, async (req: Request, res: Response) =
         experience_years: row.experience_years,
         user: {
           name: row.name,
-          email: row.email,
-          phone: row.phone,
+          ...(canSeePii
+            ? { email: row.email, phone: row.phone }
+            : {}),
           avatar_url: row.avatar_url,
           profile_photo_url: row.user_profile_photo_url,
         },

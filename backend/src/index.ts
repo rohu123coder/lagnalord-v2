@@ -4,6 +4,7 @@ import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
 
+import { corsOrigin } from "./lib/allowedOrigins.js";
 import { connect as connectRedis } from "./lib/redis.js";
 import { adminRouter } from "./routes/admin.js";
 import { astrologerRouter } from "./routes/astrologer.js";
@@ -39,7 +40,7 @@ if (!process.env.JWT_SECRET) {
 }
 
 const app = express();
-app.use(cors({ origin: "*" }));
+app.use(cors({ origin: corsOrigin }));
 
 app.post(
   "/api/webhooks/razorpay",
@@ -84,7 +85,7 @@ app.use("/api/whatsapp", whatsappRouter);
 
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
-  cors: { origin: "*" },
+  cors: { origin: corsOrigin },
   pingTimeout: 60000,
   pingInterval: 25000,
 });

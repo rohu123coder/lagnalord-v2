@@ -89,7 +89,7 @@ router.get(
               cs.status,
               cs.session_type,
               cs.user_id,
-              au.user_id AS astrologer_user_id,
+              a.user_id AS astrologer_user_id,
               a.price_per_minute
        FROM chat_sessions cs
        INNER JOIN astrologers a ON a.id = cs.astrologer_id

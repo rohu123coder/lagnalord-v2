@@ -2,23 +2,17 @@ import { Router, type Request, type Response } from "express";
 import { z } from "zod";
 
 import { pool } from "../db/index.js";
-import { authMiddleware } from "../middleware/auth.js";
+import { authMiddleware, requireAdmin } from "../middleware/auth.js";
 
 const router = Router();
 
+router.use(authMiddleware);
+
 /**
  * POST /api/notifications/test-send
- * Direct test endpoint — phone number specify karke notification bhejo
- *
- * Body:
- *   - phone: string (e.g. "9699661788")
- *   - title: string (optional, default: "Test Notification")
- *   - body: string (optional, default: "Hello from DivineMarg!")
- *
- * NOTE: Yeh DEV/TEST endpoint hai. Production mein remove ya admin-only kar dena.
- * Registered before authMiddleware so Postman/curl can trigger without a JWT.
+ * Admin-only push smoke test. Admin UI does not call this; keep gated, not public.
  */
-router.post("/test-send", async (req: Request, res: Response) => {
+router.post("/test-send", requireAdmin, async (req: Request, res: Response) => {
   try {
     const { phone, title, body } = req.body as {
       phone?: string;
@@ -74,12 +68,6 @@ router.post("/test-send", async (req: Request, res: Response) => {
     res.json({
       success,
       message: success ? "Notification sent!" : "Notification failed (check backend logs)",
-      user: {
-        id: user.id,
-        name: user.name,
-        phone: phone,
-        token_preview: user.expo_push_token.substring(0, 40) + "...",
-      },
     });
   } catch (error: unknown) {
     console.error("[Test Push] Error:", error);
@@ -87,8 +75,6 @@ router.post("/test-send", async (req: Request, res: Response) => {
     res.status(500).json({ error: message });
   }
 });
-
-router.use(authMiddleware);
 
 const expoTokenRegex = /^(ExponentPushToken|ExpoPushToken)\[/;
 

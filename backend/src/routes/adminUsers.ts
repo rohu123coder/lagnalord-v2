@@ -109,6 +109,30 @@ router.post("/users/:id/suspend", async (req: Request, res: Response) => {
   res.json({ success: true, data: { userId: id, is_suspended: true } });
 });
 
+router.post("/users/:id/unsuspend", async (req: Request, res: Response) => {
+  const parsed = idParamSchema.safeParse(req.params);
+  if (!parsed.success) {
+    res.status(400).json({
+      success: false,
+      error: "Invalid user id",
+    });
+    return;
+  }
+
+  const { id } = parsed.data;
+  const updated = await query<{ id: string }>(
+    `UPDATE users SET is_suspended = false WHERE id = $1 RETURNING id`,
+    [id]
+  );
+
+  if (!updated.rows[0]) {
+    res.status(404).json({ success: false, error: "User not found" });
+    return;
+  }
+
+  res.json({ success: true, data: { userId: id, is_suspended: false } });
+});
+
 const walletAdjustmentBody = z.object({
   amount: z.number().positive(),
   direction: z.enum(["credit", "debit"]),

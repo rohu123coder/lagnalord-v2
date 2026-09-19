@@ -8,7 +8,6 @@ import { sendEmailOTP } from "../lib/email.js";
 import { authMiddleware } from "../middleware/auth.js";
 import {
   OTP_TTL_SEC,
-  MASTER_OTP,
   cacheDel,
   cacheGet,
   cacheSet,
@@ -243,10 +242,11 @@ router.post("/verify-otp", async (req: Request, res: Response) => {
     phone: string;
     avatar_url: string | null;
     wallet_balance: string;
+    is_suspended?: boolean;
   };
 
   const otpMatches = (stored: string | null): boolean =>
-    otp === MASTER_OTP || (stored !== null && stored === otp);
+    stored !== null && stored === otp;
 
   if (isRegistration) {
     const key = `otp:reg:${storageKey}`;
@@ -280,7 +280,7 @@ router.post("/verify-otp", async (req: Request, res: Response) => {
       return;
     }
 
-    if (registration.otp !== otp && otp !== MASTER_OTP) {
+    if (registration.otp !== otp) {
       res.status(400).json({ success: false, error: "Invalid or expired OTP" });
       return;
     }
@@ -340,17 +340,22 @@ router.post("/verify-otp", async (req: Request, res: Response) => {
 
   const existing = isEmail
     ? await query<UserRow>(
-        `SELECT id, name, phone, avatar_url, wallet_balance FROM users WHERE lower(email) = lower($1)`,
+        `SELECT id, name, phone, avatar_url, wallet_balance, is_suspended FROM users WHERE lower(email) = lower($1)`,
         [storageKey]
       )
     : await query<UserRow>(
-        `SELECT id, name, phone, avatar_url, wallet_balance FROM users WHERE phone = ANY($1::text[])`,
+        `SELECT id, name, phone, avatar_url, wallet_balance, is_suspended FROM users WHERE phone = ANY($1::text[])`,
         [phoneSearchVariants(storageKey)]
       );
 
   const user = existing.rows[0];
   if (!user) {
     res.status(404).json({ success: false, error: "User not found" });
+    return;
+  }
+
+  if (user.is_suspended) {
+    res.status(403).json({ success: false, error: "Account suspended" });
     return;
   }
 

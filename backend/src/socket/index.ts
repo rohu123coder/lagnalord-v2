@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import type { Server } from "socket.io";
 
 import { pool } from "../db/index.js";
+import { userAccountBlocked } from "../middleware/auth.js";
 import { registerCallHandlers } from "./callHandlers.js";
 import { registerChatHandlers } from "./chatHandlers.js";
 import { billingTick } from "./sessionBilling.js";
@@ -32,7 +33,7 @@ function getSecret(): string {
 export function registerSocketHandlers(io: Server): void {
   const secret = getSecret();
 
-  io.use((socket, next) => {
+  io.use(async (socket, next) => {
     const raw = socket.handshake.auth;
     const token =
       raw && typeof raw === "object" && "token" in raw ? raw.token : undefined;
@@ -48,6 +49,13 @@ export function registerSocketHandlers(io: Server): void {
       if (!decoded?.userId) {
         next(new Error("Unauthorized"));
         return;
+      }
+      const role = decoded.role;
+      if (role !== "admin" && role !== "superadmin") {
+        if (await userAccountBlocked(decoded.userId)) {
+          next(new Error("Account suspended"));
+          return;
+        }
       }
       socket.data.user = {
         userId: decoded.userId,

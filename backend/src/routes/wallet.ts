@@ -9,6 +9,17 @@ import { notifyWalletCredited } from "../services/pushNotifications.js";
 const router = Router();
 
 router.use(authMiddleware);
+router.use((req: Request, res: Response, next) => {
+  const role = req.user?.role;
+  if (role === "astrologer" || role === "admin" || role === "superadmin") {
+    res.status(403).json({
+      success: false,
+      error: "Wallet recharge is only available to end users",
+    });
+    return;
+  }
+  next();
+});
 
 function cashfreeMode(): "sandbox" | "production" {
   return process.env.CASHFREE_ENV === "SANDBOX" ? "sandbox" : "production";

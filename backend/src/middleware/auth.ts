@@ -1,13 +1,29 @@
 import type { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
+import { query } from "../db/index.js";
+
 const secret = process.env.JWT_SECRET;
 
-export function authMiddleware(
+function isAdminRole(role?: string): boolean {
+  return role === "admin" || role === "superadmin";
+}
+
+/** True if the user row is missing or `is_suspended`. PK lookup only. */
+export async function userAccountBlocked(userId: string): Promise<boolean> {
+  const result = await query<{ is_suspended: boolean }>(
+    `SELECT is_suspended FROM users WHERE id = $1`,
+    [userId]
+  );
+  const row = result.rows[0];
+  return !row || row.is_suspended;
+}
+
+export async function authMiddleware(
   req: Request,
   res: Response,
   next: NextFunction
-): void {
+): Promise<void> {
   if (!secret) {
     console.error("JWT_SECRET is not set");
     res.status(500).json({ success: false, error: "Server misconfiguration" });
@@ -41,6 +57,10 @@ export function authMiddleware(
       iat: decoded.iat,
       exp: decoded.exp,
     };
+    if (!isAdminRole(decoded.role) && (await userAccountBlocked(decoded.userId))) {
+      res.status(403).json({ success: false, error: "Account suspended" });
+      return;
+    }
     next();
   } catch {
     res.status(401).json({ success: false, error: "Unauthorized" });

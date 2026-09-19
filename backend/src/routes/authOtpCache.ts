@@ -2,11 +2,13 @@ import { randomInt } from "node:crypto";
 
 import { redis } from "../lib/redis.js";
 
-export const JWT_FALLBACK = "divinemarg-secret-key-2024";
-
-export const jwtSecret = (): string => process.env.JWT_SECRET ?? JWT_FALLBACK;
-
-export const MASTER_OTP = "123456";
+export const jwtSecret = (): string => {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) {
+    throw new Error("JWT_SECRET is required");
+  }
+  return secret;
+};
 
 export const OTP_TTL_SEC = 600;
 
