@@ -2,6 +2,7 @@ import { Router, type Request, type Response } from "express";
 import { z } from "zod";
 
 import { query } from "../db/index.js";
+import { requireAdminWrite } from "../middleware/auth.js";
 import { idParamSchema } from "./adminShared.js";
 
 const router = Router();
@@ -96,7 +97,7 @@ router.get("/offers", async (_req: Request, res: Response) => {
   }
 });
 
-router.post("/offers", async (req: Request, res: Response) => {
+router.post("/offers", requireAdminWrite, async (req: Request, res: Response) => {
   const parsed = offerCreateBody.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({
@@ -137,7 +138,10 @@ router.post("/offers", async (req: Request, res: Response) => {
   }
 });
 
-router.patch("/offers/:id", async (req: Request, res: Response) => {
+router.patch(
+  "/offers/:id",
+  requireAdminWrite,
+  async (req: Request, res: Response) => {
   const idParsed = idParamSchema.safeParse(req.params);
   if (!idParsed.success) {
     res.status(400).json({ success: false, error: "Invalid offer id" });

@@ -2,6 +2,10 @@ import { Router, type Request, type Response } from "express";
 import { z } from "zod";
 
 import { pool, query } from "../db/index.js";
+import {
+  requireAdminWrite,
+  requireFinanceAccess,
+} from "../middleware/auth.js";
 import { notifyWalletCredited } from "../services/pushNotifications.js";
 import { idParamSchema, paginationQuery } from "./adminShared.js";
 
@@ -85,7 +89,10 @@ router.get("/users", async (req: Request, res: Response) => {
   });
 });
 
-router.post("/users/:id/suspend", async (req: Request, res: Response) => {
+router.post(
+  "/users/:id/suspend",
+  requireAdminWrite,
+  async (req: Request, res: Response) => {
   const parsed = idParamSchema.safeParse(req.params);
   if (!parsed.success) {
     res.status(400).json({
@@ -109,7 +116,10 @@ router.post("/users/:id/suspend", async (req: Request, res: Response) => {
   res.json({ success: true, data: { userId: id, is_suspended: true } });
 });
 
-router.post("/users/:id/unsuspend", async (req: Request, res: Response) => {
+router.post(
+  "/users/:id/unsuspend",
+  requireAdminWrite,
+  async (req: Request, res: Response) => {
   const parsed = idParamSchema.safeParse(req.params);
   if (!parsed.success) {
     res.status(400).json({
@@ -139,7 +149,10 @@ const walletAdjustmentBody = z.object({
   reason: z.string().trim().min(10).max(500),
 });
 
-router.post("/users/:id/wallet-adjustment", async (req: Request, res: Response) => {
+router.post(
+  "/users/:id/wallet-adjustment",
+  requireFinanceAccess,
+  async (req: Request, res: Response) => {
   const idParsed = idParamSchema.safeParse(req.params);
   if (!idParsed.success) {
     res.status(400).json({ success: false, error: "Invalid user id" });

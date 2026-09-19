@@ -3,6 +3,7 @@ import { z } from "zod";
 
 import { query } from "../db/index.js";
 import { embedText, embeddingToVectorLiteral } from "../lib/aiProvider.js";
+import { requireAdminWrite } from "../middleware/auth.js";
 import { idParamSchema, paginationQuery } from "./adminShared.js";
 
 const router = Router();
@@ -105,7 +106,10 @@ router.get("/knowledge-base", async (req: Request, res: Response) => {
   }
 });
 
-router.post("/knowledge-base", async (req: Request, res: Response) => {
+router.post(
+  "/knowledge-base",
+  requireAdminWrite,
+  async (req: Request, res: Response) => {
   const parsed = knowledgeBody.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({
@@ -140,7 +144,10 @@ router.post("/knowledge-base", async (req: Request, res: Response) => {
   }
 });
 
-router.put("/knowledge-base/:id", async (req: Request, res: Response) => {
+router.put(
+  "/knowledge-base/:id",
+  requireAdminWrite,
+  async (req: Request, res: Response) => {
   const idParsed = idParamSchema.safeParse(req.params);
   if (!idParsed.success) {
     res.status(400).json({ success: false, error: "Invalid knowledge entry id" });
@@ -217,7 +224,10 @@ router.put("/knowledge-base/:id", async (req: Request, res: Response) => {
   }
 });
 
-router.delete("/knowledge-base/:id", async (req: Request, res: Response) => {
+router.delete(
+  "/knowledge-base/:id",
+  requireAdminWrite,
+  async (req: Request, res: Response) => {
   const idParsed = idParamSchema.safeParse(req.params);
   if (!idParsed.success) {
     res.status(400).json({ success: false, error: "Invalid knowledge entry id" });

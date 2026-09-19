@@ -2,6 +2,7 @@ import { Router, type Request, type Response } from "express";
 import { z } from "zod";
 
 import { query } from "../db/index.js";
+import { requireAdminWrite } from "../middleware/auth.js";
 import { idParamSchema, paginationQuery } from "./adminShared.js";
 
 const router = Router();
@@ -99,7 +100,10 @@ router.get("/astrologers", async (req: Request, res: Response) => {
   });
 });
 
-router.post("/astrologers/:id/verify", async (req: Request, res: Response) => {
+router.post(
+  "/astrologers/:id/verify",
+  requireAdminWrite,
+  async (req: Request, res: Response) => {
   const parsed = idParamSchema.safeParse(req.params);
   if (!parsed.success) {
     res.status(400).json({
@@ -123,7 +127,10 @@ router.post("/astrologers/:id/verify", async (req: Request, res: Response) => {
   res.json({ success: true, data: { astrologerId: id, is_verified: true } });
 });
 
-router.post("/astrologers/:id/suspend", async (req: Request, res: Response) => {
+router.post(
+  "/astrologers/:id/suspend",
+  requireAdminWrite,
+  async (req: Request, res: Response) => {
   const parsed = idParamSchema.safeParse(req.params);
   if (!parsed.success) {
     res.status(400).json({

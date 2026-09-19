@@ -5,8 +5,13 @@ import { query } from "../db/index.js";
 
 const secret = process.env.JWT_SECRET;
 
-function isAdminRole(role?: string): boolean {
-  return role === "admin" || role === "superadmin";
+function isStaffRole(role?: string): boolean {
+  return (
+    role === "admin" ||
+    role === "superadmin" ||
+    role === "finance" ||
+    role === "viewer"
+  );
 }
 
 /** True if the user row is missing or `is_suspended`. PK lookup only. */
@@ -57,7 +62,7 @@ export async function authMiddleware(
       iat: decoded.iat,
       exp: decoded.exp,
     };
-    if (!isAdminRole(decoded.role) && (await userAccountBlocked(decoded.userId))) {
+    if (!isStaffRole(decoded.role) && (await userAccountBlocked(decoded.userId))) {
       res.status(403).json({ success: false, error: "Account suspended" });
       return;
     }
@@ -79,18 +84,36 @@ export function requireAstrologer(
   next();
 }
 
-export function requireAdmin(
-  req: Request,
-  res: Response,
-  next: NextFunction
-): void {
-  const role = req.user?.role;
-  if (role !== "admin" && role !== "superadmin") {
-    res.status(403).json({ success: false, error: "Admin access only" });
-    return;
-  }
-  next();
+export function requireAdminRole(
+  ...allowedRoles: string[]
+): (req: Request, res: Response, next: NextFunction) => void {
+  return (req: Request, res: Response, next: NextFunction): void => {
+    const role = req.user?.role;
+    if (!role || !allowedRoles.includes(role)) {
+      res.status(403).json({ success: false, error: "Admin access only" });
+      return;
+    }
+    next();
+  };
 }
+
+/** Any staff JWT (read access). Composer gate for /api/admin/*. */
+export const requireAdmin = requireAdminRole(
+  "admin",
+  "superadmin",
+  "finance",
+  "viewer"
+);
+
+/** Mutations that are not finance-specific. */
+export const requireAdminWrite = requireAdminRole("admin", "superadmin");
+
+/** Wallet adjustment: full admins plus finance. */
+export const requireFinanceAccess = requireAdminRole(
+  "admin",
+  "superadmin",
+  "finance"
+);
 
 /** Attaches `req.user` when a valid Bearer token is present; no-op otherwise. */
 export function optionalAuthMiddleware(

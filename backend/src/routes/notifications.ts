@@ -2,7 +2,7 @@ import { Router, type Request, type Response } from "express";
 import { z } from "zod";
 
 import { pool } from "../db/index.js";
-import { authMiddleware, requireAdmin } from "../middleware/auth.js";
+import { authMiddleware, requireAdminWrite } from "../middleware/auth.js";
 
 const router = Router();
 
@@ -12,7 +12,7 @@ router.use(authMiddleware);
  * POST /api/notifications/test-send
  * Admin-only push smoke test. Admin UI does not call this; keep gated, not public.
  */
-router.post("/test-send", requireAdmin, async (req: Request, res: Response) => {
+router.post("/test-send", requireAdminWrite, async (req: Request, res: Response) => {
   try {
     const { phone, title, body } = req.body as {
       phone?: string;

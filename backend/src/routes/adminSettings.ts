@@ -2,10 +2,11 @@ import { Router, type Request, type Response } from "express";
 import { z } from "zod";
 
 import { pool, query } from "../db/index.js";
+import { requireAdminWrite } from "../middleware/auth.js";
 
 const router = Router();
 
-router.get("/settings", async (_req: Request, res: Response) => {
+router.get("/settings", requireAdminWrite, async (_req: Request, res: Response) => {
   const result = await query<{ key: string; value: string | null }>(
     `SELECT key, value FROM platform_settings`
   );
@@ -23,7 +24,7 @@ const settingsPutBody = z.record(
   z.union([z.string(), z.number(), z.null()])
 );
 
-router.put("/settings", async (req: Request, res: Response) => {
+router.put("/settings", requireAdminWrite, async (req: Request, res: Response) => {
   const parsed = settingsPutBody.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({

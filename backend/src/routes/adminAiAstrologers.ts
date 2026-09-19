@@ -2,6 +2,7 @@ import { Router, type Request, type Response } from "express";
 import { z } from "zod";
 
 import { query } from "../db/index.js";
+import { requireAdminWrite } from "../middleware/auth.js";
 import { idParamSchema, photoUpload, uploadToCloudinary } from "./adminShared.js";
 
 const router = Router();
@@ -46,7 +47,10 @@ router.get("/ai-astrologers", async (_req: Request, res: Response) => {
   });
 });
 
-router.post("/ai-astrologers", async (req: Request, res: Response) => {
+router.post(
+  "/ai-astrologers",
+  requireAdminWrite,
+  async (req: Request, res: Response) => {
   const parsed = aiAstrologerBody.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({
@@ -66,7 +70,10 @@ router.post("/ai-astrologers", async (req: Request, res: Response) => {
   res.json({ success: true, data: { id: inserted.rows[0]?.id } });
 });
 
-router.put("/ai-astrologers/:id", async (req: Request, res: Response) => {
+router.put(
+  "/ai-astrologers/:id",
+  requireAdminWrite,
+  async (req: Request, res: Response) => {
   const idParsed = idParamSchema.safeParse(req.params);
   if (!idParsed.success) {
     res.status(400).json({ success: false, error: "Invalid astrologer id" });
@@ -100,7 +107,10 @@ router.put("/ai-astrologers/:id", async (req: Request, res: Response) => {
   res.json({ success: true, data: { id } });
 });
 
-router.delete("/ai-astrologers/:id", async (req: Request, res: Response) => {
+router.delete(
+  "/ai-astrologers/:id",
+  requireAdminWrite,
+  async (req: Request, res: Response) => {
   const idParsed = idParamSchema.safeParse(req.params);
   if (!idParsed.success) {
     res.status(400).json({ success: false, error: "Invalid astrologer id" });
@@ -123,6 +133,7 @@ router.delete("/ai-astrologers/:id", async (req: Request, res: Response) => {
 
 router.post(
   "/ai-astrologers/upload-photo",
+  requireAdminWrite,
   (req: Request, res: Response, next) => {
     photoUpload.single("photo")(req, res, (err: unknown) => {
       if (err) {

@@ -8,7 +8,7 @@ CREATE TYPE transaction_type AS ENUM ('recharge', 'deduction', 'refund', 'admin_
 
 CREATE TYPE transaction_status AS ENUM ('pending', 'success', 'failed');
 
-CREATE TYPE admin_role AS ENUM ('superadmin', 'admin');
+CREATE TYPE admin_role AS ENUM ('superadmin', 'admin', 'viewer', 'finance');
 
 CREATE TABLE users (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
