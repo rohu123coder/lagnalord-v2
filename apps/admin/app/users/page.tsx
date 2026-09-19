@@ -179,7 +179,7 @@ function UsersPageContent() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-slate-900">Users</h1>
-          <p className="text-sm text-slate-500">Customers on the platform</p>
+          <p className="text-sm text-slate-500">All platform users, including astrologers</p>
         </div>
         <input
           type="search"
